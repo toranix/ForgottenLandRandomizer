@@ -18,6 +18,7 @@ namespace StarAlliesRandomizer.Types
         public byte[] Version { get; private set; }
 
         public string Name { get; set; }
+        public byte[] Hash { get; private set; } //Only for Mint 7.0.2
         public List<byte> SData { get; set; }
         public List<byte[]> XRef { get; set; }
         public List<MintClass> Classes { get; private set; }
@@ -37,24 +38,28 @@ namespace StarAlliesRandomizer.Types
             XData = new XData(reader);
             Version = version;
 
-            reader.BaseStream.Seek(0x10, SeekOrigin.Begin);
-            reader.BaseStream.Seek(reader.ReadUInt32(), SeekOrigin.Begin);
+            uint nameOffs = reader.ReadUInt32();
+            if (version[0] >= 7)
+                Hash = reader.ReadBytes(4);
+            else
+                Hash = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
+            uint sdataOffs = reader.ReadUInt32();
+            uint xrefOffs = reader.ReadUInt32();
+            uint classOffs = reader.ReadUInt32();
+
+            reader.BaseStream.Seek(nameOffs, SeekOrigin.Begin);
             Name = Encoding.UTF8.GetString(reader.ReadBytes(reader.ReadInt32()));
 
-            reader.BaseStream.Seek(0x14, SeekOrigin.Begin);
-            reader.BaseStream.Seek(reader.ReadUInt32(), SeekOrigin.Begin);
+            reader.BaseStream.Seek(sdataOffs, SeekOrigin.Begin);
             SData = new List<byte>();
             SData.AddRange(reader.ReadBytes(reader.ReadInt32()));
 
-            reader.BaseStream.Seek(0x18, SeekOrigin.Begin);
-            reader.BaseStream.Seek(reader.ReadUInt32(), SeekOrigin.Begin);
+            reader.BaseStream.Seek(xrefOffs, SeekOrigin.Begin);
             uint xrefCount = reader.ReadUInt32();
             XRef = new List<byte[]>();
             for (int i = 0; i < xrefCount; i++)
                 XRef.Add(reader.ReadBytes(4));
 
-            reader.BaseStream.Seek(0x1C, SeekOrigin.Begin);
-            uint classOffs = reader.ReadUInt32();
             reader.BaseStream.Seek(classOffs, SeekOrigin.Begin);
             uint classCount = reader.ReadUInt32();
             Classes = new List<MintClass>();
@@ -91,6 +96,8 @@ namespace StarAlliesRandomizer.Types
             for (int l = 0; l < text.Length; l++)
             {
                 string line = text[l].TrimStart(trimChars);
+                if (line.StartsWith("//"))
+                    continue;
                 if (classRegex.IsMatch(line))
                 {
                     string[] classDeclaration = line.Split(' ');
@@ -99,7 +106,7 @@ namespace StarAlliesRandomizer.Types
                     for (int i = 0; i < classWord; i++)
                     {
                         if (classDeclaration[i].StartsWith("flag"))
-                            newClass.Flags |= uint.Parse(classDeclaration[i].Remove(0, 4));
+                            newClass.Flags |= uint.Parse(classDeclaration[i].Substring(4), NumberStyles.HexNumber);
                         else if (FlagLabels.ClassFlags.ContainsValue(classDeclaration[i]))
                             newClass.Flags |= FlagLabels.ClassFlags.Keys.ToArray()[FlagLabels.ClassFlags.Values.ToList().IndexOf(classDeclaration[i])];
                         else
@@ -109,6 +116,8 @@ namespace StarAlliesRandomizer.Types
                     for (int cl = l; cl < text.Length; cl++)
                     {
                         string classLine = text[cl].TrimStart(trimChars);
+                        if (classLine.StartsWith("//"))
+                            continue;
                         if (varRegex.IsMatch(classLine))
                         {
                             string[] varDeclaration = classLine.Split(' ');
@@ -117,7 +126,7 @@ namespace StarAlliesRandomizer.Types
                             for (int i = 0; i < varWord; i++)
                             {
                                 if (varDeclaration[i].StartsWith("flag"))
-                                    newVar.Flags |= uint.Parse(varDeclaration[i].Remove(0, 4));
+                                    newVar.Flags |= uint.Parse(varDeclaration[i].Substring(4), NumberStyles.HexNumber);
                                 else if (FlagLabels.VariableFlags.ContainsValue(varDeclaration[i]))
                                     newVar.Flags |= FlagLabels.VariableFlags.Keys.ToArray()[FlagLabels.VariableFlags.Values.ToList().IndexOf(varDeclaration[i])];
                                 else
@@ -133,7 +142,7 @@ namespace StarAlliesRandomizer.Types
                             for (int i = 0; i < funcDeclaration.Length; i++)
                             {
                                 if (funcDeclaration[i].StartsWith("flag"))
-                                    funcFlags |= uint.Parse(funcDeclaration[i].Remove(0, 4));
+                                    funcFlags |= uint.Parse(funcDeclaration[i].Substring(4), NumberStyles.HexNumber);
                                 else if (FlagLabels.FunctionFlags.ContainsValue(funcDeclaration[i]))
                                     funcFlags |= FlagLabels.FunctionFlags.Keys.ToArray()[FlagLabels.FunctionFlags.Values.ToList().IndexOf(funcDeclaration[i])];
                                 else
@@ -148,6 +157,8 @@ namespace StarAlliesRandomizer.Types
                             for (int fl = cl + 2; fl < text.Length; fl++)
                             {
                                 string funcLine = text[fl].TrimStart(trimChars);
+                                if (funcLine.StartsWith("//"))
+                                    continue;
                                 if (funcLine.StartsWith("}"))
                                 {
                                     cl = fl;
@@ -156,6 +167,9 @@ namespace StarAlliesRandomizer.Types
                                 instructions.Add(funcLine);
                             }
                             newFunc.Assemble(instructions.ToArray());
+                            newFunc.DetectArguments();
+                            newFunc.DetectRegisters();
+
                             newClass.Functions.Add(newFunc);
                         }
                         else if (classLine.StartsWith("const "))
@@ -173,6 +187,11 @@ namespace StarAlliesRandomizer.Types
                         {
                             string[] unkDeclaration = classLine.Split(' ');
                             newClass.UnknownList.Add(uint.Parse(unkDeclaration[1]));
+                        }
+                        else if (classLine.StartsWith("unk2value "))
+                        {
+                            string[] unkDeclaration = classLine.Split(' ');
+                            newClass.Unknown2List.Add(uint.Parse(unkDeclaration[1]));
                         }
                         else if (classLine.StartsWith("}"))
                         {
@@ -203,22 +222,41 @@ namespace StarAlliesRandomizer.Types
             {
                 XData.Write(writer);
 
-                writer.Write(-1);
-                writer.Write(0x20);
-                writer.Write(0x24 + SData.Count);
-                uint classListOffs = (uint)(0x24 + SData.Count + 4 + (XRef.Count * 4));
-                writer.Write(classListOffs);
-                
+                int padding = Version[0] >= 7 ? 0 : -1;
+                uint fileStart = (uint)writer.BaseStream.Position;
+                writer.Write(padding);
+                if (Version[0] >= 7)
+                    writer.Write(Hash);
+                uint hSdataOffset = (uint)writer.BaseStream.Position;
+                writer.Write(Version[0] >= 7 ? 0x28 : 0x20);
+                writer.Write(padding);
+                writer.Write(padding);
+                if (Version[0] >= 7)
+                    writer.Write(padding);
+
                 writer.Write(SData.Count);
                 writer.Write(SData.ToArray());
+                writer.Write((uint)0);
+                while ((writer.BaseStream.Length & 0xF) != 0x0
+                    && (writer.BaseStream.Length & 0xF) != 0x4
+                    && (writer.BaseStream.Length & 0xF) != 0x8
+                    && (writer.BaseStream.Length & 0xF) != 0xC)
+                        writer.Write((byte)0);
 
+                writer.BaseStream.Seek(hSdataOffset + 0x4, SeekOrigin.Begin);
+                writer.Write((uint)writer.BaseStream.Length);
+                writer.BaseStream.Seek(0, SeekOrigin.End);
                 writer.Write(XRef.Count);
                 for (int i = 0; i < XRef.Count; i++)
                     writer.Write(XRef[i]);
 
+                writer.BaseStream.Seek(hSdataOffset + 0x8, SeekOrigin.Begin);
+                writer.Write((uint)writer.BaseStream.Length);
+                writer.BaseStream.Seek(0, SeekOrigin.End);
+                uint classListOffs = (uint)writer.BaseStream.Position;
                 writer.Write(Classes.Count);
                 for (int i = 0; i < Classes.Count; i++)
-                    writer.Write(-1);
+                    writer.Write(padding);
 
                 List<uint> classNameOffs = new List<uint>();
                 List<uint[]> varNameOffs = new List<uint[]>();
@@ -233,81 +271,113 @@ namespace StarAlliesRandomizer.Types
                     uint cl = (uint)writer.BaseStream.Position;
                     classNameOffs.Add(cl);
 
-                    uint varListOffs = cl + 0x1C;
-                    uint funcListOffs = (uint)(varListOffs + 4 + (Classes[i].Variables.Count * 4) + (Classes[i].Variables.Count * 0x10));
-                    List<uint> funcOffsList = new List<uint>();
-
-                    writer.Write(-1);
+                    writer.Write(padding);
                     writer.Write(Classes[i].Hash);
-                    writer.Write(-1);
-                    writer.Write(-1);
-                    writer.Write(-1);
-                    if (!ByteArrayComparer.Equal(Version, new byte[] { 1, 0, 5, 0 }))
-                        writer.Write(-1);
+                    writer.Write(padding);
+                    writer.Write(padding);
+                    writer.Write(padding);
+                    if (Version[0] >= 2 || Version[1] >= 1)
+                        writer.Write(padding);
+                    if (Version[0] >= 7)
+                        writer.Write(padding);
                     writer.Write(Classes[i].Flags);
 
-                    writer.BaseStream.Seek(cl + 0x8, SeekOrigin.Begin);
-                    writer.Write((uint)writer.BaseStream.Length);
-                    writer.BaseStream.Seek(0, SeekOrigin.End);
+                    bool writeVariables = true;
+                    //if (Version[0] >= 7)
+                    //    writeVariables = Classes[i].Variables.Count > 0;
 
-                    writer.Write(Classes[i].Variables.Count);
                     List<uint> vOffs = new List<uint>();
-                    for (int v = 0; v < Classes[i].Variables.Count; v++)
-                        writer.Write((uint)(varListOffs + 4 + (Classes[i].Variables.Count * 4) + (v * 0x10)));
-                    for (int v = 0; v < Classes[i].Variables.Count; v++)
+                    if (writeVariables)
                     {
-                        vOffs.Add((uint)writer.BaseStream.Position);
-                        writer.Write(-1);
-                        writer.Write(Classes[i].Variables[v].Hash);
-                        writer.Write(-1);
-                        writer.Write(Classes[i].Variables[v].Flags);
-                    }
-
-                    writer.BaseStream.Seek(cl + 0xC, SeekOrigin.Begin);
-                    writer.Write((uint)writer.BaseStream.Length);
-                    writer.BaseStream.Seek(0, SeekOrigin.End);
-
-                    writer.Write(Classes[i].Functions.Count);
-                    for (int v = 0; v < Classes[i].Functions.Count; v++)
-                        writer.Write(-1);
-                    for (int v = 0; v < Classes[i].Functions.Count; v++)
-                    {
-                        writer.BaseStream.Seek(funcListOffs + 4 + (v * 4), SeekOrigin.Begin);
+                        writer.BaseStream.Seek(cl + 0x8, SeekOrigin.Begin);
                         writer.Write((uint)writer.BaseStream.Length);
                         writer.BaseStream.Seek(0, SeekOrigin.End);
 
-                        funcOffsList.Add((uint)writer.BaseStream.Length);
-                        writer.Write(-1);
-                        writer.Write(Classes[i].Functions[v].Hash);
-                        writer.Write((uint)writer.BaseStream.Position + 8);
-                        writer.Write(Classes[i].Functions[v].Flags);
-                        for (int f = 0; f < Classes[i].Functions[v].Instructions.Count; f++)
+                        uint varListOffs = (uint)writer.BaseStream.Position;
+                        writer.Write(Classes[i].Variables.Count);
+                        for (int v = 0; v < Classes[i].Variables.Count; v++)
+                            writer.Write((uint)(varListOffs + 4 + (Classes[i].Variables.Count * 4) + (v * 0x10)));
+                        for (int v = 0; v < Classes[i].Variables.Count; v++)
                         {
-                            Instruction inst = Classes[i].Functions[v].Instructions[f];
-                            writer.Write(inst.Opcode);
-                            writer.Write(inst.Z);
-                            writer.Write(inst.X);
-                            writer.Write(inst.Y);
+                            vOffs.Add((uint)writer.BaseStream.Position);
+                            writer.Write(padding);
+                            writer.Write(Classes[i].Variables[v].Hash);
+                            writer.Write(padding);
+                            writer.Write(Classes[i].Variables[v].Flags);
                         }
                     }
 
-                    writer.BaseStream.Seek(cl + 0x10, SeekOrigin.Begin);
-                    writer.Write((uint)writer.BaseStream.Length);
-                    writer.BaseStream.Seek(0, SeekOrigin.End);
+                    bool writeFunctions = true;
+                    //if (Version[0] >= 7)
+                    //    writeFunctions = Classes[i].Functions.Count > 0;
 
-                    writer.Write(Classes[i].Constants.Count);
-                    uint constListOffs = (uint)writer.BaseStream.Position;
-                    List<uint> cOffs = new List<uint>();
-                    for (int v = 0; v < Classes[i].Constants.Count; v++)
-                        writer.Write((uint)(constListOffs + (Classes[i].Constants.Count * 4) + (v * 8)));
-                    for (int v = 0; v < Classes[i].Constants.Count; v++)
+                    List<uint> funcOffsList = new List<uint>();
+                    if (writeFunctions)
                     {
-                        cOffs.Add((uint)writer.BaseStream.Position);
-                        writer.Write(-1);
-                        writer.Write(Classes[i].Constants[v].Value);
+                        writer.BaseStream.Seek(cl + 0xC, SeekOrigin.Begin);
+                        writer.Write((uint)writer.BaseStream.Length);
+                        writer.BaseStream.Seek(0, SeekOrigin.End);
+
+                        uint funcListOffs = (uint)writer.BaseStream.Position;
+                        writer.Write(Classes[i].Functions.Count);
+                        for (int v = 0; v < Classes[i].Functions.Count; v++)
+                            writer.Write(padding);
+                        for (int v = 0; v < Classes[i].Functions.Count; v++)
+                        {
+                            writer.BaseStream.Seek(funcListOffs + 4 + (v * 4), SeekOrigin.Begin);
+                            writer.Write((uint)writer.BaseStream.Length);
+                            writer.BaseStream.Seek(0, SeekOrigin.End);
+
+                            funcOffsList.Add((uint)writer.BaseStream.Length);
+                            writer.Write(padding);
+                            writer.Write(Classes[i].Functions[v].Hash);
+                            if (Version[0] >= 7)
+                            {
+                                writer.Write(Classes[i].Functions[v].Arguments);
+                                writer.Write(Classes[i].Functions[v].Registers);
+                            }
+                            if (Version[0] >= 2 || Version[1] >= 1) //Only 2.x and 1.1.x use function flags
+                            {
+                                writer.Write((uint)writer.BaseStream.Position + 8);
+                                writer.Write(Classes[i].Functions[v].Flags);
+                            }
+                            else
+                                writer.Write((uint)writer.BaseStream.Position + 4);
+                            for (int f = 0; f < Classes[i].Functions[v].Instructions.Count; f++)
+                                Classes[i].Functions[v].Instructions[f].Write(writer);
+                        }
                     }
 
-                    if (!ByteArrayComparer.Equal(Version, new byte[] { 1, 0, 5, 0 }))
+                    bool writeConstants = true;
+                    if (Version[0] >= 7)
+                        writeConstants = Classes[i].Constants.Count > 0;
+
+                    List<uint> cOffs = new List<uint>();
+                    if (writeConstants)
+                    {
+                        writer.BaseStream.Seek(cl + 0x10, SeekOrigin.Begin);
+                        writer.Write((uint)writer.BaseStream.Length);
+                        writer.BaseStream.Seek(0, SeekOrigin.End);
+
+                        writer.Write(Classes[i].Constants.Count);
+                        uint constListOffs = (uint)writer.BaseStream.Position;
+                        for (int v = 0; v < Classes[i].Constants.Count; v++)
+                            writer.Write((uint)(constListOffs + (Classes[i].Constants.Count * 4) + (v * 8)));
+                        for (int v = 0; v < Classes[i].Constants.Count; v++)
+                        {
+                            cOffs.Add((uint)writer.BaseStream.Position);
+                            writer.Write(padding);
+                            writer.Write(Classes[i].Constants[v].Value);
+                        }
+                    }
+
+                    bool writeUnkSection = false;
+                    if (Version[0] >= 2 || Version[1] >= 1)
+                        writeUnkSection = true;
+                    else if (Version[0] >= 7)
+                        writeUnkSection = Classes[i].UnknownList.Count > 0;
+
+                    if (writeUnkSection)
                     {
                         writer.BaseStream.Seek(cl + 0x14, SeekOrigin.Begin);
                         writer.Write((uint)writer.BaseStream.Length);
@@ -316,6 +386,21 @@ namespace StarAlliesRandomizer.Types
                         writer.Write(Classes[i].UnknownList.Count);
                         for (int v = 0; v < Classes[i].UnknownList.Count; v++)
                             writer.Write(Classes[i].UnknownList[v]);
+                    }
+
+                    bool writeUnk2Section = false;
+                    if (Version[0] >= 7)
+                        writeUnk2Section = Classes[i].Unknown2List.Count > 0;
+
+                    if (writeUnk2Section)
+                    {
+                        writer.BaseStream.Seek(cl + 0x18, SeekOrigin.Begin);
+                        writer.Write((uint)writer.BaseStream.Length);
+                        writer.BaseStream.Seek(0, SeekOrigin.End);
+
+                        writer.Write(Classes[i].Unknown2List.Count);
+                        for (int v = 0; v < Classes[i].Unknown2List.Count; v++)
+                            writer.Write(Classes[i].Unknown2List[v]);
                     }
 
                     varNameOffs.Add(vOffs.ToArray());
@@ -336,34 +421,43 @@ namespace StarAlliesRandomizer.Types
                     writer.BaseStream.Seek(0, SeekOrigin.End);
                     WriteUtil.WriteString(writer, Classes[i].Name);
 
-                    for (int v = 0; v < Classes[i].Variables.Count; v++)
+                    if (Version[0] < 7 || Classes[i].Variables.Count > 0)
                     {
-                        uint vo = varNameOffs[i][v];
-                        writer.BaseStream.Seek(vo, SeekOrigin.Begin);
-                        writer.Write((uint)writer.BaseStream.Length);
-                        writer.BaseStream.Seek(0, SeekOrigin.End);
-                        WriteUtil.WriteString(writer, Classes[i].Variables[v].Name);
+                        for (int v = 0; v < Classes[i].Variables.Count; v++)
+                        {
+                            uint vo = varNameOffs[i][v];
+                            writer.BaseStream.Seek(vo, SeekOrigin.Begin);
+                            writer.Write((uint)writer.BaseStream.Length);
+                            writer.BaseStream.Seek(0, SeekOrigin.End);
+                            WriteUtil.WriteString(writer, Classes[i].Variables[v].Name);
 
-                        writer.BaseStream.Seek(vo + 0x8, SeekOrigin.Begin);
-                        writer.Write((uint)writer.BaseStream.Length);
-                        writer.BaseStream.Seek(0, SeekOrigin.End);
-                        WriteUtil.WriteString(writer, Classes[i].Variables[v].Type);
+                            writer.BaseStream.Seek(vo + 0x8, SeekOrigin.Begin);
+                            writer.Write((uint)writer.BaseStream.Length);
+                            writer.BaseStream.Seek(0, SeekOrigin.End);
+                            WriteUtil.WriteString(writer, Classes[i].Variables[v].Type);
+                        }
                     }
 
-                    for (int v = 0; v < Classes[i].Functions.Count; v++)
+                    if (Version[0] < 7 || Classes[i].Functions.Count > 0)
                     {
-                        writer.BaseStream.Seek(funcNameOffs[i][v], SeekOrigin.Begin);
-                        writer.Write((uint)writer.BaseStream.Length);
-                        writer.BaseStream.Seek(0, SeekOrigin.End);
-                        WriteUtil.WriteString(writer, Classes[i].Functions[v].Name);
+                        for (int v = 0; v < Classes[i].Functions.Count; v++)
+                        {
+                            writer.BaseStream.Seek(funcNameOffs[i][v], SeekOrigin.Begin);
+                            writer.Write((uint)writer.BaseStream.Length);
+                            writer.BaseStream.Seek(0, SeekOrigin.End);
+                            WriteUtil.WriteString(writer, Classes[i].Functions[v].Name);
+                        }
                     }
 
-                    for (int v = 0; v < Classes[i].Constants.Count; v++)
+                    if (Version[0] < 7 || Classes[i].Constants.Count > 0)
                     {
-                        writer.BaseStream.Seek(constNameOffs[i][v], SeekOrigin.Begin);
-                        writer.Write((uint)writer.BaseStream.Length);
-                        writer.BaseStream.Seek(0, SeekOrigin.End);
-                        WriteUtil.WriteString(writer, Classes[i].Constants[v].Name);
+                        for (int v = 0; v < Classes[i].Constants.Count; v++)
+                        {
+                            writer.BaseStream.Seek(constNameOffs[i][v], SeekOrigin.Begin);
+                            writer.Write((uint)writer.BaseStream.Length);
+                            writer.BaseStream.Seek(0, SeekOrigin.End);
+                            WriteUtil.WriteString(writer, Classes[i].Constants[v].Name);
+                        }
                     }
                 }
 
@@ -421,14 +515,17 @@ namespace StarAlliesRandomizer.Types
                 {
                     uint fFlags = Classes[c].Functions[i].Flags;
                     string funcFlags = "";
-                    for (uint f = 1; f <= fFlags; f <<= 1)
+                    if (Version[0] >= 2 || Version[1] >= 1) //Only 2.x and 1.1.x use function flags
                     {
-                        if ((fFlags & f) != 0)
+                        for (uint f = 1; f <= fFlags; f <<= 1)
                         {
-                            if (FlagLabels.FunctionFlags.ContainsKey(fFlags & f))
-                                funcFlags += $"{FlagLabels.FunctionFlags[fFlags & f]} ";
-                            else
-                                funcFlags += $"flag{fFlags & f:X} ";
+                            if ((fFlags & f) != 0)
+                            {
+                                if (FlagLabels.FunctionFlags.ContainsKey(fFlags & f))
+                                    funcFlags += $"{FlagLabels.FunctionFlags[fFlags & f]} ";
+                                else
+                                    funcFlags += $"flag{fFlags & f:X} ";
+                            }
                         }
                     }
 
@@ -455,6 +552,11 @@ namespace StarAlliesRandomizer.Types
                 for (int i = 0; i < Classes[c].UnknownList.Count; i++)
                 {
                     text.Add($"\t\tunkvalue {Classes[c].UnknownList[i]}");
+                }
+
+                for (int i = 0; i < Classes[c].Unknown2List.Count; i++)
+                {
+                    text.Add($"\t\tunk2value {Classes[c].Unknown2List[i]}");
                 }
 
                 while (text.Last().TrimStart(new char[] { '\t' }) == "")

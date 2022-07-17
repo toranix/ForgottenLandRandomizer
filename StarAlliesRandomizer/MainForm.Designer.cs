@@ -36,39 +36,7 @@ namespace StarAlliesRandomizer
             this.openRomfs = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.randCopyAbilities = new System.Windows.Forms.CheckBox();
-            this.randAbilityPanel = new System.Windows.Forms.Panel();
-            this.inclDropStars = new System.Windows.Forms.CheckBox();
-            this.inclEnemyObj = new System.Windows.Forms.CheckBox();
-            this.inclBoss = new System.Windows.Forms.CheckBox();
-            this.inclMidBoss = new System.Windows.Forms.CheckBox();
-            this.inclBasicEnemy = new System.Windows.Forms.CheckBox();
-            this.copyRandMix = new System.Windows.Forms.RadioButton();
-            this.copyRandEat = new System.Windows.Forms.RadioButton();
-            this.copyRandByEnemy = new System.Windows.Forms.RadioButton();
-            this.allowElement = new System.Windows.Forms.CheckBox();
-            this.allowDreamFriend = new System.Windows.Forms.CheckBox();
-            this.randHelpers = new System.Windows.Forms.CheckBox();
-            this.randHelperPanel = new System.Windows.Forms.Panel();
-            this.helperAllowElement = new System.Windows.Forms.CheckBox();
-            this.helperAllowDreamFriend = new System.Windows.Forms.CheckBox();
-            this.randAttacks = new System.Windows.Forms.CheckBox();
-            this.randAttackPanel = new System.Windows.Forms.Panel();
-            this.doLimitKb = new System.Windows.Forms.CheckBox();
-            this.limitKb = new System.Windows.Forms.NumericUpDown();
-            this.doLimitAngle = new System.Windows.Forms.CheckBox();
-            this.limitAngle = new System.Windows.Forms.NumericUpDown();
-            this.doLimitDmg = new System.Windows.Forms.CheckBox();
-            this.limitDmg = new System.Windows.Forms.NumericUpDown();
-            this.atkRandColl = new System.Windows.Forms.CheckBox();
-            this.atkRandBoss = new System.Windows.Forms.CheckBox();
-            this.atkRandMBoss = new System.Windows.Forms.CheckBox();
-            this.atkRandEnemy = new System.Windows.Forms.CheckBox();
-            this.atkRandSerial = new System.Windows.Forms.CheckBox();
-            this.atkRandKb = new System.Windows.Forms.CheckBox();
-            this.atkRandAngle = new System.Windows.Forms.CheckBox();
-            this.atkRandElement = new System.Windows.Forms.CheckBox();
-            this.atkRandDamage = new System.Windows.Forms.CheckBox();
+            this.randStoryStages = new System.Windows.Forms.CheckBox();
             this.randomize = new System.Windows.Forms.Button();
             this.romfsHelp = new System.Windows.Forms.Button();
             this.seed = new System.Windows.Forms.TextBox();
@@ -76,12 +44,6 @@ namespace StarAlliesRandomizer
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.randAbilityPanel.SuspendLayout();
-            this.randHelperPanel.SuspendLayout();
-            this.randAttackPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.limitKb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.limitAngle)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.limitDmg)).BeginInit();
             this.SuspendLayout();
             // 
             // romfsPath
@@ -122,12 +84,7 @@ namespace StarAlliesRandomizer
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.randCopyAbilities);
-            this.flowLayoutPanel1.Controls.Add(this.randAbilityPanel);
-            this.flowLayoutPanel1.Controls.Add(this.randHelpers);
-            this.flowLayoutPanel1.Controls.Add(this.randHelperPanel);
-            this.flowLayoutPanel1.Controls.Add(this.randAttacks);
-            this.flowLayoutPanel1.Controls.Add(this.randAttackPanel);
+            this.flowLayoutPanel1.Controls.Add(this.randStoryStages);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
@@ -137,15 +94,15 @@ namespace StarAlliesRandomizer
             // 
             // randCopyAbilities
             // 
-            this.randCopyAbilities.AutoSize = true;
-            this.randCopyAbilities.Location = new System.Drawing.Point(3, 3);
-            this.randCopyAbilities.Name = "randCopyAbilities";
-            this.randCopyAbilities.Size = new System.Drawing.Size(144, 17);
-            this.randCopyAbilities.TabIndex = 0;
-            this.randCopyAbilities.Text = "Randomize Copy Abilities";
-            this.toolTip.SetToolTip(this.randCopyAbilities, "Turn on to see additional options.");
-            this.randCopyAbilities.UseVisualStyleBackColor = true;
-            this.randCopyAbilities.CheckedChanged += new System.EventHandler(this.randCopyAbilities_CheckedChanged);
+            this.randStoryStages.AutoSize = true;
+            this.randStoryStages.Location = new System.Drawing.Point(3, 3);
+            this.randStoryStages.Name = "randStoryStages";
+            this.randStoryStages.Size = new System.Drawing.Size(144, 17);
+            this.randStoryStages.TabIndex = 0;
+            this.randStoryStages.Text = "Shuffle Story Stages";
+            this.toolTip.SetToolTip(this.randStoryStages, "Shuffle the order of all main story stages (excludes: Point of Arrival, In the Presence of the King, and Lab Discovera)");
+            this.randStoryStages.UseVisualStyleBackColor = true;
+            /*
             // 
             // randAbilityPanel
             // 
@@ -565,6 +522,7 @@ namespace StarAlliesRandomizer
             this.atkRandDamage.Text = "Randomize Damage";
             this.atkRandDamage.UseVisualStyleBackColor = true;
             this.atkRandDamage.CheckedChanged += new System.EventHandler(this.atkRandDamage_CheckedChanged);
+            */
             // 
             // randomize
             // 
@@ -630,15 +588,6 @@ namespace StarAlliesRandomizer
             this.groupBox1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
-            this.randAbilityPanel.ResumeLayout(false);
-            this.randAbilityPanel.PerformLayout();
-            this.randHelperPanel.ResumeLayout(false);
-            this.randHelperPanel.PerformLayout();
-            this.randAttackPanel.ResumeLayout(false);
-            this.randAttackPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.limitKb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.limitAngle)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.limitDmg)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -652,43 +601,11 @@ namespace StarAlliesRandomizer
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button randomize;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.CheckBox randCopyAbilities;
-        private System.Windows.Forms.Panel randAbilityPanel;
-        private System.Windows.Forms.CheckBox randHelpers;
-        private System.Windows.Forms.CheckBox inclDropStars;
-        private System.Windows.Forms.CheckBox inclEnemyObj;
-        private System.Windows.Forms.CheckBox inclBoss;
-        private System.Windows.Forms.CheckBox inclMidBoss;
-        private System.Windows.Forms.CheckBox inclBasicEnemy;
-        private System.Windows.Forms.RadioButton copyRandMix;
-        private System.Windows.Forms.RadioButton copyRandEat;
-        private System.Windows.Forms.RadioButton copyRandByEnemy;
-        private System.Windows.Forms.CheckBox allowElement;
-        private System.Windows.Forms.CheckBox allowDreamFriend;
-        private System.Windows.Forms.Panel randHelperPanel;
-        private System.Windows.Forms.CheckBox helperAllowDreamFriend;
-        private System.Windows.Forms.CheckBox randAttacks;
-        private System.Windows.Forms.Panel randAttackPanel;
-        private System.Windows.Forms.CheckBox atkRandDamage;
-        private System.Windows.Forms.CheckBox atkRandColl;
-        private System.Windows.Forms.CheckBox atkRandBoss;
-        private System.Windows.Forms.CheckBox atkRandMBoss;
-        private System.Windows.Forms.CheckBox atkRandEnemy;
-        private System.Windows.Forms.CheckBox atkRandSerial;
-        private System.Windows.Forms.CheckBox atkRandKb;
-        private System.Windows.Forms.CheckBox atkRandAngle;
-        private System.Windows.Forms.CheckBox atkRandElement;
+        private System.Windows.Forms.CheckBox randStoryStages;
         private System.Windows.Forms.Button romfsHelp;
         private System.Windows.Forms.TextBox seed;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolTip toolTip;
-        private System.Windows.Forms.CheckBox doLimitKb;
-        private System.Windows.Forms.NumericUpDown limitKb;
-        private System.Windows.Forms.CheckBox doLimitAngle;
-        private System.Windows.Forms.NumericUpDown limitAngle;
-        private System.Windows.Forms.CheckBox doLimitDmg;
-        private System.Windows.Forms.NumericUpDown limitDmg;
-        private System.Windows.Forms.CheckBox helperAllowElement;
     }
 }
 

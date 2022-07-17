@@ -22,107 +22,38 @@ namespace StarAlliesRandomizer
     {
         public static string ExeDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-        static int[] CopyAbilities = new int[]
+        static string[] StoryStages = new string[]
         {
-            0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,31
-        };
-        static int[] DreamFriends = new int[]
-        {
-            56,57,58,59,60,61,62,63,64,65,66,67,68
-        };
-        static int[] AbilityElements = new int[]
-        {
-            0x0, 0x4, 0x8, 0x20, 0x100, 0x10000
-        };
-
-        static string[] BasicEnemies = new string[]
-        {
-            "Bouncy",
-            "Brontoburt",
-            "Cappy",
-            "Brontoburt",
-            "Chip",
-            "Coner",
-            "Dekabu",
-            "Dekabu.Kokabu",
-            "Gabon",
-            "Glunk",
-            "Gordo",
-            "Grizzo",
-            "Jaharbeliever",
-            "Kabu",
-            "Mamatee",
-            "MaskEnemy",
-            "Nruff",
-            "Propeller",
-            "Scarfy",
-            "ShieldEnemy",
-            "Shotzo",
-            "Squishy",
-            "TwoFace",
-            "Waddledee",
-            "Wonkey"
-        };
-
-        static string[] Enemies = new string[]
-        {
-            "Beetlie",
-            "BioSpark",
-            "Birdon",
-            "Bladeknight",
-            "Bomber",
-            "Broomhatter",
-            "Burningleo",
-            "Chilly",
-            "Chip",
-            "Como",
-            "Conce",
-            "Coner",
-            "EnemyCommon.Parasol",
-            "FestivalEnemy",
-            "FloatSlime",
-            "Gim",
-            "Knucklejoe",
-            "Nesp",
-            "Noddy",
-            "Poppybrosjr",
-            "Rocky",
-            "Sirkibble",
-            "StickEnemy",
-            "Waddledoo",
-            "Walky",
-            "WaterEnemy",
-            "Wester"
-        };
-
-        static string[] MidBosses = new string[]
-        {
-            "BigBouncy",
-            "Bonkers",
-            "Bugzzy",
-            "ChefKawasaki",
-            "Misterfrosty",
-            "Vivitia",
-        };
-
-        static string[] Bosses = new string[]
-        {
-            "Kingdedede.DeadBody",
-            "MetaKnight.DeadBody",
-        };
-
-        static string[] EnemyObjects = new string[]
-        {
-            "Cappy.Hat",
-            "Gabon.Skull",
-            "Marx.Cutter",
-            "Marx.IceBall",
-            "Whispywoods.Apple",
-        };
-
-        static string[] DropStars = new string[]
-        {
-            "EnemyCommon.DropStar"
+            "Level1Stage1",
+            "Level1Stage2",
+            "Level1Stage3",
+            "Level1Stage4",
+            "Level1Stage5",
+            "Level2Stage1",
+            "Level2Stage2",
+            "Level2Stage3",
+            "Level2Stage4",
+            "Level2Stage5",
+            "Level3Stage1",
+            "Level3Stage2",
+            "Level3Stage3",
+            "Level3Stage4",
+            "Level3Stage5",
+            "Level4Stage1",
+            "Level4Stage2",
+            "Level4Stage3",
+            "Level4Stage4",
+            "Level4Stage5",
+            "Level5Stage1",
+            "Level5Stage2",
+            "Level5Stage3",
+            "Level5Stage4",
+            "Level5Stage5",
+            "Level6Stage1",
+            "Level6Stage2",
+            "Level6Stage3",
+            "Level6Stage4",
+            "Level6Stage5"
         };
 
         public MainForm()
@@ -178,68 +109,26 @@ namespace StarAlliesRandomizer
         private void romfsHelp_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
-                  "This program requires Kirby Star Allies's 4.0.0 RomFS to work properly." +
+                  "This program requires Kirby and the Forgotten Land's RomFS to work properly." +
                 "\nClick the elipses (...) button and select the directory containing the game's RomFS, or enter it yourself in the box." +
                 "\nThe RomFS path provided will be saved in Config.xml when the program is closed and autofilled in when the program opens." +
                 "\n" +
-                "\nNote that not all 3.77GB files in the RomFS are needed to randomize the game. The necessary files are:" +
-                "\n   - gfx/Common/Hero/Kirby/Base.bfres.cmp (Unimplemented currently)" +
-                "\n   - mint/Step.bin" +
-                "\n   - The entire \"map\" directory (Unimplemented currently)" +
-                "\nThis totals to only 167.84MB" +
+                "\nNote that not all files in the RomFS are needed to randomize the game. The necessary files are:" +
+                "\n   - basil/Scn.bin" +
+                "\n   - basil/Seq.bin" +
+                "\n   - yaml/Scn/Step/Map/WmapData.bin (Unimplemented currently)" +
                 "\n" +
                 "\nHover over anything in the program for more information about the option.",
                 this.Text,
                 MessageBoxButtons.OK);
         }
 
+        /*
         private void randCopyAbilities_CheckedChanged(object sender, EventArgs e)
         {
             randAbilityPanel.Visible = randCopyAbilities.Checked;
         }
-
-        private void copyRandByEnemy_CheckedChanged(object sender, EventArgs e)
-        {
-            inclBasicEnemy.Enabled = copyRandByEnemy.Checked;
-            inclMidBoss.Enabled = copyRandByEnemy.Checked;
-            inclBoss.Enabled = copyRandByEnemy.Checked;
-            inclEnemyObj.Enabled = copyRandByEnemy.Checked;
-            inclDropStars.Enabled = copyRandByEnemy.Checked;
-        }
-
-        private void copyRandMix_CheckedChanged(object sender, EventArgs e)
-        {
-            allowDreamFriend.Enabled = !copyRandMix.Checked;
-            allowElement.Enabled = !copyRandMix.Checked;
-        }
-
-        private void randHelpers_CheckedChanged(object sender, EventArgs e)
-        {
-            randHelperPanel.Visible = randHelpers.Checked;
-        }
-
-        private void randAttacks_CheckedChanged(object sender, EventArgs e)
-        {
-            randAttackPanel.Visible = randAttacks.Checked;
-        }
-
-        private void atkRandDamage_CheckedChanged(object sender, EventArgs e)
-        {
-            doLimitDmg.Enabled = atkRandDamage.Checked;
-            limitDmg.Enabled = atkRandDamage.Checked;
-        }
-
-        private void atkRandAngle_CheckedChanged(object sender, EventArgs e)
-        {
-            doLimitAngle.Enabled = atkRandAngle.Checked;
-            limitAngle.Enabled = atkRandAngle.Checked;
-        }
-
-        private void atkRandKb_CheckedChanged(object sender, EventArgs e)
-        {
-            doLimitKb.Enabled = atkRandKb.Checked;
-            limitKb.Enabled = atkRandKb.Checked;
-        }
+        */
 
         private void randomize_Click(object sender, EventArgs e)
         {
@@ -263,131 +152,23 @@ namespace StarAlliesRandomizer
 
             string outDir = ExeDir + $"\\OutFiles\\seed_{(uint)rngSeed}";
 
-            if (!File.Exists(romfsPath.Text + "\\mint\\Step.bin"))
+            if (!File.Exists(romfsPath.Text + "\\basil\\Seq.bin"))
             {
-                MessageBox.Show($"Error: Could not find the path \"{romfsPath.Text}\\mint\\Step.bin\".", this.Text, MessageBoxButtons.OK);
+                MessageBox.Show($"Error: Could not find the path \"{romfsPath.Text}\\basil\\Seq.bin\".", this.Text, MessageBoxButtons.OK);
                 return;
             }
 
-            Console.WriteLine("Loading Step.bin Mint binary...");
+            Console.WriteLine("Loading Seq.bin Mint binary...");
             Archive mintStep;
-            using (EndianBinaryReader reader = new EndianBinaryReader(new FileStream(romfsPath.Text + "\\mint\\Step.bin", FileMode.Open, FileAccess.Read)))
+            using (EndianBinaryReader reader = new EndianBinaryReader(new FileStream(romfsPath.Text + "\\basil\\Seq.bin", FileMode.Open, FileAccess.Read)))
             {
                 mintStep = new Archive(reader);
             }
 
             rng = new Random(rngSeed);
-            if (randCopyAbilities.Checked)
+            if (randStoryStages.Checked)
             {
-                List<int> abilities = CopyAbilities.ToList();
-                if (allowDreamFriend.Checked)
-                    abilities.AddRange(DreamFriends);
-
-                if (copyRandByEnemy.Checked)
-                {
-                    List<string> randTargets = Enemies.ToList();
-                    if (inclBasicEnemy.Checked)
-                        randTargets.AddRange(BasicEnemies);
-                    if (inclMidBoss.Checked)
-                        randTargets.AddRange(MidBosses);
-                    if (inclBoss.Checked)
-                        randTargets.AddRange(Bosses);
-                    if (inclEnemyObj.Checked)
-                        randTargets.AddRange(EnemyObjects);
-                    if (inclDropStars.Checked)
-                        randTargets.AddRange(DropStars);
-
-                    Console.WriteLine("Randomizing Enemy Copy Abilities...");
-                    for (int i = 0; i < randTargets.Count; i++)
-                    {
-                        string script;
-                        if (randTargets[i].Contains('.'))
-                            script = "Scn.Step.Chara." + randTargets[i] + ".Setting";
-                        else
-                            script = "Scn.Step.Chara." + randTargets[i] + "." + randTargets[i] + ".Setting";
-
-                        Console.WriteLine("Processing " + script + "...");
-
-                        string[] newScript = File.ReadAllLines(ExeDir + "\\MintScripts\\CopyAbilities\\Enemies\\" + script + ".mints");
-                        for (int l = 0; l < newScript.Length; l++)
-                        {
-                            if (newScript[l].Contains("%ABILITY_ID%"))
-                            {
-                                int newAbility = abilities[rng.Next(0, abilities.Count)];
-                                newScript[l] = newScript[l].Replace("%ABILITY_ID%", newAbility.ToString());
-                                Console.WriteLine($"Given Ability {newAbility}");
-                            }
-                            else if (newScript[l].Contains("%ELEMENT_ID%"))
-                            {
-                                if (allowElement.Checked)
-                                {
-                                    int newElement = AbilityElements[rng.Next(0, AbilityElements.Length)];
-                                    newScript[l] = newScript[l].Replace("%ELEMENT_ID%", newElement.ToString());
-                                    Console.WriteLine($"Given Element {newElement}");
-                                }
-                                else
-                                    newScript[l] = newScript[l].Replace("%ELEMENT_ID%", "0");
-                            }
-                        }
-
-                        mintStep.Scripts[script] = new MintScript(newScript, new byte[] { 2, 1, 5, 1 });
-                    }
-
-                    if (inclDropStars.Checked)
-                    {
-                        Console.WriteLine("Assembling custom script Scn.Step.Chara.WeaponUtil...");
-                        string[] newScript = File.ReadAllLines(ExeDir + "\\MintScripts\\CopyAbilities\\Enemies\\Scn.Step.Chara.WeaponUtil.mints");
-                        for (int l = 0; l < newScript.Length; l++)
-                        {
-                            if (newScript[l].Contains("%ALLOW_DREAM_FRIENDS%"))
-                                newScript[l] = newScript[l].Replace("%ALLOW_DREAM_FRIENDS%", Convert.ToInt32(allowDreamFriend.Checked).ToString());
-                            else if (newScript[l].Contains("%RANDOM_ELEMENTS%"))
-                                newScript[l] = newScript[l].Replace("%RANDOM_ELEMENTS%", Convert.ToInt32(allowElement.Checked).ToString());
-                        }
-
-                        mintStep.Scripts["Scn.Step.Chara.WeaponUtil"] = new MintScript(newScript, new byte[] { 2, 1, 5, 1 });
-                    }
-                }
-                else if (copyRandEat.Checked)
-                {
-                    Console.WriteLine("Assembling custom script Scn.Step.Hero.Common.StateDrink...");
-                    string[] newScript = File.ReadAllLines(ExeDir + "\\MintScripts\\CopyAbilities\\FullRandom\\Scn.Step.Hero.Common.StateDrink.mints");
-                    for (int l = 0; l < newScript.Length; l++)
-                    {
-                        if (newScript[l].Contains("%ALLOW_DREAM_FRIENDS%"))
-                            newScript[l] = newScript[l].Replace("%ALLOW_DREAM_FRIENDS%", Convert.ToInt32(allowDreamFriend.Checked).ToString());
-                        else if (newScript[l].Contains("%RANDOM_ELEMENTS%"))
-                            newScript[l] = newScript[l].Replace("%RANDOM_ELEMENTS%", Convert.ToInt32(allowElement.Checked).ToString());
-                    }
-
-                    mintStep.Scripts["Scn.Step.Hero.Common.StateDrink"] = new MintScript(newScript, new byte[] { 2, 1, 5, 1 });
-                }
-                else if (copyRandMix.Checked)
-                {
-                    Console.WriteLine("Assembling custom script Scn.Step.Hero.Common.StateDrink...");
-
-                    mintStep.Scripts["Scn.Step.Hero.Common.StateDrink"] = new MintScript(File.ReadAllLines(ExeDir + "\\MintScripts\\CopyAbilities\\Mix\\Scn.Step.Hero.Common.StateDrink.mints"), new byte[] { 2, 1, 5, 1 });
-                }
-            }
-
-            if (randHelpers.Checked)
-            {
-                Console.WriteLine("Assembling custom script Scn.Step.Chara.KibidangoReact...");
-                string[] newScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Helpers\\Scn.Step.Chara.KibidangoReact.mints");
-                for (int l = 0; l < newScript.Length; l++)
-                {
-                    if (newScript[l].Contains("%ALLOW_DREAM_FRIENDS%"))
-                        newScript[l] = newScript[l].Replace("%ALLOW_DREAM_FRIENDS%", Convert.ToInt32(helperAllowDreamFriend.Checked).ToString());
-                    else if (newScript[l].Contains("%RANDOM_ELEMENTS%"))
-                        newScript[l] = newScript[l].Replace("%RANDOM_ELEMENTS%", Convert.ToInt32(helperAllowElement.Checked).ToString());
-                }
-
-                mintStep.Scripts["Scn.Step.Chara.KibidangoReact"] = new MintScript(newScript, new byte[] { 2, 1, 5, 1 });
-            }
-
-            rng = new Random(rngSeed);
-            if (randAttacks.Checked)
-            {
+                /*
                 if (atkRandDamage.Checked)
                 {
                     int limitDamage = int.MaxValue;
@@ -415,13 +196,26 @@ namespace StarAlliesRandomizer
                         mintStep.Scripts[pair.Key] = new MintScript(pair.Value, new byte[] { 2, 1, 5, 1 });
                     }
                 }
+                */
+                string[] shuffledStoryStages = StoryStages.OrderBy(x => rng.Next()).ToArray();
+                MintClass storyStageKind = mintStep.Scripts["Storage.File.StoryStageKind"].Classes[0];
+                storyStageKind.Constants.Clear();
+                for (int i = 0x0; i < shuffledStoryStages.Length; i++)
+                {
+                    storyStageKind.Constants.Add(new MintClass.MintConstant(shuffledStoryStages[i], (uint)i + 0x2));
+                }
+                storyStageKind.Constants.Add(new MintClass.MintConstant("Invalid", 0x0));
+                storyStageKind.Constants.Add(new MintClass.MintConstant("Level0Stage1", 0x1));
+                storyStageKind.Constants.Add(new MintClass.MintConstant("Level6Stage6", 0x20));
+                storyStageKind.Constants.Add(new MintClass.MintConstant("Level7Stage1", 0x21));
+                storyStageKind.Constants.Add(new MintClass.MintConstant("TERM", 0x22));
             }
 
-            if (!Directory.Exists(outDir + "\\mint"))
-                Directory.CreateDirectory(outDir + "\\mint");
+            if (!Directory.Exists(outDir + "\\basil"))
+                Directory.CreateDirectory(outDir + "\\basil");
 
-            Console.WriteLine("Saving Step Mint binary...");
-            mintStep.Write(outDir + "\\mint\\Step.bin");
+            Console.WriteLine("Saving Seq Mint binary...");
+            mintStep.Write(outDir + "\\basil\\Seq.bin");
 
             MessageBox.Show($"Successfully randomized!\nMod-ready files saved to \"{outDir}\"", this.Text, MessageBoxButtons.OK);
         }
