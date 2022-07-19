@@ -186,7 +186,7 @@ namespace ForgottenLandRandomizer
                 storyStageKind.Constants.Add(new MintClass.MintConstant("Level6Stage6", 0x20));
                 storyStageKind.Constants.Add(new MintClass.MintConstant("Level7Stage1", 0x21));
                 storyStageKind.Constants.Add(new MintClass.MintConstant("TERM", 0x22));
-                /*
+                
                 // Modify stage unlock scripts to support shuffled stage order
                 string script = "Scn.Step.Info.StageList.Wmap.StageList.Panel";
                 string[] newScript = File.ReadAllLines(ExeDir + "\\..\\..\\MintScripts\\" + script + ".mints");
@@ -195,7 +195,7 @@ namespace ForgottenLandRandomizer
                 script = "Scn.Step.SceneChangeCtrl";
                 newScript = File.ReadAllLines(ExeDir + "\\..\\..\\MintScripts\\" + script + ".mints");
                 mintScn.Scripts[script] = new MintScript(newScript, new byte[] { 7, 0, 2, 0 });
-                */
+                
             }
 
             if (!Directory.Exists(outDir + "\\basil"))
@@ -204,8 +204,8 @@ namespace ForgottenLandRandomizer
             Console.WriteLine("Saving Seq Mint binary...");
             mintSeq.Write(outDir + "\\basil\\Seq.bin");
 
-            //Console.WriteLine("Saving Scn Mint binary...");
-            //mintScn.Write(outDir + "\\basil\\Scn.bin");
+            Console.WriteLine("Saving Scn Mint binary...");
+            mintScn.Write(outDir + "\\basil\\Scn.bin");
 
             MessageBox.Show($"Successfully randomized!\nMod-ready files saved to \"{outDir}\"", this.Text, MessageBoxButtons.OK);
         }

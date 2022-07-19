@@ -84,6 +84,10 @@ namespace ForgottenLandRandomizer.Types
 
             XData = new XData(Endianness.Little, new byte[] { 2, 0 });
             Version = version;
+            if (version[0] >= 7)
+                Hash = Encoding.UTF8.GetBytes(text[0]).Take(4).ToArray();
+            else
+                Hash = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
             Name = scriptDeclare.Substring(7);
             SData = new List<byte>();
             XRef = new List<byte[]>();
