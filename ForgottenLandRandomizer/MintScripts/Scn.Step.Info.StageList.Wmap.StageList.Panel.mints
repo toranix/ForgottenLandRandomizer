@@ -1,0 +1,4225 @@
+script Scn.Step.Info.StageList.Wmap.StageList.Panel
+{
+	flag1 flag800 class Scn.Step.Info.StageList.Wmap.StageList.Panel
+	{
+		var Storage.File.StageKey __bf_Result
+		var bool __bf_IsClose
+		var bool __bf_IsDecided
+		var bool __bf_IsStageListChange
+		flag2 var UiSys.Widget.G3dModelDrawer _modelDrawer
+		flag2 var Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Scn.Step.Info.StageList.TableBtn.Page> _currentMarkerSet
+		flag2 var Scn.Step.Info.StageList.TableBtn.StageBtnRepos _stageBtnRepos
+		var UiSys.Master _master
+		flag2 var UiSys.Widget.MenuSeRequestor _menuSeReq
+		flag2 var UiSys.Widget.Hid _hid
+		flag2 var UiSys.Widget.RootPanel _panelBack
+		flag2 var UiSys.Widget.RootPanel _panelAreaTab
+		flag2 var UiSys.Widget.RootPanel _panel
+		flag2 var UiSys.Widget.ShowHideSet _showHideSet
+		flag2 var UiSys.Widget.ShowHideSet _btnShowHideSet
+		flag2 var Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Stdlib.Array`1<UiSys.Widget.ShowHide>> _btnShowHideArray
+		flag2 var Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Stdlib.Array`1<bool>> _btnValidArray
+		flag2 var Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.MarkerSetKind,Stdlib.Array`1<bool>> _btnMissionCompleteArray
+		flag2 var Scn.Step.Info.Common.ArrowBtnSet _arrowBtnSet
+		flag2 var UiSys.Widget.SelectList _btnList
+		flag2 var UiSys.Widget.IconBtn _iconBtnStageListChange
+		flag2 var UiSys.Widget.IconBtn _iconBtnClose
+		flag2 var Util.Fiber`1<Scn.Step.Info.StageList.Wmap.StageList.Panel> _fiber
+		flag2 var Scn.Step.Info.StageList.TableBtn.FocusCtrl _tableBtnFocusCtrl
+		flag2 var Scn.Step.Info.StageList.Wmap.StageListData _stageListData
+		flag2 var Scn.Step.Info.StageList.Wmap.AreaTabCtrl _areaTabCtrl
+		flag2 var Scn.Step.Info.StageList.PageChangeInputCtrl _pageChangeInputCtrl
+		var Storage.File.StoryLevelKind _disclosureStoryLevel
+		var Storage.File.StoryLevelKind _currentStoryLevel
+		var Storage.File.StoryLevelKind _prevStoryLevel
+		var int _stageCountOnLevel
+		var int _currentBtnIndex
+		var Scn.Step.Info.StageList.PageMoveKind _pageMoveKind
+		var bool _isEnabledChangeStageList
+		
+		flag2 async null void OnAttached()
+		{
+			fenter 0
+			_ret   r0
+			fleave r0
+		}
+		
+		flag2 async null void OnDetached()
+		{
+			fenter 0
+			_ret   r0
+			fleave r0
+		}
+		
+		flag2 async void OnUpdate()
+		{
+			fenter 0
+			_ret   r0
+			ldofad r2, r0, this._fiber
+			unk_0f r1, 2
+			_xref  Util.Fiber`1.Execute()
+			_xref  Util.Fiber`1<Scn.Step.Info.StageList.Wmap.StageList.Panel>
+			_short 2
+			_ret32 r0
+			fleave r0
+		}
+		
+		void this(UiSys.Master,UiSys.Widget.Hid,UiSys.Widget.MenuSeRequestor,Scn.Step.Info.StageList.Wmap.StageListData)
+		{
+			fenter 0
+			_ret   r0
+			sppsh  r13, Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			sppsh  r16, Lyt.GroupRef
+			sppsh  r17, Lyt.GroupRef
+			sppsh  r18, Lyt.GroupRef
+			sppsh  r19, Storage.File.StageKey
+			sppsh  r20, Lyt.UserDataRef
+			sppsh  r21, Lyt.UserDataRef
+			sppsh  r22, Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			sppsh  r23, Lyt.GroupRef
+			sppshz r19, Storage.File.StageKey
+			stof_u r0, r19, this.__bf_Result
+			stofad r0, r1, this._master
+			stofap r0, r3, this._menuSeReq
+			stofap r0, r2, this._hid
+			stofap r0, r4, this._stageListData
+			ldsrc4 r27, 0x1
+			stofa4 r0, r27, this._disclosureStoryLevel
+			ldofad r28, r0, this._master
+			calltr r27, UiSys.Master.get_Manager()
+			ldsrsr r29, r27
+			unk_0f r28, 3
+			_xref  UiSys.Manager.Extension()
+			_xref  UiSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret32 r0
+			ldsrsr r5, r28
+			ldofad r27, r28, Scn.Step.Modules._storageManager
+			ldofad r28, r27, Scn.Step.StorageManager._backupFileData
+			ldsrsr r6, r28
+			ldsrc4 r7, 0x2
+			jmp    loc_0000002e
+			
+			loc_00000022:
+			ldofad r27, r6, Storage.File.Root.StoryLevels
+			ldsr2  r29, r27, r7
+			unk_0f r28, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryLevelKind,Storage.File.StoryLevelData>
+			_xref  Storage.File.StoryLevelData
+			_ret32 r0
+			ldofa4 r27, r28, Storage.File.StoryLevelData.IsUnlocked
+			jmppos r27, loc_0000002c
+			stofa4 r0, r7, this._disclosureStoryLevel
+			
+			loc_0000002c:
+			ldsrc4 r27, 0x1
+			addi32 r7, r7, r27
+			
+			loc_0000002e:
+			ldsrc4 r27, 0x9
+			ges32  r7, r27, loc_00000022
+			ldofad r27, r0, this._master
+			ldsr2  r28, r27, r0
+			ldsrc4 r30, 0x0
+			calltr r28, UiSys.Master.AddComponentBegin(UiSys.IComponent,bool)
+			ldsrsr r28, r1
+			calltr r27, UiSys.Master.get_Manager()
+			ldsrsr r29, r27
+			unk_0f r28, 3
+			_xref  UiSys.Manager.Extension()
+			_xref  UiSys.Manager
+			_xref  Scn.Step.Info.Manager
+			_xref  Scn.Step.Info.Manager
+			_ret32 r0
+			ldsrsr r8, r28
+			obnew  r29, UiSys.Widget.RootPanel
+			ldsrsr r30, r1
+			ldsrca r31, "Wmap/StageList/Body"
+			ldsrca r32, "WmapStageListBaseBack"
+			ldsrc4 r33, 0x1
+			ldsrc4 r34, 0x1
+			ldsrzr r35
+			calltv r29, UiSys.Widget.RootPanel.this(UiSys.Master,string,string,bool,bool,UiSys.Widget.IEffectDrawHelper)
+			stofap r0, r29, this._panelBack
+			ldofad r27, r0, this._panelBack
+			ldsrc4 r29, 0x1
+			stofa4 r27, r29, UiSys.Widget.RootPanel._drawPath
+			ldofad r27, r0, this._panelBack
+			ldofad r29, r28, Scn.Step.Info.Manager.__bf_ReplaceTextureMaster
+			ldofad r30, r29, Scn.Step.Info.ReplaceTextureMaster.__bf_TexturedBluredBase
+			ldofad r32, r30, UiSys.Widget.BluredScreenTexture._binder
+			unk_0f r31, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.RuntimeTextureBind>
+			_xref  Lyt.RuntimeTextureBind
+			_ret32 r0
+			ldofad r33, r27, UiSys.Widget.RootPanel._layout
+			unk_0f r32, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrc4 r34, 0x0
+			unk_0f r33, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  UiSys.UserData.ReplaceTextureKind
+			_ret32 r0
+			ldsrsr r34, r32
+			ldsrca r35, "ReplaceTexture"
+			ldsr2  r36, r33, r31
+			calltr r34, Lyt.LayoutUtil.ReplaceTextureAll(Lyt.Layout,string,string,Lyt.RuntimeTextureBind)
+			ldofad r27, r0, this._master
+			obnew  r29, UiSys.Widget.G3dModelDrawer
+			ldsrsr r30, r27
+			ldsrzr r31
+			ldsrzr r32
+			calltv r29, UiSys.Widget.G3dModelDrawer.this(UiSys.Master,UiSys.Widget.IEffectDrawHelper,UiSys.Widget.G3dModelDrawer/ShadowMapCreateInfo)
+			stofap r0, r29, this._modelDrawer
+			ldofad r27, r0, this._modelDrawer
+			ldsrc4 r29, 0x1
+			stofa4 r27, r29, UiSys.Widget.G3dModelDrawer._drawPath
+			obnew  r29, UiSys.Widget.RootPanel
+			ldsrsr r30, r1
+			ldsrca r31, "Wmap/StageList/Body"
+			ldsrca r32, "WmapStageListTabBase"
+			ldsrc4 r33, 0x1
+			ldsrc4 r34, 0x1
+			ldsrzr r35
+			calltv r29, UiSys.Widget.RootPanel.this(UiSys.Master,string,string,bool,bool,UiSys.Widget.IEffectDrawHelper)
+			stofap r0, r29, this._panelAreaTab
+			ldofad r27, r0, this._panelAreaTab
+			ldsrc4 r29, 0x1
+			stofa4 r27, r29, UiSys.Widget.RootPanel._drawPath
+			ldofad r27, r0, this._panelAreaTab
+			ldofad r29, r28, Scn.Step.Info.Manager.__bf_ReplaceTextureMaster
+			ldofad r30, r29, Scn.Step.Info.ReplaceTextureMaster.__bf_TexturedBluredBase
+			ldofad r32, r30, UiSys.Widget.BluredScreenTexture._binder
+			unk_0f r31, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.RuntimeTextureBind>
+			_xref  Lyt.RuntimeTextureBind
+			_ret32 r0
+			ldofad r33, r27, UiSys.Widget.RootPanel._layout
+			unk_0f r32, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrc4 r34, 0x0
+			unk_0f r33, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  UiSys.UserData.ReplaceTextureKind
+			_ret32 r0
+			ldsrsr r34, r32
+			ldsrca r35, "ReplaceTexture"
+			ldsr2  r36, r33, r31
+			calltr r34, Lyt.LayoutUtil.ReplaceTextureAll(Lyt.Layout,string,string,Lyt.RuntimeTextureBind)
+			obnew  r29, UiSys.Widget.RootPanel
+			ldsrsr r30, r1
+			ldsrca r31, "Wmap/StageList/Body"
+			ldsrca r32, "WmapStageListBase"
+			ldsrc4 r33, 0x1
+			ldsrc4 r34, 0x1
+			ldsrzr r35
+			calltv r29, UiSys.Widget.RootPanel.this(UiSys.Master,string,string,bool,bool,UiSys.Widget.IEffectDrawHelper)
+			stofap r0, r29, this._panel
+			ldofad r27, r0, this._panel
+			ldsrc4 r29, 0x6
+			stofa4 r27, r29, UiSys.Widget.RootPanel._drawPath
+			ldofad r27, r0, this._panel
+			ldofad r29, r28, Scn.Step.Info.Manager.__bf_ReplaceTextureMaster
+			ldofad r28, r29, Scn.Step.Info.ReplaceTextureMaster.__bf_TexturedBluredFront
+			ldofad r30, r28, UiSys.Widget.BluredScreenTexture._binder
+			unk_0f r29, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.RuntimeTextureBind>
+			_xref  Lyt.RuntimeTextureBind
+			_ret32 r0
+			ldofad r31, r27, UiSys.Widget.RootPanel._layout
+			unk_0f r30, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrc4 r32, 0x0
+			unk_0f r31, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  UiSys.UserData.ReplaceTextureKind
+			_ret32 r0
+			ldsrsr r32, r30
+			ldsrca r33, "ReplaceTexture"
+			ldsr2  r34, r31, r29
+			calltr r32, Lyt.LayoutUtil.ReplaceTextureAll(Lyt.Layout,string,string,Lyt.RuntimeTextureBind)
+			ldofad r27, r0, this._master
+			ldofad r28, r0, this._panel
+			ldofad r30, r28, UiSys.Widget.RootPanel._layout
+			unk_0f r29, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			obnew  r30, UiSys.Widget.ShowHideSet
+			ldsr2  r31, r27, r29
+			calltv r30, UiSys.Widget.ShowHideSet.this(UiSys.Master,Lyt.Layout)
+			stofap r0, r30, this._showHideSet
+			ldofad r27, r0, this._showHideSet
+			ldofad r28, r0, this._panel
+			ldofad r30, r28, UiSys.Widget.RootPanel._layout
+			unk_0f r29, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldofad r28, r27, UiSys.Widget.ShowHideSet._ctrl
+			ldofad r30, r27, UiSys.Widget.ShowHideSet._master
+			obnew  r31, UiSys.Widget.ShowHide
+			ldsr2  r32, r30, r29
+			ldsrc4 r34, 0x0
+			ldsrc4 r35, 0x0
+			calltv r31, UiSys.Widget.ShowHide.this(UiSys.Master,Lyt.Layout,bool,bool)
+			ldsrsr r27, r20
+			sppshz r27, Lyt.UserDataRef
+			obnew  r29, UiSys.Widget.ShowHideSet/Ctrl
+			stofap r29, r31, UiSys.Widget.ShowHideSet/Ctrl.__bf_ShowHide
+			mcopys r21, r27, Lyt.UserDataRef
+			stof_u r29, r21, UiSys.Widget.ShowHideSet/Ctrl.__bf_UserData
+			ldsr2  r30, r28, r29
+			unk_0f r30, 2
+			_xref  Stdlib.Array`1.Add(TElement)
+			_xref  Stdlib.Array`1<UiSys.Widget.ShowHideSet/Ctrl>
+			_short 1
+			_ret   r0
+			ldofad r27, r0, this._showHideSet
+			ldofad r28, r0, this._panelBack
+			ldofad r30, r28, UiSys.Widget.RootPanel._layout
+			unk_0f r29, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldofad r28, r27, UiSys.Widget.ShowHideSet._ctrl
+			ldofad r30, r27, UiSys.Widget.ShowHideSet._master
+			obnew  r31, UiSys.Widget.ShowHide
+			ldsr2  r32, r30, r29
+			ldsrc4 r34, 0x0
+			ldsrc4 r35, 0x0
+			calltv r31, UiSys.Widget.ShowHide.this(UiSys.Master,Lyt.Layout,bool,bool)
+			ldsrsr r27, r20
+			sppshz r27, Lyt.UserDataRef
+			obnew  r29, UiSys.Widget.ShowHideSet/Ctrl
+			stofap r29, r31, UiSys.Widget.ShowHideSet/Ctrl.__bf_ShowHide
+			mcopys r21, r27, Lyt.UserDataRef
+			stof_u r29, r21, UiSys.Widget.ShowHideSet/Ctrl.__bf_UserData
+			ldsr2  r30, r28, r29
+			unk_0f r30, 2
+			_xref  Stdlib.Array`1.Add(TElement)
+			_xref  Stdlib.Array`1<UiSys.Widget.ShowHideSet/Ctrl>
+			_short 1
+			_ret   r0
+			ldofad r27, r0, this._showHideSet
+			ldofad r28, r0, this._panelAreaTab
+			ldofad r30, r28, UiSys.Widget.RootPanel._layout
+			unk_0f r29, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r31, r29
+			ldsrca r32, "L_AreaName"
+			calltr r30, Lyt.Layout.Parts(string)
+			ldofad r28, r27, UiSys.Widget.ShowHideSet._ctrl
+			ldofad r29, r27, UiSys.Widget.ShowHideSet._master
+			obnew  r31, UiSys.Widget.ShowHide
+			ldsr2  r32, r29, r30
+			ldsrc4 r34, 0x0
+			ldsrc4 r35, 0x0
+			calltv r31, UiSys.Widget.ShowHide.this(UiSys.Master,Lyt.Layout,bool,bool)
+			ldsrsr r27, r20
+			sppshz r27, Lyt.UserDataRef
+			obnew  r29, UiSys.Widget.ShowHideSet/Ctrl
+			stofap r29, r31, UiSys.Widget.ShowHideSet/Ctrl.__bf_ShowHide
+			mcopys r21, r27, Lyt.UserDataRef
+			stof_u r29, r21, UiSys.Widget.ShowHideSet/Ctrl.__bf_UserData
+			ldsr2  r30, r28, r29
+			unk_0f r30, 2
+			_xref  Stdlib.Array`1.Add(TElement)
+			_xref  Stdlib.Array`1<UiSys.Widget.ShowHideSet/Ctrl>
+			_short 1
+			_ret   r0
+			ldofad r27, r0, this._panel
+			ldofad r29, r27, UiSys.Widget.RootPanel._layout
+			unk_0f r28, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r30, r28
+			ldsrca r31, "L_StageListBoard"
+			calltr r29, Lyt.Layout.Parts(string)
+			ldofad r27, r0, this._hid
+			ldofad r28, r0, this._menuSeReq
+			obnew  r30, Scn.Step.Info.Common.ArrowBtnSet
+			ldsr4  r31, r1, r29, r27, r28
+			ldsrca r35, "L_ArrowL"
+			ldsrca r36, "L_ArrowR"
+			ldsrca r37, ""
+			ldsrca r38, "Main"
+			ldsrc4 r39, 0x0
+			ldsrc4 r40, 0x1
+			calltv r30, Scn.Step.Info.Common.ArrowBtnSet.this(UiSys.Master,Lyt.Layout,UiSys.Widget.Hid,UiSys.Widget.MenuSeRequestor,string,string,string,string,UiSys.Widget.MenuSeRequestor/SeKind,UiSys.Widget.BtnReactType)
+			stofap r0, r30, this._arrowBtnSet
+			ldofad r27, r0, this._master
+			ldofad r28, r0, this._panel
+			ldofad r30, r28, UiSys.Widget.RootPanel._layout
+			unk_0f r29, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			obnew  r30, UiSys.Widget.ShowHideSet
+			ldsr2  r31, r27, r29
+			calltv r30, UiSys.Widget.ShowHideSet.this(UiSys.Master,Lyt.Layout)
+			stofap r0, r30, this._btnShowHideSet
+			obnew  r27, Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Stdlib.Array`1<UiSys.Widget.ShowHide>>
+			unk_0f r27, 2
+			_xref  Stdlib.EnumKeyArray`2.this()
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Stdlib.Array`1<UiSys.Widget.ShowHide>>
+			_short 1
+			_ret   r0
+			stofap r0, r27, this._btnShowHideArray
+			obnew  r27, Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Stdlib.Array`1<bool>>
+			unk_0f r27, 2
+			_xref  Stdlib.EnumKeyArray`2.this()
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Stdlib.Array`1<bool>>
+			_short 1
+			_ret   r0
+			stofap r0, r27, this._btnValidArray
+			obnew  r27, Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.MarkerSetKind,Stdlib.Array`1<bool>>
+			unk_0f r27, 2
+			_xref  Stdlib.EnumKeyArray`2.this()
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.MarkerSetKind,Stdlib.Array`1<bool>>
+			_short 1
+			_ret   r0
+			stofap r0, r27, this._btnMissionCompleteArray
+			ldofad r27, r0, this._menuSeReq
+			obnew  r28, UiSys.Widget.SelectList
+			ldsrsr r29, r27
+			ldsrc4 r30, 0x14
+			calltv r28, UiSys.Widget.SelectList.this(UiSys.Widget.MenuSeRequestor,int)
+			stofap r0, r28, this._btnList
+			ldofad r27, r0, this._master
+			ldofad r28, r0, this._hid
+			ldofad r29, r0, this._menuSeReq
+			obnew  r30, Scn.Step.Info.StageList.TableBtn.StageBtnRepos
+			ldsr3  r31, r27, r28, r29
+			ldsrc4 r34, 0x0
+			calltv r30, Scn.Step.Info.StageList.TableBtn.StageBtnRepos.this(UiSys.Master,UiSys.Widget.Hid,UiSys.Widget.MenuSeRequestor,Scn.Step.Info.StageList.TableBtn.StageBtn/BtnKind)
+			stofap r0, r30, this._stageBtnRepos
+			obnew  r27, Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Scn.Step.Info.StageList.TableBtn.Page>
+			unk_0f r27, 2
+			_xref  Stdlib.EnumKeyArray`2.this()
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Scn.Step.Info.StageList.TableBtn.Page>
+			_short 1
+			_ret   r0
+			stofap r0, r27, this._currentMarkerSet
+			ldsrc4 r9, 0x0
+			jmp    loc_0000019d
+			
+			loc_00000168:
+			ldofad r27, r0, this._currentMarkerSet
+			obnew  r28, Scn.Step.Info.StageList.TableBtn.Page
+			ldsrc4 r29, 0x0
+			stofa4 r28, r29, Scn.Step.Info.StageList.TableBtn.Page.__bf_StoryKind
+			obnew  r29, Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			unk_0f r29, 2
+			_xref  Stdlib.Array`1.this()
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_short 1
+			_ret   r0
+			stofap r28, r29, Scn.Step.Info.StageList.TableBtn.Page.__bf_Btns
+			ldsr3  r29, r27, r9, r28
+			unk_0f r29, 2
+			_xref  Stdlib.EnumKeyArray`2.set_Item(TKey,TValue)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Scn.Step.Info.StageList.TableBtn.Page>
+			_short 1
+			_ret   r0
+			ldsrc4 r27, 0x1
+			nei32  r9, r27, loc_0000017d
+			ldsrc4 r24, 0x2
+			jmp    loc_0000017e
+			
+			loc_0000017d:
+			ldsrc4 r24, 0x6
+			
+			loc_0000017e:
+			ldsrsr r10, r24
+			ldofad r27, r0, this._btnShowHideArray
+			obnew  r28, Stdlib.Array`1<UiSys.Widget.ShowHide>
+			ldsrsr r29, r24
+			unk_0f r28, 2
+			_xref  Stdlib.Array`1.this(int)
+			_xref  Stdlib.Array`1<UiSys.Widget.ShowHide>
+			_short 1
+			_ret   r0
+			ldsr3  r29, r27, r9, r28
+			unk_0f r29, 2
+			_xref  Stdlib.EnumKeyArray`2.set_Item(TKey,TValue)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Stdlib.Array`1<UiSys.Widget.ShowHide>>
+			_short 1
+			_ret   r0
+			ldofad r27, r0, this._btnValidArray
+			obnew  r28, Stdlib.Array`1<bool>
+			ldsrsr r29, r24
+			unk_0f r28, 2
+			_xref  Stdlib.Array`1.this(int)
+			_xref  Stdlib.Array`1<bool>
+			_short 1
+			_ret   r0
+			ldsr3  r29, r27, r9, r28
+			unk_0f r29, 2
+			_xref  Stdlib.EnumKeyArray`2.set_Item(TKey,TValue)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Stdlib.Array`1<bool>>
+			_short 1
+			_ret   r0
+			ldsrc4 r27, 0x1
+			addi32 r9, r9, r27
+			
+			loc_0000019d:
+			ldsrc4 r27, 0x3
+			ges32  r9, r27, loc_00000168
+			ldsrc4 r11, 0x0
+			jmp    loc_000001c5
+			
+			loc_000001a1:
+			ldofad r27, r0, this._btnMissionCompleteArray
+			obnew  r28, Stdlib.Array`1<bool>
+			ldsrc4 r29, 0x6
+			unk_0f r28, 2
+			_xref  Stdlib.Array`1.this(int)
+			_xref  Stdlib.Array`1<bool>
+			_short 1
+			_ret   r0
+			ldsr3  r29, r27, r11, r28
+			unk_0f r29, 2
+			_xref  Stdlib.EnumKeyArray`2.set_Item(TKey,TValue)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.MarkerSetKind,Stdlib.Array`1<bool>>
+			_short 1
+			_ret   r0
+			ldsrc4 r12, 0x0
+			jmp    loc_000001c1
+			
+			loc_000001b1:
+			ldofad r27, r0, this._btnMissionCompleteArray
+			ldsr2  r29, r27, r11
+			unk_0f r28, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.MarkerSetKind,Stdlib.Array`1<bool>>
+			_xref  Stdlib.Array`1<bool>
+			_ret32 r0
+			ldsrsr r29, r28
+			ldsrc4 r30, 0x0
+			unk_0f r29, 2
+			_xref  Stdlib.Array`1.Add(TElement)
+			_xref  Stdlib.Array`1<bool>
+			_short 1
+			_ret   r0
+			ldsrc4 r27, 0x1
+			addi32 r12, r12, r27
+			
+			loc_000001c1:
+			ldsrc4 r27, 0x6
+			ges32  r12, r27, loc_000001b1
+			ldsrc4 r27, 0x1
+			addi32 r11, r11, r27
+			
+			loc_000001c5:
+			ldsrc4 r27, 0x5
+			ges32  r11, r27, loc_000001a1
+			ldofad r27, r0, this._stageBtnRepos
+			ldofad r28, r27, Scn.Step.Info.StageList.TableBtn.StageBtnRepos._freeBtns
+			ldsr2  r29, r22, r28
+			unk_0f r29, 2
+			_xref  Stdlib.Array`1.GetEnumerator()
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_rtype Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			mcopys r13, r22, Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			jmp    loc_0000020e
+			
+			loc_000001d1:
+			ldsrsr r28, r13
+			unk_0f r27, 2
+			_xref  Stdlib.Array`1/Enumerator.get_Current()
+			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldsrsr r14, r27
+			ldofad r28, r27, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r30, r28, UiSys.Widget.RootPanel._layout
+			unk_0f r29, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r15, r29
+			ldofad r28, r0, this._btnShowHideSet
+			ldofad r30, r27, Scn.Step.Info.StageList.TableBtn.StageBtn._selectableBtn
+			ldofad r27, r30, UiSys.Widget.SelectableBtn._showHide
+			ldofad r30, r28, UiSys.Widget.ShowHideSet._ctrl
+			ldsrsr r28, r20
+			sppshz r28, Lyt.UserDataRef
+			obnew  r31, UiSys.Widget.ShowHideSet/Ctrl
+			stofap r31, r27, UiSys.Widget.ShowHideSet/Ctrl.__bf_ShowHide
+			mcopys r21, r28, Lyt.UserDataRef
+			stof_u r31, r21, UiSys.Widget.ShowHideSet/Ctrl.__bf_UserData
+			ldsr2  r32, r30, r31
+			unk_0f r32, 2
+			_xref  Stdlib.Array`1.Add(TElement)
+			_xref  Stdlib.Array`1<UiSys.Widget.ShowHideSet/Ctrl>
+			_short 1
+			_ret   r0
+			ldofad r27, r0, this._btnShowHideSet
+			ldsrsr r31, r29
+			ldsrca r32, "L_StageName"
+			calltr r30, Lyt.Layout.Parts(string)
+			ldofad r28, r27, UiSys.Widget.ShowHideSet._ctrl
+			ldofad r31, r27, UiSys.Widget.ShowHideSet._master
+			obnew  r32, UiSys.Widget.ShowHide
+			ldsr2  r33, r31, r30
+			ldsrc4 r35, 0x0
+			ldsrc4 r36, 0x0
+			calltv r32, UiSys.Widget.ShowHide.this(UiSys.Master,Lyt.Layout,bool,bool)
+			ldsrsr r27, r20
+			sppshz r27, Lyt.UserDataRef
+			obnew  r30, UiSys.Widget.ShowHideSet/Ctrl
+			stofap r30, r32, UiSys.Widget.ShowHideSet/Ctrl.__bf_ShowHide
+			mcopys r21, r27, Lyt.UserDataRef
+			stof_u r30, r21, UiSys.Widget.ShowHideSet/Ctrl.__bf_UserData
+			ldsr2  r31, r28, r30
+			unk_0f r31, 2
+			_xref  Stdlib.Array`1.Add(TElement)
+			_xref  Stdlib.Array`1<UiSys.Widget.ShowHideSet/Ctrl>
+			_short 1
+			_ret   r0
+			ldsr2  r30, r23, r29
+			ldsrca r32, "G_Btn"
+			calltr r30, Lyt.Layout.Group(string)
+			mcopys r16, r23, Lyt.GroupRef
+			ldsr2  r27, r16, r27
+			ldsrca r29, "Enabled"
+			calltr r28, Lyt.GroupRef.Play(string)
+			
+			loc_0000020e:
+			ldsrsr r28, r13
+			unk_0f r27, 2
+			_xref  Stdlib.Array`1/Enumerator.MoveNext()
+			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_short 2
+			_ret32 r0
+			jmpneg r27, loc_000001d1
+			ldofad r27, r0, this._master
+			ldofad r28, r0, this._panel
+			ldofad r29, r0, this._panelAreaTab
+			ldofa4 r30, r0, this._disclosureStoryLevel
+			ldofad r31, r0, this._stageListData
+			obnew  r32, Scn.Step.Info.StageList.Wmap.AreaTabCtrl
+			ldsr5  r33, r27, r28, r29, r30, r31
+			calltv r32, Scn.Step.Info.StageList.Wmap.AreaTabCtrl.this(UiSys.Master,UiSys.Widget.RootPanel,UiSys.Widget.RootPanel,Storage.File.StoryLevelKind,Scn.Step.Info.StageList.Wmap.StageListData)
+			stofap r0, r32, this._areaTabCtrl
+			ldofad r27, r0, this._master
+			obnew  r28, Scn.Step.Info.StageList.PageChangeInputCtrl
+			ldsrsr r29, r27
+			calltv r28, Scn.Step.Info.StageList.PageChangeInputCtrl.this(UiSys.Master)
+			stofap r0, r28, this._pageChangeInputCtrl
+			ldofad r27, r0, this._master
+			ldsr2  r28, r27, r0
+			calltr r28, UiSys.Master.AddComponentEnd(UiSys.IComponent)
+			obnew  r27, Util.Fiber`1<Scn.Step.Info.StageList.Wmap.StageList.Panel>
+			ldsrsr r28, r0
+			ldsrc4 r29, 0x400
+			unk_0f r27, 2
+			_xref  Util.Fiber`1.this(TPointee,int)
+			_xref  Util.Fiber`1<Scn.Step.Info.StageList.Wmap.StageList.Panel>
+			_short 1
+			_ret   r0
+			stofap r0, r27, this._fiber
+			ldofad r27, r0, this._fiber
+			ldsrsr r28, r27
+			ldsrca r29, "StateInvalid"
+			unk_0f r28, 2
+			_xref  Util.Fiber`1.Reset(string)
+			_xref  Util.Fiber`1<Scn.Step.Info.StageList.Wmap.StageList.Panel>
+			_short 1
+			_ret   r0
+			ldofad r28, r0, this._fiber
+			unk_0f r27, 2
+			_xref  Util.Fiber`1.Execute()
+			_xref  Util.Fiber`1<Scn.Step.Info.StageList.Wmap.StageList.Panel>
+			_short 2
+			_ret32 r0
+			ldsrc4 r27, 0x2
+			stofa4 r0, r27, this._currentStoryLevel
+			ldsrc4 r27, 0x2
+			stofa4 r0, r27, this._prevStoryLevel
+			ldofad r27, r0, this._master
+			ldofad r28, r0, this._hid
+			obnew  r29, Scn.Step.Info.StageList.TableBtn.FocusCtrl
+			ldsr2  r30, r27, r28
+			ldsrc4 r32, 0x3
+			ldsrc4 r33, 0x2
+			calltv r29, Scn.Step.Info.StageList.TableBtn.FocusCtrl.this(UiSys.Master,UiSys.Widget.Hid,int,int)
+			stofap r0, r29, this._tableBtnFocusCtrl
+			ldsrc4 r27, 0x0
+			stofa4 r0, r27, this._stageCountOnLevel
+			ldsrc4 r27, 0xFFFFFFFF
+			stofa4 r0, r27, this._currentBtnIndex
+			ldofad r27, r0, this._master
+			ldofad r28, r0, this._hid
+			ldofad r29, r0, this._menuSeReq
+			ldofad r30, r0, this._panel
+			ldofad r32, r30, UiSys.Widget.RootPanel._layout
+			unk_0f r31, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r33, r31
+			ldsrca r34, "L_ChangeInfo"
+			calltr r32, Lyt.Layout.Parts(string)
+			obnew  r33, UiSys.Widget.IconBtn
+			ldsr4  r34, r27, r28, r29, r32
+			ldsrca r38, "L_CmnBtnIcon"
+			ldsrc4 r39, 0x0
+			ldsrca r40, "G_ShowHide"
+			ldsrc4 r41, 0x0
+			calltv r33, UiSys.Widget.IconBtn.this(UiSys.Master,UiSys.Widget.Hid,UiSys.Widget.MenuSeRequestor,Lyt.Layout,string,UiSys.Widget.BtnReactType,string,bool)
+			stofap r0, r33, this._iconBtnStageListChange
+			ldofad r27, r0, this._iconBtnStageListChange
+			ldofad r28, r27, UiSys.Widget.IconBtn.__bf_Icon
+			ldsrsr r29, r28
+			ldsrc4 r30, 0x3
+			calltv r29, UiSys.Widget.BtnIcon.SetKind(UiSys.Widget.BtnIcon/BtnKind)
+			ldofad r27, r0, this._iconBtnStageListChange
+			ldofad r28, r27, UiSys.Widget.IconBtn._btn
+			ldsrsr r29, r28
+			ldsrc4 r30, 0x1
+			ldsrc4 r31, 0x0
+			calltv r29, UiSys.Widget.SelectableBtn.SetIsSelected(bool,bool)
+			ldofad r27, r0, this._iconBtnStageListChange
+			ldofad r28, r27, UiSys.Widget.IconBtn._btn
+			ldofad r27, r28, UiSys.Widget.SelectableBtn._showHide
+			ldsrsr r28, r27
+			ldsrc4 r29, 0x0
+			ldsrc4 r30, 0x2
+			calltv r28, UiSys.Widget.ShowHide.SetIsShow(bool,UiSys.Widget.IShowHideChangeMethod)
+			ldofad r27, r5, Scn.Step.Modules._storageManager
+			ldofad r28, r27, Scn.Step.StorageManager._backupFileData
+			ldsrsr r30, r28
+			calltv r29, Storage.File.BackupFileDataUtil.IsAnyCstageUnlock(Storage.File.Root)
+			stofa4 r0, r29, this._isEnabledChangeStageList
+			ldofad r27, r0, this._panel
+			ldofad r29, r27, UiSys.Widget.RootPanel._layout
+			unk_0f r28, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsr2  r29, r23, r28
+			ldsrca r31, "G_State"
+			calltr r29, Lyt.Layout.Group(string)
+			mcopys r16, r23, Lyt.GroupRef
+			ldsrsr r27, r16
+			ldofa4 r28, r0, this._isEnabledChangeStageList
+			ldsrsr r25, r27
+			jmpneg r28, loc_0000028b
+			ldsrsr r25, r25
+			ldsrca r26, "Lock"
+			jmp    loc_0000028d
+			
+			loc_0000028b:
+			ldsrsr r25, r25
+			ldsrca r26, "Unlock"
+			
+			loc_0000028d:
+			ldsr2  r27, r25, r26
+			calltr r27, Lyt.GroupRef.Play(string)
+			ldofad r27, r0, this._master
+			ldofad r28, r0, this._hid
+			ldofad r29, r0, this._menuSeReq
+			ldofad r30, r0, this._panel
+			ldofad r32, r30, UiSys.Widget.RootPanel._layout
+			unk_0f r31, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r33, r31
+			ldsrca r34, "L_CmnCloseInfo"
+			calltr r32, Lyt.Layout.Parts(string)
+			ldsrsr r34, r32
+			ldsrca r35, "L_BtnGuide"
+			calltr r33, Lyt.Layout.Parts(string)
+			obnew  r34, UiSys.Widget.IconBtn
+			ldsr4  r35, r27, r28, r29, r33
+			ldsrca r39, "L_BtnIcon"
+			ldsrc4 r40, 0x0
+			ldsrca r41, "G_SelLoop"
+			ldsrc4 r42, 0x0
+			calltv r34, UiSys.Widget.IconBtn.this(UiSys.Master,UiSys.Widget.Hid,UiSys.Widget.MenuSeRequestor,Lyt.Layout,string,UiSys.Widget.BtnReactType,string,bool)
+			stofap r0, r34, this._iconBtnClose
+			ldofad r27, r0, this._iconBtnClose
+			ldofad r28, r27, UiSys.Widget.IconBtn.__bf_Icon
+			ldsrsr r29, r28
+			ldsrc4 r30, 0x2
+			calltv r29, UiSys.Widget.BtnIcon.SetKind(UiSys.Widget.BtnIcon/BtnKind)
+			ldofad r27, r0, this._iconBtnClose
+			ldofad r28, r27, UiSys.Widget.IconBtn._btn
+			ldsrc4 r27, 0x9
+			stofa4 r28, r27, UiSys.Widget.SelectableBtn._pushSeKind
+			ldofad r27, r0, this._panel
+			ldofad r29, r27, UiSys.Widget.RootPanel._layout
+			unk_0f r28, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r30, r28
+			ldsrca r31, "L_StageListBoard"
+			calltr r29, Lyt.Layout.Parts(string)
+			ldsrsr r31, r29
+			ldsrca r32, "L_ArrowL"
+			calltr r30, Lyt.Layout.Parts(string)
+			ldsr2  r31, r23, r30
+			ldsrca r33, "G_Loop"
+			calltr r31, Lyt.Layout.Group(string)
+			mcopys r17, r23, Lyt.GroupRef
+			ldofad r27, r0, this._panel
+			ldofad r29, r27, UiSys.Widget.RootPanel._layout
+			unk_0f r28, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r30, r28
+			ldsrca r31, "L_StageListBoard"
+			calltr r29, Lyt.Layout.Parts(string)
+			ldsrsr r31, r29
+			ldsrca r32, "L_ArrowR"
+			calltr r30, Lyt.Layout.Parts(string)
+			ldsr2  r31, r23, r30
+			ldsrca r33, "G_Loop"
+			calltr r31, Lyt.Layout.Group(string)
+			mcopys r18, r23, Lyt.GroupRef
+			ldsr2  r27, r17, r27
+			ldsrca r29, "Wait"
+			calltr r28, Lyt.GroupRef.Play(string)
+			ldsr2  r27, r18, r27
+			ldsrca r29, "Wait"
+			calltr r28, Lyt.GroupRef.Play(string)
+			fleave r0
+		}
+		
+		void SetIsShow(bool)
+		{
+			fenter 0
+			_ret   r0
+			ldofad r2, r0, this._showHideSet
+			ldsr2  r3, r2, r1
+			ldsrc4 r5, 0x0
+			calltv r3, UiSys.Widget.ShowHideSet.SetIsShow(bool,UiSys.Widget.IShowHideChangeMethod)
+			ldofa4 r2, r0, this._isEnabledChangeStageList
+			jmppos r2, loc_0000000e
+			ldofad r2, r0, this._iconBtnStageListChange
+			ldofad r3, r2, UiSys.Widget.IconBtn._btn
+			ldofad r2, r3, UiSys.Widget.SelectableBtn._showHide
+			ldsr2  r3, r2, r1
+			ldsrc4 r5, 0x0
+			calltv r3, UiSys.Widget.ShowHide.SetIsShow(bool,UiSys.Widget.IShowHideChangeMethod)
+			
+			loc_0000000e:
+			ldsr2  r2, r0, r1
+			calltv r2, this.SetIsShowAllBtn(bool)
+			ldofad r2, r0, this._areaTabCtrl
+			ldsr2  r3, r2, r1
+			calltv r3, Scn.Step.Info.StageList.Wmap.AreaTabCtrl.SetIsShow(bool)
+			jmpneg r1, return
+			ldsrsr r2, r0
+			ldsrc4 r3, 0x0
+			calltv r2, this.UnsetFocus(bool)
+			
+			return:
+			fleave r0
+		}
+		
+		void Active(bool)
+		{
+			fenter 0
+			_ret   r0
+			sppsh  r4, Lyt.GroupRef
+			sppsh  r5, Lyt.PaneRef
+			sppsh  r6, Msg.TagStringPtr
+			sppsh  r7, Scn.Step.Info.StageList.Wmap.StageListCreateInfo
+			sppsh  r8, Storage.File.StageKey
+			sppsh  r9, Lyt.GroupRef
+			sppsh  r10, Lyt.PaneRef
+			sppsh  r11, Msg.TagStringPtr
+			sppsh  r12, Scn.Step.Info.StageList.Wmap.StageListCreateInfo
+			ldofad r14, r0, this._fiber
+			ldsrsr r15, r14
+			ldsrca r16, "StateWait"
+			unk_0f r15, 2
+			_xref  Util.Fiber`1.Reset(string)
+			_xref  Util.Fiber`1<Scn.Step.Info.StageList.Wmap.StageList.Panel>
+			_short 1
+			_ret   r0
+			sppshz r8, Storage.File.StageKey
+			stof_u r0, r8, this.__bf_Result
+			ldsrc4 r14, 0x0
+			stofa4 r0, r14, this.__bf_IsClose
+			ldsrc4 r14, 0x0
+			stofa4 r0, r14, this.__bf_IsDecided
+			ldsrc4 r14, 0x0
+			stofa4 r0, r14, this.__bf_IsStageListChange
+			ldsrc4 r14, 0x0
+			stofa4 r0, r14, this._pageMoveKind
+			jmpneg r1, loc_00000042
+			ldofad r14, r0, this._panel
+			ldofad r16, r14, UiSys.Widget.RootPanel._layout
+			unk_0f r15, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsr2  r16, r9, r15
+			ldsrca r18, "G_Change"
+			calltr r16, Lyt.Layout.Group(string)
+			mcopys r4, r9, Lyt.GroupRef
+			ldsr2  r14, r4, r14
+			ldsrca r16, "ToStageList"
+			ldsrca r17, "StageList"
+			calltr r15, Lyt.GroupRef.Play(string,string)
+			ldofad r14, r0, this._panel
+			ldofad r16, r14, UiSys.Widget.RootPanel._layout
+			unk_0f r15, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r17, r15
+			ldsrca r18, "L_StageListBoard"
+			calltr r16, Lyt.Layout.Parts(string)
+			ldsr2  r17, r9, r16
+			ldsrca r19, "G_Change"
+			calltr r17, Lyt.Layout.Group(string)
+			mcopys r4, r9, Lyt.GroupRef
+			ldsr2  r14, r4, r14
+			ldsrca r16, "ToStageList"
+			ldsrca r17, "StageList"
+			calltr r15, Lyt.GroupRef.Play(string,string)
+			ldofad r14, r0, this._areaTabCtrl
+			calltv r14, Scn.Step.Info.StageList.Wmap.AreaTabCtrl.ToStageList()
+			jmp    loc_00000061
+			
+			loc_00000042:
+			ldofad r14, r0, this._panel
+			ldofad r16, r14, UiSys.Widget.RootPanel._layout
+			unk_0f r15, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsr2  r16, r9, r15
+			ldsrca r18, "G_Change"
+			calltr r16, Lyt.Layout.Group(string)
+			mcopys r4, r9, Lyt.GroupRef
+			ldsr2  r14, r4, r14
+			ldsrca r16, "StageList"
+			calltr r15, Lyt.GroupRef.PlayStopTail(string)
+			ldofad r14, r0, this._panel
+			ldofad r16, r14, UiSys.Widget.RootPanel._layout
+			unk_0f r15, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r17, r15
+			ldsrca r18, "L_StageListBoard"
+			calltr r16, Lyt.Layout.Parts(string)
+			ldsr2  r17, r9, r16
+			ldsrca r19, "G_Change"
+			calltr r17, Lyt.Layout.Group(string)
+			mcopys r4, r9, Lyt.GroupRef
+			ldsr2  r14, r4, r14
+			ldsrca r16, "StageList"
+			calltr r15, Lyt.GroupRef.PlayStopTail(string)
+			
+			loc_00000061:
+			ldofad r14, r0, this._panel
+			ldofad r16, r14, UiSys.Widget.RootPanel._layout
+			unk_0f r15, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r17, r15
+			ldsrca r18, "L_ChangeInfo"
+			calltr r16, Lyt.Layout.Parts(string)
+			ldsr2  r17, r9, r16
+			ldsrca r19, "G_State"
+			calltr r17, Lyt.Layout.Group(string)
+			mcopys r4, r9, Lyt.GroupRef
+			ldsr2  r14, r4, r14
+			ldsrca r16, "ToStageList"
+			ldsrca r17, "StageList"
+			calltr r15, Lyt.GroupRef.Play(string,string)
+			ldofad r14, r0, this._panel
+			ldofad r16, r14, UiSys.Widget.RootPanel._layout
+			unk_0f r15, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r17, r15
+			ldsrca r18, "L_ChangeInfo"
+			calltr r16, Lyt.Layout.Parts(string)
+			ldsr2  r17, r10, r16
+			ldsrca r19, "#WmapStageListChangeInfoText"
+			calltr r17, Lyt.Layout.TextPaneByTextId(string)
+			mcopys r5, r10, Lyt.PaneRef
+			ldsrsr r14, r5
+			ldsrsr r15, r11
+			ldsrca r16, "Wmap"
+			ldsrca r17, "StageList_CstageModeName"
+			calltr r15, App.Message.Text(string,string)
+			mcopys r6, r11, Msg.TagStringPtr
+			ldsr3  r15, r6, r14, r15
+			calltr r16, Lyt.PaneRef.SetText(ref Msg.TagStringPtr)
+			ldofad r14, r0, this._areaTabCtrl
+			ldofa4 r15, r14, Scn.Step.Info.StageList.Wmap.AreaTabCtrl._currentStoryLevel
+			ldsrsr r2, r15
+			jmppos r1, loc_0000009c
+			ldofad r15, r0, this._master
+			calltr r14, UiSys.Master.get_Manager()
+			ldsrsr r16, r14
+			unk_0f r15, 3
+			_xref  UiSys.Manager.Extension()
+			_xref  UiSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret32 r0
+			ldofad r14, r15, Scn.Step.Modules._infoManager
+			ldofap r12, r14, Scn.Step.Info.Manager.__bf_WmapStageListCreateInfo
+			mcopys r7, r12, Scn.Step.Info.StageList.Wmap.StageListCreateInfo
+			ldsrsr r14, r7
+			ldofa4 r15, r14, Scn.Step.Info.StageList.Wmap.StageListCreateInfo.__bf_CurrentStoryLevel
+			ldsrsr r2, r15
+			
+			loc_0000009c:
+			ldsr3  r14, r0, r2, r1
+			calltv r14, this.SetupAreaTab(Storage.File.StoryLevelKind,bool)
+			ldofad r14, r0, this._areaTabCtrl
+			ldofa4 r15, r0, this._pageMoveKind
+			ldsr4  r16, r14, r2, r2, r15
+			ldsrc4 r20, 0x1
+			ldsrc4 r21, 0x0
+			calltv r16, Scn.Step.Info.StageList.Wmap.AreaTabCtrl.PageChange(Storage.File.StoryLevelKind,Storage.File.StoryLevelKind,Scn.Step.Info.StageList.PageMoveKind,bool,bool)
+			ldsr2  r14, r0, r2
+			ldsrc4 r16, 0x0
+			ldsrc4 r17, 0x1
+			calltv r14, this.SetTab(Storage.File.StoryLevelKind,Scn.Step.Info.StageList.PageMoveKind,bool)
+			ldofad r14, r0, this._tableBtnFocusCtrl
+			ldofa4 r15, r0, this._stageCountOnLevel
+			ldofa4 r16, r0, this._disclosureStoryLevel
+			ldsrc4 r17, 0x2
+			nes32b r18, r16, r17
+			ldsrc4 r16, 0x0
+			stofa4 r14, r16, Scn.Step.Info.StageList.TableBtn.FocusCtrl._currentHoldButtonType
+			stofa4 r14, r15, Scn.Step.Info.StageList.TableBtn.FocusCtrl.__bf_DisclosureBtnMax
+			stofa4 r14, r18, Scn.Step.Info.StageList.TableBtn.FocusCtrl.__bf_IsAbleToChangePage
+			ldsrsr r14, r0
+			ldsrc4 r15, 0x1
+			calltv r14, this.SetIsShowAllBtn(bool)
+			ldofa4 r14, r0, this._disclosureStoryLevel
+			ldsrc4 r15, 0x2
+			les32  r14, r15, loc_000000b9
+			ldsrc4 r13, 0x0
+			jmp    loc_000000ba
+			
+			loc_000000b9:
+			ldsrc4 r13, 0x1
+			
+			loc_000000ba:
+			ldsrsr r3, r13
+			ldofad r14, r0, this._arrowBtnSet
+			ldsrc4 r15, 0x0
+			eqi32b r16, r13, r15
+			ldofad r15, r14, Scn.Step.Info.Common.ArrowBtnSet._btn
+			ldsrsr r18, r15
+			ldsrc4 r19, 0x1
+			unk_0f r17, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.Common.ArrowBtnSet/ButtonKind,Scn.Step.Info.Common.ArrowBtn>
+			_xref  Scn.Step.Info.Common.ArrowBtn
+			_ret32 r0
+			ldofad r14, r17, Scn.Step.Info.Common.ArrowBtn._selectableBtn
+			ldsr2  r17, r14, r16
+			calltv r17, UiSys.Widget.SelectableBtn.SetIsInactive(bool)
+			ldofad r14, r0, this._arrowBtnSet
+			ldsrc4 r15, 0x0
+			eqi32b r16, r13, r15
+			ldofad r15, r14, Scn.Step.Info.Common.ArrowBtnSet._btn
+			ldsrsr r18, r15
+			ldsrc4 r19, 0x2
+			unk_0f r17, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.Common.ArrowBtnSet/ButtonKind,Scn.Step.Info.Common.ArrowBtn>
+			_xref  Scn.Step.Info.Common.ArrowBtn
+			_ret32 r0
+			ldofad r14, r17, Scn.Step.Info.Common.ArrowBtn._selectableBtn
+			ldsr2  r17, r14, r16
+			calltv r17, UiSys.Widget.SelectableBtn.SetIsInactive(bool)
+			ldofad r14, r0, this._btnShowHideSet
+			calltv r14, UiSys.Widget.ShowHideSet.WaitBusyEnd()
+			ldsrsr r14, r0
+			ldsrc4 r15, 0x0
+			ldsrc4 r16, 0x0
+			calltv r14, this.SetFocus(int,bool)
+			fleave r0
+		}
+		
+		async null void StateInvalid()
+		{
+			fenter 0
+			_ret   r0
+			fleave r0
+		}
+		
+		async void StateWait()
+		{
+			fenter 0
+			_ret   r0
+			
+			loc_00000002:
+			ldsrsr r1, r0
+			calltv r1, this.CheckInput()
+			ldsrc4 r1, 0x1
+			yield  r1
+			jmp    loc_00000002
+		}
+		
+		async void StateDecided()
+		{
+			fenter 0
+			_ret   r0
+			sppsh  r1, Storage.File.StageKey
+			ldofad r3, r0, this._btnList
+			calltv r2, UiSys.Widget.SelectList.get_SelectedObj()
+			4E026000 Unimplemented opcode!
+			ldofad r3, r2, Scn.Step.Info.StageList.TableBtn.StageBtn._selectableBtn
+			calltv r3, UiSys.Widget.SelectableBtn.PushAndWait()
+			ldofa4 r2, r0, this._currentStoryLevel
+			ldofa4 r3, r0, this._currentBtnIndex
+			sppshz r1, Storage.File.StageKey
+			ldsr3  r4, r1, r2, r3
+			calltv r4, Storage.File.StageKey.this(Storage.File.StoryLevelKind,int)
+			stof_u r0, r1, this.__bf_Result
+			ldsrc4 r2, 0x1
+			stofa4 r0, r2, this.__bf_IsDecided
+			fleave r0
+		}
+		
+		async void StateChange()
+		{
+			fenter 0
+			_ret   r0
+			ldofad r1, r0, this._iconBtnStageListChange
+			ldofad r2, r1, UiSys.Widget.IconBtn._btn
+			calltv r2, UiSys.Widget.SelectableBtn.PushAndWait()
+			ldsrsr r1, r0
+			ldsrc4 r2, 0x0
+			calltv r1, this.UnsetFocus(bool)
+			ldsrsr r1, r0
+			ldsrc4 r2, 0x0
+			calltv r1, this.SetIsShowAllBtn(bool)
+			ldsrc4 r1, 0x1
+			stofa4 r0, r1, this.__bf_IsStageListChange
+			fleave r0
+		}
+		
+		async void StateClose()
+		{
+			fenter 0
+			_ret   r0
+			ldofad r1, r0, this._iconBtnClose
+			ldofad r2, r1, UiSys.Widget.IconBtn._btn
+			calltv r2, UiSys.Widget.SelectableBtn.PushAndWait()
+			ldsrc4 r1, 0x1
+			stofa4 r0, r1, this.__bf_IsClose
+			fleave r0
+		}
+		
+		async void StatePageChangeStart()
+		{
+			fenter 0
+			_ret   r0
+			sppsh  r3, Lyt.GroupRef
+			sppsh  r19, Util.TimeSpan
+			sppsh  r20, Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			sppsh  r21, Lyt.PaneRef
+			sppsh  r22, Storage.File.StageKey
+			sppsh  r23, Lyt.GroupRef
+			sppsh  r24, Lyt.GroupRef
+			sppsh  r25, Util.TimeSpan
+			sppsh  r26, Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			sppsh  r27, Stdlib.FixedString32
+			sppsh  r28, Stdlib.FixedString32
+			sppsh  r29, Lyt.PaneRef
+			sppsh  r30, Storage.File.StageKey
+			ldofad r34, r0, this._menuSeReq
+			ldsrsr r35, r34
+			ldsrc4 r36, 0xD
+			calltv r35, UiSys.Widget.MenuSeRequestor.Start(UiSys.Widget.MenuSeRequestor/SeKind)
+			ldsrsr r34, r0
+			ldsrc4 r35, 0x0
+			calltv r34, this.UnsetFocus(bool)
+			ldofa4 r1, r0, this._currentStoryLevel
+			ldofa4 r2, r0, this._currentStoryLevel
+			ldofa4 r34, r0, this._pageMoveKind
+			ldsrc4 r35, 0x1
+			eqi32  r34, r35, loc_00000023
+			ldofa4 r34, r0, this._currentStoryLevel
+			ldsr2  r36, r0, r34
+			calltv r35, this.GetPrevLevelKind(Storage.File.StoryLevelKind)
+			ldsrsr r1, r35
+			ldsr2  r37, r0, r35
+			calltv r36, this.GetPrevLevelKind(Storage.File.StoryLevelKind)
+			ldsrsr r2, r36
+			jmp    loc_0000002a
+			
+			loc_00000023:
+			ldofa4 r34, r0, this._currentStoryLevel
+			ldsr2  r36, r0, r34
+			calltv r35, this.GetNextLevelKind(Storage.File.StoryLevelKind)
+			ldsrsr r1, r35
+			ldsr2  r37, r0, r35
+			calltv r36, this.GetNextLevelKind(Storage.File.StoryLevelKind)
+			ldsrsr r2, r36
+			
+			loc_0000002a:
+			ldofa4 r34, r0, this._currentStoryLevel
+			ldofad r35, r0, this._areaTabCtrl
+			ldofa4 r36, r0, this._pageMoveKind
+			ldsr4  r37, r35, r34, r1, r36
+			ldsrc4 r41, 0x0
+			ldsrc4 r42, 0x0
+			calltv r37, Scn.Step.Info.StageList.Wmap.AreaTabCtrl.PageChange(Storage.File.StoryLevelKind,Storage.File.StoryLevelKind,Scn.Step.Info.StageList.PageMoveKind,bool,bool)
+			ldofad r34, r0, this._panel
+			ldofad r36, r34, UiSys.Widget.RootPanel._layout
+			unk_0f r35, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r37, r35
+			ldsrca r38, "L_StageListBoard"
+			calltr r36, Lyt.Layout.Parts(string)
+			ldsr2  r37, r24, r36
+			ldsrca r39, "G_Move"
+			calltr r37, Lyt.Layout.Group(string)
+			mcopys r3, r24, Lyt.GroupRef
+			ldofa4 r34, r0, this._pageMoveKind
+			ldsrc4 r35, 0x1
+			nei32  r34, r35, loc_00000044
+			ldsrca r31, "NextRight"
+			jmp    loc_00000045
+			
+			loc_00000044:
+			ldsrca r31, "NextLeft"
+			
+			loc_00000045:
+			ldsrsr r4, r31
+			ldsr3  r34, r3, r34, r31
+			calltr r35, Lyt.GroupRef.Play(string)
+			ldsrzr r5
+			ldsrzr r6
+			ldsrzr r7
+			ldsrc4 r8, 0x3
+			ldsrc4 r9, 0x0
+			ldsrc4 r10, 0x0
+			ldsrzr r11
+			ldsrzr r12
+			ldsrc4 r13, 0x0
+			ldsrc4 r14, 0x0
+			ldofa4 r34, r0, this._pageMoveKind
+			ldsrc4 r35, 0x1
+			eqi32  r34, r35, loc_00000086
+			ldofad r34, r0, this._currentMarkerSet
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x2
+			unk_0f r35, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Scn.Step.Info.StageList.TableBtn.Page>
+			_xref  Scn.Step.Info.StageList.TableBtn.Page
+			_ret32 r0
+			ldsrsr r5, r35
+			ldofad r34, r0, this._currentMarkerSet
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x1
+			unk_0f r35, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Scn.Step.Info.StageList.TableBtn.Page>
+			_xref  Scn.Step.Info.StageList.TableBtn.Page
+			_ret32 r0
+			ldofad r34, r35, Scn.Step.Info.StageList.TableBtn.Page.__bf_Btns
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x2
+			unk_0f r35, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldsrsr r6, r35
+			ldofad r34, r0, this._currentMarkerSet
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x1
+			unk_0f r35, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Scn.Step.Info.StageList.TableBtn.Page>
+			_xref  Scn.Step.Info.StageList.TableBtn.Page
+			_ret32 r0
+			ldofad r34, r35, Scn.Step.Info.StageList.TableBtn.Page.__bf_Btns
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x5
+			unk_0f r35, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldsrsr r7, r35
+			ldsrc4 r8, 0x0
+			ldsrc4 r9, 0x0
+			ldsrc4 r10, 0x3
+			ldsrc4 r13, 0x2
+			ldsrc4 r14, 0x5
+			jmp    loc_000000b6
+			
+			loc_00000086:
+			ldofad r34, r0, this._currentMarkerSet
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x0
+			unk_0f r35, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Scn.Step.Info.StageList.TableBtn.Page>
+			_xref  Scn.Step.Info.StageList.TableBtn.Page
+			_ret32 r0
+			ldsrsr r5, r35
+			ldofad r34, r0, this._currentMarkerSet
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x1
+			unk_0f r35, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Scn.Step.Info.StageList.TableBtn.Page>
+			_xref  Scn.Step.Info.StageList.TableBtn.Page
+			_ret32 r0
+			ldofad r34, r35, Scn.Step.Info.StageList.TableBtn.Page.__bf_Btns
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x0
+			unk_0f r35, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldsrsr r6, r35
+			ldofad r34, r0, this._currentMarkerSet
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x1
+			unk_0f r35, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Scn.Step.Info.StageList.TableBtn.Page>
+			_xref  Scn.Step.Info.StageList.TableBtn.Page
+			_ret32 r0
+			ldofad r34, r35, Scn.Step.Info.StageList.TableBtn.Page.__bf_Btns
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x3
+			unk_0f r35, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldsrsr r7, r35
+			ldsrc4 r8, 0x2
+			ldsrc4 r9, 0x2
+			ldsrc4 r10, 0x5
+			ldsrc4 r13, 0x0
+			ldsrc4 r14, 0x3
+			
+			loc_000000b6:
+			ldofad r34, r0, this._currentMarkerSet
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x1
+			unk_0f r35, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Scn.Step.Info.StageList.TableBtn.Page>
+			_xref  Scn.Step.Info.StageList.TableBtn.Page
+			_ret32 r0
+			ldofad r34, r35, Scn.Step.Info.StageList.TableBtn.Page.__bf_Btns
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x1
+			unk_0f r35, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldsrsr r11, r35
+			ldofad r34, r0, this._currentMarkerSet
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x1
+			unk_0f r35, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Scn.Step.Info.StageList.TableBtn.Page>
+			_xref  Scn.Step.Info.StageList.TableBtn.Page
+			_ret32 r0
+			ldofad r34, r35, Scn.Step.Info.StageList.TableBtn.Page.__bf_Btns
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x4
+			unk_0f r35, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldsrsr r12, r35
+			ldofa4 r34, r0, this._pageMoveKind
+			ldsrc4 r35, 0x1
+			nei32  r34, r35, loc_000000dd
+			ldsrc4 r32, 0x4
+			jmp    loc_000000de
+			
+			loc_000000dd:
+			ldsrc4 r32, 0x0
+			
+			loc_000000de:
+			ldsrsr r15, r32
+			ldsrc4 r16, 0x2
+			ldsrc4 r34, 0x6
+			ldsrc4 r35, 0x2
+			subi32 r36, r34, r35
+			ldsrsr r17, r36
+			ldsrc4 r34, 0x9
+			ldsrc4 r35, 0x2
+			subi32 r37, r34, r35
+			subi32 r18, r37, r36
+			ldofad r34, r0, this._master
+			ldsrc4 r35, 0x2
+			ctf32s r36, r35
+			ldsr2  r37, r25, r36
+			calltr r37, Util.TimeSpan.FromFrame(float)
+			mcopys r19, r25, Util.TimeSpan
+			ldsr3  r35, r19, r34, r35
+			calltv r36, UiSys.Widget.Utility.Wait(UiSys.Master,ref Util.TimeSpan)
+			ldofad r34, r5, Scn.Step.Info.StageList.TableBtn.Page.__bf_Btns
+			ldsr2  r35, r26, r34
+			unk_0f r35, 2
+			_xref  Stdlib.Array`1.GetEnumerator()
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_rtype Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			mcopys r20, r26, Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			jmp    loc_0000010c
+			
+			loc_000000f9:
+			ldsrsr r35, r20
+			unk_0f r34, 2
+			_xref  Stdlib.Array`1/Enumerator.get_Current()
+			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldofad r35, r34, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r37, r35, UiSys.Widget.RootPanel._layout
+			unk_0f r36, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r37, r36
+			calltr r37, Lyt.Layout.ResetParent()
+			ldofad r35, r34, Scn.Step.Info.StageList.TableBtn.StageBtn._master
+			ldsr2  r36, r35, r34
+			ldsrc4 r38, 0x0
+			calltr r36, UiSys.Master.SetIsEnabledComponent(UiSys.IComponent,bool)
+			
+			loc_0000010c:
+			ldsrsr r35, r20
+			unk_0f r34, 2
+			_xref  Stdlib.Array`1/Enumerator.MoveNext()
+			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_short 2
+			_ret32 r0
+			jmpneg r34, loc_000000f9
+			ldofad r34, r5, Scn.Step.Info.StageList.TableBtn.Page.__bf_Btns
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x0
+			unk_0f r35, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldsr2  r37, r0, r8
+			calltv r36, this.ConvertBtnGroupKind(Scn.Step.Info.StageList.StageBtnGroupKind)
+			ldsrsr r38, r36
+			unk_0f r37, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Scn.Step.Info.StageList.MarkerSetKind
+			_ret32 r0
+			ldsrsr r38, r27
+			ldsrca r39, "L_Marker%s"
+			ldsrsr r40, r37
+			unk_0f r38, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 16
+			_rtype Stdlib.FixedString32
+			mcopys r28, r27, Stdlib.FixedString32
+			ldofad r34, r0, this._panel
+			ldofad r37, r34, UiSys.Widget.RootPanel._layout
+			unk_0f r36, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r38, r36
+			ldsrca r39, "L_StageListBoard"
+			calltr r37, Lyt.Layout.Parts(string)
+			ldsrsr r34, r28
+			mcopys r27, r34, Stdlib.FixedString32
+			ldsrsr r39, r27
+			calltr r38, Stdlib.FixedString32.ReadPtr()
+			ldsr2  r40, r37, r38
+			calltr r39, Lyt.Layout.Parts(string)
+			ldsrc4 r34, 0x1
+			ldsrc4 r36, 0x1
+			addi32 r37, r34, r36
+			ldsrsr r40, r28
+			ldsrca r41, "N_StageListBtn%1d"
+			ldsrsr r42, r37
+			unk_0f r40, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 9
+			_rtype Stdlib.FixedString32
+			mcopys r27, r28, Stdlib.FixedString32
+			ldsrsr r34, r27
+			mcopys r28, r34, Stdlib.FixedString32
+			ldsrsr r41, r28
+			calltr r40, Stdlib.FixedString32.ReadPtr()
+			ldsr3  r41, r29, r39, r40
+			calltr r41, Lyt.Layout.Pane(string)
+			mcopys r21, r29, Lyt.PaneRef
+			ldsrsr r34, r21
+			ldofad r36, r35, Scn.Step.Info.StageList.TableBtn.StageBtn._master
+			ldsr2  r37, r36, r35
+			ldsrc4 r39, 0x1
+			calltr r37, UiSys.Master.SetIsEnabledComponent(UiSys.IComponent,bool)
+			ldofad r36, r35, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r38, r36, UiSys.Widget.RootPanel._layout
+			unk_0f r37, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsr2  r38, r37, r34
+			calltr r38, Lyt.Layout.SetParent(ref Lyt.PaneRef)
+			ldofad r34, r5, Scn.Step.Info.StageList.TableBtn.Page.__bf_Btns
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x1
+			unk_0f r35, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldsr2  r37, r0, r8
+			calltv r36, this.ConvertBtnGroupKind(Scn.Step.Info.StageList.StageBtnGroupKind)
+			ldsrsr r38, r36
+			unk_0f r37, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Scn.Step.Info.StageList.MarkerSetKind
+			_ret32 r0
+			ldsrsr r38, r27
+			ldsrca r39, "L_Marker%s"
+			ldsrsr r40, r37
+			unk_0f r38, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 16
+			_rtype Stdlib.FixedString32
+			mcopys r28, r27, Stdlib.FixedString32
+			ldofad r34, r0, this._panel
+			ldofad r37, r34, UiSys.Widget.RootPanel._layout
+			unk_0f r36, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r38, r36
+			ldsrca r39, "L_StageListBoard"
+			calltr r37, Lyt.Layout.Parts(string)
+			ldsrsr r34, r28
+			mcopys r27, r34, Stdlib.FixedString32
+			ldsrsr r39, r27
+			calltr r38, Stdlib.FixedString32.ReadPtr()
+			ldsr2  r40, r37, r38
+			calltr r39, Lyt.Layout.Parts(string)
+			ldsrc4 r34, 0x4
+			ldsrc4 r36, 0x1
+			addi32 r37, r34, r36
+			ldsrsr r40, r28
+			ldsrca r41, "N_StageListBtn%1d"
+			ldsrsr r42, r37
+			unk_0f r40, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 9
+			_rtype Stdlib.FixedString32
+			mcopys r27, r28, Stdlib.FixedString32
+			ldsrsr r34, r27
+			mcopys r28, r34, Stdlib.FixedString32
+			ldsrsr r41, r28
+			calltr r40, Stdlib.FixedString32.ReadPtr()
+			ldsr3  r41, r29, r39, r40
+			calltr r41, Lyt.Layout.Pane(string)
+			mcopys r21, r29, Lyt.PaneRef
+			ldsrsr r34, r21
+			ldofad r36, r35, Scn.Step.Info.StageList.TableBtn.StageBtn._master
+			ldsr2  r37, r36, r35
+			ldsrc4 r39, 0x1
+			calltr r37, UiSys.Master.SetIsEnabledComponent(UiSys.IComponent,bool)
+			ldofad r36, r35, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r38, r36, UiSys.Widget.RootPanel._layout
+			unk_0f r37, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsr2  r38, r37, r34
+			calltr r38, Lyt.Layout.SetParent(ref Lyt.PaneRef)
+			ldofad r34, r5, Scn.Step.Info.StageList.TableBtn.Page.__bf_Btns
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x0
+			unk_0f r35, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			sppshz r30, Storage.File.StageKey
+			ldsr2  r36, r30, r1
+			ldsrc4 r38, 0x1
+			calltv r36, Storage.File.StageKey.this(Storage.File.StoryLevelKind,int)
+			mcopys r22, r30, Storage.File.StageKey
+			ldsrsr r34, r22
+			ldsr2  r37, r0, r8
+			calltv r36, this.ConvertBtnGroupKind(Scn.Step.Info.StageList.StageBtnGroupKind)
+			ldsr4  r38, r0, r35, r34, r36
+			ldsrc4 r42, 0x1
+			calltv r37, this.SetupBtn(Scn.Step.Info.StageList.TableBtn.StageBtn,ref Storage.File.StageKey,Scn.Step.Info.StageList.MarkerSetKind,int)
+			ldofad r34, r5, Scn.Step.Info.StageList.TableBtn.Page.__bf_Btns
+			ldsrsr r36, r34
+			ldsrc4 r37, 0x1
+			unk_0f r35, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			sppshz r30, Storage.File.StageKey
+			ldsr2  r36, r30, r1
+			ldsrc4 r38, 0x4
+			calltv r36, Storage.File.StageKey.this(Storage.File.StoryLevelKind,int)
+			mcopys r22, r30, Storage.File.StageKey
+			ldsrsr r34, r22
+			ldsr2  r37, r0, r8
+			calltv r36, this.ConvertBtnGroupKind(Scn.Step.Info.StageList.StageBtnGroupKind)
+			ldsr4  r38, r0, r35, r34, r36
+			ldsrc4 r42, 0x4
+			calltv r37, this.SetupBtn(Scn.Step.Info.StageList.TableBtn.StageBtn,ref Storage.File.StageKey,Scn.Step.Info.StageList.MarkerSetKind,int)
+			ldofad r34, r0, this._panel
+			ldofad r36, r34, UiSys.Widget.RootPanel._layout
+			unk_0f r35, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r36, r35
+			calltr r36, Lyt.Layout.RequestAlignment()
+			ldofad r34, r0, this._master
+			ctf32s r35, r17
+			ldsr2  r36, r25, r35
+			calltr r36, Util.TimeSpan.FromFrame(float)
+			mcopys r19, r25, Util.TimeSpan
+			ldsr3  r35, r19, r34, r35
+			calltv r36, UiSys.Widget.Utility.Wait(UiSys.Master,ref Util.TimeSpan)
+			ldofad r34, r6, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r36, r34, UiSys.Widget.RootPanel._layout
+			unk_0f r35, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r36, r35
+			calltr r36, Lyt.Layout.ResetParent()
+			ldofad r34, r6, Scn.Step.Info.StageList.TableBtn.StageBtn._master
+			ldsr2  r35, r34, r6
+			ldsrc4 r37, 0x0
+			calltr r35, UiSys.Master.SetIsEnabledComponent(UiSys.IComponent,bool)
+			ldofad r34, r7, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r36, r34, UiSys.Widget.RootPanel._layout
+			unk_0f r35, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r36, r35
+			calltr r36, Lyt.Layout.ResetParent()
+			ldofad r34, r7, Scn.Step.Info.StageList.TableBtn.StageBtn._master
+			ldsr2  r35, r34, r7
+			ldsrc4 r37, 0x0
+			calltr r35, UiSys.Master.SetIsEnabledComponent(UiSys.IComponent,bool)
+			ldsr2  r35, r0, r8
+			calltv r34, this.ConvertBtnGroupKind(Scn.Step.Info.StageList.StageBtnGroupKind)
+			ldsrsr r36, r34
+			unk_0f r35, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Scn.Step.Info.StageList.MarkerSetKind
+			_ret32 r0
+			ldsrsr r36, r27
+			ldsrca r37, "L_Marker%s"
+			ldsrsr r38, r35
+			unk_0f r36, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 16
+			_rtype Stdlib.FixedString32
+			mcopys r28, r27, Stdlib.FixedString32
+			ldofad r34, r0, this._panel
+			ldofad r36, r34, UiSys.Widget.RootPanel._layout
+			unk_0f r35, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r37, r35
+			ldsrca r38, "L_StageListBoard"
+			calltr r36, Lyt.Layout.Parts(string)
+			ldsrsr r34, r28
+			mcopys r27, r34, Stdlib.FixedString32
+			ldsrsr r38, r27
+			calltr r37, Stdlib.FixedString32.ReadPtr()
+			ldsr2  r39, r36, r37
+			calltr r38, Lyt.Layout.Parts(string)
+			ldsrc4 r34, 0x1
+			addi32 r35, r9, r34
+			ldsrsr r39, r28
+			ldsrca r40, "N_StageListBtn%1d"
+			ldsrsr r41, r35
+			unk_0f r39, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 9
+			_rtype Stdlib.FixedString32
+			mcopys r27, r28, Stdlib.FixedString32
+			ldsrsr r34, r27
+			mcopys r28, r34, Stdlib.FixedString32
+			ldsrsr r40, r28
+			calltr r39, Stdlib.FixedString32.ReadPtr()
+			ldsr3  r40, r29, r38, r39
+			calltr r40, Lyt.Layout.Pane(string)
+			mcopys r21, r29, Lyt.PaneRef
+			ldsrsr r34, r21
+			ldofad r35, r6, Scn.Step.Info.StageList.TableBtn.StageBtn._master
+			ldsr2  r36, r35, r6
+			ldsrc4 r38, 0x1
+			calltr r36, UiSys.Master.SetIsEnabledComponent(UiSys.IComponent,bool)
+			ldofad r35, r6, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r37, r35, UiSys.Widget.RootPanel._layout
+			unk_0f r36, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsr2  r37, r36, r34
+			calltr r37, Lyt.Layout.SetParent(ref Lyt.PaneRef)
+			ldsr2  r35, r0, r8
+			calltv r34, this.ConvertBtnGroupKind(Scn.Step.Info.StageList.StageBtnGroupKind)
+			ldsrsr r36, r34
+			unk_0f r35, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Scn.Step.Info.StageList.MarkerSetKind
+			_ret32 r0
+			ldsrsr r36, r27
+			ldsrca r37, "L_Marker%s"
+			ldsrsr r38, r35
+			unk_0f r36, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 16
+			_rtype Stdlib.FixedString32
+			mcopys r28, r27, Stdlib.FixedString32
+			ldofad r34, r0, this._panel
+			ldofad r36, r34, UiSys.Widget.RootPanel._layout
+			unk_0f r35, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r37, r35
+			ldsrca r38, "L_StageListBoard"
+			calltr r36, Lyt.Layout.Parts(string)
+			ldsrsr r34, r28
+			mcopys r27, r34, Stdlib.FixedString32
+			ldsrsr r38, r27
+			calltr r37, Stdlib.FixedString32.ReadPtr()
+			ldsr2  r39, r36, r37
+			calltr r38, Lyt.Layout.Parts(string)
+			ldsrc4 r34, 0x1
+			addi32 r35, r10, r34
+			ldsrsr r39, r28
+			ldsrca r40, "N_StageListBtn%1d"
+			ldsrsr r41, r35
+			unk_0f r39, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 9
+			_rtype Stdlib.FixedString32
+			mcopys r27, r28, Stdlib.FixedString32
+			ldsrsr r34, r27
+			mcopys r28, r34, Stdlib.FixedString32
+			ldsrsr r40, r28
+			calltr r39, Stdlib.FixedString32.ReadPtr()
+			ldsr3  r40, r29, r38, r39
+			calltr r40, Lyt.Layout.Pane(string)
+			mcopys r21, r29, Lyt.PaneRef
+			ldsrsr r34, r21
+			ldofad r35, r7, Scn.Step.Info.StageList.TableBtn.StageBtn._master
+			ldsr2  r36, r35, r7
+			ldsrc4 r38, 0x1
+			calltr r36, UiSys.Master.SetIsEnabledComponent(UiSys.IComponent,bool)
+			ldofad r35, r7, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r37, r35, UiSys.Widget.RootPanel._layout
+			unk_0f r36, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsr2  r37, r36, r34
+			calltr r37, Lyt.Layout.SetParent(ref Lyt.PaneRef)
+			sppshz r30, Storage.File.StageKey
+			ldsr3  r34, r30, r1, r9
+			calltv r34, Storage.File.StageKey.this(Storage.File.StoryLevelKind,int)
+			mcopys r22, r30, Storage.File.StageKey
+			ldsrsr r34, r22
+			ldsr2  r36, r0, r8
+			calltv r35, this.ConvertBtnGroupKind(Scn.Step.Info.StageList.StageBtnGroupKind)
+			ldsr5  r37, r0, r6, r34, r35, r9
+			calltv r36, this.SetupBtn(Scn.Step.Info.StageList.TableBtn.StageBtn,ref Storage.File.StageKey,Scn.Step.Info.StageList.MarkerSetKind,int)
+			sppshz r30, Storage.File.StageKey
+			ldsr3  r34, r30, r1, r10
+			calltv r34, Storage.File.StageKey.this(Storage.File.StoryLevelKind,int)
+			mcopys r22, r30, Storage.File.StageKey
+			ldsrsr r34, r22
+			ldsr2  r36, r0, r8
+			calltv r35, this.ConvertBtnGroupKind(Scn.Step.Info.StageList.StageBtnGroupKind)
+			ldsr5  r37, r0, r7, r34, r35, r10
+			calltv r36, this.SetupBtn(Scn.Step.Info.StageList.TableBtn.StageBtn,ref Storage.File.StageKey,Scn.Step.Info.StageList.MarkerSetKind,int)
+			ldofad r34, r0, this._panel
+			ldofad r36, r34, UiSys.Widget.RootPanel._layout
+			unk_0f r35, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r36, r35
+			calltr r36, Lyt.Layout.RequestAlignment()
+			ldofad r34, r0, this._master
+			ctf32s r35, r18
+			ldsr2  r36, r25, r35
+			calltr r36, Util.TimeSpan.FromFrame(float)
+			mcopys r19, r25, Util.TimeSpan
+			ldsr3  r35, r19, r34, r35
+			calltv r36, UiSys.Widget.Utility.Wait(UiSys.Master,ref Util.TimeSpan)
+			ldsrsr r35, r15
+			unk_0f r34, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Scn.Step.Info.StageList.MarkerSetKind
+			_ret32 r0
+			ldsrsr r35, r27
+			ldsrca r36, "L_Marker%s"
+			ldsrsr r37, r34
+			unk_0f r35, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 16
+			_rtype Stdlib.FixedString32
+			mcopys r28, r27, Stdlib.FixedString32
+			ldofad r34, r0, this._panel
+			ldofad r36, r34, UiSys.Widget.RootPanel._layout
+			unk_0f r35, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r37, r35
+			ldsrca r38, "L_StageListBoard"
+			calltr r36, Lyt.Layout.Parts(string)
+			ldsrsr r34, r28
+			mcopys r27, r34, Stdlib.FixedString32
+			ldsrsr r38, r27
+			calltr r37, Stdlib.FixedString32.ReadPtr()
+			ldsr2  r39, r36, r37
+			calltr r38, Lyt.Layout.Parts(string)
+			ldsr2  r39, r24, r38
+			ldsrca r41, "G_State"
+			calltr r39, Lyt.Layout.Group(string)
+			mcopys r23, r24, Lyt.GroupRef
+			ldsrsr r34, r23
+			ldsrc4 r35, 0x8
+			ldsrsr r31, r34
+			nei32  r2, r35, loc_000002d3
+			ldsrsr r31, r31
+			ldsrca r33, "NormalState"
+			jmp    loc_000002d5
+			
+			loc_000002d3:
+			ldsrsr r31, r31
+			ldsrca r33, "Lv7State"
+			
+			loc_000002d5:
+			ldsr2  r34, r31, r33
+			calltr r34, Lyt.GroupRef.Play(string)
+			ldofad r34, r11, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r36, r34, UiSys.Widget.RootPanel._layout
+			unk_0f r35, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r36, r35
+			calltr r36, Lyt.Layout.ResetParent()
+			ldofad r34, r11, Scn.Step.Info.StageList.TableBtn.StageBtn._master
+			ldsr2  r35, r34, r11
+			ldsrc4 r37, 0x0
+			calltr r35, UiSys.Master.SetIsEnabledComponent(UiSys.IComponent,bool)
+			ldofad r34, r12, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r36, r34, UiSys.Widget.RootPanel._layout
+			unk_0f r35, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r36, r35
+			calltr r36, Lyt.Layout.ResetParent()
+			ldofad r34, r12, Scn.Step.Info.StageList.TableBtn.StageBtn._master
+			ldsr2  r35, r34, r12
+			ldsrc4 r37, 0x0
+			calltr r35, UiSys.Master.SetIsEnabledComponent(UiSys.IComponent,bool)
+			ldsrsr r35, r15
+			unk_0f r34, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Scn.Step.Info.StageList.MarkerSetKind
+			_ret32 r0
+			ldsrsr r35, r27
+			ldsrca r36, "L_Marker%s"
+			ldsrsr r37, r34
+			unk_0f r35, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 16
+			_rtype Stdlib.FixedString32
+			mcopys r28, r27, Stdlib.FixedString32
+			ldofad r34, r0, this._panel
+			ldofad r36, r34, UiSys.Widget.RootPanel._layout
+			unk_0f r35, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r37, r35
+			ldsrca r38, "L_StageListBoard"
+			calltr r36, Lyt.Layout.Parts(string)
+			ldsrsr r34, r28
+			mcopys r27, r34, Stdlib.FixedString32
+			ldsrsr r38, r27
+			calltr r37, Stdlib.FixedString32.ReadPtr()
+			ldsr2  r39, r36, r37
+			calltr r38, Lyt.Layout.Parts(string)
+			ldsrc4 r34, 0x1
+			addi32 r35, r13, r34
+			ldsrsr r39, r28
+			ldsrca r40, "N_StageListBtn%1d"
+			ldsrsr r41, r35
+			unk_0f r39, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 9
+			_rtype Stdlib.FixedString32
+			mcopys r27, r28, Stdlib.FixedString32
+			ldsrsr r34, r27
+			mcopys r28, r34, Stdlib.FixedString32
+			ldsrsr r40, r28
+			calltr r39, Stdlib.FixedString32.ReadPtr()
+			ldsr3  r40, r29, r38, r39
+			calltr r40, Lyt.Layout.Pane(string)
+			mcopys r21, r29, Lyt.PaneRef
+			ldsrsr r34, r21
+			ldofad r35, r11, Scn.Step.Info.StageList.TableBtn.StageBtn._master
+			ldsr2  r36, r35, r11
+			ldsrc4 r38, 0x1
+			calltr r36, UiSys.Master.SetIsEnabledComponent(UiSys.IComponent,bool)
+			ldofad r35, r11, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r37, r35, UiSys.Widget.RootPanel._layout
+			unk_0f r36, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsr2  r37, r36, r34
+			calltr r37, Lyt.Layout.SetParent(ref Lyt.PaneRef)
+			ldsrsr r35, r15
+			unk_0f r34, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Scn.Step.Info.StageList.MarkerSetKind
+			_ret32 r0
+			ldsrsr r35, r27
+			ldsrca r36, "L_Marker%s"
+			ldsrsr r37, r34
+			unk_0f r35, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 16
+			_rtype Stdlib.FixedString32
+			mcopys r28, r27, Stdlib.FixedString32
+			ldofad r34, r0, this._panel
+			ldofad r36, r34, UiSys.Widget.RootPanel._layout
+			unk_0f r35, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r37, r35
+			ldsrca r38, "L_StageListBoard"
+			calltr r36, Lyt.Layout.Parts(string)
+			ldsrsr r34, r28
+			mcopys r27, r34, Stdlib.FixedString32
+			ldsrsr r38, r27
+			calltr r37, Stdlib.FixedString32.ReadPtr()
+			ldsr2  r39, r36, r37
+			calltr r38, Lyt.Layout.Parts(string)
+			ldsrc4 r34, 0x1
+			addi32 r35, r14, r34
+			ldsrsr r39, r28
+			ldsrca r40, "N_StageListBtn%1d"
+			ldsrsr r41, r35
+			unk_0f r39, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 9
+			_rtype Stdlib.FixedString32
+			mcopys r27, r28, Stdlib.FixedString32
+			ldsrsr r34, r27
+			mcopys r28, r34, Stdlib.FixedString32
+			ldsrsr r40, r28
+			calltr r39, Stdlib.FixedString32.ReadPtr()
+			ldsr3  r40, r29, r38, r39
+			calltr r40, Lyt.Layout.Pane(string)
+			mcopys r21, r29, Lyt.PaneRef
+			ldsrsr r34, r21
+			ldofad r35, r12, Scn.Step.Info.StageList.TableBtn.StageBtn._master
+			ldsr2  r36, r35, r12
+			ldsrc4 r38, 0x1
+			calltr r36, UiSys.Master.SetIsEnabledComponent(UiSys.IComponent,bool)
+			ldofad r35, r12, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r37, r35, UiSys.Widget.RootPanel._layout
+			unk_0f r36, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsr2  r37, r36, r34
+			calltr r37, Lyt.Layout.SetParent(ref Lyt.PaneRef)
+			sppshz r30, Storage.File.StageKey
+			ldsr3  r34, r30, r2, r13
+			calltv r34, Storage.File.StageKey.this(Storage.File.StoryLevelKind,int)
+			mcopys r22, r30, Storage.File.StageKey
+			ldsrsr r34, r22
+			ldsr5  r36, r0, r11, r34, r15, r13
+			calltv r35, this.SetupBtn(Scn.Step.Info.StageList.TableBtn.StageBtn,ref Storage.File.StageKey,Scn.Step.Info.StageList.MarkerSetKind,int)
+			sppshz r30, Storage.File.StageKey
+			ldsr3  r34, r30, r2, r14
+			calltv r34, Storage.File.StageKey.this(Storage.File.StoryLevelKind,int)
+			mcopys r22, r30, Storage.File.StageKey
+			ldsrsr r34, r22
+			ldsr5  r36, r0, r12, r34, r15, r14
+			calltv r35, this.SetupBtn(Scn.Step.Info.StageList.TableBtn.StageBtn,ref Storage.File.StageKey,Scn.Step.Info.StageList.MarkerSetKind,int)
+			ldsrsr r34, r3
+			calltv r34, Lyt.GroupRef.WaitTillIsAnimEnd()
+			ldofad r34, r0, this._fiber
+			ldsrsr r35, r34
+			ldsrca r36, "StatePageChangeEnd"
+			unk_0f r35, 2
+			_xref  Util.Fiber`1.Reset(string)
+			_xref  Util.Fiber`1<Scn.Step.Info.StageList.Wmap.StageList.Panel>
+			_short 1
+			_ret   r0
+			fleave r0
+		}
+		
+		async void StatePageChangeEnd()
+		{
+			fenter 0
+			_ret   r0
+			sppsh  r2, Lyt.GroupRef
+			sppsh  r4, Lyt.GroupRef
+			ldofa4 r1, r0, this._currentStoryLevel
+			ldofa4 r6, r0, this._pageMoveKind
+			ldsrc4 r7, 0x1
+			eqi32  r6, r7, loc_0000000d
+			ldofa4 r6, r0, this._currentStoryLevel
+			ldsr2  r8, r0, r6
+			calltv r7, this.GetPrevLevelKind(Storage.File.StoryLevelKind)
+			ldsrsr r1, r7
+			jmp    loc_00000011
+			
+			loc_0000000d:
+			ldofa4 r6, r0, this._currentStoryLevel
+			ldsr2  r8, r0, r6
+			calltv r7, this.GetNextLevelKind(Storage.File.StoryLevelKind)
+			ldsrsr r1, r7
+			
+			loc_00000011:
+			ldofa4 r6, r0, this._pageMoveKind
+			ldsr3  r7, r0, r1, r6
+			ldsrc4 r10, 0x0
+			calltv r7, this.SetTab(Storage.File.StoryLevelKind,Scn.Step.Info.StageList.PageMoveKind,bool)
+			ldofad r6, r0, this._panel
+			ldofad r8, r6, UiSys.Widget.RootPanel._layout
+			unk_0f r7, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r9, r7
+			ldsrca r10, "L_StageListBoard"
+			calltr r8, Lyt.Layout.Parts(string)
+			ldsr2  r9, r4, r8
+			ldsrca r11, "G_Move"
+			calltr r9, Lyt.Layout.Group(string)
+			mcopys r2, r4, Lyt.GroupRef
+			ldofa4 r6, r0, this._pageMoveKind
+			ldsrc4 r7, 0x1
+			nei32  r6, r7, loc_00000028
+			ldsrca r5, "NextRight"
+			jmp    loc_00000029
+			
+			loc_00000028:
+			ldsrca r5, "NextLeft"
+			
+			loc_00000029:
+			ldsrsr r3, r5
+			ldsr3  r6, r2, r6, r5
+			calltr r7, Lyt.GroupRef.PlayStopHead(string)
+			ldsrc4 r6, 0x0
+			stofa4 r0, r6, this._pageMoveKind
+			ldofad r6, r0, this._fiber
+			ldsrsr r7, r6
+			ldsrca r8, "StateWait"
+			unk_0f r7, 2
+			_xref  Util.Fiber`1.Reset(string)
+			_xref  Util.Fiber`1<Scn.Step.Info.StageList.Wmap.StageList.Panel>
+			_short 1
+			_ret   r0
+			fleave r0
+		}
+		
+		void CheckInput()
+		{
+			fenter 0
+			_ret   r0
+			sppsh  r6, Scn.Step.Info.StageList.TableBtn.FocusCtrl/Resut
+			sppsh  r7, Scn.Step.Info.StageList.TableBtn.FocusCtrl/Resut
+			ldsrc4 r1, 0x0
+			ldsrc4 r2, 0x0
+			ldofad r10, r0, this._showHideSet
+			calltv r9, UiSys.Widget.ShowHideSet.get_IsBusy()
+			ldsrsr r3, r9
+			ldofad r9, r0, this._btnList
+			ldsrc4 r10, 0x0
+			ldofa4 r11, r9, UiSys.Widget.SelectList._selectedIndex
+			nes32b r9, r10, r11
+			ldsrc4 r10, 0x0
+			eqi32b r11, r9, r10
+			jmppos r11, loc_00000038
+			ldofad r9, r0, this._tableBtnFocusCtrl
+			ldofa4 r10, r0, this._currentBtnIndex
+			ldsr3  r11, r7, r9, r10
+			calltv r11, Scn.Step.Info.StageList.TableBtn.FocusCtrl.CheckInput(int)
+			mcopys r6, r7, Scn.Step.Info.StageList.TableBtn.FocusCtrl/Resut
+			ldofa4 r9, r0, this._stageCountOnLevel
+			ldsrc4 r10, 0x1
+			gts32  r9, r10, loc_00000026
+			ldofa4 r10, r6, Scn.Step.Info.StageList.TableBtn.FocusCtrl/Resut.FocusIndex
+			lts32  r10, r9, loc_00000026
+			ldofa4 r9, r6, Scn.Step.Info.StageList.TableBtn.FocusCtrl/Resut.IsMoveUp
+			jmpneg r9, loc_00000022
+			ldofa4 r9, r6, Scn.Step.Info.StageList.TableBtn.FocusCtrl/Resut.IsMoveDown
+			jmpneg r9, loc_00000022
+			ldofa4 r9, r6, Scn.Step.Info.StageList.TableBtn.FocusCtrl/Resut.IsMoveRight
+			jmpneg r9, loc_00000022
+			ldofa4 r9, r6, Scn.Step.Info.StageList.TableBtn.FocusCtrl/Resut.IsMoveLeft
+			jmppos r9, loc_00000026
+			
+			loc_00000022:
+			ldofa4 r9, r6, Scn.Step.Info.StageList.TableBtn.FocusCtrl/Resut.FocusIndex
+			ldsr2  r10, r0, r9
+			ldsrc4 r12, 0x1
+			calltv r10, this.SetFocus(int,bool)
+			
+			loc_00000026:
+			ldofa4 r9, r6, Scn.Step.Info.StageList.TableBtn.FocusCtrl/Resut.IsPageChangeLeft
+			jmppos r9, loc_0000002b
+			ldsrc4 r9, 0x0
+			eqi32b r8, r3, r9
+			jmp    loc_0000002c
+			
+			loc_0000002b:
+			ldsrc4 r8, 0x0
+			
+			loc_0000002c:
+			ldsrsr r1, r8
+			ldofa4 r9, r6, Scn.Step.Info.StageList.TableBtn.FocusCtrl/Resut.IsPageChangeRight
+			jmppos r9, loc_00000032
+			ldsrc4 r9, 0x0
+			eqi32b r8, r3, r9
+			jmp    loc_00000033
+			
+			loc_00000032:
+			ldsrc4 r8, 0x0
+			
+			loc_00000033:
+			ldsrsr r2, r8
+			ori32  r9, r1, r8
+			jmppos r9, loc_00000038
+			ldofa4 r9, r6, Scn.Step.Info.StageList.TableBtn.FocusCtrl/Resut.FocusIndex
+			stofa4 r0, r9, this._currentBtnIndex
+			
+			loc_00000038:
+			ldofa4 r9, r0, this._disclosureStoryLevel
+			ldsrc4 r10, 0x2
+			nes32b r11, r9, r10
+			jmppos r11, loc_0000003d
+			jmppos r3, loc_0000003f
+			
+			loc_0000003d:
+			ldsrc4 r8, 0x0
+			jmp    loc_00000045
+			
+			loc_0000003f:
+			ldofad r9, r0, this._pageChangeInputCtrl
+			ldofad r10, r0, this._hid
+			ldsr2  r12, r9, r10
+			ldsrc4 r14, 0x0
+			calltv r11, Scn.Step.Info.StageList.PageChangeInputCtrl.CheckInput(UiSys.Widget.Hid,Scn.Step.Info.StageList.PageChangeInputCtrl/Mode)
+			ldsrsr r8, r11
+			
+			loc_00000045:
+			ldsrsr r4, r8
+			ldsrc4 r5, 0x0
+			ldofa4 r9, r0, this._disclosureStoryLevel
+			ldsrc4 r10, 0x2
+			nes32b r11, r9, r10
+			andi32 r9, r11, r1
+			jmppos r9, loc_0000004d
+			ldsrc4 r4, 0x1
+			
+			loc_0000004d:
+			ldofa4 r9, r0, this._disclosureStoryLevel
+			ldsrc4 r10, 0x2
+			nes32b r11, r9, r10
+			andi32 r9, r11, r2
+			jmppos r9, loc_00000053
+			ldsrc4 r4, 0x2
+			
+			loc_00000053:
+			ldsrc4 r9, 0x1
+			eqi32  r4, r9, loc_00000056
+			ldsrc4 r5, 0x1
+			
+			loc_00000056:
+			ldsrc4 r9, 0x2
+			eqi32  r4, r9, loc_00000059
+			ldsrc4 r5, 0x2
+			
+			loc_00000059:
+			ldofad r9, r0, this._btnList
+			ldsrc4 r10, 0x0
+			ldofa4 r11, r9, UiSys.Widget.SelectList._selectedIndex
+			nes32b r9, r10, r11
+			ldsrc4 r10, 0x0
+			eqi32b r11, r9, r10
+			jmppos r11, loc_0000006d
+			ldofad r9, r0, this._hid
+			ldsrsr r11, r9
+			ldsrc4 r12, 0x1
+			calltv r10, UiSys.Widget.Hid.IsTrigger(uint)
+			jmppos r10, loc_0000006d
+			ldofad r9, r0, this._fiber
+			ldsrsr r10, r9
+			ldsrca r11, "StateDecided"
+			unk_0f r10, 2
+			_xref  Util.Fiber`1.Reset(string)
+			_xref  Util.Fiber`1<Scn.Step.Info.StageList.Wmap.StageList.Panel>
+			_short 1
+			_ret   r0
+			
+			loc_0000006d:
+			ldofa4 r9, r0, this._isEnabledChangeStageList
+			jmppos r9, loc_0000007c
+			ldofad r9, r0, this._hid
+			ldsrsr r11, r9
+			ldsrc4 r12, 0x4
+			calltv r10, UiSys.Widget.Hid.IsTrigger(uint)
+			jmppos r10, loc_0000007c
+			ldofad r9, r0, this._fiber
+			ldsrsr r10, r9
+			ldsrca r11, "StateChange"
+			unk_0f r10, 2
+			_xref  Util.Fiber`1.Reset(string)
+			_xref  Util.Fiber`1<Scn.Step.Info.StageList.Wmap.StageList.Panel>
+			_short 1
+			_ret   r0
+			
+			loc_0000007c:
+			ldofad r9, r0, this._hid
+			ldsrsr r11, r9
+			ldsrc4 r12, 0xA
+			calltv r10, UiSys.Widget.Hid.IsTrigger(uint)
+			jmppos r10, loc_00000089
+			ldofad r9, r0, this._fiber
+			ldsrsr r10, r9
+			ldsrca r11, "StateClose"
+			unk_0f r10, 2
+			_xref  Util.Fiber`1.Reset(string)
+			_xref  Util.Fiber`1<Scn.Step.Info.StageList.Wmap.StageList.Panel>
+			_short 1
+			_ret   r0
+			
+			loc_00000089:
+			jmppos r4, return
+			stofa4 r0, r4, this._pageMoveKind
+			ldsrc4 r9, 0x1
+			eqi32  r5, r9, loc_00000097
+			ldofad r9, r0, this._hid
+			ldsrsr r11, r9
+			ldsrc4 r12, 0x50
+			calltv r10, UiSys.Widget.Hid.IsHold(uint)
+			jmppos r10, loc_00000097
+			ldofad r9, r0, this._areaTabCtrl
+			ldofad r10, r9, Scn.Step.Info.StageList.Wmap.AreaTabCtrl._btnIconL
+			ldsrsr r11, r10
+			calltv r11, UiSys.Widget.BtnIcon.Push()
+			jmp    loc_000000a2
+			
+			loc_00000097:
+			ldsrc4 r9, 0x2
+			eqi32  r5, r9, loc_000000a2
+			ldofad r9, r0, this._hid
+			ldsrsr r11, r9
+			ldsrc4 r12, 0xA0
+			calltv r10, UiSys.Widget.Hid.IsHold(uint)
+			jmppos r10, loc_000000a2
+			ldofad r9, r0, this._areaTabCtrl
+			ldofad r10, r9, Scn.Step.Info.StageList.Wmap.AreaTabCtrl._btnIconR
+			ldsrsr r11, r10
+			calltv r11, UiSys.Widget.BtnIcon.Push()
+			
+			loc_000000a2:
+			ldofad r9, r0, this._arrowBtnSet
+			ldofad r10, r9, Scn.Step.Info.Common.ArrowBtnSet._btn
+			ldsr2  r12, r10, r5
+			unk_0f r11, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.Common.ArrowBtnSet/ButtonKind,Scn.Step.Info.Common.ArrowBtn>
+			_xref  Scn.Step.Info.Common.ArrowBtn
+			_ret32 r0
+			ldofad r9, r11, Scn.Step.Info.Common.ArrowBtn._selectableBtn
+			ldsrc4 r10, 0x1
+			stofa4 r9, r10, UiSys.Widget.SelectableBtn._isLockedHid
+			ldofad r10, r9, UiSys.Widget.SelectableBtn._hid
+			ldofa4 r11, r10, UiSys.Widget.Hid._lockCount
+			ldsrc4 r12, 0x1
+			addi32 r13, r11, r12
+			stofa4 r10, r13, UiSys.Widget.Hid._lockCount
+			ldsrsr r10, r9
+			ldsrca r11, "StatePush"
+			calltv r10, UiSys.Widget.SelectableBtn.ResetAndExecute(string)
+			ldofad r9, r0, this._arrowBtnSet
+			ldofad r10, r9, Scn.Step.Info.Common.ArrowBtnSet._btn
+			ldsr2  r12, r10, r5
+			unk_0f r11, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.Common.ArrowBtnSet/ButtonKind,Scn.Step.Info.Common.ArrowBtn>
+			_xref  Scn.Step.Info.Common.ArrowBtn
+			_ret32 r0
+			ldofad r12, r11, Scn.Step.Info.Common.ArrowBtn._selectableBtn
+			calltv r12, UiSys.Widget.SelectableBtn.ClearIsPushed()
+			ldofad r9, r0, this._fiber
+			ldsrsr r10, r9
+			ldsrca r11, "StatePageChangeStart"
+			unk_0f r10, 2
+			_xref  Util.Fiber`1.Reset(string)
+			_xref  Util.Fiber`1<Scn.Step.Info.StageList.Wmap.StageList.Panel>
+			_short 1
+			_ret   r0
+			
+			return:
+			fleave r0
+		}
+		
+		void SetTab(Storage.File.StoryLevelKind,Scn.Step.Info.StageList.PageMoveKind,bool)
+		{
+			fenter 0
+			_ret   r0
+			sppsh  r8, Storage.File.StageKey
+			ldofa4 r9, r0, this._currentStoryLevel
+			stofa4 r0, r9, this._prevStoryLevel
+			stofa4 r0, r1, this._currentStoryLevel
+			ldofad r10, r0, this._master
+			calltr r9, UiSys.Master.get_Manager()
+			ldsrsr r11, r9
+			unk_0f r10, 3
+			_xref  UiSys.Manager.Extension()
+			_xref  UiSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret32 r0
+			ldsrsr r4, r10
+			ldsrc4 r5, 0x0
+			jmp    loc_0000004e
+			
+			loc_00000012:
+			ldsrsr r6, r1
+			switch r5, 5
+			jmp    loc_0000001a
+			jmp    loc_00000020
+			jmp    loc_0000002d
+			jmp    loc_00000024
+			jmp    loc_00000028
+			jmp    loc_0000002d
+			
+			loc_0000001a:
+			ldsr2  r10, r0, r1
+			calltv r9, this.GetPrevLevelKind(Storage.File.StoryLevelKind)
+			ldsr2  r11, r0, r9
+			calltv r10, this.GetPrevLevelKind(Storage.File.StoryLevelKind)
+			ldsrsr r6, r10
+			jmp    loc_0000002d
+			
+			loc_00000020:
+			ldsr2  r10, r0, r1
+			calltv r9, this.GetPrevLevelKind(Storage.File.StoryLevelKind)
+			ldsrsr r6, r9
+			jmp    loc_0000002d
+			
+			loc_00000024:
+			ldsr2  r10, r0, r1
+			calltv r9, this.GetNextLevelKind(Storage.File.StoryLevelKind)
+			ldsrsr r6, r9
+			jmp    loc_0000002d
+			
+			loc_00000028:
+			ldsr2  r10, r0, r1
+			calltv r9, this.GetNextLevelKind(Storage.File.StoryLevelKind)
+			ldsr2  r11, r0, r9
+			calltv r10, this.GetNextLevelKind(Storage.File.StoryLevelKind)
+			ldsrsr r6, r10
+			
+			loc_0000002d:
+			ldsrc4 r7, 0x0
+			jmp    loc_0000004a
+			
+			loc_0000002f:
+			ldsr4  r9, r8, r9, r6, r7
+			calltv r10, Storage.File.StageKey.this(Storage.File.StoryLevelKind,int)
+			ldsrsr r9, r8
+			ldofa4 r10, r9, Storage.File.StageKey.__bf_Category
+			ldsrc4 r9, 0x0
+			nei32b r11, r10, r9
+			jmppos r11, loc_00000048
+			ldofad r9, r0, this._btnMissionCompleteArray
+			ldsr2  r11, r9, r5
+			unk_0f r10, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.MarkerSetKind,Stdlib.Array`1<bool>>
+			_xref  Stdlib.Array`1<bool>
+			_ret32 r0
+			ldofad r9, r4, Scn.Step.Modules._storageManager
+			ldofad r11, r9, Scn.Step.StorageManager._backupFileData
+			ldsrsr r9, r8
+			ldsr2  r13, r11, r9
+			calltv r12, Scn.Step.Mission.CustomMissionUtil.IsComplete(Storage.File.Root,ref Storage.File.StageKey)
+			ldsr3  r13, r10, r7, r12
+			unk_0f r13, 2
+			_xref  Stdlib.Array`1.set_Item(int,TElement)
+			_xref  Stdlib.Array`1<bool>
+			_short 1
+			_ret   r0
+			
+			loc_00000048:
+			ldsrc4 r9, 0x1
+			addi32 r7, r7, r9
+			
+			loc_0000004a:
+			ldsrc4 r9, 0x6
+			ges32  r7, r9, loc_0000002f
+			ldsrc4 r9, 0x1
+			addi32 r5, r5, r9
+			
+			loc_0000004e:
+			ldsrc4 r9, 0x5
+			ges32  r5, r9, loc_00000012
+			ldsr2  r9, r0, r1
+			ldsrc4 r11, 0x1
+			ldsrsr r12, r3
+			calltv r9, this.SetupList(Storage.File.StoryLevelKind,Scn.Step.Info.StageList.StageBtnGroupKind,bool)
+			ldsr2  r10, r0, r1
+			calltv r9, this.GetPrevLevelKind(Storage.File.StoryLevelKind)
+			ldsr2  r10, r0, r9
+			ldsrc4 r12, 0x0
+			ldsrsr r13, r3
+			calltv r10, this.SetupList(Storage.File.StoryLevelKind,Scn.Step.Info.StageList.StageBtnGroupKind,bool)
+			ldsr2  r10, r0, r1
+			calltv r9, this.GetNextLevelKind(Storage.File.StoryLevelKind)
+			ldsr2  r10, r0, r9
+			ldsrc4 r12, 0x2
+			ldsrsr r13, r3
+			calltv r10, this.SetupList(Storage.File.StoryLevelKind,Scn.Step.Info.StageList.StageBtnGroupKind,bool)
+			ldofad r9, r0, this._panel
+			ldofad r11, r9, UiSys.Widget.RootPanel._layout
+			unk_0f r10, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r11, r10
+			calltr r11, Lyt.Layout.RequestAlignment()
+			fleave r0
+		}
+		
+		void SetFocus(int,bool)
+		{
+			fenter 0
+			_ret   r0
+			sppsh  r3, Lyt.GroupRef
+			sppsh  r4, Lyt.GroupRef
+			sppsh  r5, Lyt.GroupRef
+			sppsh  r6, Storage.File.StageKey
+			sppsh  r7, Lyt.GroupRef
+			ldsrsr r9, r0
+			ldsrc4 r10, 0x0
+			calltv r9, this.UnsetFocus(bool)
+			stofa4 r0, r1, this._currentBtnIndex
+			ldofad r9, r0, this._btnList
+			ldofa4 r10, r0, this._currentBtnIndex
+			ldsr3  r11, r9, r10, r2
+			calltv r11, UiSys.Widget.SelectList.SetSelected(int,bool)
+			ldofad r10, r0, this._btnList
+			calltv r9, UiSys.Widget.SelectList.get_SelectedObj()
+			4E096000 Unimplemented opcode!
+			ldofad r10, r9, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r12, r10, UiSys.Widget.RootPanel._layout
+			unk_0f r11, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsr2  r12, r7, r11
+			ldsrca r14, "G_Level"
+			calltr r12, Lyt.Layout.Group(string)
+			mcopys r3, r7, Lyt.GroupRef
+			ldsr2  r12, r7, r11
+			ldsrca r14, "G_TitleShow"
+			calltr r12, Lyt.Layout.Group(string)
+			mcopys r4, r7, Lyt.GroupRef
+			ldsrsr r13, r11
+			ldsrca r14, "L_ClearIcon"
+			calltr r12, Lyt.Layout.Parts(string)
+			ldsr2  r13, r7, r12
+			ldsrca r15, "G_Color"
+			calltr r13, Lyt.Layout.Group(string)
+			mcopys r5, r7, Lyt.GroupRef
+			ldsrsr r10, r6
+			ldofa4 r11, r0, this._currentStoryLevel
+			ldsr3  r12, r10, r11, r1
+			calltv r12, Storage.File.StageKey.this(Storage.File.StoryLevelKind,int)
+			ldsrsr r11, r6
+			calltv r10, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
+			ldsrsr r8, r9
+			jmppos r10, loc_0000003f
+			ldsr2  r9, r3, r9
+			ldsrca r11, "EnabledSelBossColor"
+			calltr r10, Lyt.GroupRef.Play(string)
+			ldsrsr r9, r5
+			ldsrc4 r11, 0x0
+			unk_0f r10, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Scn.Step.Info.Common.WmapClearIcon/ColorKind
+			_ret32 r0
+			ldsr2  r11, r9, r10
+			calltr r11, Lyt.GroupRef.Play(string)
+			ldsrsr r8, r8
+			jmp    loc_00000043
+			
+			loc_0000003f:
+			ldsr2  r9, r3, r9
+			ldsrca r11, "EnabledSelColor"
+			calltr r10, Lyt.GroupRef.Play(string)
+			ldsrsr r8, r8
+			
+			loc_00000043:
+			ldofa4 r9, r0, this._currentStoryLevel
+			ldsrc4 r10, 0x8
+			ldsrsr r8, r8
+			eqi32  r9, r10, loc_0000004c
+			ldsr2  r9, r4, r9
+			ldsrca r11, "Level7EnabledSelColorSub"
+			calltr r10, Lyt.GroupRef.Play(string)
+			ldsrsr r8, r8
+			jmp    loc_00000050
+			
+			loc_0000004c:
+			ldsr2  r9, r4, r9
+			ldsrca r11, "EnabledSelColorSub"
+			calltr r10, Lyt.GroupRef.Play(string)
+			ldsrsr r8, r8
+			
+			loc_00000050:
+			ldofad r9, r8, Scn.Step.Info.StageList.TableBtn.StageBtn._stageName
+			ldsrsr r10, r9
+			calltv r10, Scn.Step.Info.Common.WmapTitleName.SetCmnLevel()
+			fleave r0
+		}
+		
+		void UnsetFocus(bool)
+		{
+			fenter 0
+			_ret   r0
+			sppsh  r4, Lyt.GroupRef
+			sppsh  r5, Lyt.GroupRef
+			sppsh  r6, Lyt.GroupRef
+			sppsh  r7, Storage.File.StageKey
+			sppsh  r9, Stdlib.FixedString32
+			sppsh  r10, Stdlib.FixedString32
+			sppsh  r11, Stdlib.FixedString32
+			sppsh  r12, Lyt.GroupRef
+			sppsh  r13, Stdlib.FixedString32
+			ldofad r16, r0, this._btnList
+			ldsrc4 r17, 0x0
+			ldofa4 r18, r16, UiSys.Widget.SelectList._selectedIndex
+			nes32b r16, r17, r18
+			ldsrc4 r17, 0x0
+			eqi32b r18, r16, r17
+			jmpneg r18, loc_00000013
+			fleave r0
+			
+			loc_00000013:
+			ldofad r16, r0, this._btnList
+			ldofa4 r17, r16, UiSys.Widget.SelectList._selectedIndex
+			ldsrsr r2, r17
+			ldofad r18, r0, this._btnList
+			calltv r18, UiSys.Widget.SelectList.UnsetSelected()
+			ldofad r16, r0, this._btnList
+			ldofad r18, r16, UiSys.Widget.SelectList._array
+			ldsr2  r20, r18, r17
+			unk_0f r19, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<UiSys.Widget.ISelectable>
+			_xref  UiSys.Widget.ISelectable
+			_ret32 r0
+			4E136000 Unimplemented opcode!
+			ldsrsr r3, r19
+			ldofad r16, r19, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r19, r16, UiSys.Widget.RootPanel._layout
+			unk_0f r18, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsr2  r19, r12, r18
+			ldsrca r21, "G_Level"
+			calltr r19, Lyt.Layout.Group(string)
+			mcopys r4, r12, Lyt.GroupRef
+			ldsr2  r19, r12, r18
+			ldsrca r21, "G_TitleShow"
+			calltr r19, Lyt.Layout.Group(string)
+			mcopys r5, r12, Lyt.GroupRef
+			ldsrsr r20, r18
+			ldsrca r21, "L_ClearIcon"
+			calltr r19, Lyt.Layout.Parts(string)
+			ldsr2  r20, r12, r19
+			ldsrca r22, "G_Color"
+			calltr r20, Lyt.Layout.Group(string)
+			mcopys r6, r12, Lyt.GroupRef
+			ldsrsr r16, r7
+			ldofa4 r18, r0, this._currentStoryLevel
+			ldsr3  r19, r16, r18, r17
+			calltv r19, Storage.File.StageKey.this(Storage.File.StoryLevelKind,int)
+			ldsrsr r17, r7
+			calltv r16, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
+			ldsrsr r14, r16
+			jmppos r16, loc_00000065
+			ldofa4 r16, r0, this._currentStoryLevel
+			ldsrc4 r17, 0x8
+			ldsrsr r14, r14
+			nei32  r16, r17, loc_00000047
+			ldsrsr r14, r14
+			ldsrca r15, "BossColorSub"
+			jmp    loc_00000049
+			
+			loc_00000047:
+			ldsrsr r14, r14
+			ldsrca r15, "Level7BossColorSub"
+			
+			loc_00000049:
+			ldsrsr r8, r15
+			ldsrsr r14, r14
+			jmppos r1, loc_00000053
+			ldsr2  r16, r4, r16
+			ldsrca r18, "BossColor"
+			calltr r17, Lyt.GroupRef.PlayStopTail(string)
+			ldsr3  r16, r5, r16, r8
+			calltr r17, Lyt.GroupRef.PlayStopTail(string)
+			ldsrsr r14, r14
+			jmp    loc_00000059
+			
+			loc_00000053:
+			ldsr2  r16, r4, r16
+			ldsrca r18, "BossColor"
+			calltr r17, Lyt.GroupRef.Play(string)
+			ldsr3  r16, r5, r16, r8
+			calltr r17, Lyt.GroupRef.Play(string)
+			ldsrsr r14, r14
+			
+			loc_00000059:
+			ldsrsr r16, r6
+			ldsrc4 r18, 0x1
+			unk_0f r17, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Scn.Step.Info.Common.WmapClearIcon/ColorKind
+			_ret32 r0
+			ldsr2  r18, r16, r17
+			calltr r18, Lyt.GroupRef.Play(string)
+			ldsrsr r14, r14
+			jmp    loc_000000b9
+			
+			loc_00000065:
+			ldsrsr r14, r14
+			jmppos r1, loc_0000008b
+			ldsrsr r16, r4
+			ldofa4 r18, r0, this._currentStoryLevel
+			unk_0f r17, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Storage.File.StoryLevelKind
+			_ret32 r0
+			ldsr2  r18, r16, r17
+			calltr r18, Lyt.GroupRef.PlayStopTail(string)
+			ldsrsr r16, r5
+			ldofa4 r18, r0, this._currentStoryLevel
+			unk_0f r17, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Storage.File.StoryLevelKind
+			_ret32 r0
+			ldsrsr r18, r13
+			ldsrca r19, "%sSub"
+			ldsrsr r20, r17
+			unk_0f r18, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 16
+			_rtype Stdlib.FixedString32
+			mcopys r9, r13, Stdlib.FixedString32
+			ldsrsr r17, r9
+			mcopys r10, r17, Stdlib.FixedString32
+			ldsrsr r18, r10
+			calltr r17, Stdlib.FixedString32.ReadPtr()
+			ldsr2  r18, r16, r17
+			calltr r18, Lyt.GroupRef.PlayStopTail(string)
+			ldsrsr r14, r14
+			jmp    loc_000000ae
+			
+			loc_0000008b:
+			ldsrsr r16, r4
+			ldofa4 r18, r0, this._currentStoryLevel
+			unk_0f r17, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Storage.File.StoryLevelKind
+			_ret32 r0
+			ldsr2  r18, r16, r17
+			calltr r18, Lyt.GroupRef.Play(string)
+			ldsrsr r16, r5
+			ldofa4 r18, r0, this._currentStoryLevel
+			unk_0f r17, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Storage.File.StoryLevelKind
+			_ret32 r0
+			ldsrsr r18, r13
+			ldsrca r19, "%sSub"
+			ldsrsr r20, r17
+			unk_0f r18, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 16
+			_rtype Stdlib.FixedString32
+			mcopys r9, r13, Stdlib.FixedString32
+			ldsrsr r17, r9
+			mcopys r11, r17, Stdlib.FixedString32
+			ldsrsr r18, r11
+			calltr r17, Stdlib.FixedString32.ReadPtr()
+			ldsr2  r18, r16, r17
+			calltr r18, Lyt.GroupRef.Play(string)
+			ldsrsr r14, r14
+			
+			loc_000000ae:
+			ldsrsr r16, r6
+			ldsrc4 r18, 0x0
+			unk_0f r17, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Scn.Step.Info.Common.WmapClearIcon/ColorKind
+			_ret32 r0
+			ldsr2  r18, r16, r17
+			calltr r18, Lyt.GroupRef.Play(string)
+			ldsrsr r14, r14
+			
+			loc_000000b9:
+			jmppos r14, loc_000000be
+			ldofad r16, r3, Scn.Step.Info.StageList.TableBtn.StageBtn._stageName
+			ldsrsr r17, r16
+			calltv r17, Scn.Step.Info.Common.WmapTitleName.SetColorForBoss()
+			fleave r0
+			
+			loc_000000be:
+			ldofad r16, r3, Scn.Step.Info.StageList.TableBtn.StageBtn._stageName
+			ldofa4 r17, r0, this._currentStoryLevel
+			ldsr2  r18, r16, r17
+			calltv r18, Scn.Step.Info.Common.WmapTitleName.SetColorForLevel(Storage.File.StoryLevelKind)
+			fleave r0
+		}
+		
+		void SetupList(Storage.File.StoryLevelKind,Scn.Step.Info.StageList.StageBtnGroupKind,bool)
+		{
+			fenter 0
+			_ret   r0
+			sppsh  r7, Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			sppsh  r12, Lyt.PaneRef
+			sppsh  r15, Lyt.PaneRef
+			sppsh  r16, Lyt.GroupRef
+			sppsh  r19, Storage.File.StageKey
+			sppsh  r24, Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			sppsh  r25, Stdlib.FixedString32
+			sppsh  r26, Stdlib.FixedString32
+			sppsh  r27, Lyt.PaneRef
+			sppsh  r28, Lyt.GroupRef
+			sppsh  r29, Storage.File.StageKey
+			ldofad r33, r0, this._currentMarkerSet
+			ldsr2  r35, r33, r2
+			unk_0f r34, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Scn.Step.Info.StageList.TableBtn.Page>
+			_xref  Scn.Step.Info.StageList.TableBtn.Page
+			_ret32 r0
+			stofa4 r34, r1, Scn.Step.Info.StageList.TableBtn.Page.__bf_StoryKind
+			ldsrc4 r33, 0x1
+			nei32  r2, r33, loc_00000019
+			ldsrc4 r30, 0x2
+			jmp    loc_0000001a
+			
+			loc_00000019:
+			ldsrc4 r30, 0x6
+			
+			loc_0000001a:
+			ldsrsr r4, r30
+			ldofad r33, r0, this._currentMarkerSet
+			ldsr2  r35, r33, r2
+			unk_0f r34, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Scn.Step.Info.StageList.TableBtn.Page>
+			_xref  Scn.Step.Info.StageList.TableBtn.Page
+			_ret32 r0
+			ldofad r33, r34, Scn.Step.Info.StageList.TableBtn.Page.__bf_Btns
+			ldsrsr r5, r33
+			ldsr2  r34, r24, r33
+			unk_0f r34, 2
+			_xref  Stdlib.Array`1.GetEnumerator()
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_rtype Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			mcopys r7, r24, Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			jmp    loc_0000004f
+			
+			loc_0000002c:
+			ldsrsr r34, r7
+			unk_0f r33, 2
+			_xref  Stdlib.Array`1/Enumerator.get_Current()
+			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldsrsr r8, r33
+			ldofad r34, r33, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r36, r34, UiSys.Widget.RootPanel._layout
+			unk_0f r35, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r36, r35
+			calltr r36, Lyt.Layout.ResetParent()
+			ldofad r34, r33, Scn.Step.Info.StageList.TableBtn.StageBtn._master
+			ldsr2  r35, r34, r33
+			ldsrc4 r37, 0x0
+			calltr r35, UiSys.Master.SetIsEnabledComponent(UiSys.IComponent,bool)
+			ldofad r34, r0, this._stageBtnRepos
+			ldofad r35, r34, Scn.Step.Info.StageList.TableBtn.StageBtnRepos._usedBtns
+			ldsr2  r36, r35, r33
+			unk_0f r36, 2
+			_xref  Stdlib.Array`1.Remove(TElement)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_short 1
+			_ret   r0
+			ldofad r35, r34, Scn.Step.Info.StageList.TableBtn.StageBtnRepos._freeBtns
+			ldsr2  r36, r35, r33
+			unk_0f r36, 2
+			_xref  Stdlib.Array`1.Add(TElement)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_short 1
+			_ret   r0
+			
+			loc_0000004f:
+			ldsrsr r34, r7
+			unk_0f r33, 2
+			_xref  Stdlib.Array`1/Enumerator.MoveNext()
+			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_short 2
+			_ret32 r0
+			jmpneg r33, loc_0000002c
+			ldsrsr r33, r5
+			unk_0f r33, 2
+			_xref  Stdlib.Array`1.Clear()
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_short 1
+			_ret   r0
+			ldofad r33, r0, this._btnShowHideArray
+			ldsr2  r35, r33, r2
+			unk_0f r34, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Stdlib.Array`1<UiSys.Widget.ShowHide>>
+			_xref  Stdlib.Array`1<UiSys.Widget.ShowHide>
+			_ret32 r0
+			ldsrsr r35, r34
+			unk_0f r35, 2
+			_xref  Stdlib.Array`1.Clear()
+			_xref  Stdlib.Array`1<UiSys.Widget.ShowHide>
+			_short 1
+			_ret   r0
+			ldofad r33, r0, this._btnValidArray
+			ldsr2  r35, r33, r2
+			unk_0f r34, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Stdlib.Array`1<bool>>
+			_xref  Stdlib.Array`1<bool>
+			_ret32 r0
+			ldsrsr r35, r34
+			unk_0f r35, 2
+			_xref  Stdlib.Array`1.Clear()
+			_xref  Stdlib.Array`1<bool>
+			_short 1
+			_ret   r0
+			ldsrc4 r9, 0x0
+			jmp    loc_00000083
+			
+			loc_00000078:
+			ldofad r34, r0, this._stageBtnRepos
+			calltv r33, Scn.Step.Info.StageList.TableBtn.StageBtnRepos.UseBtn()
+			ldsrsr r10, r33
+			ldsr2  r34, r5, r33
+			unk_0f r34, 2
+			_xref  Stdlib.Array`1.Add(TElement)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_short 1
+			_ret   r0
+			ldsrc4 r33, 0x1
+			addi32 r9, r9, r33
+			
+			loc_00000083:
+			ges32  r9, r4, loc_00000078
+			switch r2, 3
+			jmp    loc_000000df
+			jmp    loc_00000089
+			jmp    loc_000000df
+			jmp    loc_00000133
+			
+			loc_00000089:
+			ldsrc4 r11, 0x0
+			jmp    loc_000000d7
+			
+			loc_0000008b:
+			ldsr2  r34, r5, r11
+			unk_0f r33, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldsr2  r35, r0, r2
+			calltv r34, this.ConvertBtnGroupKind(Scn.Step.Info.StageList.StageBtnGroupKind)
+			ldsrsr r36, r34
+			unk_0f r35, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Scn.Step.Info.StageList.MarkerSetKind
+			_ret32 r0
+			ldsrsr r36, r25
+			ldsrca r37, "L_Marker%s"
+			ldsrsr r38, r35
+			unk_0f r36, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 16
+			_rtype Stdlib.FixedString32
+			mcopys r26, r25, Stdlib.FixedString32
+			ldofad r34, r0, this._panel
+			ldofad r36, r34, UiSys.Widget.RootPanel._layout
+			unk_0f r35, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r37, r35
+			ldsrca r38, "L_StageListBoard"
+			calltr r36, Lyt.Layout.Parts(string)
+			ldsrsr r34, r26
+			mcopys r25, r34, Stdlib.FixedString32
+			ldsrsr r38, r25
+			calltr r37, Stdlib.FixedString32.ReadPtr()
+			ldsr2  r39, r36, r37
+			calltr r38, Lyt.Layout.Parts(string)
+			ldsrc4 r34, 0x1
+			addi32 r35, r11, r34
+			ldsrsr r39, r26
+			ldsrca r40, "N_StageListBtn%1d"
+			ldsrsr r41, r35
+			unk_0f r39, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 9
+			_rtype Stdlib.FixedString32
+			mcopys r25, r26, Stdlib.FixedString32
+			ldsrsr r34, r25
+			mcopys r26, r34, Stdlib.FixedString32
+			ldsrsr r40, r26
+			calltr r39, Stdlib.FixedString32.ReadPtr()
+			ldsr3  r40, r27, r38, r39
+			calltr r40, Lyt.Layout.Pane(string)
+			mcopys r12, r27, Lyt.PaneRef
+			ldsrsr r34, r12
+			ldofad r35, r33, Scn.Step.Info.StageList.TableBtn.StageBtn._master
+			ldsr2  r36, r35, r33
+			ldsrc4 r38, 0x1
+			calltr r36, UiSys.Master.SetIsEnabledComponent(UiSys.IComponent,bool)
+			ldofad r35, r33, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r37, r35, UiSys.Widget.RootPanel._layout
+			unk_0f r36, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsr2  r37, r36, r34
+			calltr r37, Lyt.Layout.SetParent(ref Lyt.PaneRef)
+			ldsrc4 r33, 0x1
+			addi32 r11, r11, r33
+			
+			loc_000000d7:
+			ldsrsr r34, r5
+			unk_0f r33, 2
+			_xref  Stdlib.Array`1.get_Count()
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_short 9
+			_ret32 r0
+			ges32  r11, r33, loc_0000008b
+			jmp    loc_00000133
+			
+			loc_000000df:
+			ldsrc4 r13, 0x0
+			jmp    loc_00000132
+			
+			loc_000000e1:
+			ldsr2  r34, r5, r13
+			unk_0f r33, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldsr2  r35, r0, r2
+			calltv r34, this.ConvertBtnGroupKind(Scn.Step.Info.StageList.StageBtnGroupKind)
+			ldsr4  r36, r0, r13, r34, r1
+			calltv r35, this.ConvertBtnIndexToPane(int,Scn.Step.Info.StageList.MarkerSetKind,Storage.File.StoryLevelKind)
+			ldsrsr r14, r35
+			ldsr2  r37, r0, r2
+			calltv r36, this.ConvertBtnGroupKind(Scn.Step.Info.StageList.StageBtnGroupKind)
+			ldsrsr r38, r36
+			unk_0f r37, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Scn.Step.Info.StageList.MarkerSetKind
+			_ret32 r0
+			ldsrsr r38, r25
+			ldsrca r39, "L_Marker%s"
+			ldsrsr r40, r37
+			unk_0f r38, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 16
+			_rtype Stdlib.FixedString32
+			mcopys r26, r25, Stdlib.FixedString32
+			ldofad r34, r0, this._panel
+			ldofad r37, r34, UiSys.Widget.RootPanel._layout
+			unk_0f r36, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r38, r36
+			ldsrca r39, "L_StageListBoard"
+			calltr r37, Lyt.Layout.Parts(string)
+			ldsrsr r34, r26
+			mcopys r25, r34, Stdlib.FixedString32
+			ldsrsr r39, r25
+			calltr r38, Stdlib.FixedString32.ReadPtr()
+			ldsr2  r40, r37, r38
+			calltr r39, Lyt.Layout.Parts(string)
+			ldsrc4 r34, 0x1
+			addi32 r36, r35, r34
+			ldsrsr r40, r26
+			ldsrca r41, "N_StageListBtn%1d"
+			ldsrsr r42, r36
+			unk_0f r40, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 9
+			_rtype Stdlib.FixedString32
+			mcopys r25, r26, Stdlib.FixedString32
+			ldsrsr r34, r25
+			mcopys r26, r34, Stdlib.FixedString32
+			ldsrsr r41, r26
+			calltr r40, Stdlib.FixedString32.ReadPtr()
+			ldsr3  r41, r27, r39, r40
+			calltr r41, Lyt.Layout.Pane(string)
+			mcopys r15, r27, Lyt.PaneRef
+			ldsrsr r34, r15
+			ldofad r35, r33, Scn.Step.Info.StageList.TableBtn.StageBtn._master
+			ldsr2  r36, r35, r33
+			ldsrc4 r38, 0x1
+			calltr r36, UiSys.Master.SetIsEnabledComponent(UiSys.IComponent,bool)
+			ldofad r35, r33, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r37, r35, UiSys.Widget.RootPanel._layout
+			unk_0f r36, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsr2  r37, r36, r34
+			calltr r37, Lyt.Layout.SetParent(ref Lyt.PaneRef)
+			ldsrc4 r33, 0x1
+			addi32 r13, r13, r33
+			
+			loc_00000132:
+			ges32  r13, r4, loc_000000e1
+			
+			loc_00000133:
+			ldsr2  r34, r0, r2
+			calltv r33, this.ConvertBtnGroupKind(Scn.Step.Info.StageList.StageBtnGroupKind)
+			ldsrsr r35, r33
+			unk_0f r34, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Scn.Step.Info.StageList.MarkerSetKind
+			_ret32 r0
+			ldsrsr r35, r25
+			ldsrca r36, "L_Marker%s"
+			ldsrsr r37, r34
+			unk_0f r35, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 16
+			_rtype Stdlib.FixedString32
+			mcopys r26, r25, Stdlib.FixedString32
+			ldofad r33, r0, this._panel
+			ldofad r35, r33, UiSys.Widget.RootPanel._layout
+			unk_0f r34, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r36, r34
+			ldsrca r37, "L_StageListBoard"
+			calltr r35, Lyt.Layout.Parts(string)
+			ldsrsr r33, r26
+			mcopys r25, r33, Stdlib.FixedString32
+			ldsrsr r37, r25
+			calltr r36, Stdlib.FixedString32.ReadPtr()
+			ldsr2  r38, r35, r36
+			calltr r37, Lyt.Layout.Parts(string)
+			ldsr2  r38, r28, r37
+			ldsrca r40, "G_State"
+			calltr r38, Lyt.Layout.Group(string)
+			mcopys r16, r28, Lyt.GroupRef
+			ldsrsr r33, r16
+			ldsrc4 r34, 0x8
+			ldsrsr r31, r33
+			nei32  r1, r34, loc_00000161
+			ldsrsr r31, r31
+			ldsrca r32, "NormalState"
+			jmp    loc_00000163
+			
+			loc_00000161:
+			ldsrsr r31, r31
+			ldsrca r32, "Lv7State"
+			
+			loc_00000163:
+			ldsr2  r33, r31, r32
+			calltr r33, Lyt.GroupRef.Play(string)
+			ldsrc4 r6, 0x0
+			ldsrc4 r17, 0x0
+			jmp    loc_000001c3
+			
+			loc_00000168:
+			ldsr2  r34, r0, r2
+			calltv r33, this.ConvertBtnGroupKind(Scn.Step.Info.StageList.StageBtnGroupKind)
+			ldsr4  r35, r0, r17, r33, r1
+			calltv r34, this.ConvertBtnIndexToPane(int,Scn.Step.Info.StageList.MarkerSetKind,Storage.File.StoryLevelKind)
+			ldsrsr r18, r34
+			ldsrsr r33, r19
+			ldsr3  r35, r33, r1, r34
+			calltv r35, Storage.File.StageKey.this(Storage.File.StoryLevelKind,int)
+			ldsr2  r36, r5, r17
+			unk_0f r35, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldsrsr r20, r35
+			ldofad r33, r35, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r37, r33, UiSys.Widget.RootPanel._layout
+			unk_0f r36, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			mcopys r29, r19, Storage.File.StageKey
+			stof_u r35, r29, Scn.Step.Info.StageList.TableBtn.StageBtn.__bf_CurrentStageKey
+			ldofad r33, r0, this._btnShowHideArray
+			ldsr2  r37, r33, r2
+			unk_0f r36, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Stdlib.Array`1<UiSys.Widget.ShowHide>>
+			_xref  Stdlib.Array`1<UiSys.Widget.ShowHide>
+			_ret32 r0
+			ldofad r33, r35, Scn.Step.Info.StageList.TableBtn.StageBtn._selectableBtn
+			ldofad r37, r33, UiSys.Widget.SelectableBtn._showHide
+			ldsr2  r38, r36, r37
+			unk_0f r38, 2
+			_xref  Stdlib.Array`1.Add(TElement)
+			_xref  Stdlib.Array`1<UiSys.Widget.ShowHide>
+			_short 1
+			_ret   r0
+			ldofad r33, r0, this._btnValidArray
+			ldsr2  r37, r33, r2
+			unk_0f r36, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Stdlib.Array`1<bool>>
+			_xref  Stdlib.Array`1<bool>
+			_ret32 r0
+			ldsrsr r37, r36
+			ldsrc4 r38, 0x0
+			unk_0f r37, 2
+			_xref  Stdlib.Array`1.Add(TElement)
+			_xref  Stdlib.Array`1<bool>
+			_short 1
+			_ret   r0
+			ldsrsr r33, r19
+			ldsr2  r37, r0, r2
+			calltv r36, this.ConvertBtnGroupKind(Scn.Step.Info.StageList.StageBtnGroupKind)
+			ldsr5  r38, r0, r35, r33, r36, r34
+			calltv r37, this.SetupBtn(Scn.Step.Info.StageList.TableBtn.StageBtn,ref Storage.File.StageKey,Scn.Step.Info.StageList.MarkerSetKind,int)
+			calltv r38, Storage.File.StoryLevelKindUtil.StageKeyToStoryLevel(ref Storage.File.StageKey)
+			ldsrc4 r37, 0x1
+			ldsrc4 r39, 0x7
+			nei32  r38, r39, loc_000001a9
+			ldsrc4 r39, 0x5
+			eqi32  r34, r39, loc_000001a9
+			ldsrc4 r37, 0x0
+			
+			loc_000001a9:
+			ldsrsr r21, r37
+			ldofa4 r33, r0, this._disclosureStoryLevel
+			ldsrc4 r34, 0x2
+			nes32b r35, r33, r34
+			jmpneg r35, loc_000001b1
+			ldsrc4 r33, 0x1
+			nei32  r2, r33, loc_000001b1
+			ldsrc4 r21, 0x0
+			
+			loc_000001b1:
+			jmppos r21, loc_000001b4
+			ldsrc4 r33, 0x1
+			addi32 r6, r6, r33
+			
+			loc_000001b4:
+			ldofad r33, r0, this._btnValidArray
+			ldsr2  r35, r33, r2
+			unk_0f r34, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Stdlib.Array`1<bool>>
+			_xref  Stdlib.Array`1<bool>
+			_ret32 r0
+			ldsr3  r35, r34, r17, r21
+			unk_0f r35, 2
+			_xref  Stdlib.Array`1.set_Item(int,TElement)
+			_xref  Stdlib.Array`1<bool>
+			_short 1
+			_ret   r0
+			ldsrc4 r33, 0x1
+			addi32 r17, r17, r33
+			
+			loc_000001c3:
+			ldsrsr r34, r5
+			unk_0f r33, 2
+			_xref  Stdlib.Array`1.get_Count()
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_short 9
+			_ret32 r0
+			ges32  r17, r33, loc_00000168
+			ldsrc4 r33, 0x1
+			eqi32  r2, r33, return
+			ldofad r33, r0, this._btnList
+			ldsrsr r34, r33
+			calltv r34, UiSys.Widget.SelectList.UnsetSelected()
+			ldofad r34, r33, UiSys.Widget.SelectList._array
+			unk_0f r34, 2
+			_xref  Stdlib.Array`1.Clear()
+			_xref  Stdlib.Array`1<UiSys.Widget.ISelectable>
+			_short 1
+			_ret   r0
+			ldsrc4 r22, 0x0
+			jmp    loc_000001ed
+			
+			loc_000001d7:
+			ldsr2  r34, r5, r22
+			unk_0f r33, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldofad r33, r0, this._btnList
+			ldsr2  r35, r5, r22
+			unk_0f r34, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldofad r35, r33, UiSys.Widget.SelectList._array
+			ldsr2  r36, r35, r34
+			unk_0f r36, 2
+			_xref  Stdlib.Array`1.Add(TElement)
+			_xref  Stdlib.Array`1<UiSys.Widget.ISelectable>
+			_short 1
+			_ret   r0
+			ldsrc4 r33, 0x1
+			addi32 r22, r22, r33
+			
+			loc_000001ed:
+			ges32  r22, r4, loc_000001d7
+			ldsrc4 r34, 0x6
+			ldsrsr r35, r6
+			calltv r33, Hel.Math.Min(int,int)
+			ldsrsr r34, r33
+			ldsrc4 r35, 0x5
+			calltv r33, Hel.Math.Max(int,int)
+			ldsrc4 r34, 0x0
+			eqi32b r6, r6, r34
+			jmpneg r6, loc_000001fc
+			ldsrc4 r34, 0x8
+			ldofa4 r35, r0, this._currentStoryLevel
+			eqi32b r6, r34, r35
+			jmpneg r6, loc_000001fc
+			ldsrsr r6, r33
+			
+			loc_000001fc:
+			stofa4 r0, r6, this._stageCountOnLevel
+			jmpneg r3, loc_0000020f
+			ldofa4 r33, r0, this._stageCountOnLevel
+			ldsrc4 r34, 0x0
+			gts32  r33, r34, loc_0000020c
+			ldofa4 r33, r0, this._currentBtnIndex
+			ldofa4 r34, r0, this._stageCountOnLevel
+			ldsrc4 r35, 0x1
+			subi32 r36, r34, r35
+			ldsr2  r38, r33, r36
+			calltv r37, Hel.Math.Min(int,int)
+			ldsrsr r23, r37
+			ldsr2  r38, r0, r37
+			ldsrc4 r40, 0x0
+			calltv r38, this.SetFocus(int,bool)
+			jmp    loc_0000020f
+			
+			loc_0000020c:
+			ldsrsr r33, r0
+			ldsrc4 r34, 0x0
+			calltv r33, this.UnsetFocus(bool)
+			
+			loc_0000020f:
+			ldofad r33, r0, this._tableBtnFocusCtrl
+			ldofa4 r34, r0, this._stageCountOnLevel
+			stofa4 r33, r34, Scn.Step.Info.StageList.TableBtn.FocusCtrl.__bf_DisclosureBtnMax
+			
+			return:
+			fleave r0
+		}
+		
+		flag100 bool SetupBtn(Scn.Step.Info.StageList.TableBtn.StageBtn,ref Storage.File.StageKey,Scn.Step.Info.StageList.MarkerSetKind,int)
+		{
+			fenter 0
+			_ret32 r0
+			sppsh  r9, Storage.File.StageKey
+			sppsh  r10, Lyt.GroupRef
+			sppsh  r11, Lyt.GroupRef
+			sppsh  r12, Lyt.GroupRef
+			sppsh  r13, Lyt.GroupRef
+			sppsh  r15, Msg.TagStringPtr
+			sppsh  r18, Lyt.GroupRef
+			sppsh  r19, Lyt.GroupRef
+			sppsh  r22, Lyt.PaneRef
+			sppsh  r24, Lyt.PaneRef
+			sppsh  r27, Stdlib.FixedString32
+			sppsh  r29, Stdlib.FixedString128
+			sppsh  r30, Stdlib.FixedString128Char16
+			sppsh  r31, Lyt.PaneRef
+			sppsh  r32, Lyt.MaterialRef
+			sppsh  r33, Lyt.PaneRef
+			sppsh  r34, Lyt.MaterialRef
+			sppsh  r35, Lyt.GroupRef
+			sppsh  r36, Stdlib.FixedString32
+			sppsh  r37, Stdlib.FixedString128Char16
+			sppsh  r38, Stdlib.FixedString128Char16
+			sppsh  r39, Storage.File.StageKey
+			sppsh  r40, Lyt.GroupRef
+			sppsh  r41, Stdlib.FixedString32
+			sppsh  r42, Msg.TagStringPtr
+			sppsh  r43, Lyt.PaneRef
+			sppsh  r44, Stdlib.FixedString128
+			sppsh  r45, Stdlib.FixedString128Char16
+			sppsh  r46, Lyt.MaterialRef
+			ldofad r51, r0, this._master
+			calltr r50, UiSys.Master.get_Manager()
+			ldsrsr r52, r50
+			unk_0f r51, 3
+			_xref  UiSys.Manager.Extension()
+			_xref  UiSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret32 r0
+			ldsrsr r5, r51
+			ldsrc4 r6, 0x0
+			ldofad r50, r1, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r52, r50, UiSys.Widget.RootPanel._layout
+			unk_0f r51, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r7, r51
+			mcopys r39, r2, Storage.File.StageKey
+			mcopys r9, r39, Storage.File.StageKey
+			ldsrsr r50, r9
+			ldofa4 r51, r50, Storage.File.StageKey.__bf_StoryLevel
+			ldsrsr r8, r51
+			mcopys r39, r2, Storage.File.StageKey
+			mcopys r9, r39, Storage.File.StageKey
+			ldsrsr r50, r9
+			ldofa4 r51, r50, Storage.File.StageKey.__bf_Category
+			ldsrc4 r50, 0x0
+			nei32b r52, r51, r50
+			jmppos r52, loc_00000173
+			ldofad r50, r5, Scn.Step.Modules._storageManager
+			ldofad r51, r50, Scn.Step.StorageManager._backupFileData
+			ldofad r50, r51, Storage.File.Root.StoryStages
+			ldsrsr r52, r2
+			calltv r51, Storage.File.StageKindUtil.StageKeyToStoryStageKind(ref Storage.File.StageKey)
+			ldsr2  r53, r50, r51
+			unk_0f r52, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
+			_xref  Storage.File.StoryStageData
+			_ret32 r0
+			ldofa4 r6, r52, Storage.File.StoryStageData.IsUnlocked
+			ldsr2  r50, r40, r7
+			ldsrca r52, "G_Level"
+			calltr r50, Lyt.Layout.Group(string)
+			mcopys r10, r40, Lyt.GroupRef
+			ldsr2  r50, r40, r7
+			ldsrca r52, "G_TitleShow"
+			calltr r50, Lyt.Layout.Group(string)
+			mcopys r11, r40, Lyt.GroupRef
+			ldsrsr r51, r7
+			ldsrca r52, "L_BossSs"
+			calltr r50, Lyt.Layout.Parts(string)
+			ldsr2  r51, r40, r50
+			ldsrca r53, "G_State"
+			calltr r51, Lyt.Layout.Group(string)
+			mcopys r12, r40, Lyt.GroupRef
+			ldsrsr r51, r7
+			ldsrca r52, "L_BossSs"
+			calltr r50, Lyt.Layout.Parts(string)
+			ldsr2  r51, r40, r50
+			ldsrca r53, "G_Level"
+			calltr r51, Lyt.Layout.Group(string)
+			mcopys r13, r40, Lyt.GroupRef
+			ldsrsr r51, r2
+			calltv r50, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
+			ldsrsr r14, r50
+			jmppos r50, loc_0000007d
+			ldsrc4 r50, 0x8
+			nei32  r8, r50, loc_00000068
+			ldsrca r47, "BossColorSub"
+			jmp    loc_00000069
+			
+			loc_00000068:
+			ldsrca r47, "Level7BossColorSub"
+			
+			loc_00000069:
+			ldsrsr r26, r47
+			ldsr2  r50, r10, r50
+			ldsrca r52, "BossColor"
+			calltr r51, Lyt.GroupRef.Play(string)
+			ldsr3  r50, r11, r50, r47
+			calltr r51, Lyt.GroupRef.Play(string)
+			ldsr2  r50, r12, r50
+			ldsrca r52, "MarkerBoss"
+			calltr r51, Lyt.GroupRef.Play(string)
+			ldsrsr r50, r13
+			ldsrsr r52, r8
+			unk_0f r51, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Storage.File.StoryLevelKind
+			_ret32 r0
+			ldsr2  r52, r50, r51
+			calltr r52, Lyt.GroupRef.Play(string)
+			jmp    loc_000000a2
+			
+			loc_0000007d:
+			ldsrsr r50, r10
+			ldsrsr r52, r8
+			unk_0f r51, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Storage.File.StoryLevelKind
+			_ret32 r0
+			ldsr2  r52, r50, r51
+			calltr r52, Lyt.GroupRef.Play(string)
+			ldsrsr r50, r11
+			ldsrsr r52, r8
+			unk_0f r51, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Storage.File.StoryLevelKind
+			_ret32 r0
+			ldsrsr r52, r41
+			ldsrca r53, "%sSub"
+			ldsrsr r54, r51
+			unk_0f r52, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 16
+			_rtype Stdlib.FixedString32
+			mcopys r27, r41, Stdlib.FixedString32
+			ldsrsr r51, r27
+			mcopys r36, r51, Stdlib.FixedString32
+			ldsrsr r52, r36
+			calltr r51, Stdlib.FixedString32.ReadPtr()
+			ldsr2  r52, r50, r51
+			calltr r52, Lyt.GroupRef.Play(string)
+			ldsr2  r50, r12, r50
+			ldsrca r52, "Marker"
+			calltr r51, Lyt.GroupRef.Play(string)
+			
+			loc_000000a2:
+			mcopys r39, r2, Storage.File.StageKey
+			mcopys r9, r39, Storage.File.StageKey
+			ldsrsr r51, r9
+			calltv r50, Storage.File.StageKey.get_StoryStage()
+			ldsrsr r52, r50
+			unk_0f r51, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Storage.File.StoryStageKind
+			_ret32 r0
+			ldsrsr r52, r42
+			ldsrca r53, "Name/StageName"
+			ldsrsr r54, r51
+			calltr r52, App.Message.Text(string,string)
+			mcopys r15, r42, Msg.TagStringPtr
+			ldsrsr r51, r15
+			calltr r50, Msg.TagStringPtr.Get()
+			ldsrzr r51
+			neptr  r52, r50, r51
+			jmppos r52, loc_000000d4
+			jmppos r1, loc_000000c4
+			jmppos r14, loc_000000bd
+			ldofad r50, r1, Scn.Step.Info.StageList.TableBtn.StageBtn._stageName
+			ldsrsr r51, r50
+			calltv r51, Scn.Step.Info.Common.WmapTitleName.SetColorForBoss()
+			jmp    loc_000000c0
+			
+			loc_000000bd:
+			ldofad r50, r1, Scn.Step.Info.StageList.TableBtn.StageBtn._stageName
+			ldsr2  r51, r50, r8
+			calltv r51, Scn.Step.Info.Common.WmapTitleName.SetColorForLevel(Storage.File.StoryLevelKind)
+			
+			loc_000000c0:
+			ldofad r50, r1, Scn.Step.Info.StageList.TableBtn.StageBtn._stageName
+			ldsr3  r51, r15, r50, r51
+			calltv r52, Scn.Step.Info.Common.WmapTitleName.SetUnsafedText(ref Msg.TagStringPtr)
+			jmp    loc_000000d4
+			
+			loc_000000c4:
+			ldofad r50, r0, this._master
+			ldsrsr r52, r7
+			ldsrca r53, "L_StageName"
+			calltr r51, Lyt.Layout.Parts(string)
+			obnew  r52, Scn.Step.Info.Common.WmapTitleName
+			stofad r52, r50, Scn.Step.Info.Common.WmapTitleName._master
+			stofad r52, r51, Scn.Step.Info.Common.WmapTitleName._layout
+			ldsrsr r28, r52
+			jmppos r14, loc_000000d0
+			ldsrsr r50, r28
+			calltv r50, Scn.Step.Info.Common.WmapTitleName.SetColorForBoss()
+			jmp    loc_000000d2
+			
+			loc_000000d0:
+			ldsr2  r50, r28, r8
+			calltv r50, Scn.Step.Info.Common.WmapTitleName.SetColorForLevel(Storage.File.StoryLevelKind)
+			
+			loc_000000d2:
+			ldsr3  r50, r15, r28, r50
+			calltv r51, Scn.Step.Info.Common.WmapTitleName.SetUnsafedText(ref Msg.TagStringPtr)
+			
+			loc_000000d4:
+			ldofad r50, r5, Scn.Step.Modules._storageManager
+			ldofad r51, r50, Scn.Step.StorageManager._backupFileData
+			ldofad r50, r0, this._btnMissionCompleteArray
+			ldsr2  r53, r50, r3
+			unk_0f r52, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.MarkerSetKind,Stdlib.Array`1<bool>>
+			_xref  Stdlib.Array`1<bool>
+			_ret32 r0
+			ldsr2  r54, r52, r4
+			unk_0f r53, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<bool>
+			_short 2
+			_ret32 r0
+			ldsr3  r55, r51, r2, r53
+			calltv r54, Storage.File.BackupFileDataUtil.StageClearState(Storage.File.Root,ref Storage.File.StageKey,bool)
+			ldsrsr r16, r54
+			ldsrsr r56, r7
+			ldsrca r57, "L_ClearIcon"
+			calltr r55, Lyt.Layout.Parts(string)
+			ldsrsr r17, r55
+			ldsr2  r56, r40, r55
+			ldsrca r58, "G_State"
+			calltr r56, Lyt.Layout.Group(string)
+			mcopys r18, r40, Lyt.GroupRef
+			switch r54, 3
+			jmp    loc_000000f3
+			jmp    loc_000000f7
+			jmp    loc_000000fb
+			jmp    loc_000000fe
+			
+			loc_000000f3:
+			ldsr2  r50, r18, r50
+			ldsrca r52, "NoClear"
+			calltr r51, Lyt.GroupRef.Play(string)
+			jmp    loc_000000fe
+			
+			loc_000000f7:
+			ldsr2  r50, r18, r50
+			ldsrca r52, "Clear"
+			calltr r51, Lyt.GroupRef.Play(string)
+			jmp    loc_000000fe
+			
+			loc_000000fb:
+			ldsr2  r50, r18, r50
+			ldsrca r52, "PerfectClear"
+			calltr r51, Lyt.GroupRef.Play(string)
+			
+			loc_000000fe:
+			ldsr2  r50, r40, r17
+			ldsrca r52, "G_Color"
+			calltr r50, Lyt.Layout.Group(string)
+			mcopys r19, r40, Lyt.GroupRef
+			jmpneg r14, loc_00000105
+			ldsrc4 r48, 0x0
+			jmp    loc_00000106
+			
+			loc_00000105:
+			ldsrc4 r48, 0x1
+			
+			loc_00000106:
+			ldsrsr r20, r48
+			ldsrsr r50, r19
+			ldsrsr r52, r48
+			unk_0f r51, 3
+			_xref  Stdlib.Enum.ToString(TEnum)
+			_xref  Stdlib.Enum
+			_short 16
+			_xref  Scn.Step.Info.Common.WmapClearIcon/ColorKind
+			_ret32 r0
+			ldsr2  r52, r50, r51
+			calltr r52, Lyt.GroupRef.Play(string)
+			ldofad r50, r5, Scn.Step.Modules._playerManager
+			ldofad r51, r50, Scn.Step.Player.Manager.__bf_ShareData
+			ldofad r50, r51, Scn.Step.Player.ShareData.__bf_ComebackedWaddleDeeCount
+			ldsr2  r52, r50, r2
+			calltv r51, MissionData.ComebackedWaddleDeeCount.ComebackedCount(ref Storage.File.StageKey)
+			ldsrsr r21, r51
+			ldsrsr r53, r7
+			ldsrca r54, "L_ComebackCount"
+			calltr r52, Lyt.Layout.Parts(string)
+			ldsr2  r53, r43, r52
+			ldsrca r55, "#ClearCount"
+			calltr r53, Lyt.Layout.TextPaneByTextId(string)
+			mcopys r22, r43, Lyt.PaneRef
+			ldsrsr r50, r22
+			ldsrsr r52, r44
+			ldsrca r53, "%d"
+			ldsrsr r54, r51
+			unk_0f r52, 3
+			_xref  Stdlib.FixedString128.FromFormat(string,T1)
+			_xref  Stdlib.FixedString128
+			_xref  Stdlib.FixedString128
+			_short 9
+			_rtype Stdlib.FixedString128
+			mcopys r29, r44, Stdlib.FixedString128
+			ldsrsr r51, r29
+			ldsr2  r52, r45, r51
+			calltr r52, Stdlib.FixedString128.Char16()
+			mcopys r30, r45, Stdlib.FixedString128Char16
+			ldsrsr r51, r30
+			mcopys r37, r51, Stdlib.FixedString128Char16
+			ldsrsr r52, r37
+			calltr r51, Stdlib.FixedString128Char16.ReadPtr()
+			ldsr2  r52, r50, r51
+			calltr r52, Lyt.PaneRef.SetText(Stdlib.Char16Ptr)
+			ldofad r50, r5, Scn.Step.Modules._playerManager
+			ldofad r51, r50, Scn.Step.Player.Manager.__bf_ShareData
+			ldofad r50, r51, Scn.Step.Player.ShareData.__bf_ComebackedWaddleDeeCount
+			ldsr2  r52, r50, r2
+			calltv r51, MissionData.ComebackedWaddleDeeCount.ComebackableCount(ref Storage.File.StageKey)
+			ldsrsr r23, r51
+			ldsrsr r53, r7
+			ldsrca r54, "L_ComebackCount"
+			calltr r52, Lyt.Layout.Parts(string)
+			ldsr2  r53, r43, r52
+			ldsrca r55, "#TotalCount"
+			calltr r53, Lyt.Layout.TextPaneByTextId(string)
+			mcopys r24, r43, Lyt.PaneRef
+			ldsrsr r50, r24
+			ldsrsr r52, r44
+			ldsrca r53, "%d"
+			ldsrsr r54, r51
+			unk_0f r52, 3
+			_xref  Stdlib.FixedString128.FromFormat(string,T1)
+			_xref  Stdlib.FixedString128
+			_xref  Stdlib.FixedString128
+			_short 9
+			_rtype Stdlib.FixedString128
+			mcopys r29, r44, Stdlib.FixedString128
+			ldsrsr r51, r29
+			ldsr2  r52, r45, r51
+			calltr r52, Stdlib.FixedString128.Char16()
+			mcopys r30, r45, Stdlib.FixedString128Char16
+			ldsrsr r51, r30
+			mcopys r38, r51, Stdlib.FixedString128Char16
+			ldsrsr r52, r38
+			calltr r51, Stdlib.FixedString128Char16.ReadPtr()
+			ldsr2  r52, r50, r51
+			calltr r52, Lyt.PaneRef.SetText(Stdlib.Char16Ptr)
+			ldofad r50, r5, Scn.Step.Modules._infoManager
+			ldofad r51, r50, Scn.Step.Info.Manager.__bf_WmapStageSs
+			ldsr2  r53, r51, r2
+			calltv r52, Scn.Step.Info.WmapStageSs.MasterImpl.GetStageSsBigLyt(ref Storage.File.StageKey)
+			ldsrsr r25, r52
+			jmppos r52, loc_00000173
+			ldsr2  r50, r43, r7
+			ldsrca r52, "P_SsBig"
+			calltr r50, Lyt.Layout.Pane(string)
+			mcopys r31, r43, Lyt.PaneRef
+			ldsrsr r50, r31
+			ldsr2  r51, r46, r50
+			ldsrc4 r53, 0x0
+			calltr r51, Lyt.PaneRef.Material(int)
+			mcopys r32, r46, Lyt.MaterialRef
+			ldsrsr r50, r32
+			ldsr2  r51, r43, r25
+			ldsrca r53, "StageSsBig"
+			calltr r51, Lyt.Layout.Pane(string)
+			mcopys r33, r43, Lyt.PaneRef
+			ldsrsr r51, r33
+			ldsr2  r52, r46, r51
+			ldsrc4 r54, 0x0
+			calltr r52, Lyt.PaneRef.Material(int)
+			mcopys r34, r46, Lyt.MaterialRef
+			ldsr2  r51, r34, r50
+			ldsrc4 r53, 0x1
+			ldsrsr r54, r51
+			ldsrc4 r55, 0x0
+			calltr r52, Lyt.MaterialRef.SetTexture(int,ref Lyt.MaterialRef,int)
+			
+			loc_00000173:
+			ldofad r50, r1, Scn.Step.Info.StageList.TableBtn.StageBtn._selectableBtn
+			ldofad r51, r50, UiSys.Widget.SelectableBtn._showHide
+			ldsrsr r49, r51
+			jmpneg r51, loc_00000178
+			jmp    loc_0000017b
+			
+			loc_00000178:
+			ldsr2  r50, r49, r6
+			ldsrc4 r52, 0x2
+			calltv r50, UiSys.Widget.ShowHide.SetIsShow(bool,UiSys.Widget.IShowHideChangeMethod)
+			
+			loc_0000017b:
+			jmppos r6, loc_00000184
+			ldsr2  r50, r40, r7
+			ldsrca r52, "G_LevelSub"
+			calltr r50, Lyt.Layout.Group(string)
+			mcopys r35, r40, Lyt.GroupRef
+			ldsr2  r50, r35, r50
+			ldsrca r52, "TitleBarWait"
+			calltr r51, Lyt.GroupRef.Play(string)
+			jmp    return
+			
+			loc_00000184:
+			ldsr2  r50, r40, r7
+			ldsrca r52, "G_LevelSub"
+			calltr r50, Lyt.Layout.Group(string)
+			mcopys r35, r40, Lyt.GroupRef
+			ldsr2  r50, r35, r50
+			ldsrca r52, "TitleBarHide"
+			calltr r51, Lyt.GroupRef.PlayStopTail(string)
+			
+			return:
+			fret32 r6
+		}
+		
+		void SetupAreaTab(Storage.File.StoryLevelKind,bool)
+		{
+			fenter 0
+			_ret   r0
+			sppsh  r4, Lyt.PaneRef
+			sppsh  r5, Stdlib.FixedString128
+			sppsh  r6, Stdlib.FixedString128Char16
+			sppsh  r7, Stdlib.FixedString128Char16
+			sppsh  r8, Lyt.PaneRef
+			sppsh  r9, Stdlib.FixedString128
+			sppsh  r10, Stdlib.FixedString128Char16
+			ldofad r12, r0, this._master
+			calltr r11, UiSys.Master.get_Manager()
+			ldsrsr r13, r11
+			unk_0f r12, 3
+			_xref  UiSys.Manager.Extension()
+			_xref  UiSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret32 r0
+			ldofad r11, r12, Scn.Step.Modules._playerManager
+			ldofad r12, r11, Scn.Step.Player.Manager.__bf_ShareData
+			ldofad r11, r12, Scn.Step.Player.ShareData.__bf_ComebackedWaddleDeeCount
+			ldofad r12, r0, this._areaTabCtrl
+			ldsr3  r13, r12, r1, r2
+			calltv r13, Scn.Step.Info.StageList.Wmap.AreaTabCtrl.Setup(Storage.File.StoryLevelKind,bool)
+			ldsrsr r13, r11
+			calltv r12, MissionData.ComebackedWaddleDeeCount.get_TotalCount()
+			ldsrsr r3, r12
+			ldofad r11, r0, this._panel
+			ldofad r14, r11, UiSys.Widget.RootPanel._layout
+			unk_0f r13, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r15, r13
+			ldsrca r16, "L_ComebackTotalCount"
+			calltr r14, Lyt.Layout.Parts(string)
+			ldsr2  r15, r8, r14
+			ldsrca r17, "#TownComebackTotalCount"
+			calltr r15, Lyt.Layout.TextPaneByTextId(string)
+			mcopys r4, r8, Lyt.PaneRef
+			ldsrsr r11, r4
+			ldsrsr r13, r9
+			ldsrca r14, "%d"
+			ldsrsr r15, r12
+			unk_0f r13, 3
+			_xref  Stdlib.FixedString128.FromFormat(string,T1)
+			_xref  Stdlib.FixedString128
+			_xref  Stdlib.FixedString128
+			_short 9
+			_rtype Stdlib.FixedString128
+			mcopys r5, r9, Stdlib.FixedString128
+			ldsrsr r12, r5
+			ldsr2  r13, r10, r12
+			calltr r13, Stdlib.FixedString128.Char16()
+			mcopys r6, r10, Stdlib.FixedString128Char16
+			ldsrsr r12, r6
+			mcopys r7, r12, Stdlib.FixedString128Char16
+			ldsrsr r13, r7
+			calltr r12, Stdlib.FixedString128Char16.ReadPtr()
+			ldsr2  r13, r11, r12
+			calltr r13, Lyt.PaneRef.SetText(Stdlib.Char16Ptr)
+			fleave r0
+		}
+		
+		flag100 Scn.Step.Info.StageList.MarkerSetKind ConvertBtnGroupKind(Scn.Step.Info.StageList.StageBtnGroupKind)
+		{
+			fenter 0
+			_ret32 r0
+			ldsrc4 r2, 0x5
+			switch r1, 3
+			jmp    loc_00000008
+			jmp    loc_0000000a
+			jmp    loc_0000000c
+			jmp    return
+			
+			loc_00000008:
+			ldsrc4 r2, 0x1
+			jmp    return
+			
+			loc_0000000a:
+			ldsrc4 r2, 0x2
+			jmp    return
+			
+			loc_0000000c:
+			ldsrc4 r2, 0x3
+			
+			return:
+			fret32 r2
+		}
+		
+		flag100 int ConvertBtnIndexToPane(int,Scn.Step.Info.StageList.MarkerSetKind,Storage.File.StoryLevelKind)
+		{
+			fenter 0
+			_ret32 r0
+			ldsrsr r4, r1
+			ldsrc4 r5, 0x8
+			eqi32  r3, r5, loc_00000006
+			fret32 r4
+			
+			loc_00000006:
+			switch r2, 5
+			jmp    loc_0000000d
+			jmp    loc_0000000d
+			jmp    return
+			jmp    loc_00000014
+			jmp    loc_00000014
+			jmp    return
+			
+			loc_0000000d:
+			jmpneg r1, loc_00000010
+			ldsrc4 r4, 0x2
+			jmp    return
+			
+			loc_00000010:
+			ldsrc4 r5, 0x1
+			eqi32  r1, r5, return
+			ldsrc4 r4, 0x5
+			jmp    return
+			
+			loc_00000014:
+			jmpneg r1, loc_00000017
+			ldsrc4 r4, 0x0
+			jmp    return
+			
+			loc_00000017:
+			ldsrc4 r5, 0x1
+			eqi32  r1, r5, return
+			ldsrc4 r4, 0x3
+			
+			return:
+			fret32 r4
+		}
+		
+		void SetIsShowAllBtn(bool)
+		{
+			fenter 0
+			_ret   r0
+			sppsh  r4, Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			sppsh  r8, Lyt.GroupRef
+			sppsh  r9, Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			sppsh  r10, Lyt.GroupRef
+			ldofad r12, r0, this._btnShowHideSet
+			ldsr2  r13, r12, r1
+			ldsrc4 r15, 0x0
+			calltv r13, UiSys.Widget.ShowHideSet.SetIsShow(bool,UiSys.Widget.IShowHideChangeMethod)
+			ldsrc4 r2, 0x0
+			jmp    loc_00000080
+			
+			loc_0000000c:
+			ldsrc4 r12, 0x1
+			nei32  r2, r12, loc_00000010
+			ldsrc4 r11, 0x2
+			jmp    loc_00000011
+			
+			loc_00000010:
+			ldsrc4 r11, 0x6
+			
+			loc_00000011:
+			ldsrsr r3, r11
+			ldofa4 r12, r0, this._disclosureStoryLevel
+			ldsrc4 r13, 0x2
+			nes32b r14, r12, r13
+			jmpneg r14, loc_0000003c
+			ldsrc4 r12, 0x1
+			nei32  r2, r12, loc_0000003c
+			ldofad r12, r0, this._currentMarkerSet
+			ldsr2  r14, r12, r2
+			unk_0f r13, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Scn.Step.Info.StageList.TableBtn.Page>
+			_xref  Scn.Step.Info.StageList.TableBtn.Page
+			_ret32 r0
+			ldofad r12, r13, Scn.Step.Info.StageList.TableBtn.Page.__bf_Btns
+			ldsr2  r13, r9, r12
+			unk_0f r13, 2
+			_xref  Stdlib.Array`1.GetEnumerator()
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_rtype Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			mcopys r4, r9, Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			jmp    loc_00000034
+			
+			loc_00000028:
+			ldsrsr r13, r4
+			unk_0f r12, 2
+			_xref  Stdlib.Array`1/Enumerator.get_Current()
+			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldofad r13, r12, Scn.Step.Info.StageList.TableBtn.StageBtn._selectableBtn
+			ldofad r12, r13, UiSys.Widget.SelectableBtn._showHide
+			ldsrsr r13, r12
+			ldsrc4 r14, 0x0
+			ldsrc4 r15, 0x2
+			calltv r13, UiSys.Widget.ShowHide.SetIsShow(bool,UiSys.Widget.IShowHideChangeMethod)
+			
+			loc_00000034:
+			ldsrsr r13, r4
+			unk_0f r12, 2
+			_xref  Stdlib.Array`1/Enumerator.MoveNext()
+			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_short 2
+			_ret32 r0
+			jmpneg r12, loc_00000028
+			jmp    loc_0000007e
+			
+			loc_0000003c:
+			ldsrc4 r5, 0x0
+			jmp    loc_0000007d
+			
+			loc_0000003e:
+			ldofad r12, r0, this._currentMarkerSet
+			ldsr2  r14, r12, r2
+			unk_0f r13, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Scn.Step.Info.StageList.TableBtn.Page>
+			_xref  Scn.Step.Info.StageList.TableBtn.Page
+			_ret32 r0
+			ldofad r12, r13, Scn.Step.Info.StageList.TableBtn.Page.__bf_Btns
+			ldsr2  r14, r12, r5
+			unk_0f r13, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Info.StageList.TableBtn.StageBtn>
+			_xref  Scn.Step.Info.StageList.TableBtn.StageBtn
+			_ret32 r0
+			ldofad r12, r13, Scn.Step.Info.StageList.TableBtn.StageBtn._panel
+			ldofad r15, r12, UiSys.Widget.RootPanel._layout
+			unk_0f r14, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Lyt.Layout>
+			_xref  Lyt.Layout
+			_ret32 r0
+			ldsrsr r6, r14
+			ldofad r12, r13, Scn.Step.Info.StageList.TableBtn.StageBtn._selectableBtn
+			ldofad r13, r12, UiSys.Widget.SelectableBtn._showHide
+			ldsrsr r7, r13
+			ldofad r12, r0, this._btnValidArray
+			ldsr2  r14, r12, r2
+			unk_0f r13, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Scn.Step.Info.StageList.StageBtnGroupKind,Stdlib.Array`1<bool>>
+			_xref  Stdlib.Array`1<bool>
+			_ret32 r0
+			ldsr2  r15, r13, r5
+			unk_0f r14, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<bool>
+			_short 2
+			_ret32 r0
+			jmpneg r14, loc_0000006a
+			ldsrsr r12, r7
+			ldsrc4 r13, 0x0
+			ldsrc4 r14, 0x2
+			calltv r12, UiSys.Widget.ShowHide.SetIsShow(bool,UiSys.Widget.IShowHideChangeMethod)
+			jmp    loc_0000007b
+			
+			loc_0000006a:
+			jmppos r1, loc_00000074
+			ldsr2  r12, r10, r6
+			ldsrca r14, "G_LevelSub"
+			calltr r12, Lyt.Layout.Group(string)
+			mcopys r8, r10, Lyt.GroupRef
+			ldsr2  r12, r8, r12
+			ldsrca r14, "TitleBarShow"
+			ldsrca r15, "TitleBarWait"
+			calltr r13, Lyt.GroupRef.Play(string,string)
+			jmp    loc_0000007b
+			
+			loc_00000074:
+			ldsr2  r12, r10, r6
+			ldsrca r14, "G_LevelSub"
+			calltr r12, Lyt.Layout.Group(string)
+			mcopys r8, r10, Lyt.GroupRef
+			ldsr2  r12, r8, r12
+			ldsrca r14, "TitleBarHide"
+			calltr r13, Lyt.GroupRef.Play(string)
+			
+			loc_0000007b:
+			ldsrc4 r12, 0x1
+			addi32 r5, r5, r12
+			
+			loc_0000007d:
+			ges32  r5, r3, loc_0000003e
+			
+			loc_0000007e:
+			ldsrc4 r12, 0x1
+			addi32 r2, r2, r12
+			
+			loc_00000080:
+			ldsrc4 r12, 0x3
+			ges32  r2, r12, loc_0000000c
+			fleave r0
+		}
+		
+		flag100 Storage.File.StoryLevelKind GetPrevLevelKind(Storage.File.StoryLevelKind)
+		{
+			fenter 0
+			_ret32 r0
+			ldsrsr r2, r1
+			ldsrc4 r3, 0x1
+			subi32 r4, r1, r3
+			ldsrsr r2, r4
+			ldsrc4 r3, 0x2
+			lts32  r4, r3, return
+			ldofa4 r2, r0, this._disclosureStoryLevel
+			
+			return:
+			fret32 r2
+		}
+		
+		flag100 Storage.File.StoryLevelKind GetNextLevelKind(Storage.File.StoryLevelKind)
+		{
+			fenter 0
+			_ret32 r0
+			ldsrsr r2, r1
+			ldsrc4 r3, 0x1
+			addi32 r4, r1, r3
+			ldsrsr r2, r4
+			ldofa4 r3, r0, this._disclosureStoryLevel
+			gts32  r4, r3, return
+			ldsrc4 r2, 0x2
+			
+			return:
+			fret32 r2
+		}
+		
+		
+		unkvalue 65536
+		unkvalue 44
+	}
+}
