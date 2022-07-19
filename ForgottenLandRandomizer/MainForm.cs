@@ -125,6 +125,11 @@ namespace ForgottenLandRandomizer
                 MessageBoxButtons.OK);
         }
 
+        private void randStoryStages_CheckChanged(object sender, EventArgs e)
+        {
+            randStoryStagesPanel.Visible = randStoryStages.Checked;
+        }
+
         private void randomize_Click(object sender, EventArgs e)
         {
             Random rng = new Random();
@@ -194,7 +199,7 @@ namespace ForgottenLandRandomizer
                 {
                     storyStageKind.Constants.Add(new MintClass.MintConstant(shuffledStoryStages[i], (uint)i + 0x2));
                     if (shuffledStoryStages[i][11] == '5')
-                        yamlWmapData.Root["BossStageUnlockCount"][shuffledStoryStages[i].Substring(0,6)] = new Yaml.Data(Yaml.Type.Int, i*DEE_SCALING);
+                        yamlWmapData.Root["BossStageUnlockCount"][shuffledStoryStages[i].Substring(0,6)] = new Yaml.Data(Yaml.Type.Int, scaleDees.Checked ? i*DEE_SCALING : 0);
                 }
                 yamlWmapData.Root["BossStageUnlockCount"]["Level6"] = new Yaml.Data(Yaml.Type.Int, 30 * DEE_SCALING);
                 storyStageKind.Constants.Add(new MintClass.MintConstant("Level6Stage6", 0x20));
