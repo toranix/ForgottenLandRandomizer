@@ -120,30 +120,8 @@ namespace ForgottenLandRandomizer.Types
 
         public void Write(string path)
         {
-            /*
-            if (LZ77Compressed)
-            {
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    using (EndianBinaryWriter writer = new EndianBinaryWriter(stream))
-                        Write(writer);
-                    byte[] buffer = stream.GetBuffer().Take((int)XData.Filesize).ToArray();
-                    unsafe
-                    {
-                        fixed (byte* b = &buffer[0])
-                        {
-                            using (FileStream file = new FileStream(path, FileMode.Create, FileAccess.Write))
-                                Compressor.Compact(CompressionType.ExtendedLZ77, new VoidPtr { address = b }, buffer.Length, file, new RawDataNode { _mainForm = Program.MainForm, Name = "Mint Archive" });
-                        }
-                    }
-                }
-            }
-            else
-            {
-            */
                 using (EndianBinaryWriter writer = new EndianBinaryWriter(new FileStream(path, FileMode.Create, FileAccess.Write)))
                     Write(writer);
-            //}
         }
 
         public void Write(EndianBinaryWriter writer)

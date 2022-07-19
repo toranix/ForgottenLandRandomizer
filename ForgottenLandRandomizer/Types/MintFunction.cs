@@ -1731,7 +1731,7 @@ namespace ForgottenLandRandomizer.Types
                 string opName = lines[i].Split(' ')[0].ToLower();
                 if (opcodes.Where(x => x.Name == opName).Count() == 0)
                 {
-                    MessageBox.Show($"Error: Unknown opcode name!\nOpcode: {opName}\nLine: {lines[i]}", "Mint Assembler", MessageBoxButtons.OK);
+                    //MessageBox.Show($"Error: Unknown opcode name!\nOpcode: {opName}\nLine: {lines[i]}", "Mint Assembler", MessageBoxButtons.OK);
                     return;
                 }
                 instOffsets.Add(offset);

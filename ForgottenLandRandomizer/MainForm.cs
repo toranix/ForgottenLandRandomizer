@@ -22,6 +22,8 @@ namespace ForgottenLandRandomizer
     {
         public static string ExeDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
+        const int DEE_SCALING = 5;
+
         static string[] StoryStages = new string[]
         {
             "Level1Stage1",
@@ -157,6 +159,12 @@ namespace ForgottenLandRandomizer
                 return;
             }
 
+            if (!File.Exists(romfsPath.Text + "\\yaml\\Scn\\Step\\Map\\WmapData.bin"))
+            {
+                MessageBox.Show($"Error: Could not find the path \"{romfsPath.Text}\\yaml\\Scn\\Step\\Map\\WmapData.bin\".", this.Text, MessageBoxButtons.OK);
+                return;
+            }
+
             Console.WriteLine("Loading Seq.bin Mint binary...");
             Archive mintSeq;
             using (EndianBinaryReader reader = new EndianBinaryReader(new FileStream(romfsPath.Text + "\\basil\\Seq.bin", FileMode.Open, FileAccess.Read)))
@@ -171,6 +179,9 @@ namespace ForgottenLandRandomizer
                 mintScn = new Archive(reader);
             }
 
+            Console.WriteLine("Loading WmapData.bin YAML binary...");
+            Yaml yamlWmapData = new Yaml(romfsPath.Text + "\\yaml\\Scn\\Step\\Map\\WmapData.bin");
+
             rng = new Random(rngSeed);
             if (randStoryStages.Checked)
             {
@@ -182,7 +193,10 @@ namespace ForgottenLandRandomizer
                 for (int i = 0x0; i < shuffledStoryStages.Length; i++)
                 {
                     storyStageKind.Constants.Add(new MintClass.MintConstant(shuffledStoryStages[i], (uint)i + 0x2));
+                    if (shuffledStoryStages[i][11] == '5')
+                        yamlWmapData.Root["BossStageUnlockCount"][shuffledStoryStages[i].Substring(0,6)] = new Yaml.Data(Yaml.Type.Int, i*DEE_SCALING);
                 }
+                yamlWmapData.Root["BossStageUnlockCount"]["Level6"] = new Yaml.Data(Yaml.Type.Int, 30 * DEE_SCALING);
                 storyStageKind.Constants.Add(new MintClass.MintConstant("Level6Stage6", 0x20));
                 storyStageKind.Constants.Add(new MintClass.MintConstant("Level7Stage1", 0x21));
                 storyStageKind.Constants.Add(new MintClass.MintConstant("TERM", 0x22));
@@ -201,11 +215,17 @@ namespace ForgottenLandRandomizer
             if (!Directory.Exists(outDir + "\\basil"))
                 Directory.CreateDirectory(outDir + "\\basil");
 
+            if (!Directory.Exists(outDir + "\\yaml\\Scn\\Step\\Map"))
+                Directory.CreateDirectory(outDir + "\\yaml\\Scn\\Step\\Map");
+
             Console.WriteLine("Saving Seq Mint binary...");
             mintSeq.Write(outDir + "\\basil\\Seq.bin");
 
             Console.WriteLine("Saving Scn Mint binary...");
             mintScn.Write(outDir + "\\basil\\Scn.bin");
+
+            Console.WriteLine("Saving WmapData YAML binary...");
+            yamlWmapData.Write(outDir + "\\yaml\\Scn\\Step\\Map\\WmapData.bin");
 
             MessageBox.Show($"Successfully randomized!\nMod-ready files saved to \"{outDir}\"", this.Text, MessageBoxButtons.OK);
         }
