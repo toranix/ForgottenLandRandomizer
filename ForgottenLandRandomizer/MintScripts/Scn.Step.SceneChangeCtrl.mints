@@ -26,7 +26,7 @@ script Scn.Step.SceneChangeCtrl
 		void ReserveSceneChange(bool,bool,bool)
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			ldofa4 r4, r0, this._isReservedSceneChange
 			jmppos r4, loc_00000005
 			fleave r0
@@ -43,7 +43,7 @@ script Scn.Step.SceneChangeCtrl
 		void ChangeTownEvent(int)
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r2, ScnContext.Step.MapInfo
 			ldofad r3, r0, this._mods
 			ldofad r4, r3, Scn.Step.Modules.__bf_CreateInfoManager
@@ -66,24 +66,24 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r3, r0, this._fiber
 			ldsrsr r4, r3
 			ldsrca r5, "ChangeTownEventDetail"
-			unk_0f r4, 2
+			dcall  r4, 2
 			_xref  Util.Fiber`1.Reset(string)
 			_xref  Util.Fiber`1<Scn.Step.SceneChangeCtrl>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldofad r4, r0, this._fiber
-			unk_0f r3, 2
+			dcall  r3, 2
 			_xref  Util.Fiber`1.Execute()
 			_xref  Util.Fiber`1<Scn.Step.SceneChangeCtrl>
 			_short 2
-			_ret32 r0
+			_ret   r0
 			fleave r0
 		}
 		
 		async void ChangeDeadDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r1, ScnContext.Step.CreateInfo
 			sppsh  r3, ScnContext.Step.DifficultyInfo
 			sppsh  r4, ScnContext.Step.CreateInfo
@@ -122,7 +122,7 @@ script Scn.Step.SceneChangeCtrl
 			loc_00000024:
 			ldsr3  r14, r1, r0, r14
 			ldsrc4 r17, 0x1
-			calltv r15, this.SetupPlayerDataOnDead(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r15, this.SetupPlayerDataOnDead(ref ScnContext.Step.CreateInfo,bool)
 			ldsrsr r14, r1
 			ldof_u r15, r14, ScnContext.Step.CreateInfo.MovieInfo
 			ldsrc4 r14, 0x0
@@ -131,11 +131,11 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r15, r14, Scn.Step.Modules.__bf_RetryCountManager
 			ldsrsr r16, r15
 			ldsrc4 r17, 0x1
-			calltv r16, Scn.Step.Actor.Basic.RetryCountManager.AddRetryCount(int)
+			callt4 r16, Scn.Step.Actor.Basic.RetryCountManager.AddRetryCount(int)
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r16, r15
-			calltv r16, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r16, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._playerManager
 			ldsrsr r2, r15
@@ -143,7 +143,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r16, r0, this._mods
 			ldofad r17, r16, Scn.Step.Modules._missionManager
 			ldsr2  r18, r8, r17
-			calltv r18, Scn.Step.Mission.Manager.CreateContext()
+			callt4 r18, Scn.Step.Mission.Manager.CreateContext()
 			stof_u r14, r8, ScnContext.Step.CreateInfo.MissionInfo
 			ldsrsr r14, r1
 			ldof_u r16, r14, ScnContext.Step.CreateInfo.MapInfo
@@ -161,7 +161,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofa4 r15, r0, this._customizedDeadChangeStepInKind
 			stofa4 r14, r15, ScnContext.Step.PlayerInfo/StepInInfoType.StepInKind
 			ldsr3  r14, r1, r0, r14
-			calltv r15, this.SetupReturnMapConnectInfo(ref ScnContext.Step.CreateInfo)
+			callt4 r15, this.SetupReturnMapConnectInfo(ref ScnContext.Step.CreateInfo)
 			
 			loc_0000004e:
 			ldsrsr r14, r1
@@ -196,7 +196,7 @@ script Scn.Step.SceneChangeCtrl
 			
 			loc_0000006b:
 			ldsr3  r14, r1, r0, r14
-			calltv r15, this.SetupBgmInfo(ref ScnContext.Step.CreateInfo)
+			callt4 r15, this.SetupBgmInfo(ref ScnContext.Step.CreateInfo)
 			
 			loc_0000006d:
 			ldofad r14, r0, this._mods
@@ -210,12 +210,12 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldofad r14, r15, Scn.Step.StorageManager._volatileData
 			ldsrsr r15, r14
-			calltv r15, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r15, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldofad r14, r15, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r15, r14
-			calltr r15, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r15, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldsrc4 r14, 0x1
@@ -232,7 +232,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r15, r14, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r14, r0, this._result
 			ldsr2  r17, r15, r14
-			calltv r16, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r16, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldofad r14, r15, Scn.Step.StorageManager._volatileData
@@ -240,7 +240,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r14, r0, this._result
 			ldsr2  r16, r15, r14
 			ldsrc4 r18, 0x0
-			calltv r16, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r16, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldsrc4 r14, 0x1
 			stofa4 r0, r14, this._isSceneEnd
 			fleave r0
@@ -249,7 +249,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeStageClearedDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r2, ScnContext.Step.CreateInfo
 			sppsh  r3, Storage.File.StageKey
 			sppsh  r4, ScnContext.Step.DifficultyInfo
@@ -273,7 +273,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r19, r20, Scn.Step.Player.Manager.__bf_PowerUpCtrl
 			ldofad r20, r19, Scn.Step.Player.PowerUpCtrl._mightyTime
 			ldof_u r21, r20, Util.TimeCounter._pod
-			calltr r21, Util.TimeCounter/Pod.ToEnd()
+			calltp r21, Util.TimeCounter/Pod.ToEnd()
 			ldofad r19, r0, this._mods
 			ldofad r20, r19, Scn.Step.Modules.__bf_CreateInfoManager
 			ldofap r8, r20, Scn.Step.CreateInfoManager._createInfo
@@ -300,25 +300,25 @@ script Scn.Step.SceneChangeCtrl
 			loc_00000030:
 			ldsrsr r19, r2
 			ldsr2  r20, r12, r1
-			calltv r20, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r20, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r19, r12, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsr3  r19, r2, r0, r19
 			ldsrc4 r22, 0x0
-			calltv r20, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r20, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 			ldsr3  r19, r2, r0, r19
-			calltv r20, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
+			callt4 r20, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
 			ldsr3  r19, r2, r0, r19
-			calltv r20, this.ReviveSubHero(ref ScnContext.Step.CreateInfo)
+			callt4 r20, this.ReviveSubHero(ref ScnContext.Step.CreateInfo)
 			ldsrsr r19, r2
 			ldofad r20, r0, this._mods
 			ldofad r21, r20, Scn.Step.Modules._missionManager
 			ldsr2  r22, r13, r21
-			calltv r22, Scn.Step.Mission.Manager.CreateContext()
+			callt4 r22, Scn.Step.Mission.Manager.CreateContext()
 			stof_u r19, r13, ScnContext.Step.CreateInfo.MissionInfo
 			ldsrsr r19, r2
 			ldof_u r20, r19, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsrsr r21, r14
-			calltv r21, ScnContext.Step.PlayerInfo/RestartInfoType.CreateDefault()
+			callt4 r21, ScnContext.Step.PlayerInfo/RestartInfoType.CreateDefault()
 			stof_u r20, r14, ScnContext.Step.PlayerInfo.RestartInfo
 			ldsrsr r19, r2
 			ldof_u r20, r19, ScnContext.Step.CreateInfo.PlayerInfo
@@ -332,54 +332,54 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r19, r20, ScnContext.Step.PlayerInfo.Share
 			ldof_u r20, r19, ScnContext.Step.PlayerInfo/ShareType.CapsuleInfo
 			ldof_u r21, r20, ScnContext.Step.PlayerInfo/CapsuleInfo.CapsuleKindList
-			unk_0f r21, 2
+			dcall  r21, 2
 			_xref  Stdlib.MutableArray8`1.Clear()
 			_xref  Stdlib.MutableArray8`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldof_u r21, r20, ScnContext.Step.PlayerInfo/CapsuleInfo.CapsuleUidList
-			unk_0f r21, 2
+			dcall  r21, 2
 			_xref  Stdlib.MutableArray8`1.Clear()
 			_xref  Stdlib.MutableArray8`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrsr r19, r2
 			ldof_u r20, r19, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r19, r20, ScnContext.Step.PlayerInfo.Share
 			ldof_u r20, r19, ScnContext.Step.PlayerInfo/ShareType.SoulInfo
 			ldof_u r21, r20, ScnContext.Step.PlayerInfo/SoulInfo.SoulSingleUidList1
-			unk_0f r21, 2
+			dcall  r21, 2
 			_xref  Stdlib.MutableArray32`1.Clear()
 			_xref  Stdlib.MutableArray32`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldof_u r21, r20, ScnContext.Step.PlayerInfo/SoulInfo.SoulSingleUidList2
-			unk_0f r21, 2
+			dcall  r21, 2
 			_xref  Stdlib.MutableArray32`1.Clear()
 			_xref  Stdlib.MutableArray32`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldof_u r21, r20, ScnContext.Step.PlayerInfo/SoulInfo.SoulTripleUidList
-			unk_0f r21, 2
+			dcall  r21, 2
 			_xref  Stdlib.MutableArray32`1.Clear()
 			_xref  Stdlib.MutableArray32`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldof_u r21, r20, ScnContext.Step.PlayerInfo/SoulInfo.SoulEnemyUidList
-			unk_0f r21, 2
+			dcall  r21, 2
 			_xref  Stdlib.MutableArray32`1.Clear()
 			_xref  Stdlib.MutableArray32`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrsr r19, r2
 			ldof_u r20, r19, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r19, r20, ScnContext.Step.PlayerInfo.Share
 			ldof_u r20, r19, ScnContext.Step.PlayerInfo/ShareType.AmiiboIdList
-			unk_0f r20, 2
+			dcall  r20, 2
 			_xref  Stdlib.MutableArray8`1.Clear()
 			_xref  Stdlib.MutableArray8`1<ScnContext.Step.PlayerInfo/AmiiboInfo>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrsr r19, r2
 			ldof_u r20, r19, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r19, r20, ScnContext.Step.PlayerInfo.Share
@@ -404,40 +404,40 @@ script Scn.Step.SceneChangeCtrl
 			ldsr2  r19, r3, r2
 			ldof_u r21, r20, ScnContext.Step.CreateInfo.MapInfo
 			ldsr2  r22, r17, r21
-			calltv r22, ScnContext.Step.MapInfo.get_Path()
+			callt4 r22, ScnContext.Step.MapInfo.get_Path()
 			mcopys r5, r17, Stdlib.FixedString128
 			ldsrsr r20, r5
 			mcopys r7, r20, Stdlib.FixedString128
 			ldsrsr r21, r7
-			calltr r20, Stdlib.FixedString128.ReadPtr()
+			calltp r20, Stdlib.FixedString128.ReadPtr()
 			ldsr2  r21, r19, r20
-			calltv r21, Storage.File.StageKey.this(string)
+			callt4 r21, Storage.File.StageKey.this(string)
 			ldsr3  r19, r3, r0, r19
-			calltv r20, this.SendPlayReportOnStageClear(ref Storage.File.StageKey)
+			callt4 r20, this.SendPlayReportOnStageClear(ref Storage.File.StageKey)
 			ldsr5  r19, r2, r3, r0, r19, r20
-			calltv r21, this.UpdateBackupFileDataOnStageClear(ref ScnContext.Step.CreateInfo,ref Storage.File.StageKey)
+			callt4 r21, this.UpdateBackupFileDataOnStageClear(ref ScnContext.Step.CreateInfo,ref Storage.File.StageKey)
 			ldofad r19, r0, this._mods
 			ldofad r20, r19, Scn.Step.Modules._pwdeeManager
 			ldsrsr r21, r20
-			calltv r21, Scn.Step.PwdeeManager.FixTentativeRecord()
+			callt4 r21, Scn.Step.PwdeeManager.FixTentativeRecord()
 			ldofad r19, r0, this._mods
 			ldofad r20, r19, Scn.Step.Modules.__bf_RetryCountManager
 			ldsrsr r21, r20
-			calltv r21, Scn.Step.Actor.Basic.RetryCountManager.Clear()
+			callt4 r21, Scn.Step.Actor.Basic.RetryCountManager.Clear()
 			ldofad r19, r0, this._mods
 			ldofad r20, r19, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r21, r20
-			calltv r21, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r21, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldofad r19, r0, this._mods
 			ldofad r20, r19, Scn.Step.Modules._storageManager
 			ldofad r19, r20, Scn.Step.StorageManager._volatileData
 			ldsrsr r20, r19
-			calltv r20, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r20, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r19, r0, this._mods
 			ldofad r20, r19, Scn.Step.Modules._storageManager
 			ldofad r19, r20, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r20, r19
-			calltr r20, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r20, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r19, r0, this._mods
 			ldofad r20, r19, Scn.Step.Modules._storageManager
 			ldsrc4 r19, 0x1
@@ -447,7 +447,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrc4 r19, 0x8
 			nei32  r20, r19, loc_000000c8
 			ldsrsr r20, r3
-			calltv r19, Storage.File.StageKey.get_EstoryStage()
+			callt4 r19, Storage.File.StageKey.get_EstoryStage()
 			ldsrc4 r20, 0x7
 			eqi32  r19, r20, loc_000000dc
 			
@@ -485,7 +485,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r20, r19, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r19, r0, this._result
 			ldsr2  r22, r20, r19
-			calltv r21, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r21, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r19, r0, this._mods
 			ldofad r20, r19, Scn.Step.Modules._storageManager
 			ldofad r19, r20, Scn.Step.StorageManager._volatileData
@@ -493,7 +493,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r19, r0, this._result
 			ldsr2  r21, r20, r19
 			ldsrc4 r23, 0x0
-			calltv r21, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r21, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldofad r19, r0, this._mods
 			ldofad r20, r19, Scn.Step.Modules._storageManager
 			ldofad r19, r20, Scn.Step.StorageManager._volatileData
@@ -504,10 +504,10 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r18, r22, Scn.Step.TimeManager.__bf_Time
 			mcopys r6, r18, Util.TimeSpan
 			ldsrsr r22, r6
-			calltr r21, Util.TimeSpan.get_Sec()
+			calltp r21, Util.TimeSpan.get_Sec()
 			cts32f r22, r21
 			ldsr3  r23, r20, r19, r22
-			calltv r23, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
+			callt4 r23, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
 			ldsrc4 r19, 0x1
 			stofa4 r0, r19, this._isSceneEnd
 			fleave r0
@@ -516,7 +516,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeExitDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r2, ScnContext.Step.CreateInfo
 			sppsh  r3, Stdlib.FixedString128
 			sppsh  r4, Util.TimeSpan
@@ -539,7 +539,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r20, r21, Scn.Step.Player.Manager.__bf_PowerUpCtrl
 			ldofad r22, r20, Scn.Step.Player.PowerUpCtrl._mightyTime
 			ldof_u r23, r22, Util.TimeCounter._pod
-			calltr r23, Util.TimeCounter/Pod.ToEnd()
+			calltp r23, Util.TimeCounter/Pod.ToEnd()
 			ldofad r20, r0, this._mods
 			ldofad r22, r20, Scn.Step.Modules.__bf_CreateInfoManager
 			ldofap r6, r22, Scn.Step.CreateInfoManager._createInfo
@@ -550,15 +550,15 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r2, r7, ScnContext.Step.CreateInfo
 			ldsrsr r20, r2
 			ldsr2  r22, r8, r21
-			calltv r22, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r22, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r20, r8, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsr3  r20, r2, r0, r20
 			ldsrc4 r23, 0x0
-			calltv r21, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r21, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 			ldsr3  r20, r2, r0, r20
-			calltv r21, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
+			callt4 r21, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
 			ldsr3  r20, r2, r0, r20
-			calltv r21, this.ReviveSubHero(ref ScnContext.Step.CreateInfo)
+			callt4 r21, this.ReviveSubHero(ref ScnContext.Step.CreateInfo)
 			ldofad r20, r0, this._mods
 			ldofad r21, r20, Scn.Step.Modules.__bf_CreateInfoManager
 			ldof_u r20, r21, Scn.Step.CreateInfoManager._createInfo
@@ -567,19 +567,19 @@ script Scn.Step.SceneChangeCtrl
 			ldsrc4 r21, 0x3
 			eqi32  r20, r21, loc_00000035
 			ldsr3  r20, r2, r0, r20
-			calltv r21, this.FullRecoverHero(ref ScnContext.Step.CreateInfo)
+			callt4 r21, this.FullRecoverHero(ref ScnContext.Step.CreateInfo)
 			
 			loc_00000035:
 			ldsrsr r20, r2
 			ldofad r21, r0, this._mods
 			ldofad r22, r21, Scn.Step.Modules._missionManager
 			ldsr2  r23, r10, r22
-			calltv r23, Scn.Step.Mission.Manager.CreateContext()
+			callt4 r23, Scn.Step.Mission.Manager.CreateContext()
 			stof_u r20, r10, ScnContext.Step.CreateInfo.MissionInfo
 			ldsrsr r20, r2
 			ldof_u r21, r20, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsrsr r22, r11
-			calltv r22, ScnContext.Step.PlayerInfo/RestartInfoType.CreateDefault()
+			callt4 r22, ScnContext.Step.PlayerInfo/RestartInfoType.CreateDefault()
 			stof_u r21, r11, ScnContext.Step.PlayerInfo.RestartInfo
 			ldsrsr r20, r2
 			ldof_u r21, r20, ScnContext.Step.CreateInfo.PlayerInfo
@@ -593,45 +593,45 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r20, r21, ScnContext.Step.PlayerInfo.Share
 			ldof_u r21, r20, ScnContext.Step.PlayerInfo/ShareType.CapsuleInfo
 			ldof_u r22, r21, ScnContext.Step.PlayerInfo/CapsuleInfo.CapsuleKindList
-			unk_0f r22, 2
+			dcall  r22, 2
 			_xref  Stdlib.MutableArray8`1.Clear()
 			_xref  Stdlib.MutableArray8`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldof_u r22, r21, ScnContext.Step.PlayerInfo/CapsuleInfo.CapsuleUidList
-			unk_0f r22, 2
+			dcall  r22, 2
 			_xref  Stdlib.MutableArray8`1.Clear()
 			_xref  Stdlib.MutableArray8`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrsr r20, r2
 			ldof_u r21, r20, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r20, r21, ScnContext.Step.PlayerInfo.Share
 			ldof_u r21, r20, ScnContext.Step.PlayerInfo/ShareType.SoulInfo
 			ldof_u r22, r21, ScnContext.Step.PlayerInfo/SoulInfo.SoulSingleUidList1
-			unk_0f r22, 2
+			dcall  r22, 2
 			_xref  Stdlib.MutableArray32`1.Clear()
 			_xref  Stdlib.MutableArray32`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldof_u r22, r21, ScnContext.Step.PlayerInfo/SoulInfo.SoulSingleUidList2
-			unk_0f r22, 2
+			dcall  r22, 2
 			_xref  Stdlib.MutableArray32`1.Clear()
 			_xref  Stdlib.MutableArray32`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldof_u r22, r21, ScnContext.Step.PlayerInfo/SoulInfo.SoulTripleUidList
-			unk_0f r22, 2
+			dcall  r22, 2
 			_xref  Stdlib.MutableArray32`1.Clear()
 			_xref  Stdlib.MutableArray32`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldof_u r22, r21, ScnContext.Step.PlayerInfo/SoulInfo.SoulEnemyUidList
-			unk_0f r22, 2
+			dcall  r22, 2
 			_xref  Stdlib.MutableArray32`1.Clear()
 			_xref  Stdlib.MutableArray32`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrsr r20, r2
 			ldsrsr r21, r12
 			ldsrc4 r22, 0x0
@@ -651,17 +651,17 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r20, r0, this._mods
 			ldofad r21, r20, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r22, r21
-			calltv r22, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r22, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldofad r20, r0, this._mods
 			ldofad r21, r20, Scn.Step.Modules._storageManager
 			ldofad r20, r21, Scn.Step.StorageManager._volatileData
 			ldsrsr r21, r20
-			calltv r21, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r21, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r20, r0, this._mods
 			ldofad r21, r20, Scn.Step.Modules._storageManager
 			ldofad r20, r21, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r21, r20
-			calltr r21, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r21, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r20, r0, this._mods
 			ldofad r21, r20, Scn.Step.Modules._storageManager
 			ldsrc4 r20, 0x1
@@ -689,15 +689,15 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r20, r2
 			ldof_u r22, r20, ScnContext.Step.CreateInfo.MapInfo
 			ldsr2  r23, r14, r22
-			calltv r23, ScnContext.Step.MapInfo.get_Path()
+			callt4 r23, ScnContext.Step.MapInfo.get_Path()
 			mcopys r3, r14, Stdlib.FixedString128
 			ldsrsr r20, r3
 			mcopys r5, r20, Stdlib.FixedString128
 			ldsrsr r23, r5
-			calltr r22, Stdlib.FixedString128.ReadPtr()
+			calltp r22, Stdlib.FixedString128.ReadPtr()
 			sppshz r15, Storage.File.StageKey
 			ldsr2  r23, r15, r22
-			calltv r23, Storage.File.StageKey.this(string)
+			callt4 r23, Storage.File.StageKey.this(string)
 			stof_u r21, r15, Storage.File.Player.LastStageInStoryWmap
 			
 			loc_000000b4:
@@ -714,7 +714,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrc4 r21, 0x1
 			eqi32  r20, r21, loc_000000c2
 			ldsr3  r20, r2, r0, r20
-			calltv r21, this.CheckStageClearDemoOnEnterWmap(ref ScnContext.Step.CreateInfo)
+			callt4 r21, this.CheckStageClearDemoOnEnterWmap(ref ScnContext.Step.CreateInfo)
 			
 			loc_000000c2:
 			ldof_u r20, r0, this._result
@@ -738,7 +738,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r21, r20, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r20, r0, this._result
 			ldsr2  r23, r21, r20
-			calltv r22, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r22, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r20, r0, this._mods
 			ldofad r21, r20, Scn.Step.Modules._storageManager
 			ldofad r20, r21, Scn.Step.StorageManager._volatileData
@@ -746,7 +746,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r20, r0, this._result
 			ldsr2  r22, r21, r20
 			ldsrc4 r24, 0x0
-			calltv r22, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r22, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldofad r20, r0, this._mods
 			ldofad r21, r20, Scn.Step.Modules._storageManager
 			ldofad r20, r21, Scn.Step.StorageManager._volatileData
@@ -757,10 +757,10 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r17, r23, Scn.Step.TimeManager.__bf_Time
 			mcopys r4, r17, Util.TimeSpan
 			ldsrsr r23, r4
-			calltr r22, Util.TimeSpan.get_Sec()
+			calltp r22, Util.TimeSpan.get_Sec()
 			cts32f r23, r22
 			ldsr3  r24, r21, r20, r23
-			calltv r24, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
+			callt4 r24, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
 			ldsrc4 r20, 0x1
 			stofa4 r0, r20, this._isSceneEnd
 			fleave r0
@@ -769,12 +769,12 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeToTitleDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			ldofad r1, r0, this._mods
 			ldofad r2, r1, Scn.Step.Modules._storageManager
 			ldofad r1, r2, Scn.Step.StorageManager._volatileData
 			ldofad r2, r1, Storage.Volatile.Root.Town
-			calltv r2, Storage.Volatile.Town.ResetIsAlreadyChecked()
+			callt4 r2, Storage.Volatile.Town.ResetIsAlreadyChecked()
 			ldofad r1, r0, this._mods
 			ldofad r2, r1, Scn.Step.Modules._storageManager
 			ldofad r1, r2, Scn.Step.StorageManager._volatileData
@@ -792,7 +792,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeTownToWmapDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r1, ScnContext.Step.CreateInfo
 			sppsh  r4, Storage.File.StageKey
 			sppsh  r5, Util.TimeSpan
@@ -816,7 +816,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r15, r0, this._mods
 			ldofad r16, r15, Scn.Step.Modules._playerManager
 			ldsr2  r17, r8, r16
-			calltv r17, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r17, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r14, r8, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsrsr r14, r1
 			ldsrsr r15, r9
@@ -832,14 +832,14 @@ script Scn.Step.SceneChangeCtrl
 			stof_u r14, r10, ScnContext.Step.CreateInfo.BgmInfo
 			ldsr3  r14, r1, r0, r14
 			ldsrc4 r17, 0x0
-			calltv r15, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r15, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 			ldsr3  r14, r1, r0, r14
-			calltv r15, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
+			callt4 r15, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
 			ldsrsr r14, r1
 			ldofad r15, r0, this._mods
 			ldofad r16, r15, Scn.Step.Modules._missionManager
 			ldsr2  r17, r11, r16
-			calltv r17, Scn.Step.Mission.Manager.CreateContext()
+			callt4 r17, Scn.Step.Mission.Manager.CreateContext()
 			stof_u r14, r11, ScnContext.Step.CreateInfo.MissionInfo
 			ldsrsr r14, r1
 			ldof_u r15, r14, ScnContext.Step.CreateInfo.WmapInfo
@@ -851,21 +851,21 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r15, r14, Storage.File.Root.StoryLevels
 			ldsrsr r17, r15
 			ldsrc4 r18, 0x2
-			unk_0f r16, 2
+			dcall  r16, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryLevelKind,Storage.File.StoryLevelData>
 			_xref  Storage.File.StoryLevelData
-			_ret32 r0
+			_ret   r0
 			ldofa4 r14, r16, Storage.File.StoryLevelData.IsUnlocked
 			jmpneg r14, loc_00000087
 			ldofad r14, r2, Storage.File.Root.StoryStages
 			ldsrsr r16, r14
 			ldsrc4 r17, 0x2
-			unk_0f r15, 2
+			dcall  r15, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
 			_xref  Storage.File.StoryStageData
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r14, 0x1
 			stofa4 r15, r14, Storage.File.StoryStageData.IsUnlocked
 			ldofad r14, r2, Storage.File.Root.StoryLevels
@@ -875,11 +875,11 @@ script Scn.Step.SceneChangeCtrl
 			loc_00000050:
 			ldsrc4 r14, 0x7
 			les32  r17, r14, loc_0000005c
-			unk_0f r15, 2
+			dcall  r15, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryLevelKind,Storage.File.StoryLevelData>
 			_xref  Storage.File.StoryLevelData
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r14, 0x1
 			stofa4 r15, r14, Storage.File.StoryLevelData.IsUnlocked
 			ldsrc4 r14, 0x1
@@ -890,11 +890,11 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r14, r2, Storage.File.Root.StoryStages
 			ldsrsr r16, r14
 			ldsrc4 r17, 0x1
-			unk_0f r15, 2
+			dcall  r15, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
 			_xref  Storage.File.StoryStageData
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r14, 0x1
 			stofa4 r15, r14, Storage.File.StoryStageData.IsCleared
 			ldsrc4 r14, 0x6
@@ -909,45 +909,45 @@ script Scn.Step.SceneChangeCtrl
 			sppshz r12, Storage.File.StageKey
 			ldsrsr r16, r12
 			ldsrc4 r17, 0x2
-			calltv r16, Storage.File.StageKey.this(Storage.File.StoryStageKind)
+			callt4 r16, Storage.File.StageKey.this(Storage.File.StoryStageKind)
 			stof_u r15, r12, ScnContext.Step.WmapInfo.UnlockStage
 			ldsrsr r14, r1
 			ldof_u r15, r14, ScnContext.Step.CreateInfo.WmapInfo
 			ldsrc4 r14, 0x1
 			stofa4 r15, r14, ScnContext.Step.WmapInfo.IsStageUnlock
 			ldsrsr r16, r12
-			calltv r15, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
+			callt4 r15, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
 			jmppos r15, loc_000000ce
 			ldofad r14, r2, Storage.File.Root.StoryLevels
 			ldsrsr r16, r12
-			calltv r15, Storage.File.StoryLevelKindUtil.StageKeyToStoryLevel(ref Storage.File.StageKey)
+			callt4 r15, Storage.File.StoryLevelKindUtil.StageKeyToStoryLevel(ref Storage.File.StageKey)
 			ldsr2  r16, r14, r15
-			unk_0f r15, 2
+			dcall  r15, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryLevelKind,Storage.File.StoryLevelData>
 			_xref  Storage.File.StoryLevelData
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r16, 0x1
 			stofa4 r15, r16, Storage.File.StoryLevelData.IsBossUnlocked
 			jmp    loc_000000ce
 			
 			loc_00000087:
 			ldofad r15, r2, Storage.File.Root.Wmap
-			calltv r14, Storage.File.Wmap.get_IsNeedToShowAnyDemo()
+			callt4 r14, Storage.File.Wmap.get_IsNeedToShowAnyDemo()
 			jmppos r14, loc_0000008d
 			ldsr3  r14, r1, r0, r14
-			calltv r15, this.CheckStageClearDemoOnEnterWmap(ref ScnContext.Step.CreateInfo)
+			callt4 r15, this.CheckStageClearDemoOnEnterWmap(ref ScnContext.Step.CreateInfo)
 			jmp    loc_000000ce
 			
 			loc_0000008d:
 			ldsrsr r15, r2
-			calltv r14, Storage.File.BackupFileDataUtil.GetClearedStoryStageKind(Storage.File.Root)
+			callt4 r14, Storage.File.BackupFileDataUtil.GetClearedStoryStageKind(Storage.File.Root)
 			ldsrc4 r15, 0x1
 			addi32 r16, r14, r15
 			ldsrsr r3, r16
 			ldsr3  r14, r4, r14, r3
 			ldsrc4 r17, 0x0
-			calltv r15, Storage.File.StageKey.this(Storage.File.StoryStageKind)
+			callt4 r15, Storage.File.StageKey.this(Storage.File.StoryStageKind)
 			ldsrsr r14, r4
 			ldofa4 r15, r14, Storage.File.StageKey.__bf_Category
 			ldsrc4 r14, 0x0
@@ -956,15 +956,15 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r14, r2, Storage.File.Root.StoryStages
 			ldsrsr r16, r4
 			ldsr2  r17, r14, r3
-			unk_0f r16, 2
+			dcall  r16, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
 			_xref  Storage.File.StoryStageData
-			_ret32 r0
+			_ret   r0
 			ldofa4 r14, r16, Storage.File.StoryStageData.IsUnlocked
 			jmpneg r14, loc_000000ce
 			ldsrsr r16, r4
-			calltv r15, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
+			callt4 r15, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
 			jmpneg r15, loc_000000ce
 			ldsrsr r14, r1
 			ldof_u r15, r14, ScnContext.Step.CreateInfo.WmapInfo
@@ -972,7 +972,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r14, r1
 			ldof_u r15, r14, ScnContext.Step.CreateInfo.WmapInfo
 			ldsrsr r17, r4
-			calltv r16, Storage.File.StoryLevelKindUtil.StageKeyToStoryLevel(ref Storage.File.StageKey)
+			callt4 r16, Storage.File.StoryLevelKindUtil.StageKeyToStoryLevel(ref Storage.File.StageKey)
 			ldsrc4 r14, 0x6
 			nei32  r16, r14, loc_000000b2
 			ldsrc4 r14, 0x1
@@ -981,22 +981,22 @@ script Scn.Step.SceneChangeCtrl
 			loc_000000b2:
 			ldofad r14, r2, Storage.File.Root.StoryLevels
 			ldsr2  r16, r14, r3
-			unk_0f r15, 2
+			dcall  r15, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryLevelKind,Storage.File.StoryLevelData>
 			_xref  Storage.File.StoryLevelData
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r14, 0x1
 			stofa4 r15, r14, Storage.File.StoryLevelData.IsUnlocked
 			ldofad r14, r2, Storage.File.Root.StoryStages
 			ldsrsr r16, r4
-			calltv r15, Storage.File.StageKey.get_StoryStage()
+			callt4 r15, Storage.File.StageKey.get_StoryStage()
 			ldsr2  r17, r14, r15
-			unk_0f r16, 2
+			dcall  r16, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
 			_xref  Storage.File.StoryStageData
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r14, 0x1
 			stofa4 r16, r14, Storage.File.StoryStageData.IsUnlocked
 			ldofad r14, r2, Storage.File.Root.Player
@@ -1016,17 +1016,17 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r16, r15
-			calltv r16, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r16, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldofad r14, r15, Scn.Step.StorageManager._volatileData
 			ldsrsr r15, r14
-			calltv r15, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r15, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldofad r14, r15, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r15, r14
-			calltr r15, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r15, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldsrc4 r14, 0x1
@@ -1035,7 +1035,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldofad r14, r15, Scn.Step.StorageManager._volatileData
 			ldofad r15, r14, Storage.Volatile.Root.Town
-			calltv r15, Storage.Volatile.Town.ResetIsAlreadyChecked()
+			callt4 r15, Storage.Volatile.Town.ResetIsAlreadyChecked()
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldofad r14, r15, Scn.Step.StorageManager._volatileData
@@ -1052,7 +1052,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r15, r14, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r14, r0, this._result
 			ldsr2  r17, r15, r14
-			calltv r16, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r16, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldofad r14, r15, Scn.Step.StorageManager._volatileData
@@ -1060,7 +1060,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r14, r0, this._result
 			ldsr2  r16, r15, r14
 			ldsrc4 r18, 0x0
-			calltv r16, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r16, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldofad r14, r15, Scn.Step.StorageManager._volatileData
@@ -1071,10 +1071,10 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r13, r17, Scn.Step.TimeManager.__bf_Time
 			mcopys r5, r13, Util.TimeSpan
 			ldsrsr r17, r5
-			calltr r16, Util.TimeSpan.get_Sec()
+			calltp r16, Util.TimeSpan.get_Sec()
 			cts32f r17, r16
 			ldsr3  r18, r15, r14, r17
-			calltv r18, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
+			callt4 r18, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
 			ldsrc4 r14, 0x1
 			stofa4 r0, r14, this._isSceneEnd
 			fleave r0
@@ -1083,7 +1083,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeTownToEstoryWmapDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r2, ScnContext.Step.CreateInfo
 			sppsh  r3, Util.TimeSpan
 			sppsh  r4, ScnContext.Step.CreateInfo
@@ -1108,7 +1108,7 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r2, r5, ScnContext.Step.CreateInfo
 			ldsrsr r13, r2
 			ldsr2  r15, r6, r14
-			calltv r15, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r15, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r13, r6, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsrsr r13, r2
 			ldsrsr r14, r7
@@ -1124,14 +1124,14 @@ script Scn.Step.SceneChangeCtrl
 			stof_u r13, r8, ScnContext.Step.CreateInfo.BgmInfo
 			ldsr3  r13, r2, r0, r13
 			ldsrc4 r16, 0x0
-			calltv r14, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r14, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 			ldsr3  r13, r2, r0, r13
-			calltv r14, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
+			callt4 r14, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
 			ldsrsr r13, r2
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._missionManager
 			ldsr2  r16, r9, r15
-			calltv r16, Scn.Step.Mission.Manager.CreateContext()
+			callt4 r16, Scn.Step.Mission.Manager.CreateContext()
 			stof_u r13, r9, ScnContext.Step.CreateInfo.MissionInfo
 			ldsrsr r13, r2
 			ldof_u r14, r13, ScnContext.Step.CreateInfo.WmapInfo
@@ -1143,17 +1143,17 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r13, r0, this._mods
 			ldofad r14, r13, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r15, r14
-			calltv r15, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r15, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldofad r13, r0, this._mods
 			ldofad r14, r13, Scn.Step.Modules._storageManager
 			ldofad r13, r14, Scn.Step.StorageManager._volatileData
 			ldsrsr r14, r13
-			calltv r14, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r14, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r13, r0, this._mods
 			ldofad r14, r13, Scn.Step.Modules._storageManager
 			ldofad r13, r14, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r14, r13
-			calltr r14, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r14, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r13, r0, this._mods
 			ldofad r14, r13, Scn.Step.Modules._storageManager
 			ldsrc4 r13, 0x1
@@ -1162,7 +1162,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r14, r13, Scn.Step.Modules._storageManager
 			ldofad r13, r14, Scn.Step.StorageManager._volatileData
 			ldofad r14, r13, Storage.Volatile.Root.Town
-			calltv r14, Storage.Volatile.Town.ResetIsAlreadyChecked()
+			callt4 r14, Storage.Volatile.Town.ResetIsAlreadyChecked()
 			ldofad r13, r0, this._mods
 			ldofad r14, r13, Scn.Step.Modules._storageManager
 			ldofad r13, r14, Scn.Step.StorageManager._volatileData
@@ -1175,11 +1175,11 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r14, r13, Storage.File.Root.EstoryStages
 			ldsrsr r16, r14
 			ldsrc4 r17, 0x1
-			unk_0f r15, 2
+			dcall  r15, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.EstoryStageKind,Storage.File.EstoryStageData>
 			_xref  Storage.File.EstoryStageData
-			_ret32 r0
+			_ret   r0
 			ldofa4 r13, r15, Storage.File.EstoryStageData.IsUnlocked
 			ldsrc4 r14, 0x0
 			eqi32b r15, r13, r14
@@ -1190,11 +1190,11 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r14, r13, Storage.File.Root.EstoryStages
 			ldsrsr r16, r14
 			ldsrc4 r17, 0x1
-			unk_0f r15, 2
+			dcall  r15, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.EstoryStageKind,Storage.File.EstoryStageData>
 			_xref  Storage.File.EstoryStageData
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r13, 0x1
 			stofa4 r15, r13, Storage.File.EstoryStageData.IsUnlocked
 			ldsrsr r13, r2
@@ -1206,21 +1206,21 @@ script Scn.Step.SceneChangeCtrl
 			sppshz r10, Storage.File.StageKey
 			sppshz r10, Storage.File.StageKey
 			ldsrc4 r16, 0x1
-			unk_0f r15, 3
+			dcall  r15, 3
 			_xref  Stdlib.Enum.ToString(TEnum)
 			_xref  Stdlib.Enum
 			_short 16
 			_xref  Storage.File.EstoryStageKind
-			_ret32 r0
+			_ret   r0
 			ldsrsr r17, r15
-			calltr r16, ScnContext.StepUtil.PathPostfixNum(string)
+			calltp r16, ScnContext.StepUtil.PathPostfixNum(string)
 			ldsrc4 r13, 0x1
 			subi32 r15, r16, r13
 			sppshz r11, Storage.File.StageKey
 			ldsrsr r16, r11
 			ldsrc4 r17, 0x3
 			ldsrsr r18, r15
-			calltv r16, Storage.File.StageKey.this(Storage.File.StageCategory,int)
+			callt4 r16, Storage.File.StageKey.this(Storage.File.StageCategory,int)
 			mcopys r10, r11, Storage.File.StageKey
 			stof_u r14, r10, ScnContext.Step.WmapInfo.UnlockStage
 			
@@ -1234,7 +1234,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r14, r13, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r13, r0, this._result
 			ldsr2  r16, r14, r13
-			calltv r15, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r15, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r13, r0, this._mods
 			ldofad r14, r13, Scn.Step.Modules._storageManager
 			ldofad r13, r14, Scn.Step.StorageManager._volatileData
@@ -1242,7 +1242,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r13, r0, this._result
 			ldsr2  r15, r14, r13
 			ldsrc4 r17, 0x0
-			calltv r15, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r15, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldofad r13, r0, this._mods
 			ldofad r14, r13, Scn.Step.Modules._storageManager
 			ldofad r13, r14, Scn.Step.StorageManager._volatileData
@@ -1253,10 +1253,10 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r12, r16, Scn.Step.TimeManager.__bf_Time
 			mcopys r3, r12, Util.TimeSpan
 			ldsrsr r16, r3
-			calltr r15, Util.TimeSpan.get_Sec()
+			calltp r15, Util.TimeSpan.get_Sec()
 			cts32f r16, r15
 			ldsr3  r17, r14, r13, r16
-			calltv r17, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
+			callt4 r17, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
 			ldsrc4 r13, 0x1
 			stofa4 r0, r13, this._isSceneEnd
 			fleave r0
@@ -1265,7 +1265,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeTownToLevel0Detail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r2, ScnContext.Step.CreateInfo
 			sppsh  r3, Util.TimeSpan
 			sppsh  r4, ScnContext.Step.CreateInfo
@@ -1289,7 +1289,7 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r2, r5, ScnContext.Step.CreateInfo
 			ldsrsr r12, r2
 			ldsr2  r14, r6, r13
-			calltv r14, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r14, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r12, r6, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsrsr r12, r2
 			ldsrsr r13, r7
@@ -1305,9 +1305,9 @@ script Scn.Step.SceneChangeCtrl
 			stof_u r12, r8, ScnContext.Step.CreateInfo.BgmInfo
 			ldsr3  r12, r2, r0, r12
 			ldsrc4 r15, 0x0
-			calltv r13, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r13, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 			ldsr3  r12, r2, r0, r12
-			calltv r13, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
+			callt4 r13, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
 			ldsrsr r12, r2
 			ldof_u r13, r12, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r12, r13, ScnContext.Step.PlayerInfo.StepInInfo
@@ -1322,31 +1322,31 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r13, r0, this._mods
 			ldofad r14, r13, Scn.Step.Modules._missionManager
 			ldsr2  r15, r9, r14
-			calltv r15, Scn.Step.Mission.Manager.CreateContext()
+			callt4 r15, Scn.Step.Mission.Manager.CreateContext()
 			stof_u r12, r9, ScnContext.Step.CreateInfo.MissionInfo
 			ldsrsr r12, r2
 			ldof_u r13, r12, ScnContext.Step.CreateInfo.MapInfo
 			ldsrsr r14, r10
 			ldsrca r15, "Level0/Stage1/Step01"
-			calltr r14, ScnContext.StepUtil.PathPrefixTextBasil(string)
+			calltp r14, ScnContext.StepUtil.PathPrefixTextBasil(string)
 			stof_u r13, r10, ScnContext.Step.MapInfo._pathPrefix
 			ldsrca r15, "Level0/Stage1/Step01"
-			calltr r14, ScnContext.StepUtil.PathPostfixNum(string)
+			calltp r14, ScnContext.StepUtil.PathPostfixNum(string)
 			stofa4 r13, r14, ScnContext.Step.MapInfo._pathPostfixNum
 			ldofad r12, r0, this._mods
 			ldofad r13, r12, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r14, r13
-			calltv r14, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r14, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldofad r12, r0, this._mods
 			ldofad r13, r12, Scn.Step.Modules._storageManager
 			ldofad r12, r13, Scn.Step.StorageManager._volatileData
 			ldsrsr r13, r12
-			calltv r13, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r13, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r12, r0, this._mods
 			ldofad r13, r12, Scn.Step.Modules._storageManager
 			ldofad r12, r13, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r13, r12
-			calltr r13, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r13, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r12, r0, this._mods
 			ldofad r13, r12, Scn.Step.Modules._storageManager
 			ldsrc4 r12, 0x1
@@ -1355,7 +1355,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r13, r12, Scn.Step.Modules._storageManager
 			ldofad r12, r13, Scn.Step.StorageManager._volatileData
 			ldofad r13, r12, Storage.Volatile.Root.Town
-			calltv r13, Storage.Volatile.Town.ResetIsAlreadyChecked()
+			callt4 r13, Storage.Volatile.Town.ResetIsAlreadyChecked()
 			ldofad r12, r0, this._mods
 			ldofad r13, r12, Scn.Step.Modules._storageManager
 			ldofad r12, r13, Scn.Step.StorageManager._volatileData
@@ -1372,7 +1372,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r13, r12, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r12, r0, this._result
 			ldsr2  r15, r13, r12
-			calltv r14, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r14, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r12, r0, this._mods
 			ldofad r13, r12, Scn.Step.Modules._storageManager
 			ldofad r12, r13, Scn.Step.StorageManager._volatileData
@@ -1380,7 +1380,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r12, r0, this._result
 			ldsr2  r14, r13, r12
 			ldsrc4 r16, 0x0
-			calltv r14, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r14, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldofad r12, r0, this._mods
 			ldofad r13, r12, Scn.Step.Modules._storageManager
 			ldofad r12, r13, Scn.Step.StorageManager._volatileData
@@ -1391,10 +1391,10 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r11, r15, Scn.Step.TimeManager.__bf_Time
 			mcopys r3, r11, Util.TimeSpan
 			ldsrsr r15, r3
-			calltr r14, Util.TimeSpan.get_Sec()
+			calltp r14, Util.TimeSpan.get_Sec()
 			cts32f r15, r14
 			ldsr3  r16, r13, r12, r15
-			calltv r16, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
+			callt4 r16, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
 			ldsrc4 r12, 0x1
 			stofa4 r0, r12, this._isSceneEnd
 			fleave r0
@@ -1403,7 +1403,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeRetryCstageDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r1, ScnContext.Step.CreateInfo
 			sppsh  r2, ScnContext.Step.CreateInfo
 			sppsh  r3, ScnContext.Step.CreateInfo
@@ -1417,26 +1417,26 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r1, r3, ScnContext.Step.CreateInfo
 			ldsr3  r4, r1, r0, r4
 			ldsrc4 r7, 0x1
-			calltv r5, this.SetupPlayerDataOnDead(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r5, this.SetupPlayerDataOnDead(ref ScnContext.Step.CreateInfo,bool)
 			ldofad r4, r0, this._mods
 			ldofad r5, r4, Scn.Step.Modules.__bf_RetryCountManager
 			ldsrsr r6, r5
 			ldsrc4 r7, 0x1
-			calltv r6, Scn.Step.Actor.Basic.RetryCountManager.AddRetryCount(int)
+			callt4 r6, Scn.Step.Actor.Basic.RetryCountManager.AddRetryCount(int)
 			ldofad r4, r0, this._mods
 			ldofad r5, r4, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r6, r5
-			calltv r6, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r6, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldofad r4, r0, this._mods
 			ldofad r5, r4, Scn.Step.Modules._storageManager
 			ldofad r4, r5, Scn.Step.StorageManager._volatileData
 			ldsrsr r5, r4
-			calltv r5, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r5, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r4, r0, this._mods
 			ldofad r5, r4, Scn.Step.Modules._storageManager
 			ldofad r4, r5, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r5, r4
-			calltr r5, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r5, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r4, r0, this._mods
 			ldofad r5, r4, Scn.Step.Modules._storageManager
 			ldsrc4 r4, 0x1
@@ -1451,7 +1451,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r5, r4, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r4, r0, this._result
 			ldsr2  r7, r5, r4
-			calltv r6, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r6, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldsrc4 r4, 0x1
 			stofa4 r0, r4, this._isSceneEnd
 			fleave r0
@@ -1460,7 +1460,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeTownToArenaLobbyDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r2, ScnContext.Step.CreateInfo
 			sppsh  r3, Util.TimeSpan
 			sppsh  r4, ScnContext.Step.CreateInfo
@@ -1483,15 +1483,15 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r2, r5, ScnContext.Step.CreateInfo
 			ldsrsr r11, r2
 			ldsr2  r13, r6, r12
-			calltv r13, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r13, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r11, r6, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsr3  r11, r2, r0, r11
 			ldsrc4 r14, 0x0
-			calltv r12, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r12, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 			ldsr3  r11, r2, r0, r11
-			calltv r12, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
+			callt4 r12, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
 			ldsr3  r11, r2, r0, r11
-			calltv r12, this.FullRecoverHero(ref ScnContext.Step.CreateInfo)
+			callt4 r12, this.FullRecoverHero(ref ScnContext.Step.CreateInfo)
 			ldsrsr r11, r2
 			ldsrsr r12, r7
 			ldsrc4 r13, 0x0
@@ -1517,7 +1517,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r11, r2
 			ldofad r12, r0, this._mods
 			ldsr2  r13, r9, r12
-			calltv r13, Scn.Step.Arena.Utility.GetArenaLobbyMapInfo(Scn.Step.Modules)
+			callt4 r13, Scn.Step.Arena.Utility.GetArenaLobbyMapInfo(Scn.Step.Modules)
 			stof_u r11, r9, ScnContext.Step.CreateInfo.MapInfo
 			ldsrsr r11, r2
 			ldof_u r12, r11, ScnContext.Step.CreateInfo.ArenaInfo
@@ -1550,17 +1550,17 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r13, r12
-			calltv r13, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r13, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules._storageManager
 			ldofad r11, r12, Scn.Step.StorageManager._volatileData
 			ldsrsr r12, r11
-			calltv r12, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r12, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules._storageManager
 			ldofad r11, r12, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r12, r11
-			calltr r12, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r12, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules._storageManager
 			ldsrc4 r11, 0x1
@@ -1581,7 +1581,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r12, r11, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r11, r0, this._result
 			ldsr2  r14, r12, r11
-			calltv r13, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r13, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules._storageManager
 			ldofad r11, r12, Scn.Step.StorageManager._volatileData
@@ -1589,7 +1589,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r11, r0, this._result
 			ldsr2  r13, r12, r11
 			ldsrc4 r15, 0x1
-			calltv r13, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r13, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules._storageManager
 			ldofad r11, r12, Scn.Step.StorageManager._volatileData
@@ -1600,10 +1600,10 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r10, r14, Scn.Step.TimeManager.__bf_Time
 			mcopys r3, r10, Util.TimeSpan
 			ldsrsr r14, r3
-			calltr r13, Util.TimeSpan.get_Sec()
+			calltp r13, Util.TimeSpan.get_Sec()
 			cts32f r14, r13
 			ldsr3  r15, r12, r11, r14
-			calltv r15, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
+			callt4 r15, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
 			ldsrc4 r11, 0x1
 			stofa4 r0, r11, this._isSceneEnd
 			fleave r0
@@ -1612,7 +1612,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeRetryToArenaLobbyDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r1, ScnContext.Step.CreateInfo
 			sppsh  r2, ScnContext.Step.CreateInfo
 			sppsh  r3, ScnContext.Step.CreateInfo
@@ -1627,32 +1627,32 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r1, r3, ScnContext.Step.CreateInfo
 			ldsr3  r5, r1, r0, r5
 			ldsrc4 r8, 0x0
-			calltv r6, this.SetupPlayerDataOnDead(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r6, this.SetupPlayerDataOnDead(ref ScnContext.Step.CreateInfo,bool)
 			ldsr3  r5, r1, r0, r5
 			ldsrc4 r8, 0x0
-			calltv r6, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r6, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 			ldsr3  r5, r1, r0, r5
-			calltv r6, this.PickUpAbilityItem(ref ScnContext.Step.CreateInfo)
+			callt4 r6, this.PickUpAbilityItem(ref ScnContext.Step.CreateInfo)
 			ldsr3  r5, r1, r0, r5
-			calltv r6, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
+			callt4 r6, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
 			ldofad r5, r0, this._mods
 			ldofad r6, r5, Scn.Step.Modules.__bf_RetryCountManager
 			ldsrsr r7, r6
 			ldsrc4 r8, 0x1
-			calltv r7, Scn.Step.Actor.Basic.RetryCountManager.AddRetryCount(int)
+			callt4 r7, Scn.Step.Actor.Basic.RetryCountManager.AddRetryCount(int)
 			ldofad r5, r0, this._mods
 			ldofad r6, r5, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r7, r6
-			calltv r7, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r7, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldsrsr r5, r1
 			ldof_u r6, r5, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r5, r6, ScnContext.Step.PlayerInfo.Share
 			ldof_u r6, r5, ScnContext.Step.PlayerInfo/ShareType.AmiiboIdList
-			unk_0f r6, 2
+			dcall  r6, 2
 			_xref  Stdlib.MutableArray8`1.Clear()
 			_xref  Stdlib.MutableArray8`1<ScnContext.Step.PlayerInfo/AmiiboInfo>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrsr r5, r1
 			ldof_u r6, r5, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r5, r6, ScnContext.Step.PlayerInfo.Share
@@ -1666,7 +1666,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r5, r1
 			ldofad r6, r0, this._mods
 			ldsr2  r7, r4, r6
-			calltv r7, Scn.Step.Arena.Utility.GetArenaLobbyMapInfo(Scn.Step.Modules)
+			callt4 r7, Scn.Step.Arena.Utility.GetArenaLobbyMapInfo(Scn.Step.Modules)
 			stof_u r5, r4, ScnContext.Step.CreateInfo.MapInfo
 			ldsrsr r5, r1
 			ldof_u r6, r5, ScnContext.Step.CreateInfo.ArenaInfo
@@ -1700,12 +1700,12 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r6, r5, Scn.Step.Modules._storageManager
 			ldofad r5, r6, Scn.Step.StorageManager._volatileData
 			ldsrsr r6, r5
-			calltv r6, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r6, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r5, r0, this._mods
 			ldofad r6, r5, Scn.Step.Modules._storageManager
 			ldofad r5, r6, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r6, r5
-			calltr r6, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r6, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r5, r0, this._mods
 			ldofad r6, r5, Scn.Step.Modules._storageManager
 			ldsrc4 r5, 0x1
@@ -1720,7 +1720,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r6, r5, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r5, r0, this._result
 			ldsr2  r8, r6, r5
-			calltv r7, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r7, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r5, r0, this._mods
 			ldofad r6, r5, Scn.Step.Modules._storageManager
 			ldofad r5, r6, Scn.Step.StorageManager._volatileData
@@ -1728,7 +1728,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r5, r0, this._result
 			ldsr2  r7, r6, r5
 			ldsrc4 r9, 0x1
-			calltv r7, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r7, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldsrc4 r5, 0x1
 			stofa4 r0, r5, this._isSceneEnd
 			fleave r0
@@ -1737,7 +1737,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeToArenaBattleDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r2, ScnContext.Step.CreateInfo
 			sppsh  r4, Util.TimeSpan
 			sppsh  r7, Yaml.Data
@@ -1763,13 +1763,13 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r2, r12, ScnContext.Step.CreateInfo
 			ldsrsr r17, r2
 			ldsr2  r19, r13, r18
-			calltv r19, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r19, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r17, r13, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsr3  r17, r2, r0, r17
 			ldsrc4 r20, 0x0
-			calltv r18, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r18, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 			ldsr3  r17, r2, r0, r17
-			calltv r18, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
+			callt4 r18, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
 			ldsrsr r17, r2
 			ldof_u r18, r17, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r17, r18, ScnContext.Step.PlayerInfo.StepInInfo
@@ -1784,7 +1784,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r18, r2
 			ldofad r19, r0, this._mods
 			ldsr3  r20, r14, r19, r17
-			calltv r20, Scn.Step.Arena.Utility.GetArenaBattleMapInfo(Scn.Step.Modules,int)
+			callt4 r20, Scn.Step.Arena.Utility.GetArenaBattleMapInfo(Scn.Step.Modules,int)
 			stof_u r18, r14, ScnContext.Step.CreateInfo.MapInfo
 			ldsrsr r18, r2
 			ldof_u r19, r18, ScnContext.Step.CreateInfo.ArenaInfo
@@ -1813,7 +1813,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r15, r20, Scn.Step.TimeManager.__bf_Time
 			mcopys r4, r15, Util.TimeSpan
 			ldsrsr r21, r4
-			calltr r20, Util.TimeSpan.get_Sec()
+			calltp r20, Util.TimeSpan.get_Sec()
 			stofa4 r19, r20, ScnContext.Step.ArenaInfo.TotalTimeSec
 			ldsrsr r18, r2
 			ldof_u r19, r18, ScnContext.Step.CreateInfo.ArenaInfo
@@ -1825,11 +1825,11 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r19, r18, Storage.Volatile.Root.Arena
 			ldofad r18, r19, Storage.Volatile.Arena.__bf_BattleOrderArray
 			ldsr2  r20, r18, r17
-			unk_0f r19, 2
+			dcall  r19, 2
 			_xref  Stdlib.Array`1.get_Item(int)
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			ldsrsr r5, r19
 			ldofad r17, r0, this._mods
 			ldofad r18, r17, Scn.Step.Modules._storageManager
@@ -1837,45 +1837,45 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r18, r17, Storage.Volatile.Root.Arena
 			ldofa4 r17, r18, Storage.Volatile.Arena.__bf_Kind
 			ldsrsr r21, r17
-			unk_0f r20, 3
+			dcall  r20, 3
 			_xref  Stdlib.Enum.ToString(TEnum)
 			_xref  Stdlib.Enum
 			_short 16
 			_xref  Storage.File.ArenaCompetitionKind
-			_ret32 r0
+			_ret   r0
 			ldsrsr r6, r20
 			ldsrsr r17, r7
 			ldsrsr r21, r17
 			ldsrca r22, "Scn/Step/Arena/Param"
-			calltr r21, Yaml.Data.this(string)
+			calltp r21, Yaml.Data.this(string)
 			ldsrsr r17, r7
 			ldsr3  r21, r16, r17, r20
-			calltr r21, Yaml.Data.get_Item(string)
+			calltp r21, Yaml.Data.get_Item(string)
 			mcopys r9, r16, Yaml.Data
 			ldsrsr r17, r9
 			ldsr2  r20, r16, r17
 			ldsrca r22, "BattleSettings"
-			calltr r20, Yaml.Data.get_Item(string)
+			calltp r20, Yaml.Data.get_Item(string)
 			mcopys r8, r16, Yaml.Data
 			ldsrsr r21, r8
-			calltr r20, Yaml.Data.get_Length()
+			calltp r20, Yaml.Data.get_Length()
 			lts32  r19, r20, loc_0000008d
 			ldsrsr r17, r8
 			ldsr3  r18, r16, r17, r5
-			calltr r18, Yaml.Data.get_Item(int)
+			calltp r18, Yaml.Data.get_Item(int)
 			mcopys r9, r16, Yaml.Data
 			ldsrsr r17, r9
 			ldsr2  r18, r16, r17
 			ldsrca r20, "MidBossTypeNumber"
-			calltr r18, Yaml.Data.TryGetValue(string)
+			calltp r18, Yaml.Data.TryGetValue(string)
 			mcopys r10, r16, Yaml.Data
 			ldsrsr r18, r10
-			calltr r17, Yaml.Data.get_IsValid()
+			calltp r17, Yaml.Data.get_IsValid()
 			jmppos r17, loc_0000008d
 			ldsrsr r17, r2
 			ldof_u r18, r17, ScnContext.Step.CreateInfo.ArenaInfo
 			ldsrsr r20, r10
-			calltr r19, Yaml.Data.ToInt()
+			calltp r19, Yaml.Data.ToInt()
 			stofa4 r18, r19, ScnContext.Step.ArenaInfo.MidBossTypeNumber
 			
 			loc_0000008d:
@@ -1883,12 +1883,12 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r18, r17, Scn.Step.Modules._storageManager
 			ldofad r17, r18, Scn.Step.StorageManager._volatileData
 			ldsrsr r18, r17
-			calltv r18, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r18, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r17, r0, this._mods
 			ldofad r18, r17, Scn.Step.Modules._storageManager
 			ldofad r17, r18, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r18, r17
-			calltr r18, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r18, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r17, r0, this._mods
 			ldofad r18, r17, Scn.Step.Modules._storageManager
 			ldsrc4 r17, 0x1
@@ -1903,7 +1903,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r18, r17, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r17, r0, this._result
 			ldsr2  r20, r18, r17
-			calltv r19, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r19, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r17, r0, this._mods
 			ldofad r18, r17, Scn.Step.Modules._storageManager
 			ldofad r17, r18, Scn.Step.StorageManager._volatileData
@@ -1911,7 +1911,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r17, r0, this._result
 			ldsr2  r19, r18, r17
 			ldsrc4 r21, 0x0
-			calltv r19, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r19, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldsrc4 r17, 0x1
 			stofa4 r0, r17, this._isSceneEnd
 			fleave r0
@@ -1920,7 +1920,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeDifficultySelectDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r2, ScnContext.Step.CreateInfo
 			sppsh  r4, Stdlib.Array`1/Enumerator<Scn.Step.Actor.Gimmick.WarpStar.MainComponent>
 			sppsh  r6, Stdlib.FixedString128
@@ -1951,7 +1951,7 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r2, r11, ScnContext.Step.CreateInfo
 			ldsrsr r22, r2
 			ldsr2  r24, r12, r23
-			calltv r24, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r24, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r22, r12, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsrsr r22, r2
 			ldsrsr r23, r13
@@ -1967,12 +1967,12 @@ script Scn.Step.SceneChangeCtrl
 			stof_u r22, r14, ScnContext.Step.CreateInfo.BgmInfo
 			ldsr3  r22, r2, r0, r22
 			ldsrc4 r25, 0x0
-			calltv r23, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r23, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 			ldsrsr r22, r2
 			ldofad r23, r0, this._mods
 			ldofad r24, r23, Scn.Step.Modules._missionManager
 			ldsr2  r25, r15, r24
-			calltv r25, Scn.Step.Mission.Manager.CreateContext()
+			callt4 r25, Scn.Step.Mission.Manager.CreateContext()
 			stof_u r22, r15, ScnContext.Step.CreateInfo.MissionInfo
 			ldsrsr r22, r2
 			ldof_u r23, r22, ScnContext.Step.CreateInfo.PlayerInfo
@@ -1989,14 +1989,14 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r22, r0, this._mods
 			ldofad r23, r22, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r24, r23
-			calltv r24, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r24, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldofad r22, r0, this._mods
 			ldofad r23, r22, Scn.Step.Modules.__bf_CreateInfoManager
 			ldof_u r22, r23, Scn.Step.CreateInfoManager._createInfo
 			ldofap r16, r22, ScnContext.Step.CreateInfo.ModeInfo
 			ldofa4 r22, r16, ScnContext.Step.ModeInfo.Kind
 			ldsrsr r24, r22
-			calltv r23, ScnContext.Step.ModeUtil.IsWmap(ScnContext.Step.ModeKind)
+			callt4 r23, ScnContext.Step.ModeUtil.IsWmap(ScnContext.Step.ModeKind)
 			jmppos r23, loc_0000007b
 			ldof_u r22, r0, this._result
 			ldof_u r23, r22, ScnContext.Step.Result.WmapResult
@@ -2005,41 +2005,41 @@ script Scn.Step.SceneChangeCtrl
 			stofa4 r22, r23, ScnContext.Step.WmapMarkerInfo.Variation
 			ldofad r22, r0, this._mods
 			ldofad r24, r22, Scn.Step.Modules._actManager
-			unk_0f r23, 2
+			dcall  r23, 2
 			_xref  Stdlib.ManagedRawptr`1.get_Ref()
 			_xref  Stdlib.ManagedRawptr`1<ActSys.Manager>
 			_xref  ActSys.Manager
-			_ret32 r0
+			_ret   r0
 			ldsrsr r25, r23
-			unk_0f r24, 3
+			dcall  r24, 3
 			_xref  ActSys.Manager.Components()
 			_xref  ActSys.Manager
 			_xref  Stdlib.Array`1<Scn.Step.Actor.Gimmick.WmapWarpStar.LevelChangeCtrl>
 			_xref  Scn.Step.Actor.Gimmick.WmapWarpStar.LevelChangeCtrl
-			_ret32 r0
+			_ret   r0
 			ldsrsr r3, r24
 			ldsrsr r26, r24
-			unk_0f r25, 2
+			dcall  r25, 2
 			_xref  Stdlib.Array`1.get_Count()
 			_xref  Stdlib.Array`1<Scn.Step.Actor.Gimmick.WmapWarpStar.LevelChangeCtrl>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			jmppos r25, loc_000000f1
 			ldof_u r22, r0, this._result
 			ldof_u r23, r22, ScnContext.Step.Result.WmapResult
 			ldof_u r22, r23, ScnContext.Step.WmapResult.MarkerInfo
 			ldsrsr r24, r3
 			ldsrc4 r25, 0x0
-			unk_0f r23, 2
+			dcall  r23, 2
 			_xref  Stdlib.Array`1.get_Item(int)
 			_xref  Stdlib.Array`1<Scn.Step.Actor.Gimmick.WmapWarpStar.LevelChangeCtrl>
 			_xref  Scn.Step.Actor.Gimmick.WmapWarpStar.LevelChangeCtrl
-			_ret32 r0
+			_ret   r0
 			ldofa4 r24, r23, Scn.Step.Actor.Gimmick.WmapWarpStar.LevelChangeCtrl.__bf_CurrentLevel
 			sppshz r17, Storage.File.StageKey
 			ldsr2  r25, r17, r24
 			ldsrc4 r27, 0x0
-			calltv r25, Storage.File.StageKey.this(Storage.File.StoryLevelKind,int)
+			callt4 r25, Storage.File.StageKey.this(Storage.File.StoryLevelKind,int)
 			stof_u r22, r17, ScnContext.Step.WmapMarkerInfo.StageKey
 			jmp    loc_000000f1
 			
@@ -2059,7 +2059,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r22, r0, this._mods
 			ldsrsr r24, r22
 			ldsrc4 r25, 0x1
-			calltv r23, Scn.Step.TownEvent.Manager.IsNeedToGuideAbilityRoom(Scn.Step.Modules,bool)
+			callt4 r23, Scn.Step.TownEvent.Manager.IsNeedToGuideAbilityRoom(Scn.Step.Modules,bool)
 			jmppos r23, loc_000000c0
 			ldsrsr r22, r2
 			ldof_u r23, r22, ScnContext.Step.CreateInfo.PlayerInfo
@@ -2072,20 +2072,20 @@ script Scn.Step.SceneChangeCtrl
 			stofa4 r23, r22, ScnContext.Step.MapInfo._startPortalNo
 			ldofad r22, r0, this._mods
 			ldofad r24, r22, Scn.Step.Modules._actManager
-			unk_0f r23, 2
+			dcall  r23, 2
 			_xref  Stdlib.ManagedRawptr`1.get_Ref()
 			_xref  Stdlib.ManagedRawptr`1<ActSys.Manager>
 			_xref  ActSys.Manager
-			_ret32 r0
+			_ret   r0
 			ldsrsr r25, r23
-			unk_0f r24, 3
+			dcall  r24, 3
 			_xref  ActSys.Manager.Components()
 			_xref  ActSys.Manager
 			_xref  Stdlib.Array`1<Scn.Step.Actor.Gimmick.WarpStar.MainComponent>
 			_xref  Scn.Step.Actor.Gimmick.WarpStar.MainComponent
-			_ret32 r0
+			_ret   r0
 			ldsr2  r25, r18, r24
-			unk_0f r25, 2
+			dcall  r25, 2
 			_xref  Stdlib.Array`1.GetEnumerator()
 			_xref  Stdlib.Array`1<Scn.Step.Actor.Gimmick.WarpStar.MainComponent>
 			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Actor.Gimmick.WarpStar.MainComponent>
@@ -2095,26 +2095,26 @@ script Scn.Step.SceneChangeCtrl
 			
 			loc_000000ab:
 			ldsrsr r23, r4
-			unk_0f r22, 2
+			dcall  r22, 2
 			_xref  Stdlib.Array`1/Enumerator.get_Current()
 			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Actor.Gimmick.WarpStar.MainComponent>
 			_xref  Scn.Step.Actor.Gimmick.WarpStar.MainComponent
-			_ret32 r0
+			_ret   r0
 			ldsrsr r5, r22
 			ldofa4 r23, r22, Scn.Step.Actor.Gimmick.WarpStar.MainComponent.__bf_Variation
 			ldsrc4 r22, 0x3
 			eqi32  r23, r22, loc_000000b8
 			ldofad r22, r5, Scn.Step.Actor.Gimmick.WarpStar.MainComponent._obj
 			ldsrsr r23, r22
-			calltv r23, Scn.Step.Actor.Gimmick.WarpStar.Utility.ResetActorState(ActSys.Obj)
+			callt4 r23, Scn.Step.Actor.Gimmick.WarpStar.Utility.ResetActorState(ActSys.Obj)
 			
 			loc_000000b8:
 			ldsrsr r23, r4
-			unk_0f r22, 2
+			dcall  r22, 2
 			_xref  Stdlib.Array`1/Enumerator.MoveNext()
 			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Actor.Gimmick.WarpStar.MainComponent>
 			_short 2
-			_ret32 r0
+			_ret   r0
 			jmpneg r22, loc_000000ab
 			jmp    loc_000000f1
 			
@@ -2122,25 +2122,25 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r22, r2
 			ldof_u r23, r22, ScnContext.Step.CreateInfo.MapInfo
 			ldsr2  r24, r19, r23
-			calltv r24, ScnContext.Step.MapInfo.get_Path()
+			callt4 r24, ScnContext.Step.MapInfo.get_Path()
 			mcopys r6, r19, Stdlib.FixedString128
 			ldsrsr r22, r6
 			mcopys r9, r22, Stdlib.FixedString128
 			ldsrsr r23, r9
-			calltr r22, Stdlib.FixedString128.ReadPtr()
+			calltp r22, Stdlib.FixedString128.ReadPtr()
 			ldsrsr r7, r22
 			ldsrsr r24, r22
 			ldsrca r25, "Town/Town/Step09"
-			calltr r23, Stdlib.StringUtil.op_Equality(string,string)
+			calltp r23, Stdlib.StringUtil.op_Equality(string,string)
 			jmpneg r23, loc_000000f1
 			ldsrsr r22, r2
 			ldof_u r23, r22, ScnContext.Step.CreateInfo.MapInfo
 			ldsrsr r24, r20
 			ldsrca r25, "Town/Town/Step01"
-			calltr r24, ScnContext.StepUtil.PathPrefixTextBasil(string)
+			calltp r24, ScnContext.StepUtil.PathPrefixTextBasil(string)
 			stof_u r23, r20, ScnContext.Step.MapInfo._pathPrefix
 			ldsrca r25, "Town/Town/Step01"
-			calltr r24, ScnContext.StepUtil.PathPostfixNum(string)
+			calltp r24, ScnContext.StepUtil.PathPostfixNum(string)
 			stofa4 r23, r24, ScnContext.Step.MapInfo._pathPostfixNum
 			ldsrsr r22, r2
 			ldof_u r23, r22, ScnContext.Step.CreateInfo.MapInfo
@@ -2160,12 +2160,12 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r23, r22, Scn.Step.Modules._storageManager
 			ldofad r22, r23, Scn.Step.StorageManager._volatileData
 			ldsrsr r23, r22
-			calltv r23, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r23, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r22, r0, this._mods
 			ldofad r23, r22, Scn.Step.Modules._storageManager
 			ldofad r22, r23, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r23, r22
-			calltr r23, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r23, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r22, r0, this._mods
 			ldofad r23, r22, Scn.Step.Modules._storageManager
 			ldsrc4 r22, 0x1
@@ -2181,7 +2181,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r23, r22, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r22, r0, this._result
 			ldsr2  r25, r23, r22
-			calltv r24, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r24, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r22, r0, this._mods
 			ldofad r23, r22, Scn.Step.Modules._storageManager
 			ldofad r22, r23, Scn.Step.StorageManager._volatileData
@@ -2189,7 +2189,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r22, r0, this._result
 			ldsr2  r24, r23, r22
 			ldsrc4 r26, 0x0
-			calltv r24, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r24, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldofad r22, r0, this._mods
 			ldofad r23, r22, Scn.Step.Modules._storageManager
 			ldofad r22, r23, Scn.Step.StorageManager._volatileData
@@ -2200,10 +2200,10 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r21, r25, Scn.Step.TimeManager.__bf_Time
 			mcopys r8, r21, Util.TimeSpan
 			ldsrsr r25, r8
-			calltr r24, Util.TimeSpan.get_Sec()
+			calltp r24, Util.TimeSpan.get_Sec()
 			cts32f r25, r24
 			ldsr3  r26, r23, r22, r25
-			calltv r26, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
+			callt4 r26, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
 			ldsrc4 r22, 0x1
 			stofa4 r0, r22, this._isSceneEnd
 			fleave r0
@@ -2212,7 +2212,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeFromWmapDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r1, ScnContext.Step.WmapMarkerInfo
 			sppsh  r4, Storage.File.StageKey
 			sppsh  r5, Util.TimeSpan
@@ -2243,7 +2243,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r14, r0, this._mods
 			ldofad r16, r14, Scn.Step.Modules._playerManager
 			ldsr2  r17, r9, r16
-			calltv r17, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r17, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r15, r9, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r14, r0, this._result
 			ldof_u r15, r14, ScnContext.Step.Result.NextCreateInfoBase
@@ -2269,7 +2269,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r14, r1
 			ldof_u r17, r14, ScnContext.Step.WmapMarkerInfo.StageKey
 			ldsr2  r19, r16, r17
-			calltv r18, MissionData.ComebackedWaddleDeeCount.ComebackedCount(ref Storage.File.StageKey)
+			callt4 r18, MissionData.ComebackedWaddleDeeCount.ComebackedCount(ref Storage.File.StageKey)
 			stofa4 r15, r18, ScnContext.Step.WmapResult.PreComebackedCount
 			jmp    loc_0000005d
 			
@@ -2283,7 +2283,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r16, r14, Scn.Step.Modules._storageManager
 			ldofad r14, r16, Scn.Step.StorageManager._backupFileData
 			ldsrsr r17, r14
-			calltv r16, Storage.File.BackupFileDataUtil.GetCollectedSoulNumTotal(Storage.File.Root)
+			callt4 r16, Storage.File.BackupFileDataUtil.GetCollectedSoulNumTotal(Storage.File.Root)
 			stofa4 r15, r16, ScnContext.Step.WmapResult.PreCollectedSoulCount
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
@@ -2291,20 +2291,20 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r15, r14, Storage.File.Root.EstoryStages
 			ldsrsr r14, r1
 			ldof_u r17, r14, ScnContext.Step.WmapMarkerInfo.StageKey
-			calltv r16, Storage.File.StageKey.get_EstoryStage()
+			callt4 r16, Storage.File.StageKey.get_EstoryStage()
 			ldsr2  r18, r15, r16
-			unk_0f r17, 2
+			dcall  r17, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.EstoryStageKind,Storage.File.EstoryStageData>
 			_xref  Storage.File.EstoryStageData
-			_ret32 r0
+			_ret   r0
 			ldsrsr r2, r17
 			ldof_u r14, r0, this._result
 			ldof_u r15, r14, ScnContext.Step.Result.NextCreateInfoBase
 			ldof_u r14, r15, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r15, r14, ScnContext.Step.PlayerInfo.Share
 			ldsr2  r18, r10, r17
-			calltv r18, ScnContext.Step.PlayerInfo/StageRarePieceInfo.Create(Storage.File.EstoryStageData)
+			callt4 r18, ScnContext.Step.PlayerInfo/StageRarePieceInfo.Create(Storage.File.EstoryStageData)
 			stof_u r15, r10, ScnContext.Step.PlayerInfo/ShareType.StageRarePieceInfo
 			
 			loc_0000005d:
@@ -2313,34 +2313,34 @@ script Scn.Step.SceneChangeCtrl
 			eqi32  r14, r15, loc_000000ac
 			ldofad r14, r0, this._mods
 			ldofad r16, r14, Scn.Step.Modules._actManager
-			unk_0f r15, 2
+			dcall  r15, 2
 			_xref  Stdlib.ManagedRawptr`1.get_Ref()
 			_xref  Stdlib.ManagedRawptr`1<ActSys.Manager>
 			_xref  ActSys.Manager
-			_ret32 r0
+			_ret   r0
 			ldsrsr r17, r15
-			unk_0f r16, 3
+			dcall  r16, 3
 			_xref  ActSys.Manager.Components()
 			_xref  ActSys.Manager
 			_xref  Stdlib.Array`1<Scn.Step.Actor.Gimmick.WmapWarpStar.LevelChangeCtrl>
 			_xref  Scn.Step.Actor.Gimmick.WmapWarpStar.LevelChangeCtrl
-			_ret32 r0
+			_ret   r0
 			ldsrsr r3, r16
 			ldof_u r14, r0, this._result
 			ldof_u r15, r14, ScnContext.Step.Result.WmapResult
 			ldof_u r14, r15, ScnContext.Step.WmapResult.MarkerInfo
 			ldsrsr r18, r16
 			ldsrc4 r19, 0x0
-			unk_0f r17, 2
+			dcall  r17, 2
 			_xref  Stdlib.Array`1.get_Item(int)
 			_xref  Stdlib.Array`1<Scn.Step.Actor.Gimmick.WmapWarpStar.LevelChangeCtrl>
 			_xref  Scn.Step.Actor.Gimmick.WmapWarpStar.LevelChangeCtrl
-			_ret32 r0
+			_ret   r0
 			ldofa4 r15, r17, Scn.Step.Actor.Gimmick.WmapWarpStar.LevelChangeCtrl.__bf_CurrentLevel
 			sppshz r11, Storage.File.StageKey
 			ldsr2  r16, r11, r15
 			ldsrc4 r18, 0x0
-			calltv r16, Storage.File.StageKey.this(Storage.File.StoryLevelKind,int)
+			callt4 r16, Storage.File.StageKey.this(Storage.File.StoryLevelKind,int)
 			stof_u r14, r11, ScnContext.Step.WmapMarkerInfo.StageKey
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
@@ -2348,11 +2348,11 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r15, r14, Storage.File.Root.StoryStages
 			ldsrsr r17, r15
 			ldsrc4 r18, 0x3
-			unk_0f r16, 2
+			dcall  r16, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
 			_xref  Storage.File.StoryStageData
-			_ret32 r0
+			_ret   r0
 			ldofa4 r14, r16, Storage.File.StoryStageData.IsUnlocked
 			jmppos r14, loc_0000009c
 			ldof_u r14, r0, this._result
@@ -2360,10 +2360,10 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r14, r15, ScnContext.Step.CreateInfo.MapInfo
 			ldsrsr r15, r12
 			ldsrca r16, "Town/Town/Step01"
-			calltr r15, ScnContext.StepUtil.PathPrefixTextBasil(string)
+			calltp r15, ScnContext.StepUtil.PathPrefixTextBasil(string)
 			stof_u r14, r12, ScnContext.Step.MapInfo._pathPrefix
 			ldsrca r16, "Town/Town/Step01"
-			calltr r15, ScnContext.StepUtil.PathPostfixNum(string)
+			calltp r15, ScnContext.StepUtil.PathPostfixNum(string)
 			stofa4 r14, r15, ScnContext.Step.MapInfo._pathPostfixNum
 			ldof_u r14, r0, this._result
 			ldof_u r15, r14, ScnContext.Step.Result.NextCreateInfoBase
@@ -2378,10 +2378,10 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r14, r15, ScnContext.Step.CreateInfo.MapInfo
 			ldsrsr r15, r12
 			ldsrca r16, "Town/Town/Step09"
-			calltr r15, ScnContext.StepUtil.PathPrefixTextBasil(string)
+			calltp r15, ScnContext.StepUtil.PathPrefixTextBasil(string)
 			stof_u r14, r12, ScnContext.Step.MapInfo._pathPrefix
 			ldsrca r16, "Town/Town/Step09"
-			calltr r15, ScnContext.StepUtil.PathPostfixNum(string)
+			calltp r15, ScnContext.StepUtil.PathPostfixNum(string)
 			stofa4 r14, r15, ScnContext.Step.MapInfo._pathPostfixNum
 			ldof_u r14, r0, this._result
 			ldof_u r15, r14, ScnContext.Step.Result.NextCreateInfoBase
@@ -2401,7 +2401,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r14, r11
 			ldsrc4 r15, 0x2
 			ldsrc4 r16, 0x0
-			calltv r14, Storage.File.StageKey.this(Storage.File.StoryLevelKind,int)
+			callt4 r14, Storage.File.StageKey.this(Storage.File.StoryLevelKind,int)
 			mcopys r4, r11, Storage.File.StageKey
 			ldof_u r14, r0, this._result
 			ldof_u r15, r14, ScnContext.Step.Result.WmapResult
@@ -2413,12 +2413,12 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldofad r14, r15, Scn.Step.StorageManager._volatileData
 			ldsrsr r15, r14
-			calltv r15, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r15, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldofad r14, r15, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r15, r14
-			calltr r15, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r15, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldsrc4 r14, 0x1
@@ -2427,7 +2427,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r15, r14, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r14, r0, this._result
 			ldsr2  r17, r15, r14
-			calltv r16, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r16, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldofad r14, r15, Scn.Step.StorageManager._volatileData
@@ -2435,7 +2435,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r14, r0, this._result
 			ldsr2  r16, r15, r14
 			ldsrc4 r18, 0x0
-			calltv r16, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r16, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldofad r14, r15, Scn.Step.StorageManager._volatileData
@@ -2446,10 +2446,10 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r13, r17, Scn.Step.TimeManager.__bf_Time
 			mcopys r5, r13, Util.TimeSpan
 			ldsrsr r17, r5
-			calltr r16, Util.TimeSpan.get_Sec()
+			calltp r16, Util.TimeSpan.get_Sec()
 			cts32f r17, r16
 			ldsr3  r18, r15, r14, r17
-			calltv r18, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
+			callt4 r18, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
 			ldsrc4 r14, 0x1
 			stofa4 r0, r14, this._isSceneEnd
 			fleave r0
@@ -2458,7 +2458,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeArenaBattleClearedDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r4, ScnContext.Step.CreateInfo
 			sppsh  r7, Util.TimeSpan
 			sppsh  r9, ScnContext.Step.CreateInfo
@@ -2490,15 +2490,15 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r4, r10, ScnContext.Step.CreateInfo
 			ldsrsr r14, r4
 			ldsr2  r17, r11, r15
-			calltv r17, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r17, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r14, r11, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsrsr r14, r4
 			ldsr2  r17, r0, r14
 			ldsrc4 r19, 0x1
-			calltv r17, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r17, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 			ldsrsr r14, r4
 			ldsr2  r17, r0, r14
-			calltv r17, this.PickUpAbilityItem(ref ScnContext.Step.CreateInfo)
+			callt4 r17, this.PickUpAbilityItem(ref ScnContext.Step.CreateInfo)
 			ldsrc4 r5, 0x0
 			jmppos r16, loc_00000048
 			ldsrc4 r6, 0x0
@@ -2510,19 +2510,19 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r15, r14, Scn.Step.Modules._playerManager
 			ldofad r14, r15, Scn.Step.Player.Manager.__bf_ActorDataArray
 			ldsr2  r16, r14, r6
-			unk_0f r15, 2
+			dcall  r15, 2
 			_xref  Stdlib.Array`1.get_Item(int)
 			_xref  Stdlib.Array`1<Scn.Step.Player.ActorData>
 			_xref  Scn.Step.Player.ActorData
-			_ret32 r0
+			_ret   r0
 			ldofad r17, r15, Scn.Step.Player.ActorData._hitPoint
-			unk_0f r16, 2
+			dcall  r16, 2
 			_xref  Stdlib.ManagedRawptr`1.get_Ref()
 			_xref  Stdlib.ManagedRawptr`1<Gobj.HitPoint>
 			_xref  Gobj.HitPoint
-			_ret32 r0
+			_ret   r0
 			ldsrsr r18, r16
-			calltr r17, Gobj.HitPoint.get_IsDead()
+			calltp r17, Gobj.HitPoint.get_IsDead()
 			jmppos r17, loc_00000043
 			ldsrc4 r5, 0x1
 			jmp    loc_0000004a
@@ -2538,7 +2538,7 @@ script Scn.Step.SceneChangeCtrl
 			
 			loc_00000048:
 			ldsr3  r14, r4, r0, r14
-			calltv r15, this.FullRecoverHero(ref ScnContext.Step.CreateInfo)
+			callt4 r15, this.FullRecoverHero(ref ScnContext.Step.CreateInfo)
 			
 			loc_0000004a:
 			jmppos r3, loc_00000052
@@ -2572,7 +2572,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r12, r16, Scn.Step.TimeManager.__bf_Time
 			mcopys r7, r12, Util.TimeSpan
 			ldsrsr r17, r7
-			calltr r16, Util.TimeSpan.get_Sec()
+			calltp r16, Util.TimeSpan.get_Sec()
 			stofa4 r15, r16, ScnContext.Step.ArenaInfo.TotalTimeSec
 			jmppos r3, loc_00000091
 			ldofa4 r14, r2, Storage.Volatile.Arena.__bf_CurrentBattleIndex
@@ -2583,7 +2583,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r14, r4
 			ldofad r15, r0, this._mods
 			ldsr2  r16, r13, r15
-			calltv r16, Scn.Step.Arena.Utility.GetArenaLobbyMapInfo(Scn.Step.Modules)
+			callt4 r16, Scn.Step.Arena.Utility.GetArenaLobbyMapInfo(Scn.Step.Modules)
 			stof_u r14, r13, ScnContext.Step.CreateInfo.MapInfo
 			ldsrsr r14, r4
 			ldof_u r15, r14, ScnContext.Step.CreateInfo.ArenaInfo
@@ -2628,11 +2628,11 @@ script Scn.Step.SceneChangeCtrl
 			stofa4 r15, r14, PlayReportSend.EventData.ArenaResult._difficulty
 			ldsrsr r16, r15
 			ldsrc4 r17, 0x1
-			calltv r16, PlayReportSend.EventSend.SendPlayReport(PlayReportSend.IEventData,bool)
+			callt4 r16, PlayReportSend.EventSend.SendPlayReport(PlayReportSend.IEventData,bool)
 			ldsrsr r14, r4
 			ldofad r15, r0, this._mods
 			ldsr2  r16, r13, r15
-			calltv r16, Scn.Step.Arena.Utility.GetArenaResultMapInfo(Scn.Step.Modules)
+			callt4 r16, Scn.Step.Arena.Utility.GetArenaResultMapInfo(Scn.Step.Modules)
 			stof_u r14, r13, ScnContext.Step.CreateInfo.MapInfo
 			ldsrsr r14, r4
 			ldof_u r15, r14, ScnContext.Step.CreateInfo.ArenaInfo
@@ -2670,12 +2670,12 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldofad r14, r15, Scn.Step.StorageManager._volatileData
 			ldsrsr r15, r14
-			calltv r15, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r15, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldofad r14, r15, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r15, r14
-			calltr r15, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r15, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldsrc4 r14, 0x1
@@ -2684,7 +2684,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r15, r14, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r14, r0, this._result
 			ldsr2  r17, r15, r14
-			calltv r16, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r16, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r14, r0, this._mods
 			ldofad r15, r14, Scn.Step.Modules._storageManager
 			ldofad r14, r15, Scn.Step.StorageManager._volatileData
@@ -2692,7 +2692,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r14, r0, this._result
 			ldsr2  r16, r15, r14
 			ldsrc4 r18, 0x0
-			calltv r16, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r16, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldsrc4 r14, 0x1
 			stofa4 r0, r14, this._isSceneEnd
 			fleave r0
@@ -2701,7 +2701,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeArenaGameOverDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r1, ScnContext.Step.CreateInfo
 			sppsh  r3, Util.TimeSpan
 			sppsh  r4, Stdlib.FixedString32
@@ -2725,7 +2725,7 @@ script Scn.Step.SceneChangeCtrl
 			stofa4 r13, r11, PlayReportSend.EventData.ArenaResult._difficulty
 			ldsrsr r14, r13
 			ldsrc4 r15, 0x1
-			calltv r14, PlayReportSend.EventSend.SendPlayReport(PlayReportSend.IEventData,bool)
+			callt4 r14, PlayReportSend.EventSend.SendPlayReport(PlayReportSend.IEventData,bool)
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules.__bf_CreateInfoManager
 			ldofap r6, r12, Scn.Step.CreateInfoManager._createInfo
@@ -2736,16 +2736,16 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r1, r7, ScnContext.Step.CreateInfo
 			ldsr3  r11, r1, r0, r11
 			ldsrc4 r14, 0x1
-			calltv r12, this.SetupPlayerDataOnDead(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r12, this.SetupPlayerDataOnDead(ref ScnContext.Step.CreateInfo,bool)
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules.__bf_RetryCountManager
 			ldsrsr r13, r12
 			ldsrc4 r14, 0x1
-			calltv r13, Scn.Step.Actor.Basic.RetryCountManager.AddRetryCount(int)
+			callt4 r13, Scn.Step.Actor.Basic.RetryCountManager.AddRetryCount(int)
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r13, r12
-			calltv r13, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r13, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldsrsr r11, r1
 			ldof_u r12, r11, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r11, r12, ScnContext.Step.PlayerInfo.StepInInfo
@@ -2758,7 +2758,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r8, r13, Scn.Step.TimeManager.__bf_Time
 			mcopys r3, r8, Util.TimeSpan
 			ldsrsr r14, r3
-			calltr r13, Util.TimeSpan.get_Sec()
+			calltp r13, Util.TimeSpan.get_Sec()
 			stofa4 r12, r13, ScnContext.Step.ArenaInfo.TotalTimeSec
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules._storageManager
@@ -2773,7 +2773,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r15, r9
 			ldsrca r16, "Arena/GameOver/Step%02d"
 			ldsrsr r17, r14
-			unk_0f r15, 3
+			dcall  r15, 3
 			_xref  Stdlib.FixedString32.FromFormat(string,T1)
 			_xref  Stdlib.FixedString32
 			_xref  Stdlib.FixedString32
@@ -2783,12 +2783,12 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r11, r4
 			mcopys r5, r11, Stdlib.FixedString32
 			ldsrsr r15, r5
-			calltr r14, Stdlib.FixedString32.ReadPtr()
+			calltp r14, Stdlib.FixedString32.ReadPtr()
 			ldsr2  r15, r10, r14
-			calltr r15, ScnContext.StepUtil.PathPrefixTextBasil(string)
+			calltp r15, ScnContext.StepUtil.PathPrefixTextBasil(string)
 			stof_u r13, r10, ScnContext.Step.MapInfo._pathPrefix
 			ldsrsr r16, r14
-			calltr r15, ScnContext.StepUtil.PathPostfixNum(string)
+			calltp r15, ScnContext.StepUtil.PathPostfixNum(string)
 			stofa4 r13, r15, ScnContext.Step.MapInfo._pathPostfixNum
 			ldsrsr r11, r1
 			ldof_u r12, r11, ScnContext.Step.CreateInfo.MapInfo
@@ -2828,12 +2828,12 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r12, r11, Scn.Step.Modules._storageManager
 			ldofad r11, r12, Scn.Step.StorageManager._volatileData
 			ldsrsr r12, r11
-			calltv r12, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r12, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules._storageManager
 			ldofad r11, r12, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r12, r11
-			calltr r12, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r12, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules._storageManager
 			ldsrc4 r11, 0x1
@@ -2842,7 +2842,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r12, r11, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r11, r0, this._result
 			ldsr2  r14, r12, r11
-			calltv r13, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r13, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules._storageManager
 			ldofad r11, r12, Scn.Step.StorageManager._volatileData
@@ -2850,7 +2850,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r11, r0, this._result
 			ldsr2  r13, r12, r11
 			ldsrc4 r15, 0x0
-			calltv r13, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r13, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldsrc4 r11, 0x1
 			stofa4 r0, r11, this._isSceneEnd
 			fleave r0
@@ -2859,7 +2859,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeArenaRevivalDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r1, ScnContext.Step.CreateInfo
 			sppsh  r2, Util.TimeSpan
 			sppsh  r4, ScnContext.Step.CreateInfo
@@ -2881,21 +2881,21 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r6, r10, Scn.Step.TimeManager.__bf_Time
 			mcopys r2, r6, Util.TimeSpan
 			ldsrsr r11, r2
-			calltr r10, Util.TimeSpan.get_Sec()
+			calltp r10, Util.TimeSpan.get_Sec()
 			stofa4 r9, r10, ScnContext.Step.ArenaInfo.TotalTimeSec
 			ldsr3  r8, r1, r0, r8
 			ldsrc4 r11, 0x0
-			calltv r9, this.SetupPlayerDataOnDead(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r9, this.SetupPlayerDataOnDead(ref ScnContext.Step.CreateInfo,bool)
 			ldsr3  r8, r1, r0, r8
 			ldsrc4 r11, 0x0
-			calltv r9, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r9, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 			ldsr3  r8, r1, r0, r8
-			calltv r9, this.PickUpAbilityItem(ref ScnContext.Step.CreateInfo)
+			callt4 r9, this.PickUpAbilityItem(ref ScnContext.Step.CreateInfo)
 			ldofad r8, r0, this._mods
 			ldofad r9, r8, Scn.Step.Modules.__bf_RetryCountManager
 			ldsrsr r10, r9
 			ldsrc4 r11, 0x1
-			calltv r10, Scn.Step.Actor.Basic.RetryCountManager.AddRetryCount(int)
+			callt4 r10, Scn.Step.Actor.Basic.RetryCountManager.AddRetryCount(int)
 			ldofad r8, r0, this._mods
 			ldofad r9, r8, Scn.Step.Modules._storageManager
 			ldofad r8, r9, Scn.Step.StorageManager._volatileData
@@ -2908,7 +2908,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r8, r1
 			ldofad r9, r0, this._mods
 			ldsr2  r10, r7, r9
-			calltv r10, Scn.Step.Arena.Utility.GetArenaLobbyMapInfo(Scn.Step.Modules)
+			callt4 r10, Scn.Step.Arena.Utility.GetArenaLobbyMapInfo(Scn.Step.Modules)
 			stof_u r8, r7, ScnContext.Step.CreateInfo.MapInfo
 			ldsrsr r8, r1
 			ldof_u r9, r8, ScnContext.Step.CreateInfo.ArenaInfo
@@ -2943,17 +2943,17 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r8, r0, this._mods
 			ldofad r9, r8, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r10, r9
-			calltv r10, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r10, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldofad r8, r0, this._mods
 			ldofad r9, r8, Scn.Step.Modules._storageManager
 			ldofad r8, r9, Scn.Step.StorageManager._volatileData
 			ldsrsr r9, r8
-			calltv r9, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r9, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r8, r0, this._mods
 			ldofad r9, r8, Scn.Step.Modules._storageManager
 			ldofad r8, r9, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r9, r8
-			calltr r9, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r9, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r8, r0, this._mods
 			ldofad r9, r8, Scn.Step.Modules._storageManager
 			ldsrc4 r8, 0x1
@@ -2962,7 +2962,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r9, r8, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r8, r0, this._result
 			ldsr2  r11, r9, r8
-			calltv r10, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r10, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r8, r0, this._mods
 			ldofad r9, r8, Scn.Step.Modules._storageManager
 			ldofad r8, r9, Scn.Step.StorageManager._volatileData
@@ -2970,7 +2970,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r8, r0, this._result
 			ldsr2  r10, r9, r8
 			ldsrc4 r12, 0x0
-			calltv r10, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r10, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldsrc4 r8, 0x1
 			stofa4 r0, r8, this._isSceneEnd
 			fleave r0
@@ -2979,7 +2979,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeArenaResultExitDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r2, ScnContext.Step.CreateInfo
 			sppsh  r3, ScnContext.Step.CreateInfo
 			sppsh  r4, ScnContext.Step.CreateInfo
@@ -2997,13 +2997,13 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r2, r4, ScnContext.Step.CreateInfo
 			ldsrsr r6, r2
 			ldsr2  r8, r0, r6
-			calltv r8, this.SetupBgmInfo(ref ScnContext.Step.CreateInfo)
+			callt4 r8, this.SetupBgmInfo(ref ScnContext.Step.CreateInfo)
 			ldsrsr r6, r2
 			ldsr2  r8, r0, r6
-			calltv r8, this.FullRecoverHero(ref ScnContext.Step.CreateInfo)
+			callt4 r8, this.FullRecoverHero(ref ScnContext.Step.CreateInfo)
 			ldsrsr r6, r2
 			ldsr2  r8, r5, r7
-			calltv r8, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r8, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r6, r5, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsrsr r6, r2
 			ldof_u r7, r6, ScnContext.Step.CreateInfo.PlayerInfo
@@ -3042,11 +3042,11 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r7, r6, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r6, r7, ScnContext.Step.PlayerInfo.Share
 			ldof_u r7, r6, ScnContext.Step.PlayerInfo/ShareType.AmiiboIdList
-			unk_0f r7, 2
+			dcall  r7, 2
 			_xref  Stdlib.MutableArray8`1.Clear()
 			_xref  Stdlib.MutableArray8`1<ScnContext.Step.PlayerInfo/AmiiboInfo>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrsr r6, r2
 			ldof_u r7, r6, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r6, r7, ScnContext.Step.PlayerInfo.Share
@@ -3061,21 +3061,21 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r6, r0, this._mods
 			ldofad r7, r6, Scn.Step.Modules.__bf_RetryCountManager
 			ldsrsr r8, r7
-			calltv r8, Scn.Step.Actor.Basic.RetryCountManager.Clear()
+			callt4 r8, Scn.Step.Actor.Basic.RetryCountManager.Clear()
 			ldofad r6, r0, this._mods
 			ldofad r7, r6, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r8, r7
-			calltv r8, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r8, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldofad r6, r0, this._mods
 			ldofad r7, r6, Scn.Step.Modules._storageManager
 			ldofad r6, r7, Scn.Step.StorageManager._volatileData
 			ldsrsr r7, r6
-			calltv r7, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r7, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r6, r0, this._mods
 			ldofad r7, r6, Scn.Step.Modules._storageManager
 			ldofad r6, r7, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r7, r6
-			calltr r7, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r7, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r6, r0, this._mods
 			ldofad r7, r6, Scn.Step.Modules._storageManager
 			ldsrc4 r6, 0x1
@@ -3084,7 +3084,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r7, r6, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r6, r0, this._result
 			ldsr2  r9, r7, r6
-			calltv r8, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r8, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r6, r0, this._mods
 			ldofad r7, r6, Scn.Step.Modules._storageManager
 			ldofad r6, r7, Scn.Step.StorageManager._volatileData
@@ -3092,7 +3092,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r6, r0, this._result
 			ldsr2  r8, r7, r6
 			ldsrc4 r10, 0x0
-			calltv r8, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r8, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldsrc4 r6, 0x1
 			stofa4 r0, r6, this._isSceneEnd
 			fleave r0
@@ -3101,7 +3101,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeTheaterMovieStartDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r2, ScnContext.Step.CreateInfo
 			sppsh  r3, ScnContext.Step.CreateInfo
 			sppsh  r4, ScnContext.Step.CreateInfo
@@ -3119,13 +3119,13 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r2, r4, ScnContext.Step.CreateInfo
 			ldsrsr r6, r2
 			ldsr2  r8, r5, r7
-			calltv r8, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r8, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r6, r5, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsr3  r6, r2, r0, r6
 			ldsrc4 r9, 0x0
-			calltv r7, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r7, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 			ldsr3  r6, r2, r0, r6
-			calltv r7, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
+			callt4 r7, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
 			ldsrsr r6, r2
 			ldof_u r7, r6, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r6, r7, ScnContext.Step.PlayerInfo.StepInInfo
@@ -3134,17 +3134,17 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r6, r0, this._mods
 			ldofad r7, r6, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r8, r7
-			calltv r8, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r8, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldofad r6, r0, this._mods
 			ldofad r7, r6, Scn.Step.Modules._storageManager
 			ldofad r6, r7, Scn.Step.StorageManager._volatileData
 			ldsrsr r7, r6
-			calltv r7, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r7, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r6, r0, this._mods
 			ldofad r7, r6, Scn.Step.Modules._storageManager
 			ldofad r6, r7, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r7, r6
-			calltr r7, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r7, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r6, r0, this._mods
 			ldofad r7, r6, Scn.Step.Modules._storageManager
 			ldsrc4 r6, 0x1
@@ -3163,7 +3163,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r7, r6, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r6, r0, this._result
 			ldsr2  r9, r7, r6
-			calltv r8, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r8, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r6, r0, this._mods
 			ldofad r7, r6, Scn.Step.Modules._storageManager
 			ldofad r6, r7, Scn.Step.StorageManager._volatileData
@@ -3171,7 +3171,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r6, r0, this._result
 			ldsr2  r8, r7, r6
 			ldsrc4 r10, 0x0
-			calltv r8, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r8, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldsrc4 r6, 0x1
 			stofa4 r0, r6, this._isSceneEnd
 			fleave r0
@@ -3180,7 +3180,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeStreetLiveUpgradeDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r2, ScnContext.Step.CreateInfo
 			sppsh  r3, Util.TimeSpan
 			sppsh  r4, ScnContext.Step.CreateInfo
@@ -3202,7 +3202,7 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r2, r5, ScnContext.Step.CreateInfo
 			ldsrsr r10, r2
 			ldsr2  r12, r6, r11
-			calltv r12, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r12, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r10, r6, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsrsr r10, r2
 			ldsrsr r11, r7
@@ -3218,9 +3218,9 @@ script Scn.Step.SceneChangeCtrl
 			stof_u r10, r8, ScnContext.Step.CreateInfo.BgmInfo
 			ldsr3  r10, r2, r0, r10
 			ldsrc4 r13, 0x0
-			calltv r11, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r11, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 			ldsr3  r10, r2, r0, r10
-			calltv r11, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
+			callt4 r11, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
 			ldsrsr r10, r2
 			ldof_u r11, r10, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r10, r11, ScnContext.Step.PlayerInfo.StepInInfo
@@ -3233,17 +3233,17 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r10, r0, this._mods
 			ldofad r11, r10, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r12, r11
-			calltv r12, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r12, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldofad r10, r0, this._mods
 			ldofad r11, r10, Scn.Step.Modules._storageManager
 			ldofad r10, r11, Scn.Step.StorageManager._volatileData
 			ldsrsr r11, r10
-			calltv r11, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r11, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r10, r0, this._mods
 			ldofad r11, r10, Scn.Step.Modules._storageManager
 			ldofad r10, r11, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r11, r10
-			calltr r11, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r11, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r10, r0, this._mods
 			ldofad r11, r10, Scn.Step.Modules._storageManager
 			ldsrc4 r10, 0x1
@@ -3258,7 +3258,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r11, r10, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r10, r0, this._result
 			ldsr2  r13, r11, r10
-			calltv r12, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r12, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r10, r0, this._mods
 			ldofad r11, r10, Scn.Step.Modules._storageManager
 			ldofad r10, r11, Scn.Step.StorageManager._volatileData
@@ -3266,7 +3266,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r10, r0, this._result
 			ldsr2  r12, r11, r10
 			ldsrc4 r14, 0x0
-			calltv r12, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r12, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldofad r10, r0, this._mods
 			ldofad r11, r10, Scn.Step.Modules._storageManager
 			ldofad r10, r11, Scn.Step.StorageManager._volatileData
@@ -3277,15 +3277,15 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r9, r13, Scn.Step.TimeManager.__bf_Time
 			mcopys r3, r9, Util.TimeSpan
 			ldsrsr r13, r3
-			calltr r12, Util.TimeSpan.get_Sec()
+			calltp r12, Util.TimeSpan.get_Sec()
 			cts32f r13, r12
 			ldsr3  r14, r11, r10, r13
-			calltv r14, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
+			callt4 r14, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
 			ldofad r10, r0, this._mods
 			ldofad r11, r10, Scn.Step.Modules._storageManager
 			ldofad r10, r11, Scn.Step.StorageManager._backupFileData
 			ldsrsr r12, r10
-			calltv r11, Storage.File.BackupFileDataUtil.UpdateTown(Storage.File.Root)
+			callt4 r11, Storage.File.BackupFileDataUtil.UpdateTown(Storage.File.Root)
 			ldsrc4 r10, 0x1
 			stofa4 r0, r10, this._isSceneEnd
 			fleave r0
@@ -3294,7 +3294,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeTownEventDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r2, ScnContext.Step.CreateInfo
 			sppsh  r3, Util.TimeSpan
 			sppsh  r4, ScnContext.Step.CreateInfo
@@ -3318,13 +3318,13 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r2, r5, ScnContext.Step.CreateInfo
 			ldsrsr r12, r2
 			ldsr2  r14, r6, r13
-			calltv r14, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r14, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r12, r6, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsr3  r12, r2, r0, r12
 			ldsrc4 r15, 0x0
-			calltv r13, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r13, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 			ldsr3  r12, r2, r0, r12
-			calltv r13, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
+			callt4 r13, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
 			ldsrsr r12, r2
 			ldof_u r13, r12, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r12, r13, ScnContext.Step.PlayerInfo.StepInInfo
@@ -3356,17 +3356,17 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r12, r0, this._mods
 			ldofad r13, r12, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r14, r13
-			calltv r14, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r14, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldofad r12, r0, this._mods
 			ldofad r13, r12, Scn.Step.Modules._storageManager
 			ldofad r12, r13, Scn.Step.StorageManager._volatileData
 			ldsrsr r13, r12
-			calltv r13, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r13, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r12, r0, this._mods
 			ldofad r13, r12, Scn.Step.Modules._storageManager
 			ldofad r12, r13, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r13, r12
-			calltr r13, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r13, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r12, r0, this._mods
 			ldofad r13, r12, Scn.Step.Modules._storageManager
 			ldsrc4 r12, 0x1
@@ -3380,7 +3380,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r13, r12, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r12, r0, this._result
 			ldsr2  r15, r13, r12
-			calltv r14, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r14, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r12, r0, this._mods
 			ldofad r13, r12, Scn.Step.Modules._storageManager
 			ldofad r12, r13, Scn.Step.StorageManager._volatileData
@@ -3388,7 +3388,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r12, r0, this._result
 			ldsr2  r14, r13, r12
 			ldsrc4 r16, 0x0
-			calltv r14, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r14, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldofad r12, r0, this._mods
 			ldofad r13, r12, Scn.Step.Modules._storageManager
 			ldofad r12, r13, Scn.Step.StorageManager._volatileData
@@ -3399,15 +3399,15 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r11, r15, Scn.Step.TimeManager.__bf_Time
 			mcopys r3, r11, Util.TimeSpan
 			ldsrsr r15, r3
-			calltr r14, Util.TimeSpan.get_Sec()
+			calltp r14, Util.TimeSpan.get_Sec()
 			cts32f r15, r14
 			ldsr3  r16, r13, r12, r15
-			calltv r16, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
+			callt4 r16, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
 			ldofad r12, r0, this._mods
 			ldofad r13, r12, Scn.Step.Modules._storageManager
 			ldofad r12, r13, Scn.Step.StorageManager._backupFileData
 			ldsrsr r14, r12
-			calltv r13, Storage.File.BackupFileDataUtil.UpdateTown(Storage.File.Root)
+			callt4 r13, Storage.File.BackupFileDataUtil.UpdateTown(Storage.File.Root)
 			ldsrc4 r12, 0x1
 			stofa4 r0, r12, this._isSceneEnd
 			fleave r0
@@ -3416,7 +3416,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeDeliveryPresentBoxDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r2, ScnContext.Step.CreateInfo
 			sppsh  r3, Util.TimeSpan
 			sppsh  r4, ScnContext.Step.CreateInfo
@@ -3439,7 +3439,7 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r2, r5, ScnContext.Step.CreateInfo
 			ldsrsr r11, r2
 			ldsr2  r13, r6, r12
-			calltv r13, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r13, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r11, r6, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsrsr r11, r2
 			ldsrsr r12, r7
@@ -3455,9 +3455,9 @@ script Scn.Step.SceneChangeCtrl
 			stof_u r11, r8, ScnContext.Step.CreateInfo.BgmInfo
 			ldsr3  r11, r2, r0, r11
 			ldsrc4 r14, 0x0
-			calltv r12, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r12, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 			ldsr3  r11, r2, r0, r11
-			calltv r12, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
+			callt4 r12, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
 			ldsrsr r11, r2
 			ldof_u r12, r11, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r11, r12, ScnContext.Step.PlayerInfo.StepInInfo
@@ -3467,10 +3467,10 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r12, r11, ScnContext.Step.CreateInfo.MapInfo
 			ldsrsr r13, r9
 			ldsrca r14, "Town/Town/Step01"
-			calltr r13, ScnContext.StepUtil.PathPrefixTextBasil(string)
+			calltp r13, ScnContext.StepUtil.PathPrefixTextBasil(string)
 			stof_u r12, r9, ScnContext.Step.MapInfo._pathPrefix
 			ldsrca r14, "Town/Town/Step01"
-			calltr r13, ScnContext.StepUtil.PathPostfixNum(string)
+			calltp r13, ScnContext.StepUtil.PathPostfixNum(string)
 			stofa4 r12, r13, ScnContext.Step.MapInfo._pathPostfixNum
 			ldsrsr r11, r2
 			ldof_u r12, r11, ScnContext.Step.CreateInfo.MapInfo
@@ -3479,17 +3479,17 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r13, r12
-			calltv r13, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r13, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules._storageManager
 			ldofad r11, r12, Scn.Step.StorageManager._volatileData
 			ldsrsr r12, r11
-			calltv r12, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r12, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules._storageManager
 			ldofad r11, r12, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r12, r11
-			calltr r12, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r12, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules._storageManager
 			ldsrc4 r11, 0x1
@@ -3504,7 +3504,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r12, r11, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r11, r0, this._result
 			ldsr2  r14, r12, r11
-			calltv r13, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r13, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules._storageManager
 			ldofad r11, r12, Scn.Step.StorageManager._volatileData
@@ -3512,7 +3512,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r11, r0, this._result
 			ldsr2  r13, r12, r11
 			ldsrc4 r15, 0x0
-			calltv r13, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r13, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldofad r11, r0, this._mods
 			ldofad r12, r11, Scn.Step.Modules._storageManager
 			ldofad r11, r12, Scn.Step.StorageManager._volatileData
@@ -3523,10 +3523,10 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r10, r14, Scn.Step.TimeManager.__bf_Time
 			mcopys r3, r10, Util.TimeSpan
 			ldsrsr r14, r3
-			calltr r13, Util.TimeSpan.get_Sec()
+			calltp r13, Util.TimeSpan.get_Sec()
 			cts32f r14, r13
 			ldsr3  r15, r12, r11, r14
-			calltv r15, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
+			callt4 r15, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
 			ldsrc4 r11, 0x1
 			stofa4 r0, r11, this._isSceneEnd
 			fleave r0
@@ -3535,7 +3535,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeToLevel7Detail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r2, ScnContext.Step.CreateInfo
 			sppsh  r3, Storage.File.StageKey
 			sppsh  r4, ScnContext.Step.MapInfo
@@ -3565,7 +3565,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r25, r24, Scn.Step.Player.Manager.__bf_PowerUpCtrl
 			ldofad r24, r25, Scn.Step.Player.PowerUpCtrl._mightyTime
 			ldof_u r25, r24, Util.TimeCounter._pod
-			calltr r25, Util.TimeCounter/Pod.ToEnd()
+			calltp r25, Util.TimeCounter/Pod.ToEnd()
 			ldofad r24, r0, this._mods
 			ldofad r25, r24, Scn.Step.Modules.__bf_CreateInfoManager
 			ldofap r9, r25, Scn.Step.CreateInfoManager._createInfo
@@ -3594,25 +3594,25 @@ script Scn.Step.SceneChangeCtrl
 			loc_00000038:
 			ldsrsr r23, r2
 			ldsr2  r24, r13, r1
-			calltv r24, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r24, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r23, r13, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsr3  r23, r2, r0, r23
 			ldsrc4 r26, 0x0
-			calltv r24, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r24, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 			ldsr3  r23, r2, r0, r23
-			calltv r24, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
+			callt4 r24, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
 			ldsr3  r23, r2, r0, r23
-			calltv r24, this.ReviveSubHero(ref ScnContext.Step.CreateInfo)
+			callt4 r24, this.ReviveSubHero(ref ScnContext.Step.CreateInfo)
 			ldsrsr r23, r2
 			ldofad r24, r0, this._mods
 			ldofad r25, r24, Scn.Step.Modules._missionManager
 			ldsr2  r26, r14, r25
-			calltv r26, Scn.Step.Mission.Manager.CreateContext()
+			callt4 r26, Scn.Step.Mission.Manager.CreateContext()
 			stof_u r23, r14, ScnContext.Step.CreateInfo.MissionInfo
 			ldsrsr r23, r2
 			ldof_u r24, r23, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsrsr r25, r15
-			calltv r25, ScnContext.Step.PlayerInfo/RestartInfoType.CreateDefault()
+			callt4 r25, ScnContext.Step.PlayerInfo/RestartInfoType.CreateDefault()
 			stof_u r24, r15, ScnContext.Step.PlayerInfo.RestartInfo
 			ldsrsr r23, r2
 			ldof_u r24, r23, ScnContext.Step.CreateInfo.PlayerInfo
@@ -3626,54 +3626,54 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r23, r24, ScnContext.Step.PlayerInfo.Share
 			ldof_u r24, r23, ScnContext.Step.PlayerInfo/ShareType.CapsuleInfo
 			ldof_u r25, r24, ScnContext.Step.PlayerInfo/CapsuleInfo.CapsuleKindList
-			unk_0f r25, 2
+			dcall  r25, 2
 			_xref  Stdlib.MutableArray8`1.Clear()
 			_xref  Stdlib.MutableArray8`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldof_u r25, r24, ScnContext.Step.PlayerInfo/CapsuleInfo.CapsuleUidList
-			unk_0f r25, 2
+			dcall  r25, 2
 			_xref  Stdlib.MutableArray8`1.Clear()
 			_xref  Stdlib.MutableArray8`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrsr r23, r2
 			ldof_u r24, r23, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r23, r24, ScnContext.Step.PlayerInfo.Share
 			ldof_u r24, r23, ScnContext.Step.PlayerInfo/ShareType.SoulInfo
 			ldof_u r25, r24, ScnContext.Step.PlayerInfo/SoulInfo.SoulSingleUidList1
-			unk_0f r25, 2
+			dcall  r25, 2
 			_xref  Stdlib.MutableArray32`1.Clear()
 			_xref  Stdlib.MutableArray32`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldof_u r25, r24, ScnContext.Step.PlayerInfo/SoulInfo.SoulSingleUidList2
-			unk_0f r25, 2
+			dcall  r25, 2
 			_xref  Stdlib.MutableArray32`1.Clear()
 			_xref  Stdlib.MutableArray32`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldof_u r25, r24, ScnContext.Step.PlayerInfo/SoulInfo.SoulTripleUidList
-			unk_0f r25, 2
+			dcall  r25, 2
 			_xref  Stdlib.MutableArray32`1.Clear()
 			_xref  Stdlib.MutableArray32`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldof_u r25, r24, ScnContext.Step.PlayerInfo/SoulInfo.SoulEnemyUidList
-			unk_0f r25, 2
+			dcall  r25, 2
 			_xref  Stdlib.MutableArray32`1.Clear()
 			_xref  Stdlib.MutableArray32`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrsr r23, r2
 			ldof_u r24, r23, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r23, r24, ScnContext.Step.PlayerInfo.Share
 			ldof_u r24, r23, ScnContext.Step.PlayerInfo/ShareType.AmiiboIdList
-			unk_0f r24, 2
+			dcall  r24, 2
 			_xref  Stdlib.MutableArray8`1.Clear()
 			_xref  Stdlib.MutableArray8`1<ScnContext.Step.PlayerInfo/AmiiboInfo>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrsr r23, r2
 			ldof_u r24, r23, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r23, r24, ScnContext.Step.PlayerInfo.Share
@@ -3698,14 +3698,14 @@ script Scn.Step.SceneChangeCtrl
 			ldsr2  r23, r3, r2
 			ldof_u r25, r24, ScnContext.Step.CreateInfo.MapInfo
 			ldsr2  r26, r18, r25
-			calltv r26, ScnContext.Step.MapInfo.get_Path()
+			callt4 r26, ScnContext.Step.MapInfo.get_Path()
 			mcopys r6, r18, Stdlib.FixedString128
 			ldsrsr r24, r6
 			mcopys r8, r24, Stdlib.FixedString128
 			ldsrsr r25, r8
-			calltr r24, Stdlib.FixedString128.ReadPtr()
+			calltp r24, Stdlib.FixedString128.ReadPtr()
 			ldsr2  r25, r23, r24
-			calltv r25, Storage.File.StageKey.this(string)
+			callt4 r25, Storage.File.StageKey.this(string)
 			ldofad r23, r22, Storage.File.Root.Wmap
 			ldsrc4 r24, 0x1
 			stofa4 r23, r24, Storage.File.Wmap.IsNeedToShowClearDemo
@@ -3714,21 +3714,21 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r25, r24, Scn.Step.Player.ShareData.__bf_ComebackedWaddleDeeCount
 			ldsrsr r24, r3
 			ldsr2  r27, r25, r24
-			calltv r26, MissionData.ComebackedWaddleDeeCount.ComebackedCount(ref Storage.File.StageKey)
+			callt4 r26, MissionData.ComebackedWaddleDeeCount.ComebackedCount(ref Storage.File.StageKey)
 			stofa4 r23, r26, Storage.File.Wmap.PreComebackedCount
 			ldsr3  r23, r3, r0, r23
-			calltv r24, this.SendPlayReportOnStageClear(ref Storage.File.StageKey)
+			callt4 r24, this.SendPlayReportOnStageClear(ref Storage.File.StageKey)
 			ldsr5  r23, r2, r3, r0, r23, r24
-			calltv r25, this.UpdateBackupFileDataOnStageClear(ref ScnContext.Step.CreateInfo,ref Storage.File.StageKey)
+			callt4 r25, this.UpdateBackupFileDataOnStageClear(ref ScnContext.Step.CreateInfo,ref Storage.File.StageKey)
 			mcopys r9, r2, ScnContext.Step.CreateInfo
 			ldofap r4, r9, ScnContext.Step.CreateInfo.MapInfo
 			ldsrsr r23, r4
 			ldsrsr r24, r19
 			ldsrca r25, "Level7/Stage1/Step01"
-			calltr r24, ScnContext.StepUtil.PathPrefixTextBasil(string)
+			calltp r24, ScnContext.StepUtil.PathPrefixTextBasil(string)
 			stof_u r23, r19, ScnContext.Step.MapInfo._pathPrefix
 			ldsrca r25, "Level7/Stage1/Step01"
-			calltr r24, ScnContext.StepUtil.PathPostfixNum(string)
+			calltp r24, ScnContext.StepUtil.PathPostfixNum(string)
 			stofa4 r23, r24, ScnContext.Step.MapInfo._pathPostfixNum
 			ldsrsr r23, r4
 			ldsrc4 r24, 0x0
@@ -3739,25 +3739,25 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r23, r0, this._mods
 			ldofad r24, r23, Scn.Step.Modules._pwdeeManager
 			ldsrsr r25, r24
-			calltv r25, Scn.Step.PwdeeManager.FixTentativeRecord()
+			callt4 r25, Scn.Step.PwdeeManager.FixTentativeRecord()
 			ldofad r23, r0, this._mods
 			ldofad r24, r23, Scn.Step.Modules.__bf_RetryCountManager
 			ldsrsr r25, r24
-			calltv r25, Scn.Step.Actor.Basic.RetryCountManager.Clear()
+			callt4 r25, Scn.Step.Actor.Basic.RetryCountManager.Clear()
 			ldofad r23, r0, this._mods
 			ldofad r24, r23, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r25, r24
-			calltv r25, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r25, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldofad r23, r0, this._mods
 			ldofad r24, r23, Scn.Step.Modules._storageManager
 			ldofad r23, r24, Scn.Step.StorageManager._volatileData
 			ldsrsr r24, r23
-			calltv r24, Storage.Volatile.Root.ResetStageSuite()
+			callt4 r24, Storage.Volatile.Root.ResetStageSuite()
 			ldofad r23, r0, this._mods
 			ldofad r24, r23, Scn.Step.Modules._storageManager
 			ldofad r23, r24, Scn.Step.StorageManager._volatileDataRaw
 			ldsrsr r24, r23
-			calltr r24, Storage.VolatileRaw.Root.ResetStageSuite()
+			calltp r24, Storage.VolatileRaw.Root.ResetStageSuite()
 			ldofad r23, r0, this._mods
 			ldofad r24, r23, Scn.Step.Modules._storageManager
 			ldsrc4 r23, 0x1
@@ -3777,7 +3777,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r24, r23, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r23, r0, this._result
 			ldsr2  r26, r24, r23
-			calltv r25, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r25, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r23, r0, this._mods
 			ldofad r24, r23, Scn.Step.Modules._storageManager
 			ldofad r23, r24, Scn.Step.StorageManager._volatileData
@@ -3785,7 +3785,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r23, r0, this._result
 			ldsr2  r25, r24, r23
 			ldsrc4 r27, 0x0
-			calltv r25, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r25, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldofad r23, r0, this._mods
 			ldofad r24, r23, Scn.Step.Modules._storageManager
 			ldofad r23, r24, Scn.Step.StorageManager._volatileData
@@ -3796,10 +3796,10 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r21, r26, Scn.Step.TimeManager.__bf_Time
 			mcopys r7, r21, Util.TimeSpan
 			ldsrsr r26, r7
-			calltr r25, Util.TimeSpan.get_Sec()
+			calltp r25, Util.TimeSpan.get_Sec()
 			cts32f r26, r25
 			ldsr3  r27, r24, r23, r26
-			calltv r27, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
+			callt4 r27, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
 			ldsrc4 r23, 0x1
 			stofa4 r0, r23, this._isSceneEnd
 			fleave r0
@@ -3808,7 +3808,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeMapDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r1, ScnContext.Step.MapInfo
 			sppsh  r4, ScnContext.Step.CreateInfo
 			sppsh  r6, ScnContext.Step.PlayerInfo/Actor
@@ -3839,7 +3839,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrc4 r29, 0x0
 			ldsrc4 r30, 0x0
 			ldsrc4 r31, 0x0
-			calltv r28, Scn.Step.Player.Manager.SaveRestartInfo(bool,bool,bool)
+			callt4 r28, Scn.Step.Player.Manager.SaveRestartInfo(bool,bool,bool)
 			ldofad r25, r0, this._mods
 			ldofad r27, r25, Scn.Step.Modules.__bf_CreateInfoManager
 			ldofap r12, r27, Scn.Step.CreateInfoManager._createInfo
@@ -3850,15 +3850,15 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r4, r13, ScnContext.Step.CreateInfo
 			ldsrsr r25, r4
 			ldsr2  r27, r14, r26
-			calltv r27, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r27, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r25, r14, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsr3  r25, r4, r0, r25
 			ldsrc4 r28, 0x0
-			calltv r26, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
+			callt4 r26, this.DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 			ldofa4 r25, r0, this._isDiscardMainPlayerDeform
 			jmppos r25, loc_00000034
 			ldsr3  r25, r4, r0, r25
-			calltv r26, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
+			callt4 r26, this.DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
 			
 			loc_00000034:
 			ldsrc4 r5, 0x0
@@ -3869,11 +3869,11 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r26, r25, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r25, r26, ScnContext.Step.PlayerInfo.Actors
 			ldsr3  r26, r15, r25, r5
-			calltv r26, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
+			callt4 r26, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
 			mcopys r6, r15, ScnContext.Step.PlayerInfo/Actor
 			ldofap r7, r15, ScnContext.Step.PlayerInfo/Actor.AbilityKind
 			ldsrsr r26, r7
-			calltv r25, Scn.Step.AbilityKindUtil.IsNeedToDiscardDeformOnChangeMap(ref ScnContext.Step.AbilityInfo)
+			callt4 r25, Scn.Step.AbilityKindUtil.IsNeedToDiscardDeformOnChangeMap(ref ScnContext.Step.AbilityInfo)
 			jmppos r25, loc_00000058
 			ldsrsr r25, r7
 			ldofa4 r26, r25, ScnContext.Step.AbilityInfo.__bf_CopyAbilityKind
@@ -3898,7 +3898,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r26, r25, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r25, r26, ScnContext.Step.PlayerInfo.Actors
 			ldsr4  r26, r6, r25, r5, r26
-			calltv r27, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
+			callt4 r27, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
 			
 			loc_00000058:
 			ldsrc4 r25, 0x1
@@ -3911,14 +3911,14 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r26, r25, Scn.Step.Modules._playerManager
 			ldsrsr r25, r4
 			ldsr2  r27, r26, r25
-			calltv r27, Scn.Step.Player.Manager.SaveRestartInfoDeformAbility(ref ScnContext.Step.CreateInfo)
+			callt4 r27, Scn.Step.Player.Manager.SaveRestartInfoDeformAbility(ref ScnContext.Step.CreateInfo)
 			ldsrsr r25, r4
 			stof_u r25, r1, ScnContext.Step.CreateInfo.MapInfo
 			ldsrsr r25, r4
 			ldofad r26, r0, this._mods
 			ldofad r27, r26, Scn.Step.Modules._missionManager
 			ldsr2  r28, r18, r27
-			calltv r28, Scn.Step.Mission.Manager.CreateContext()
+			callt4 r28, Scn.Step.Mission.Manager.CreateContext()
 			stof_u r25, r18, ScnContext.Step.CreateInfo.MissionInfo
 			ldsrsr r25, r4
 			ldof_u r26, r25, ScnContext.Step.CreateInfo.PlayerInfo
@@ -3934,19 +3934,19 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r26, r25, Scn.Step.Modules._playerManager
 			ldofad r25, r26, Scn.Step.Player.Manager.__bf_ActorDataArray
 			ldsr2  r27, r25, r10
-			unk_0f r26, 2
+			dcall  r26, 2
 			_xref  Stdlib.Array`1.get_Item(int)
 			_xref  Stdlib.Array`1<Scn.Step.Player.ActorData>
 			_xref  Scn.Step.Player.ActorData
-			_ret32 r0
+			_ret   r0
 			ldofad r28, r26, Scn.Step.Player.ActorData._hitPoint
-			unk_0f r27, 2
+			dcall  r27, 2
 			_xref  Stdlib.ManagedRawptr`1.get_Ref()
 			_xref  Stdlib.ManagedRawptr`1<Gobj.HitPoint>
 			_xref  Gobj.HitPoint
-			_ret32 r0
+			_ret   r0
 			ldsrsr r29, r27
-			calltr r28, Gobj.HitPoint.get_IsDead()
+			calltp r28, Gobj.HitPoint.get_IsDead()
 			jmppos r28, loc_00000085
 			ldsrc4 r9, 0x1
 			jmp    loc_00000089
@@ -3969,7 +3969,7 @@ script Scn.Step.SceneChangeCtrl
 			
 			loc_0000008f:
 			ldsr3  r25, r4, r0, r25
-			calltv r26, this.SetupReturnMapConnectInfo(ref ScnContext.Step.CreateInfo)
+			callt4 r26, this.SetupReturnMapConnectInfo(ref ScnContext.Step.CreateInfo)
 			ldsrsr r25, r4
 			ldof_u r26, r25, ScnContext.Step.CreateInfo.MapConnectInfo
 			ldof_u r27, r25, ScnContext.Step.CreateInfo.MapInfo
@@ -3989,7 +3989,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrc4 r25, 0x0
 			stofa4 r26, r25, ScnContext.Step.MovieInfo.MovieKindPrev
 			ldsr3  r25, r4, r0, r25
-			calltv r26, this.SetMovieInfoIfNeed(ref ScnContext.Step.CreateInfo)
+			callt4 r26, this.SetMovieInfoIfNeed(ref ScnContext.Step.CreateInfo)
 			ldofad r25, r0, this._mods
 			ldofad r26, r25, Scn.Step.Modules.__bf_CreateInfoManager
 			ldof_u r25, r26, Scn.Step.CreateInfoManager._createInfo
@@ -4015,7 +4015,7 @@ script Scn.Step.SceneChangeCtrl
 			
 			loc_000000bb:
 			ldsr3  r25, r4, r0, r25
-			calltv r26, this.SetupBgmInfo(ref ScnContext.Step.CreateInfo)
+			callt4 r26, this.SetupBgmInfo(ref ScnContext.Step.CreateInfo)
 			
 			loc_000000bd:
 			ldof_u r25, r0, this._result
@@ -4027,12 +4027,12 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r25, r0, this._mods
 			ldofad r26, r25, Scn.Step.Modules.__bf_RetryCountManager
 			ldsrsr r27, r26
-			calltv r27, Scn.Step.Actor.Basic.RetryCountManager.OnSceneChanged()
+			callt4 r27, Scn.Step.Actor.Basic.RetryCountManager.OnSceneChanged()
 			ldofad r25, r0, this._mods
 			ldofad r26, r25, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r25, r0, this._result
 			ldsr2  r28, r26, r25
-			calltv r27, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r27, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r25, r0, this._mods
 			ldofad r26, r25, Scn.Step.Modules._storageManager
 			ldofad r25, r26, Scn.Step.StorageManager._volatileData
@@ -4040,7 +4040,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r25, r0, this._result
 			ldsr2  r27, r26, r25
 			ldsrc4 r29, 0x0
-			calltv r27, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r27, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldofad r25, r0, this._mods
 			ldofad r26, r25, Scn.Step.Modules._storageManager
 			ldofad r25, r26, Scn.Step.StorageManager._volatileData
@@ -4051,14 +4051,14 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r24, r28, Scn.Step.TimeManager.__bf_Time
 			mcopys r11, r24, Util.TimeSpan
 			ldsrsr r28, r11
-			calltr r27, Util.TimeSpan.get_Sec()
+			calltp r27, Util.TimeSpan.get_Sec()
 			cts32f r28, r27
 			ldsr3  r29, r26, r25, r28
-			calltv r29, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
+			callt4 r29, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
 			ldofad r25, r0, this._mods
 			ldofad r26, r25, Scn.Step.Modules._pwdeeManager
 			ldsrsr r27, r26
-			calltv r27, Scn.Step.PwdeeManager.OnSceneChangedByChangeMap()
+			callt4 r27, Scn.Step.PwdeeManager.OnSceneChangedByChangeMap()
 			ldofad r25, r0, this._mods
 			ldofad r26, r25, Scn.Step.Modules.__bf_MapAttributeCtrl
 			ldofa4 r25, r26, Scn.Step.MapAttributeCtrl.__bf_Mode
@@ -4068,7 +4068,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r26, r25, Scn.Step.Modules._storageManager
 			ldofad r25, r26, Scn.Step.StorageManager._backupFileData
 			ldsrsr r27, r25
-			calltv r26, Storage.File.BackupFileDataUtil.UpdateTown(Storage.File.Root)
+			callt4 r26, Storage.File.BackupFileDataUtil.UpdateTown(Storage.File.Root)
 			
 			loc_000000f0:
 			ldsrc4 r25, 0x1
@@ -4079,7 +4079,7 @@ script Scn.Step.SceneChangeCtrl
 		async void ChangeMapRetryDetail()
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r1, ScnContext.Step.MapInfo
 			sppsh  r3, ScnContext.Step.CreateInfo
 			sppsh  r6, ScnContext.Step.PlayerInfo/Actor
@@ -4112,22 +4112,22 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r4, r21
 			ldsrsr r20, r3
 			ldsr2  r22, r12, r21
-			calltv r22, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r22, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r20, r12, ScnContext.Step.CreateInfo.PlayerInfo
 			ldofad r20, r0, this._mods
 			ldofad r22, r20, Scn.Step.Modules.__bf_MouthFeedManager
 			ldsrsr r23, r22
-			calltv r23, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
+			callt4 r23, Scn.Step.Player.MouthFeedManager.ClearSendItemAll()
 			ldsrsr r20, r3
 			ldsr2  r22, r21, r20
-			calltv r22, Scn.Step.Player.Manager.LoadRestartInfoForRetry(ref ScnContext.Step.CreateInfo)
+			callt4 r22, Scn.Step.Player.Manager.LoadRestartInfoForRetry(ref ScnContext.Step.CreateInfo)
 			ldsrsr r20, r3
 			stof_u r20, r9, ScnContext.Step.CreateInfo.MapInfo
 			ldsrsr r20, r3
 			ldofad r21, r0, this._mods
 			ldofad r22, r21, Scn.Step.Modules._missionManager
 			ldsr2  r23, r13, r22
-			calltv r23, Scn.Step.Mission.Manager.CreateContext()
+			callt4 r23, Scn.Step.Mission.Manager.CreateContext()
 			stof_u r20, r13, ScnContext.Step.CreateInfo.MissionInfo
 			ldsrsr r20, r3
 			ldof_u r21, r20, ScnContext.Step.CreateInfo.PlayerInfo
@@ -4141,7 +4141,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r20, r19, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r19, r20, ScnContext.Step.PlayerInfo.Actors
 			ldsr3  r20, r14, r19, r5
-			calltv r20, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
+			callt4 r20, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
 			mcopys r6, r14, ScnContext.Step.PlayerInfo/Actor
 			ldofap r7, r14, ScnContext.Step.PlayerInfo/Actor.AbilityKind
 			ldsrsr r19, r7
@@ -4172,7 +4172,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r20, r19, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r19, r20, ScnContext.Step.PlayerInfo.Actors
 			ldsr4  r20, r6, r19, r5, r20
-			calltv r21, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
+			callt4 r21, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
 			ldsrc4 r19, 0x1
 			addi32 r5, r5, r19
 			
@@ -4180,7 +4180,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrc4 r19, 0x2
 			ges32  r5, r19, loc_00000039
 			ldsr3  r19, r3, r0, r19
-			calltv r20, this.SetupReturnMapConnectInfo(ref ScnContext.Step.CreateInfo)
+			callt4 r20, this.SetupReturnMapConnectInfo(ref ScnContext.Step.CreateInfo)
 			ldsrsr r19, r3
 			ldof_u r20, r19, ScnContext.Step.CreateInfo.MapConnectInfo
 			ldof_u r21, r19, ScnContext.Step.CreateInfo.MapInfo
@@ -4196,9 +4196,9 @@ script Scn.Step.SceneChangeCtrl
 			negs32 r19, r21
 			stofa4 r20, r19, ScnContext.Step.MapConnectInfo.__bf_PreviousMapDiffStepNum
 			ldsr3  r19, r3, r0, r19
-			calltv r20, this.SetMovieInfoIfNeed(ref ScnContext.Step.CreateInfo)
+			callt4 r20, this.SetMovieInfoIfNeed(ref ScnContext.Step.CreateInfo)
 			ldsr3  r19, r3, r0, r19
-			calltv r20, this.SetupBgmInfo(ref ScnContext.Step.CreateInfo)
+			callt4 r20, this.SetupBgmInfo(ref ScnContext.Step.CreateInfo)
 			ldsrsr r19, r3
 			ldof_u r20, r19, ScnContext.Step.CreateInfo.MovieInfo
 			ldsrc4 r19, 0x0
@@ -4213,7 +4213,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r20, r19, Scn.Step.Modules.__bf_AdviceManager
 			ldof_u r19, r0, this._result
 			ldsr2  r22, r20, r19
-			calltv r21, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
+			callt4 r21, Scn.Step.Advice.Manager.SendSceneChange(ref ScnContext.Step.Result)
 			ldofad r19, r0, this._mods
 			ldofad r20, r19, Scn.Step.Modules._storageManager
 			ldofad r19, r20, Scn.Step.StorageManager._volatileData
@@ -4221,7 +4221,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r19, r0, this._result
 			ldsr2  r21, r20, r19
 			ldsrc4 r23, 0x0
-			calltv r21, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
+			callt4 r21, Storage.Volatile.Arena.OnSceneChanged(ref ScnContext.Step.Result,bool)
 			ldofad r19, r0, this._mods
 			ldofad r20, r19, Scn.Step.Modules._storageManager
 			ldofad r19, r20, Scn.Step.StorageManager._volatileData
@@ -4232,10 +4232,10 @@ script Scn.Step.SceneChangeCtrl
 			ldofap r18, r22, Scn.Step.TimeManager.__bf_Time
 			mcopys r8, r18, Util.TimeSpan
 			ldsrsr r22, r8
-			calltr r21, Util.TimeSpan.get_Sec()
+			calltp r21, Util.TimeSpan.get_Sec()
 			cts32f r22, r21
 			ldsr3  r23, r20, r19, r22
-			calltv r23, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
+			callt4 r23, Storage.Volatile.SupportSpeak.OnSceneChanged(ref ScnContext.Step.Result,int)
 			ldsrc4 r19, 0x1
 			stofa4 r0, r19, this._isSceneEnd
 			fleave r0
@@ -4244,7 +4244,7 @@ script Scn.Step.SceneChangeCtrl
 		void SetupPlayerDataOnDead(ref ScnContext.Step.CreateInfo,bool)
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r5, ScnContext.Step.PlayerInfo/Actor
 			sppsh  r7, ScnContext.Step.AbilityInfo
 			sppsh  r9, ScnContext.Step.AbilityInfo
@@ -4262,12 +4262,12 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r18, r19, Scn.Step.Player.Manager.__bf_PowerUpCtrl
 			ldofad r20, r18, Scn.Step.Player.PowerUpCtrl._mightyTime
 			ldof_u r21, r20, Util.TimeCounter._pod
-			calltr r21, Util.TimeCounter/Pod.ToEnd()
+			calltp r21, Util.TimeCounter/Pod.ToEnd()
 			ldsr2  r20, r12, r19
-			calltv r20, Scn.Step.Player.Manager.ToPlayerInfo()
+			callt4 r20, Scn.Step.Player.Manager.ToPlayerInfo()
 			stof_u r1, r12, ScnContext.Step.CreateInfo.PlayerInfo
 			ldsr2  r20, r19, r1
-			calltv r20, Scn.Step.Player.Manager.LoadRestartInfo(ref ScnContext.Step.CreateInfo)
+			callt4 r20, Scn.Step.Player.Manager.LoadRestartInfo(ref ScnContext.Step.CreateInfo)
 			ldsrc4 r4, 0x0
 			jmp    loc_00000074
 			
@@ -4275,7 +4275,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r18, r1, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r19, r18, ScnContext.Step.PlayerInfo.Actors
 			ldsr3  r20, r13, r19, r4
-			calltv r20, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
+			callt4 r20, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
 			mcopys r5, r13, ScnContext.Step.PlayerInfo/Actor
 			jmppos r2, loc_00000046
 			ldsrc4 r6, 0x1
@@ -4332,7 +4332,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r18, r10
 			ldofa4 r19, r18, ScnContext.Step.AbilityInfo.__bf_DeformAbilityKind
 			ldsrsr r21, r19
-			calltv r20, ScnContext.Step.AbilityUtil.IsLostWhenRestart(ScnContext.Step.DeformAbilityKindType)
+			callt4 r20, ScnContext.Step.AbilityUtil.IsLostWhenRestart(ScnContext.Step.DeformAbilityKindType)
 			jmppos r20, loc_00000069
 			ldsrsr r18, r10
 			mcopys r15, r18, ScnContext.Step.AbilityInfo
@@ -4368,7 +4368,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r19, r18, ScnContext.Step.PlayerInfo.Actors
 			ldsrsr r18, r5
 			ldsr3  r20, r19, r4, r18
-			calltv r20, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
+			callt4 r20, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
 			ldsrc4 r18, 0x1
 			addi32 r4, r4, r18
 			
@@ -4387,7 +4387,7 @@ script Scn.Step.SceneChangeCtrl
 		void SetupReturnMapConnectInfo(ref ScnContext.Step.CreateInfo)
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r3, ScnContext.Step.MapInfo
 			sppsh  r6, ScnContext.Step.MapInfo
 			ldof_u r7, r1, ScnContext.Step.CreateInfo.MapConnectInfo
@@ -4410,21 +4410,21 @@ script Scn.Step.SceneChangeCtrl
 			jmppos r7, return
 			ldofad r7, r0, this._mods
 			ldofad r9, r7, Scn.Step.Modules._mapManager
-			unk_0f r8, 2
+			dcall  r8, 2
 			_xref  Stdlib.ManagedRawptr`1.get_Ref()
 			_xref  Stdlib.ManagedRawptr`1<Scn.Step.Map.Manager>
 			_xref  Scn.Step.Map.Manager
-			_ret32 r0
+			_ret   r0
 			ldsrsr r4, r8
 			ldsrc4 r5, 0x0
 			jmp    loc_00000033
 			
 			loc_00000020:
 			ldsr2  r8, r4, r5
-			calltr r7, Scn.Step.Map.Manager.MoveStepValue(int)
+			calltp r7, Scn.Step.Map.Manager.MoveStepValue(int)
 			eqi32  r7, r2, loc_00000031
 			ldsr2  r8, r4, r5
-			calltr r7, Scn.Step.Map.Manager.IsRoundTrip(int)
+			calltp r7, Scn.Step.Map.Manager.IsRoundTrip(int)
 			jmppos r7, loc_0000002a
 			ldof_u r7, r1, ScnContext.Step.CreateInfo.MapConnectInfo
 			negs32 r8, r2
@@ -4433,7 +4433,7 @@ script Scn.Step.SceneChangeCtrl
 			
 			loc_0000002a:
 			ldsr2  r8, r4, r5
-			calltr r7, Scn.Step.Map.Manager.IsIgnoreWarningAtOneWay(int)
+			calltp r7, Scn.Step.Map.Manager.IsIgnoreWarningAtOneWay(int)
 			jmppos r7, loc_00000031
 			ldof_u r7, r1, ScnContext.Step.CreateInfo.MapConnectInfo
 			ldsrc4 r8, 0x1
@@ -4446,7 +4446,7 @@ script Scn.Step.SceneChangeCtrl
 			
 			loc_00000033:
 			ldsrsr r8, r4
-			calltr r7, Scn.Step.Map.Manager.StepLinkInfoCount()
+			calltp r7, Scn.Step.Map.Manager.StepLinkInfoCount()
 			ges32  r5, r7, loc_00000020
 			
 			return:
@@ -4456,22 +4456,22 @@ script Scn.Step.SceneChangeCtrl
 		void SetMovieInfoIfNeed(ref ScnContext.Step.CreateInfo)
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			ldsr2  r3, r0, r1
-			calltv r2, this.CheckMovieFirstCarDeform(ref ScnContext.Step.CreateInfo)
+			callt4 r2, this.CheckMovieFirstCarDeform(ref ScnContext.Step.CreateInfo)
 			jmppos r2, loc_00000006
 			fleave r0
 			
 			loc_00000006:
 			ldsr2  r3, r0, r1
-			calltv r2, this.CheckMovieTownAttacked(ref ScnContext.Step.CreateInfo)
+			callt4 r2, this.CheckMovieTownAttacked(ref ScnContext.Step.CreateInfo)
 			fleave r0
 		}
 		
 		flag100 bool CheckMovieFirstCarDeform(ref ScnContext.Step.CreateInfo)
 		{
 			fenter 0
-			_ret32 r0
+			_ret   r0
 			sppsh  r2, Stdlib.FixedString128
 			sppsh  r4, Storage.File.StageKey
 			sppsh  r5, ScnContext.Step.PlayerInfo/Actor
@@ -4482,12 +4482,12 @@ script Scn.Step.SceneChangeCtrl
 			sppsh  r10, ScnContext.Step.AbilityInfo
 			ldof_u r11, r1, ScnContext.Step.CreateInfo.MapInfo
 			ldsr2  r12, r7, r11
-			calltv r12, ScnContext.Step.MapInfo.get_Path()
+			callt4 r12, ScnContext.Step.MapInfo.get_Path()
 			mcopys r2, r7, Stdlib.FixedString128
 			ldsrsr r11, r2
 			ldsrsr r13, r11
 			ldsrca r14, "Level0/Stage1/Step02"
-			calltr r12, Stdlib.FixedString128.op_Equality(ref Stdlib.FixedString128,string)
+			calltp r12, Stdlib.FixedString128.op_Equality(ref Stdlib.FixedString128,string)
 			jmppos r12, loc_00000049
 			ldsrc4 r3, 0x0
 			ldofad r11, r0, this._mods
@@ -4495,11 +4495,11 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r11, r12, Scn.Step.StorageManager._backupFileData
 			ldsr2  r12, r4, r12
 			ldsrc4 r14, 0x1
-			calltv r13, Storage.File.StageKey.this(Storage.File.StoryStageKind)
+			callt4 r13, Storage.File.StageKey.this(Storage.File.StoryStageKind)
 			ldsrsr r12, r4
 			ldsr2  r14, r11, r12
 			ldsrc4 r16, 0x0
-			calltv r13, Storage.File.BackupFileDataUtil.StageClearState(Storage.File.Root,ref Storage.File.StageKey,bool)
+			callt4 r13, Storage.File.BackupFileDataUtil.StageClearState(Storage.File.Root,ref Storage.File.StageKey,bool)
 			jmpneg r13, loc_00000020
 			ldsrc4 r3, 0x1
 			
@@ -4512,7 +4512,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r12, r11, ScnContext.Step.PlayerInfo.Actors
 			ldsr2  r13, r8, r12
 			ldsrc4 r15, 0x0
-			calltv r13, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
+			callt4 r13, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
 			mcopys r5, r8, ScnContext.Step.PlayerInfo/Actor
 			sppshz r9, ScnContext.Step.AbilityInfo
 			ldsrsr r11, r9
@@ -4532,7 +4532,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsr3  r11, r5, r6, r5
 			ldof_u r14, r13, ScnContext.Step.PlayerInfo/Actor.AbilityKind
 			ldsr3  r15, r9, r12, r14
-			calltv r15, ScnContext.Step.AbilityInfo.CreateWithPrevAbility(ref ScnContext.Step.AbilityInfo,ref ScnContext.Step.AbilityInfo)
+			callt4 r15, ScnContext.Step.AbilityInfo.CreateWithPrevAbility(ref ScnContext.Step.AbilityInfo,ref ScnContext.Step.AbilityInfo)
 			stof_u r11, r9, ScnContext.Step.PlayerInfo/Actor.AbilityKind
 			ldof_u r11, r1, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r12, r11, ScnContext.Step.PlayerInfo.Actors
@@ -4540,7 +4540,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r13, r12
 			ldsrc4 r14, 0x0
 			ldsrsr r15, r11
-			calltv r13, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
+			callt4 r13, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
 			ldof_u r11, r1, ScnContext.Step.CreateInfo.MapInfo
 			ldsrc4 r12, 0x1
 			stofa4 r11, r12, ScnContext.Step.MapInfo._startPortalNo
@@ -4556,17 +4556,17 @@ script Scn.Step.SceneChangeCtrl
 		flag100 bool CheckMovieTownAttacked(ref ScnContext.Step.CreateInfo)
 		{
 			fenter 0
-			_ret32 r0
+			_ret   r0
 			sppsh  r2, Stdlib.FixedString128
 			sppsh  r3, Stdlib.FixedString128
 			ldof_u r5, r1, ScnContext.Step.CreateInfo.MapInfo
 			ldsr2  r6, r3, r5
-			calltv r6, ScnContext.Step.MapInfo.get_Path()
+			callt4 r6, ScnContext.Step.MapInfo.get_Path()
 			mcopys r2, r3, Stdlib.FixedString128
 			ldsrsr r5, r2
 			ldsrsr r7, r5
 			ldsrca r8, "Town/Town/Step10"
-			calltr r6, Stdlib.FixedString128.op_Equality(ref Stdlib.FixedString128,string)
+			calltp r6, Stdlib.FixedString128.op_Equality(ref Stdlib.FixedString128,string)
 			jmppos r6, loc_00000019
 			ldof_u r5, r1, ScnContext.Step.CreateInfo.MapInfo
 			ldofa4 r6, r5, ScnContext.Step.MapInfo._startPortalNo
@@ -4591,7 +4591,7 @@ script Scn.Step.SceneChangeCtrl
 		void SetupBgmInfo(ref ScnContext.Step.CreateInfo)
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r2, Stdlib.FixedString64
 			ldofa4 r3, r0, this._isOverrideBgm
 			jmppos r3, return
@@ -4612,7 +4612,7 @@ script Scn.Step.SceneChangeCtrl
 		void DiscardAbilityIfNeed(ref ScnContext.Step.CreateInfo,bool)
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r6, ScnContext.Step.PlayerInfo/Actor
 			sppsh  r7, ScnContext.Step.AbilityInfo
 			sppsh  r9, ScnContext.Step.AbilityInfo
@@ -4629,11 +4629,11 @@ script Scn.Step.SceneChangeCtrl
 			loc_0000000e:
 			ldofad r15, r3, Scn.Step.Player.Manager.__bf_ActorDataArray
 			ldsr2  r17, r15, r4
-			unk_0f r16, 2
+			dcall  r16, 2
 			_xref  Stdlib.Array`1.get_Item(int)
 			_xref  Stdlib.Array`1<Scn.Step.Player.ActorData>
 			_xref  Scn.Step.Player.ActorData
-			_ret32 r0
+			_ret   r0
 			ldsrsr r5, r16
 			ldofa4 r15, r16, Scn.Step.Player.ActorData.__bf_IsNeedAbilityLost
 			jmpneg r15, loc_0000001b
@@ -4649,7 +4649,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r15, r1, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r16, r15, ScnContext.Step.PlayerInfo.Actors
 			ldsr3  r17, r10, r16, r4
-			calltv r17, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
+			callt4 r17, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
 			mcopys r6, r10, ScnContext.Step.PlayerInfo/Actor
 			ldofap r7, r10, ScnContext.Step.PlayerInfo/Actor.AbilityKind
 			ldsrsr r15, r7
@@ -4688,7 +4688,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r16, r15, ScnContext.Step.PlayerInfo.Actors
 			ldsrsr r15, r6
 			ldsr3  r17, r16, r4, r15
-			calltv r17, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
+			callt4 r17, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
 			
 			loc_00000048:
 			ldsrc4 r15, 0x1
@@ -4703,7 +4703,7 @@ script Scn.Step.SceneChangeCtrl
 		void DiscardAbilityDeform(ref ScnContext.Step.CreateInfo)
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r3, ScnContext.Step.PlayerInfo/Actor
 			sppsh  r4, ScnContext.Step.AbilityInfo
 			sppsh  r5, ScnContext.Step.AbilityInfo
@@ -4717,7 +4717,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r9, r1, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r10, r9, ScnContext.Step.PlayerInfo.Actors
 			ldsr3  r11, r6, r10, r2
-			calltv r11, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
+			callt4 r11, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
 			mcopys r3, r6, ScnContext.Step.PlayerInfo/Actor
 			ldofap r4, r6, ScnContext.Step.PlayerInfo/Actor.AbilityKind
 			ldsrsr r9, r4
@@ -4743,7 +4743,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r10, r9, ScnContext.Step.PlayerInfo.Actors
 			ldsrsr r9, r3
 			ldsr3  r11, r10, r2, r9
-			calltv r11, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
+			callt4 r11, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
 			ldsrc4 r9, 0x1
 			addi32 r2, r2, r9
 			
@@ -4756,7 +4756,7 @@ script Scn.Step.SceneChangeCtrl
 		void ReviveSubHero(ref ScnContext.Step.CreateInfo)
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r3, ScnContext.Step.PlayerInfo/Actor
 			sppsh  r4, ScnContext.Step.PlayerInfo/Actor
 			sppsh  r5, ScnContext.Step.PlayerInfo/Actor
@@ -4769,16 +4769,16 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r7, r1, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r8, r7, ScnContext.Step.PlayerInfo.Actors
 			ldsr3  r9, r5, r8, r2
-			calltv r9, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
+			callt4 r9, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
 			mcopys r3, r5, ScnContext.Step.PlayerInfo/Actor
 			ldsrsr r7, r3
 			ldof_u r9, r7, ScnContext.Step.PlayerInfo/Actor.HitPoint
-			calltr r8, Util.Decimal.IsZero()
+			calltp r8, Util.Decimal.IsZero()
 			jmppos r8, loc_00000020
 			ldof_u r7, r1, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r8, r7, ScnContext.Step.PlayerInfo.Actors
 			ldsr3  r9, r5, r8, r2
-			calltv r9, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
+			callt4 r9, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
 			mcopys r4, r5, ScnContext.Step.PlayerInfo/Actor
 			ldsrsr r7, r4
 			mcopys r5, r4, ScnContext.Step.PlayerInfo/Actor
@@ -4788,7 +4788,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r8, r7, ScnContext.Step.PlayerInfo.Actors
 			ldsrsr r7, r4
 			ldsr3  r9, r8, r2, r7
-			calltv r9, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
+			callt4 r9, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
 			
 			loc_00000020:
 			ldsrc4 r7, 0x1
@@ -4803,7 +4803,7 @@ script Scn.Step.SceneChangeCtrl
 		void FullRecoverHero(ref ScnContext.Step.CreateInfo)
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r3, ScnContext.Step.PlayerInfo/Actor
 			sppsh  r4, ScnContext.Step.PlayerInfo/Actor
 			sppsh  r5, Util.Decimal
@@ -4814,7 +4814,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r6, r1, ScnContext.Step.CreateInfo.PlayerInfo
 			ldof_u r7, r6, ScnContext.Step.PlayerInfo.Actors
 			ldsr3  r8, r4, r7, r2
-			calltv r8, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
+			callt4 r8, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
 			mcopys r3, r4, ScnContext.Step.PlayerInfo/Actor
 			ldsrsr r6, r3
 			mcopys r4, r3, ScnContext.Step.PlayerInfo/Actor
@@ -4824,7 +4824,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r7, r6, ScnContext.Step.PlayerInfo.Actors
 			ldsrsr r6, r3
 			ldsr3  r8, r7, r2, r6
-			calltv r8, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
+			callt4 r8, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
 			ldsrc4 r6, 0x1
 			addi32 r2, r2, r6
 			
@@ -4837,7 +4837,7 @@ script Scn.Step.SceneChangeCtrl
 		void UpdateBackupFileDataOnStageClear(ref ScnContext.Step.CreateInfo,ref Storage.File.StageKey)
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r5, Storage.File.StageKey
 			sppsh  r8, Util.TimeSpan
 			sppsh  r9, MissionData.RescuedWaddleDeeStageDetail
@@ -4868,26 +4868,26 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r45, r2, Storage.File.StageKey
 			mcopys r5, r45, Storage.File.StageKey
 			ldsrsr r54, r5
-			calltv r53, Storage.File.StageKey.get_CstageStage()
+			callt4 r53, Storage.File.StageKey.get_CstageStage()
 			jmppos r53, loc_00000041
 			ldofad r53, r4, Storage.File.Root.CstageStages
 			mcopys r45, r2, Storage.File.StageKey
 			mcopys r5, r45, Storage.File.StageKey
 			ldsrsr r55, r5
-			calltv r54, Storage.File.StageKey.get_CstageStage()
+			callt4 r54, Storage.File.StageKey.get_CstageStage()
 			ldsr2  r56, r53, r54
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.CstageStageKind,Storage.File.CstageStageData>
 			_xref  Storage.File.CstageStageData
-			_ret32 r0
+			_ret   r0
 			ldsrsr r6, r55
 			ldofad r53, r0, this._mods
 			ldofad r54, r53, Scn.Step.Modules.__bf_TimeManager
 			ldofap r46, r54, Scn.Step.TimeManager.__bf_Time
 			mcopys r8, r46, Util.TimeSpan
 			ldsrsr r57, r8
-			calltr r56, Util.TimeSpan.get_Sec()
+			calltp r56, Util.TimeSpan.get_Sec()
 			ldsrcf r53, 1000f
 			mulf32 r54, r56, r53
 			cts32f r7, r54
@@ -4910,23 +4910,23 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r45, r2, Storage.File.StageKey
 			mcopys r5, r45, Storage.File.StageKey
 			ldsrsr r54, r5
-			calltv r53, Storage.File.StageKey.get_StoryStage()
+			callt4 r53, Storage.File.StageKey.get_StoryStage()
 			jmppos r53, loc_000001ca
 			sppshz r47, MissionData.RescuedWaddleDeeStageDetail
 			ldsr3  r53, r47, r2, r4
-			calltv r53, MissionData.RescuedWaddleDeeStageDetail.this(ref Storage.File.StageKey,Storage.File.Root)
+			callt4 r53, MissionData.RescuedWaddleDeeStageDetail.this(ref Storage.File.StageKey,Storage.File.Root)
 			mcopys r9, r47, MissionData.RescuedWaddleDeeStageDetail
 			ldofad r53, r4, Storage.File.Root.StoryStages
 			mcopys r45, r2, Storage.File.StageKey
 			mcopys r5, r45, Storage.File.StageKey
 			ldsrsr r55, r5
-			calltv r54, Storage.File.StageKey.get_StoryStage()
+			callt4 r54, Storage.File.StageKey.get_StoryStage()
 			ldsr2  r56, r53, r54
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
 			_xref  Storage.File.StoryStageData
-			_ret32 r0
+			_ret   r0
 			ldsrsr r10, r55
 			ldsrc4 r53, 0x1
 			stofa4 r55, r53, Storage.File.StoryStageData.IsCleared
@@ -4937,7 +4937,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofa4 r57, r54, Scn.Step.Player.ShareData.__bf_PointStartCountByAmiibo
 			subi32 r54, r56, r57
 			ldsr2  r57, r53, r54
-			calltv r56, Hel.Math.Max(int,int)
+			callt4 r56, Hel.Math.Max(int,int)
 			ldsrsr r11, r56
 			stofa4 r55, r56, Storage.File.StoryStageData.BestPointStar
 			ldsrc4 r15, 0x0
@@ -4949,7 +4949,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r53, r1, ScnContext.Step.CreateInfo.MissionInfo
 			ldof_u r55, r53, ScnContext.Step.MissionInfo.CustomMissions
 			ldsr3  r56, r48, r55, r15
-			unk_0f r56, 2
+			dcall  r56, 2
 			_xref  Stdlib.MutableArray4`1.get_Item(int)
 			_xref  Stdlib.MutableArray4`1<ScnContext.Step.MissionInfo/CustomMissionType>
 			_xref  ScnContext.Step.MissionInfo/CustomMissionType
@@ -4958,22 +4958,22 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r53, r16
 			ldofa4 r55, r53, ScnContext.Step.MissionInfo/CustomMissionType.__bf_Phase
 			ldsr3  r56, r54, r15, r55
-			unk_0f r56, 2
+			dcall  r56, 2
 			_xref  Stdlib.Array`1.set_Item(int,TElement)
 			_xref  Stdlib.Array`1<ScnContext.Step.CustomMissionPhase>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrc4 r53, 0x1
 			addi32 r15, r15, r53
 			
 			loc_00000079:
 			ldof_u r53, r1, ScnContext.Step.CreateInfo.MissionInfo
 			ldof_u r55, r53, ScnContext.Step.MissionInfo.CustomMissions
-			unk_0f r54, 2
+			dcall  r54, 2
 			_xref  Stdlib.MutableArray4`1.get_Count()
 			_xref  Stdlib.MutableArray4`1<ScnContext.Step.MissionInfo/CustomMissionType>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			ges32  r15, r54, loc_00000064
 			ldsrc4 r17, 0x0
 			jmp    loc_00000095
@@ -4984,41 +4984,41 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r53, r1, ScnContext.Step.CreateInfo.MissionInfo
 			ldof_u r55, r53, ScnContext.Step.MissionInfo.IsRescuedArray
 			ldsr2  r57, r55, r17
-			unk_0f r56, 2
+			dcall  r56, 2
 			_xref  Stdlib.MutableArray8`1.get_Item(int)
 			_xref  Stdlib.MutableArray8`1<bool>
 			_short 2
-			_ret32 r0
+			_ret   r0
 			ldsr3  r57, r54, r17, r56
-			unk_0f r57, 2
+			dcall  r57, 2
 			_xref  Stdlib.Array`1.set_Item(int,TElement)
 			_xref  Stdlib.Array`1<bool>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrc4 r53, 0x1
 			addi32 r17, r17, r53
 			
 			loc_00000095:
 			ldof_u r53, r1, ScnContext.Step.CreateInfo.MissionInfo
 			ldof_u r55, r53, ScnContext.Step.MissionInfo.IsRescuedArray
-			unk_0f r54, 2
+			dcall  r54, 2
 			_xref  Stdlib.MutableArray8`1.get_Count()
 			_xref  Stdlib.MutableArray8`1<bool>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			ges32  r17, r54, loc_00000083
 			sppshz r47, MissionData.RescuedWaddleDeeStageDetail
 			ldsr3  r53, r47, r2, r4
-			calltv r53, MissionData.RescuedWaddleDeeStageDetail.this(ref Storage.File.StageKey,Storage.File.Root)
+			callt4 r53, MissionData.RescuedWaddleDeeStageDetail.this(ref Storage.File.StageKey,Storage.File.Root)
 			mcopys r18, r47, MissionData.RescuedWaddleDeeStageDetail
 			ldsr2  r53, r9, r18
 			ldsr3  r56, r53, r54, r2
-			calltv r55, PlayReportSend.EventData.WaddleDeeRescue.Create(ref MissionData.RescuedWaddleDeeStageDetail,ref MissionData.RescuedWaddleDeeStageDetail,ref Storage.File.StageKey)
+			callt4 r55, PlayReportSend.EventData.WaddleDeeRescue.Create(ref MissionData.RescuedWaddleDeeStageDetail,ref MissionData.RescuedWaddleDeeStageDetail,ref Storage.File.StageKey)
 			ldsrsr r19, r55
 			jmppos r55, loc_000000a9
 			ldsrsr r53, r19
 			ldsrc4 r54, 0x1
-			calltv r53, PlayReportSend.EventSend.SendPlayReport(PlayReportSend.IEventData,bool)
+			callt4 r53, PlayReportSend.EventSend.SendPlayReport(PlayReportSend.IEventData,bool)
 			
 			loc_000000a9:
 			ldofad r53, r3, Scn.Step.Player.Manager.__bf_ShareData
@@ -5026,11 +5026,11 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r12, r54
 			ldofad r53, r10, Storage.File.StoryStageData.CapsuleInfo
 			ldsrsr r56, r54
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.Array`1.get_Count()
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			stofa4 r53, r55, Storage.File.StageCapsuleInfo.StageUidArrayCount
 			ldsrc4 r20, 0x0
 			jmp    loc_000000c6
@@ -5039,31 +5039,31 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r53, r10, Storage.File.StoryStageData.CapsuleInfo
 			ldofad r54, r53, Storage.File.StageCapsuleInfo.StageUidArray
 			ldsr2  r56, r12, r20
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.Array`1.get_Item(int)
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			ldsr3  r56, r54, r20, r55
-			unk_0f r56, 2
+			dcall  r56, 2
 			_xref  Stdlib.Array`1.set_Item(int,TElement)
 			_xref  Stdlib.Array`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrc4 r53, 0x1
 			addi32 r20, r20, r53
 			
 			loc_000000c6:
 			ldsrsr r54, r12
-			unk_0f r53, 2
+			dcall  r53, 2
 			_xref  Stdlib.Array`1.get_Count()
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			ges32  r20, r53, loc_000000b6
 			ldsr2  r53, r13, r53
 			ldsrca r55, "Scn/Step/Map/WmapData"
-			calltr r54, Yaml.Data.this(string)
+			calltp r54, Yaml.Data.this(string)
 			mcopys r45, r2, Storage.File.StageKey
 			mcopys r5, r45, Storage.File.StageKey
 			ldsrsr r53, r5
@@ -5072,55 +5072,55 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r45, r2, Storage.File.StageKey
 			mcopys r5, r45, Storage.File.StageKey
 			ldsrsr r54, r5
-			calltv r53, Storage.File.StageKey.get_StoryStage()
+			callt4 r53, Storage.File.StageKey.get_StoryStage()
 			ldsrc4 r54, 0x1
 			nei32  r53, r54, loc_00000310
 			mcopys r45, r2, Storage.File.StageKey
 			mcopys r5, r45, Storage.File.StageKey
 			ldsrsr r54, r5
-			calltv r53, Storage.File.StageKey.get_StoryStage()
+			callt4 r53, Storage.File.StageKey.get_StoryStage()
 			ldsrc4 r54, 0x20
 			nei32  r53, r54, loc_00000310
 			ldsrsr r54, r2
-			calltv r53, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
+			callt4 r53, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
 			jmppos r53, loc_00000130
 			ldsrc4 r53, 0x1
 			addi32 r54, r14, r53
 			ldsrsr r21, r54
 			ldsrsr r56, r54
-			calltv r55, Storage.File.StoryLevelKindUtil.IsValid(Storage.File.StoryLevelKind)
+			callt4 r55, Storage.File.StoryLevelKindUtil.IsValid(Storage.File.StoryLevelKind)
 			jmppos r55, loc_00000110
 			ldofad r53, r4, Storage.File.Root.StoryStages
 			ldsr2  r55, r53, r21
-			calltv r56, Storage.File.StageKey.get_StoryStage()
+			callt4 r56, Storage.File.StageKey.get_StoryStage()
 			ldsrc4 r54, 0x1
 			addi32 r56, r56, r54
-			unk_0f r54, 2
+			dcall  r54, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
 			_xref  Storage.File.StoryStageData
-			_ret32 r0
+			_ret   r0
 			ldofa4 r53, r54, Storage.File.StoryStageData.IsUnlocked
 			jmpneg r53, loc_00000110
 			ldsrc4 r53, 0x6
 			jmp    loc_0000010c
 			ldsr3  r53, r22, r53, r21
 			ldsrc4 r56, 0x1
-			calltv r55, Storage.File.StageKey.get_StoryStage()
+			callt4 r55, Storage.File.StageKey.get_StoryStage()
 			addi32 r55, r55, r56
-			calltv r54, Storage.File.StageKey.this(Storage.File.StoryStageKind)
+			callt4 r54, Storage.File.StageKey.this(Storage.File.StoryStageKind)
 			ldof_u r53, r1, ScnContext.Step.CreateInfo.WmapInfo
 			mcopys r45, r22, Storage.File.StageKey
 			stof_u r53, r45, ScnContext.Step.WmapInfo.UnlockStage
 			ldofad r53, r4, Storage.File.Root.StoryStages
 			ldsrsr r55, r22
-			calltv r54, Storage.File.StageKey.get_StoryStage()
+			callt4 r54, Storage.File.StageKey.get_StoryStage()
 			ldsr2  r56, r53, r54
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
 			_xref  Storage.File.StoryStageData
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r53, 0x1
 			stofa4 r55, r53, Storage.File.StoryStageData.IsUnlocked
 			jmp    loc_00000110
@@ -5135,18 +5135,18 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r45, r2, Storage.File.StageKey
 			mcopys r5, r45, Storage.File.StageKey
 			ldsrsr r54, r5
-			calltv r53, Storage.File.StageKey.get_StoryStage()
+			callt4 r53, Storage.File.StageKey.get_StoryStage()
 			ldsrc4 r54, 0x21
 			eqi32  r53, r54, loc_00000123
 			ldofa4 r53, r10, Storage.File.StoryStageData.IsUnlocked
 			jmpneg r53, loc_00000123
 			ldofad r53, r4, Storage.File.Root.StoryLevels
 			ldsr2  r55, r53, r14
-			unk_0f r54, 2
+			dcall  r54, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryLevelKind,Storage.File.StoryLevelData>
 			_xref  Storage.File.StoryLevelData
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r53, 0x1
 			stofa4 r54, r53, Storage.File.StoryLevelData.IsUnlocked
 			ldsrc4 r53, 0x1
@@ -5157,13 +5157,13 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r54, r13
 			ldsr2  r55, r49, r54
 			ldsrca r57, "Cstage"
-			calltr r55, Yaml.Data.get_Item(string)
+			calltp r55, Yaml.Data.get_Item(string)
 			mcopys r23, r49, Yaml.Data
 			ldsrsr r54, r23
 			ldsr4  r55, r50, r4, r14, r54
 			ldsrc4 r59, 0x0
 			ldsrc4 r60, 0x1
-			calltv r55, Storage.File.BackupFileDataUtil.UpdateCstageUnlock(Storage.File.Root,Storage.File.StoryLevelKind,ref Yaml.Data,bool,bool)
+			callt4 r55, Storage.File.BackupFileDataUtil.UpdateCstageUnlock(Storage.File.Root,Storage.File.StoryLevelKind,ref Yaml.Data,bool,bool)
 			stof_u r53, r50, ScnContext.Step.WmapInfo.UnlockCstages
 			jmp    loc_00000159
 			
@@ -5172,25 +5172,25 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r5, r45, Storage.File.StageKey
 			ldsrsr r53, r5
 			ldsr2  r54, r45, r53
-			calltv r54, Storage.File.StageKey.get_StoryStage()
+			callt4 r54, Storage.File.StageKey.get_StoryStage()
 			ldsrc4 r55, 0x1
 			addi32 r55, r54, r55
 			ldsrsr r54, r45
-			calltv r54, Storage.File.StageKey.this(Storage.File.StoryStageKind)
+			callt4 r54, Storage.File.StageKey.this(Storage.File.StoryStageKind)
 			mcopys r24, r45, Storage.File.StageKey
 			ldofad r53, r4, Storage.File.Root.StoryStages
 			ldsrsr r55, r24
-			calltv r54, Storage.File.StageKey.get_StoryStage()
+			callt4 r54, Storage.File.StageKey.get_StoryStage()
 			ldsr2  r56, r53, r54
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
 			_xref  Storage.File.StoryStageData
-			_ret32 r0
+			_ret   r0
 			ldofa4 r53, r55, Storage.File.StoryStageData.IsUnlocked
 			jmpneg r53, loc_00000159
 			ldsrsr r54, r24
-			calltv r53, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
+			callt4 r53, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
 			jmpneg r53, loc_00000159
 			ldof_u r53, r1, ScnContext.Step.CreateInfo.WmapInfo
 			stof_u r53, r24, ScnContext.Step.WmapInfo.UnlockStage
@@ -5199,13 +5199,13 @@ script Scn.Step.SceneChangeCtrl
 			stofa4 r53, r54, ScnContext.Step.WmapInfo.IsStageUnlock
 			ldofad r53, r4, Storage.File.Root.StoryStages
 			ldsrsr r55, r24
-			calltv r54, Storage.File.StageKey.get_StoryStage()
+			callt4 r54, Storage.File.StageKey.get_StoryStage()
 			ldsr2  r56, r53, r54
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
 			_xref  Storage.File.StoryStageData
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r53, 0x1
 			stofa4 r55, r53, Storage.File.StoryStageData.IsUnlocked
 			jmp    loc_000001bd
@@ -5216,28 +5216,28 @@ script Scn.Step.SceneChangeCtrl
 			
 			loc_0000015b:
 			ldsrsr r54, r4
-			calltv r53, Storage.File.BackupFileDataUtil.GetClearedStoryStageKind(Storage.File.Root)
+			callt4 r53, Storage.File.BackupFileDataUtil.GetClearedStoryStageKind(Storage.File.Root)
 			ldsrc4 r54, 0x1
 			addi32 r53, r53, r54
 			ldsrc4 r54, 0x20
 			les32  r53, r54, loc_000001bd
 			ldsr2  r54, r45, r53
-			calltv r54, Storage.File.StageKey.this(Storage.File.StoryStageKind)
+			callt4 r54, Storage.File.StageKey.this(Storage.File.StoryStageKind)
 			ldofad r54, r4, Storage.File.Root.StoryStages
 			ldsr2  r56, r54, r53
 			ldsrsr r55, r24
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
 			_xref  Storage.File.StoryStageData
-			_ret32 r0
+			_ret   r0
 			ldofa4 r54, r55, Storage.File.StoryStageData.IsUnlocked
 			jmpneg r54, loc_000001bd
 			ldsrsr r55, r24
-			calltv r54, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
+			callt4 r54, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
 			jmppos r54, loc_000001bd
 			ldsrsr r54, r24
-			calltv r53, Storage.File.StoryLevelKindUtil.StageKeyToStoryLevel(ref Storage.File.StageKey)
+			callt4 r53, Storage.File.StoryLevelKindUtil.StageKeyToStoryLevel(ref Storage.File.StageKey)
 			ldsr2  r55, r4, r53
 			ldsrc4 r54, 0x0
 			ldsrc4 r57, 0x2
@@ -5246,7 +5246,7 @@ script Scn.Step.SceneChangeCtrl
 			loc_00000176:
 			ldsrsr r56, r4
 			ldsrc4 r58, 0x1
-			calltv r55, MissionData.ComebackedWaddleDeeCount.ComebackedCount(Storage.File.Root,Storage.File.StoryLevelKind,bool)
+			callt4 r55, MissionData.ComebackedWaddleDeeCount.ComebackedCount(Storage.File.Root,Storage.File.StoryLevelKind,bool)
 			addi32 r54, r54, r55
 			addi32 r57, r57, r58
 			
@@ -5256,43 +5256,43 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r55, r13
 			ldsr2  r56, r49, r55
 			ldsrca r58, "BossStageUnlockCount"
-			calltr r56, Yaml.Data.get_Item(string)
+			calltp r56, Yaml.Data.get_Item(string)
 			mcopys r23, r49, Yaml.Data
 			ldsrsr r55, r23
 			ldsrsr r57, r53
-			unk_0f r56, 3
+			dcall  r56, 3
 			_xref  Stdlib.Enum.ToString(TEnum)
 			_xref  Stdlib.Enum
 			_short 16
 			_xref  Storage.File.StoryLevelKind
-			_ret32 r0
+			_ret   r0
 			ldsr3  r57, r49, r55, r56
-			calltr r57, Yaml.Data.get_Item(string)
+			calltp r57, Yaml.Data.get_Item(string)
 			mcopys r23, r49, Yaml.Data
 			ldsrsr r56, r23
-			calltr r55, Yaml.Data.ToInt()
+			calltp r55, Yaml.Data.ToInt()
 			ldsrsr r25, r55
 			ges32  r54, r55, loc_000001ae
 			ldsr2  r54, r45, r53
 			mcopys r26, r45, Storage.File.StageKey
 			ldofad r54, r4, Storage.File.Root.StoryLevels
 			ldsr2  r56, r54, r53
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryLevelKind,Storage.File.StoryLevelData>
 			_xref  Storage.File.StoryLevelData
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r54, 0x1
 			stofa4 r55, r54, Storage.File.StoryLevelData.IsBossUnlocked
 			ldofad r54, r4, Storage.File.Root.StoryStages
 			ldsrsr r56, r26
-			calltv r55, Storage.File.StageKey.get_StoryStage()
+			callt4 r55, Storage.File.StageKey.get_StoryStage()
 			ldsr2  r57, r54, r55
-			unk_0f r56, 2
+			dcall  r56, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
 			_xref  Storage.File.StoryStageData
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r54, 0x1
 			stofa4 r56, r54, Storage.File.StoryStageData.IsUnlocked
 			ldof_u r54, r1, ScnContext.Step.CreateInfo.WmapInfo
@@ -5305,15 +5305,15 @@ script Scn.Step.SceneChangeCtrl
 			
 			loc_000001ae:
 			ldsrsr r55, r24
-			calltv r54, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
+			callt4 r54, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
 			jmppos r54, loc_000001bd
 			ldofad r54, r4, Storage.File.Root.StoryLevels
 			ldsr2  r56, r54, r53
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryLevelKind,Storage.File.StoryLevelData>
 			_xref  Storage.File.StoryLevelData
-			_ret32 r0
+			_ret   r0
 			ldofa4 r54, r55, Storage.File.StoryLevelData.IsMissedBossUnlock
 			jmpneg r54, loc_000001bd
 			ldof_u r54, r1, ScnContext.Step.CreateInfo.WmapInfo
@@ -5325,13 +5325,13 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r54, r13
 			ldsr2  r55, r49, r54
 			ldsrca r57, "Cstage"
-			calltr r55, Yaml.Data.get_Item(string)
+			calltp r55, Yaml.Data.get_Item(string)
 			mcopys r23, r49, Yaml.Data
 			ldsrsr r54, r23
 			ldsr4  r55, r50, r4, r14, r54
 			ldsrc4 r59, 0x0
 			ldsrc4 r60, 0x1
-			calltv r55, Storage.File.BackupFileDataUtil.UpdateCstageUnlock(Storage.File.Root,Storage.File.StoryLevelKind,ref Yaml.Data,bool,bool)
+			callt4 r55, Storage.File.BackupFileDataUtil.UpdateCstageUnlock(Storage.File.Root,Storage.File.StoryLevelKind,ref Yaml.Data,bool,bool)
 			stof_u r53, r50, ScnContext.Step.WmapInfo.UnlockCstages
 			jmp    loc_00000310
 			
@@ -5339,19 +5339,19 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r45, r2, Storage.File.StageKey
 			mcopys r5, r45, Storage.File.StageKey
 			ldsrsr r54, r5
-			calltv r53, Storage.File.StageKey.get_EstoryStage()
+			callt4 r53, Storage.File.StageKey.get_EstoryStage()
 			jmppos r53, loc_00000310
 			ldofad r53, r4, Storage.File.Root.EstoryStages
 			mcopys r45, r2, Storage.File.StageKey
 			mcopys r5, r45, Storage.File.StageKey
 			ldsrsr r55, r5
-			calltv r54, Storage.File.StageKey.get_EstoryStage()
+			callt4 r54, Storage.File.StageKey.get_EstoryStage()
 			ldsr2  r56, r53, r54
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.EstoryStageKind,Storage.File.EstoryStageData>
 			_xref  Storage.File.EstoryStageData
-			_ret32 r0
+			_ret   r0
 			ldsrsr r27, r55
 			ldofa4 r28, r55, Storage.File.EstoryStageData.IsCleared
 			ldsrc4 r53, 0x1
@@ -5366,38 +5366,38 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r53, r27, Storage.File.EstoryStageData.RarePieceInfo
 			ldofad r54, r53, Storage.File.StageRarePieceInfo.AcquiredStepList
 			ldsr2  r56, r29, r33
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.Array`1.get_Item(int)
 			_xref  Stdlib.Array`1<bool>
 			_short 2
-			_ret32 r0
+			_ret   r0
 			ldsr3  r56, r54, r33, r55
-			unk_0f r56, 2
+			dcall  r56, 2
 			_xref  Stdlib.Array`1.set_Item(int,TElement)
 			_xref  Stdlib.Array`1<bool>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrc4 r53, 0x1
 			addi32 r33, r33, r53
 			
 			loc_000001f3:
 			ldsrsr r54, r29
-			unk_0f r53, 2
+			dcall  r53, 2
 			_xref  Stdlib.Array`1.get_Count()
 			_xref  Stdlib.Array`1<bool>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			ges32  r33, r53, loc_000001e3
 			ldofad r53, r3, Scn.Step.Player.Manager.__bf_ShareData
 			ldofad r54, r53, Scn.Step.Player.ShareData.__bf_CapsuleUidList
 			ldsrsr r30, r54
 			ldofad r53, r27, Storage.File.EstoryStageData.CapsuleInfo
 			ldsrsr r56, r54
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.Array`1.get_Count()
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			stofa4 r53, r55, Storage.File.StageCapsuleInfo.StageUidArrayCount
 			ldsrc4 r34, 0x0
 			jmp    loc_00000217
@@ -5406,27 +5406,27 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r53, r27, Storage.File.EstoryStageData.CapsuleInfo
 			ldofad r54, r53, Storage.File.StageCapsuleInfo.StageUidArray
 			ldsr2  r56, r30, r34
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.Array`1.get_Item(int)
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			ldsr3  r56, r54, r34, r55
-			unk_0f r56, 2
+			dcall  r56, 2
 			_xref  Stdlib.Array`1.set_Item(int,TElement)
 			_xref  Stdlib.Array`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrc4 r53, 0x1
 			addi32 r34, r34, r53
 			
 			loc_00000217:
 			ldsrsr r54, r30
-			unk_0f r53, 2
+			dcall  r53, 2
 			_xref  Stdlib.Array`1.get_Count()
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			ges32  r34, r53, loc_00000207
 			ldofad r53, r27, Storage.File.EstoryStageData.SoulSingleInfo
 			ldofa4 r35, r53, Storage.File.EstoryStageSoulInfo.StageUidArrayCount
@@ -5435,11 +5435,11 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r55, r3, Scn.Step.Player.Manager.__bf_ShareData
 			ldofad r56, r55, Scn.Step.Player.ShareData.__bf_SoulSingleUidList
 			ldsrsr r58, r56
-			unk_0f r57, 2
+			dcall  r57, 2
 			_xref  Stdlib.Array`1.get_Count()
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			addi32 r55, r54, r57
 			stofa4 r53, r55, Storage.File.EstoryStageSoulInfo.StageUidArrayCount
 			ldsrc4 r36, 0x0
@@ -5452,17 +5452,17 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r55, r3, Scn.Step.Player.Manager.__bf_ShareData
 			ldofad r56, r55, Scn.Step.Player.ShareData.__bf_SoulSingleUidList
 			ldsr2  r58, r56, r36
-			unk_0f r57, 2
+			dcall  r57, 2
 			_xref  Stdlib.Array`1.get_Item(int)
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			ldsr3  r58, r54, r53, r57
-			unk_0f r58, 2
+			dcall  r58, 2
 			_xref  Stdlib.Array`1.set_Item(int,TElement)
 			_xref  Stdlib.Array`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrc4 r53, 0x1
 			addi32 r36, r36, r53
 			
@@ -5470,11 +5470,11 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r53, r3, Scn.Step.Player.Manager.__bf_ShareData
 			ldofad r54, r53, Scn.Step.Player.ShareData.__bf_SoulSingleUidList
 			ldsrsr r56, r54
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.Array`1.get_Count()
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			ges32  r36, r55, loc_0000022e
 			ldofad r53, r27, Storage.File.EstoryStageData.SoulTripleInfo
 			ldofa4 r37, r53, Storage.File.EstoryStageSoulInfo.StageUidArrayCount
@@ -5483,11 +5483,11 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r55, r3, Scn.Step.Player.Manager.__bf_ShareData
 			ldofad r56, r55, Scn.Step.Player.ShareData.__bf_SoulTripleUidList
 			ldsrsr r58, r56
-			unk_0f r57, 2
+			dcall  r57, 2
 			_xref  Stdlib.Array`1.get_Count()
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			addi32 r55, r54, r57
 			stofa4 r53, r55, Storage.File.EstoryStageSoulInfo.StageUidArrayCount
 			ldsrc4 r38, 0x0
@@ -5500,17 +5500,17 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r55, r3, Scn.Step.Player.Manager.__bf_ShareData
 			ldofad r56, r55, Scn.Step.Player.ShareData.__bf_SoulTripleUidList
 			ldsr2  r58, r56, r38
-			unk_0f r57, 2
+			dcall  r57, 2
 			_xref  Stdlib.Array`1.get_Item(int)
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			ldsr3  r58, r54, r53, r57
-			unk_0f r58, 2
+			dcall  r58, 2
 			_xref  Stdlib.Array`1.set_Item(int,TElement)
 			_xref  Stdlib.Array`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrc4 r53, 0x1
 			addi32 r38, r38, r53
 			
@@ -5518,11 +5518,11 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r53, r3, Scn.Step.Player.Manager.__bf_ShareData
 			ldofad r54, r53, Scn.Step.Player.ShareData.__bf_SoulTripleUidList
 			ldsrsr r56, r54
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.Array`1.get_Count()
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			ges32  r38, r55, loc_0000025a
 			ldofad r53, r27, Storage.File.EstoryStageData.SoulEnemyInfo
 			ldofa4 r39, r53, Storage.File.EstoryStageSoulInfo.StageUidArrayCount
@@ -5531,11 +5531,11 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r55, r3, Scn.Step.Player.Manager.__bf_ShareData
 			ldofad r56, r55, Scn.Step.Player.ShareData.__bf_SoulEnemyUidList
 			ldsrsr r58, r56
-			unk_0f r57, 2
+			dcall  r57, 2
 			_xref  Stdlib.Array`1.get_Count()
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			addi32 r55, r54, r57
 			stofa4 r53, r55, Storage.File.EstoryStageSoulInfo.StageUidArrayCount
 			ldsrc4 r40, 0x0
@@ -5548,17 +5548,17 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r55, r3, Scn.Step.Player.Manager.__bf_ShareData
 			ldofad r56, r55, Scn.Step.Player.ShareData.__bf_SoulEnemyUidList
 			ldsr2  r58, r56, r40
-			unk_0f r57, 2
+			dcall  r57, 2
 			_xref  Stdlib.Array`1.get_Item(int)
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			ldsr3  r58, r54, r53, r57
-			unk_0f r58, 2
+			dcall  r58, 2
 			_xref  Stdlib.Array`1.set_Item(int,TElement)
 			_xref  Stdlib.Array`1<int>
 			_short 1
-			_ret   r0
+			_void  r0
 			ldsrc4 r53, 0x1
 			addi32 r40, r40, r53
 			
@@ -5566,30 +5566,30 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r53, r3, Scn.Step.Player.Manager.__bf_ShareData
 			ldofad r54, r53, Scn.Step.Player.ShareData.__bf_SoulEnemyUidList
 			ldsrsr r56, r54
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.Array`1.get_Count()
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			ges32  r40, r55, loc_00000286
 			mcopys r45, r2, Storage.File.StageKey
 			mcopys r5, r45, Storage.File.StageKey
 			ldsrsr r53, r5
 			ldsr2  r54, r45, r53
-			calltv r54, Storage.File.StageKey.get_NextStage()
+			callt4 r54, Storage.File.StageKey.get_NextStage()
 			mcopys r31, r45, Storage.File.StageKey
 			ldofad r53, r4, Storage.File.Root.EstoryStages
 			ldsrsr r55, r31
-			calltv r54, Storage.File.StageKey.get_EstoryStage()
+			callt4 r54, Storage.File.StageKey.get_EstoryStage()
 			ldsr2  r56, r53, r54
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.EstoryStageKind,Storage.File.EstoryStageData>
 			_xref  Storage.File.EstoryStageData
-			_ret32 r0
+			_ret   r0
 			ldofa4 r53, r55, Storage.File.EstoryStageData.IsUnlocked
 			ldsrsr r55, r31
-			calltv r54, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
+			callt4 r54, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
 			ldsrsr r32, r54
 			jmpneg r53, loc_000002c8
 			jmpneg r32, loc_000002c8
@@ -5600,13 +5600,13 @@ script Scn.Step.SceneChangeCtrl
 			stofa4 r53, r54, ScnContext.Step.WmapInfo.IsStageUnlock
 			ldofad r53, r4, Storage.File.Root.EstoryStages
 			ldsrsr r55, r31
-			calltv r54, Storage.File.StageKey.get_EstoryStage()
+			callt4 r54, Storage.File.StageKey.get_EstoryStage()
 			ldsr2  r56, r53, r54
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.EstoryStageKind,Storage.File.EstoryStageData>
 			_xref  Storage.File.EstoryStageData
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r53, 0x1
 			stofa4 r55, r53, Storage.File.EstoryStageData.IsUnlocked
 			jmp    loc_00000310
@@ -5615,64 +5615,64 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r53, r4, Storage.File.Root.EstoryStages
 			ldsrsr r55, r53
 			ldsrc4 r56, 0x7
-			unk_0f r54, 2
+			dcall  r54, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.EstoryStageKind,Storage.File.EstoryStageData>
 			_xref  Storage.File.EstoryStageData
-			_ret32 r0
+			_ret   r0
 			ldofa4 r53, r54, Storage.File.EstoryStageData.IsUnlocked
 			jmpneg r53, loc_00000310
 			ldsrsr r54, r4
-			calltv r53, Storage.File.BackupFileDataUtil.IsAllEstoryStageClearExpectBoss(Storage.File.Root)
+			callt4 r53, Storage.File.BackupFileDataUtil.IsAllEstoryStageClearExpectBoss(Storage.File.Root)
 			jmppos r53, loc_00000310
 			ldsr2  r53, r41, r53
 			ldsrca r55, "Scn/Step/Map/WmapData"
-			calltr r54, Yaml.Data.this(string)
+			calltp r54, Yaml.Data.this(string)
 			ldsrsr r54, r4
-			calltv r53, Storage.File.BackupFileDataUtil.GetCollectedSoulNumTotal(Storage.File.Root)
+			callt4 r53, Storage.File.BackupFileDataUtil.GetCollectedSoulNumTotal(Storage.File.Root)
 			ldsrsr r54, r41
 			ldsr2  r55, r49, r54
 			ldsrca r57, "BossStageUnlockCount"
-			calltr r55, Yaml.Data.get_Item(string)
+			calltp r55, Yaml.Data.get_Item(string)
 			mcopys r23, r49, Yaml.Data
 			ldsrsr r54, r23
 			ldsr2  r55, r49, r54
 			ldsrca r57, "Estory"
-			calltr r55, Yaml.Data.get_Item(string)
+			calltp r55, Yaml.Data.get_Item(string)
 			mcopys r23, r49, Yaml.Data
 			ldsrsr r55, r23
-			calltr r54, Yaml.Data.ToInt()
+			calltp r54, Yaml.Data.ToInt()
 			ldsrsr r42, r54
 			ges32  r53, r54, loc_0000030b
 			ldof_u r53, r1, ScnContext.Step.CreateInfo.WmapInfo
 			sppshz r45, Storage.File.StageKey
 			sppshz r45, Storage.File.StageKey
 			ldsrc4 r55, 0x7
-			unk_0f r54, 3
+			dcall  r54, 3
 			_xref  Stdlib.Enum.ToString(TEnum)
 			_xref  Stdlib.Enum
 			_short 16
 			_xref  Storage.File.EstoryStageKind
-			_ret32 r0
+			_ret   r0
 			ldsrsr r56, r54
-			calltr r55, ScnContext.StepUtil.PathPostfixNum(string)
+			calltp r55, ScnContext.StepUtil.PathPostfixNum(string)
 			ldsrc4 r54, 0x1
 			subi32 r56, r55, r54
 			sppshz r51, Storage.File.StageKey
 			ldsrsr r57, r51
 			ldsrc4 r58, 0x3
 			ldsrsr r59, r56
-			calltv r57, Storage.File.StageKey.this(Storage.File.StageCategory,int)
+			callt4 r57, Storage.File.StageKey.this(Storage.File.StageCategory,int)
 			mcopys r45, r51, Storage.File.StageKey
 			stof_u r53, r45, ScnContext.Step.WmapInfo.UnlockStage
 			ldofad r53, r4, Storage.File.Root.EstoryStages
 			ldsrsr r55, r53
 			ldsrc4 r56, 0x7
-			unk_0f r54, 2
+			dcall  r54, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.EstoryStageKind,Storage.File.EstoryStageData>
 			_xref  Storage.File.EstoryStageData
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r53, 0x1
 			stofa4 r54, r53, Storage.File.EstoryStageData.IsUnlocked
 			ldof_u r53, r1, ScnContext.Step.CreateInfo.WmapInfo
@@ -5709,15 +5709,15 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r43, r54
 			jmppos r54, loc_0000032e
 			ldsrsr r54, r43
-			calltv r53, Storage.File.CopyAbilitySubKindSerialIdUtil.ToCopyAbilitySubKindSerialId(ScnContext.Step.BlueprintKind)
+			callt4 r53, Storage.File.CopyAbilitySubKindSerialIdUtil.ToCopyAbilitySubKindSerialId(ScnContext.Step.BlueprintKind)
 			ldsrsr r44, r53
 			ldofad r54, r4, Storage.File.Root.CopyAbilitySubKindDatas
 			ldsr2  r56, r54, r53
-			unk_0f r55, 2
+			dcall  r55, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.CopyAbilitySubKindSerialId,Storage.File.CopyAbilitySubKindData>
 			_xref  Storage.File.CopyAbilitySubKindData
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r53, 0x1
 			stofa4 r55, r53, Storage.File.CopyAbilitySubKindData.IsGotBlueprint
 			
@@ -5749,7 +5749,7 @@ script Scn.Step.SceneChangeCtrl
 			
 			loc_00000342:
 			ldsrsr r54, r4
-			calltv r53, Storage.File.BackupFileDataUtil.UpdateTown(Storage.File.Root)
+			callt4 r53, Storage.File.BackupFileDataUtil.UpdateTown(Storage.File.Root)
 			ldofad r53, r0, this._mods
 			ldofad r54, r53, Scn.Step.Modules._storageManager
 			ldofad r53, r54, Scn.Step.StorageManager._volatileData
@@ -5761,7 +5761,7 @@ script Scn.Step.SceneChangeCtrl
 		void CheckStageClearDemoOnEnterWmap(ref ScnContext.Step.CreateInfo)
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r3, Yaml.Data
 			sppsh  r4, Storage.File.StageKey
 			sppsh  r6, Yaml.Data
@@ -5773,7 +5773,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r10, r11, Scn.Step.StorageManager._backupFileData
 			ldsrsr r2, r10
 			ldofad r12, r10, Storage.File.Root.Wmap
-			calltv r11, Storage.File.Wmap.get_IsNeedToShowAnyDemo()
+			callt4 r11, Storage.File.Wmap.get_IsNeedToShowAnyDemo()
 			jmpneg r11, loc_00000010
 			fleave r0
 			
@@ -5790,21 +5790,21 @@ script Scn.Step.SceneChangeCtrl
 			stofa4 r10, r11, Storage.File.Wmap.IsNeedToShowClearDemo
 			ldsr2  r10, r4, r10
 			ldsrc4 r12, 0x20
-			calltv r11, Storage.File.StageKey.this(Storage.File.StoryStageKind)
+			callt4 r11, Storage.File.StageKey.this(Storage.File.StoryStageKind)
 			ldofad r10, r0, this._mods
 			ldofad r11, r10, Scn.Step.Modules._playerManager
 			ldofad r10, r11, Scn.Step.Player.Manager.__bf_ShareData
 			ldofad r11, r10, Scn.Step.Player.ShareData.__bf_ComebackedWaddleDeeCount
 			ldsrsr r10, r4
 			ldsr3  r12, r11, r2, r10
-			calltv r12, MissionData.ComebackedWaddleDeeCount.ReloadComebackableCount(Storage.File.Root,ref Storage.File.StageKey)
+			callt4 r12, MissionData.ComebackedWaddleDeeCount.ReloadComebackableCount(Storage.File.Root,ref Storage.File.StageKey)
 			ldofad r10, r0, this._mods
 			ldofad r11, r10, Scn.Step.Modules._playerManager
 			ldofad r10, r11, Scn.Step.Player.Manager.__bf_ShareData
 			ldofad r11, r10, Scn.Step.Player.ShareData.__bf_ComebackedWaddleDeeCount
 			ldsrsr r10, r4
 			ldsr2  r13, r11, r10
-			calltv r12, MissionData.ComebackedWaddleDeeCount.ComebackedCount(ref Storage.File.StageKey)
+			callt4 r12, MissionData.ComebackedWaddleDeeCount.ComebackedCount(ref Storage.File.StageKey)
 			ldsrsr r5, r12
 			ldofad r10, r2, Storage.File.Root.Wmap
 			ldofa4 r11, r10, Storage.File.Wmap.PreComebackedCount
@@ -5817,51 +5817,51 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r10, r2, Storage.File.Root.StoryStages
 			ldsrsr r12, r10
 			ldsrc4 r13, 0x20
-			unk_0f r11, 2
+			dcall  r11, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
 			_xref  Storage.File.StoryStageData
-			_ret32 r0
+			_ret   r0
 			ldofa4 r10, r11, Storage.File.StoryStageData.IsCleared
 			jmppos r10, loc_00000070
 			ldofad r10, r2, Storage.File.Root.StoryStages
 			ldsrsr r12, r10
 			ldsrc4 r13, 0x21
-			unk_0f r11, 2
+			dcall  r11, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
 			_xref  Storage.File.StoryStageData
-			_ret32 r0
+			_ret   r0
 			ldofa4 r10, r11, Storage.File.StoryStageData.IsUnlocked
 			jmpneg r10, loc_00000070
 			ldofad r10, r2, Storage.File.Root.StoryStages
 			ldsrsr r12, r10
 			ldsrc4 r13, 0x21
-			unk_0f r11, 2
+			dcall  r11, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
 			_xref  Storage.File.StoryStageData
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r10, 0x1
 			stofa4 r11, r10, Storage.File.StoryStageData.IsUnlocked
 			ldofad r10, r2, Storage.File.Root.StoryLevels
 			ldsrsr r12, r10
 			ldsrc4 r13, 0x8
-			unk_0f r11, 2
+			dcall  r11, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryLevelKind,Storage.File.StoryLevelData>
 			_xref  Storage.File.StoryLevelData
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r10, 0x1
 			stofa4 r11, r10, Storage.File.StoryLevelData.IsUnlocked
 			ldofad r10, r2, Storage.File.Root.StoryStages
 			ldsrsr r12, r10
 			ldsrc4 r13, 0x21
-			unk_0f r11, 2
+			dcall  r11, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
 			_xref  Storage.File.StoryStageData
-			_ret32 r0
+			_ret   r0
 			ldofa4 r10, r11, Storage.File.StoryStageData.IsCleared
 			jmpneg r10, loc_00000070
 			ldof_u r10, r1, ScnContext.Step.CreateInfo.WmapInfo
@@ -5871,7 +5871,7 @@ script Scn.Step.SceneChangeCtrl
 			sppshz r7, Storage.File.StageKey
 			ldsrsr r11, r7
 			ldsrc4 r12, 0x21
-			calltv r11, Storage.File.StageKey.this(Storage.File.StoryStageKind)
+			callt4 r11, Storage.File.StageKey.this(Storage.File.StoryStageKind)
 			stof_u r10, r7, ScnContext.Step.WmapInfo.UnlockStage
 			ldof_u r10, r1, ScnContext.Step.CreateInfo.WmapInfo
 			ldsrc4 r11, 0x1
@@ -5880,12 +5880,12 @@ script Scn.Step.SceneChangeCtrl
 			loc_00000070:
 			ldsr2  r10, r3, r10
 			ldsrca r12, "Scn/Step/Map/WmapData"
-			calltr r11, Yaml.Data.this(string)
+			calltp r11, Yaml.Data.this(string)
 			ldof_u r10, r1, ScnContext.Step.CreateInfo.WmapInfo
 			ldsrsr r11, r3
 			ldsr2  r12, r8, r11
 			ldsrca r14, "Cstage"
-			calltr r12, Yaml.Data.get_Item(string)
+			calltp r12, Yaml.Data.get_Item(string)
 			mcopys r6, r8, Yaml.Data
 			ldsrsr r11, r6
 			ldsr2  r12, r9, r2
@@ -5893,7 +5893,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r15, r11
 			ldsrc4 r16, 0x0
 			ldsrc4 r17, 0x1
-			calltv r12, Storage.File.BackupFileDataUtil.UpdateCstageUnlock(Storage.File.Root,Storage.File.StoryLevelKind,ref Yaml.Data,bool,bool)
+			callt4 r12, Storage.File.BackupFileDataUtil.UpdateCstageUnlock(Storage.File.Root,Storage.File.StoryLevelKind,ref Yaml.Data,bool,bool)
 			stof_u r10, r9, ScnContext.Step.WmapInfo.UnlockCstages
 			ldofad r10, r0, this._mods
 			ldofad r11, r10, Scn.Step.Modules._storageManager
@@ -5913,7 +5913,7 @@ script Scn.Step.SceneChangeCtrl
 		void PickUpAbilityItem(ref ScnContext.Step.CreateInfo)
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r2, ScnContext.Step.PlayerInfo/Actor
 			sppsh  r3, ScnContext.Step.AbilityInfo
 			sppsh  r4, ScnContext.Step.AbilityInfo
@@ -5925,7 +5925,7 @@ script Scn.Step.SceneChangeCtrl
 			ldof_u r10, r9, ScnContext.Step.PlayerInfo.Actors
 			ldsr2  r11, r6, r10
 			ldsrc4 r13, 0x0
-			calltv r11, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
+			callt4 r11, ScnContext.Step.PlayerInfo/ActorsType.get_Item(int)
 			mcopys r2, r6, ScnContext.Step.PlayerInfo/Actor
 			ldofap r3, r6, ScnContext.Step.PlayerInfo/Actor.AbilityKind
 			ldsrsr r9, r3
@@ -5933,7 +5933,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrc4 r9, 0x1
 			eqi32  r10, r9, return
 			ldsr2  r9, r7, r0
-			calltv r9, this.FindPickUpAbilityInfo()
+			callt4 r9, this.FindPickUpAbilityInfo()
 			mcopys r4, r7, ScnContext.Step.AbilityInfo
 			ldsrsr r9, r4
 			ldofa4 r10, r9, ScnContext.Step.AbilityInfo.__bf_CopyAbilityKind
@@ -5969,7 +5969,7 @@ script Scn.Step.SceneChangeCtrl
 			ldsrsr r11, r10
 			ldsrc4 r12, 0x0
 			ldsrsr r13, r9
-			calltv r11, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
+			callt4 r11, ScnContext.Step.PlayerInfo/ActorsType.Set(int,ref ScnContext.Step.PlayerInfo/Actor)
 			
 			return:
 			fleave r0
@@ -5991,32 +5991,32 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r12, r13, Scn.Step.Player.Manager.__bf_ObjArray
 			ldsrsr r15, r12
 			ldsrc4 r16, 0x0
-			unk_0f r14, 2
+			dcall  r14, 2
 			_xref  Stdlib.Array`1.get_Item(int)
 			_xref  Stdlib.Array`1<ActSys.Obj>
 			_xref  ActSys.Obj
-			_ret32 r0
+			_ret   r0
 			ldsrsr r1, r14
 			ldofad r12, r13, Scn.Step.Player.Manager.__bf_ActorDataArray
 			ldsrsr r16, r12
 			ldsrc4 r17, 0x0
-			unk_0f r15, 2
+			dcall  r15, 2
 			_xref  Stdlib.Array`1.get_Item(int)
 			_xref  Stdlib.Array`1<Scn.Step.Player.ActorData>
 			_xref  Scn.Step.Player.ActorData
-			_ret32 r0
+			_ret   r0
 			ldsrsr r2, r15
 			jmppos r14, loc_00000031
 			ldsrsr r13, r1
-			unk_0f r12, 3
+			dcall  r12, 3
 			_xref  ActSys.Obj.Component()
 			_xref  ActSys.Obj
 			_xref  Scn.Step.Actor.Basic.Inhaler
 			_xref  Scn.Step.Actor.Basic.Inhaler
-			_ret32 r0
+			_ret   r0
 			ldofad r13, r12, Scn.Step.Actor.Basic.Inhaler.__bf_InhaleInfo
 			ldsr2  r14, r9, r13
-			calltv r14, Scn.Step.Actor.Basic.InhaleInfo.get_AbilityInfo()
+			callt4 r14, Scn.Step.Actor.Basic.InhaleInfo.get_AbilityInfo()
 			mcopys r4, r9, ScnContext.Step.AbilityInfo
 			ldsrsr r12, r4
 			ldofa4 r13, r12, ScnContext.Step.AbilityInfo.__bf_CopyAbilityKind
@@ -6030,18 +6030,18 @@ script Scn.Step.SceneChangeCtrl
 			loc_00000031:
 			ldofad r12, r0, this._mods
 			ldofad r14, r12, Scn.Step.Modules._actManager
-			unk_0f r13, 2
+			dcall  r13, 2
 			_xref  Stdlib.ManagedRawptr`1.get_Ref()
 			_xref  Stdlib.ManagedRawptr`1<ActSys.Manager>
 			_xref  ActSys.Manager
-			_ret32 r0
+			_ret   r0
 			ldsrsr r15, r13
-			unk_0f r14, 3
+			dcall  r14, 3
 			_xref  ActSys.Manager.Components()
 			_xref  ActSys.Manager
 			_xref  Stdlib.Array`1<Scn.Step.Actor.Item.AbilityItem.MainComponent>
 			_xref  Scn.Step.Actor.Item.AbilityItem.MainComponent
-			_ret32 r0
+			_ret   r0
 			sppshz r9, ScnContext.Step.AbilityInfo
 			ldsrsr r12, r9
 			ldsrc4 r13, 0x0
@@ -6058,7 +6058,7 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r10, r9, ScnContext.Step.AbilityInfo
 			mcopys r3, r10, ScnContext.Step.AbilityInfo
 			ldsr2  r15, r11, r14
-			unk_0f r15, 2
+			dcall  r15, 2
 			_xref  Stdlib.Array`1.GetEnumerator()
 			_xref  Stdlib.Array`1<Scn.Step.Actor.Item.AbilityItem.MainComponent>
 			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Actor.Item.AbilityItem.MainComponent>
@@ -6068,11 +6068,11 @@ script Scn.Step.SceneChangeCtrl
 			
 			loc_00000056:
 			ldsrsr r13, r5
-			unk_0f r12, 2
+			dcall  r12, 2
 			_xref  Stdlib.Array`1/Enumerator.get_Current()
 			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Actor.Item.AbilityItem.MainComponent>
 			_xref  Scn.Step.Actor.Item.AbilityItem.MainComponent
-			_ret32 r0
+			_ret   r0
 			ldsrsr r6, r12
 			ldofa4 r13, r12, Scn.Step.Actor.Item.AbilityItem.MainComponent.__bf_Variation
 			ldsrc4 r12, 0x1
@@ -6081,12 +6081,12 @@ script Scn.Step.SceneChangeCtrl
 			jmppos r12, loc_0000008b
 			ldofad r12, r6, Scn.Step.Actor.Item.AbilityItem.MainComponent._obj
 			ldsrsr r14, r12
-			unk_0f r13, 3
+			dcall  r13, 3
 			_xref  ActSys.Obj.FindComponent()
 			_xref  ActSys.Obj
 			_xref  Scn.Step.Actor.Basic.Inhalable
 			_xref  Scn.Step.Actor.Basic.Inhalable
-			_ret32 r0
+			_ret   r0
 			ldsrsr r7, r13
 			jmppos r13, loc_00000070
 			ldofa4 r12, r7, Scn.Step.Actor.Basic.Inhalable.__bf_IsRequestedSpit
@@ -6127,11 +6127,11 @@ script Scn.Step.SceneChangeCtrl
 			
 			loc_0000008b:
 			ldsrsr r13, r5
-			unk_0f r12, 2
+			dcall  r12, 2
 			_xref  Stdlib.Array`1/Enumerator.MoveNext()
 			_xref  Stdlib.Array`1/Enumerator<Scn.Step.Actor.Item.AbilityItem.MainComponent>
 			_short 2
-			_ret32 r0
+			_ret   r0
 			jmpneg r12, loc_00000056
 			
 			return:
@@ -6141,7 +6141,7 @@ script Scn.Step.SceneChangeCtrl
 		void SendPlayReportOnStageClear(ref Storage.File.StageKey)
 		{
 			fenter 0
-			_ret   r0
+			_void  r0
 			sppsh  r6, Storage.File.StageKey
 			sppsh  r10, ScnContext.Step.ModeInfo
 			sppsh  r11, Storage.File.StageKey
@@ -6156,7 +6156,7 @@ script Scn.Step.SceneChangeCtrl
 			stofa4 r12, r14, PlayReportSend.EventData.CoinStarGet._getCountFromAmiibo
 			ldsrsr r13, r12
 			ldsrc4 r14, 0x1
-			calltv r13, PlayReportSend.EventSend.SendPlayReport(PlayReportSend.IEventData,bool)
+			callt4 r13, PlayReportSend.EventSend.SendPlayReport(PlayReportSend.IEventData,bool)
 			ldofad r12, r0, this._mods
 			ldofad r13, r12, Scn.Step.Modules.__bf_CreateInfoManager
 			ldof_u r12, r13, Scn.Step.CreateInfoManager._createInfo
@@ -6169,7 +6169,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r12, r13, Scn.Step.Player.Manager.__bf_ShareData
 			ldsrsr r3, r12
 			ldsrsr r14, r12
-			calltv r13, Scn.Step.Player.ShareData.GetRarePieceCountOnCurrentStage()
+			callt4 r13, Scn.Step.Player.ShareData.GetRarePieceCountOnCurrentStage()
 			ldsrsr r4, r13
 			ldsrc4 r12, 0x0
 			gts32  r13, r12, loc_00000026
@@ -6177,7 +6177,7 @@ script Scn.Step.SceneChangeCtrl
 			stofa4 r12, r4, PlayReportSend.EventData.RarePieceGet._getCount
 			ldsrsr r13, r12
 			ldsrc4 r14, 0x1
-			calltv r13, PlayReportSend.EventSend.SendPlayReport(PlayReportSend.IEventData,bool)
+			callt4 r13, PlayReportSend.EventSend.SendPlayReport(PlayReportSend.IEventData,bool)
 			
 			loc_00000026:
 			ldofad r12, r0, this._mods
@@ -6187,13 +6187,13 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r11, r1, Storage.File.StageKey
 			mcopys r6, r11, Storage.File.StageKey
 			ldsrsr r15, r6
-			calltv r14, Storage.File.StageKey.get_EstoryStage()
+			callt4 r14, Storage.File.StageKey.get_EstoryStage()
 			ldsr2  r16, r13, r14
-			unk_0f r15, 2
+			dcall  r15, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.EstoryStageKind,Storage.File.EstoryStageData>
 			_xref  Storage.File.EstoryStageData
-			_ret32 r0
+			_ret   r0
 			ldofa4 r12, r15, Storage.File.EstoryStageData.IsCleared
 			ldsrc4 r13, 0x0
 			eqi32b r14, r12, r13
@@ -6201,29 +6201,29 @@ script Scn.Step.SceneChangeCtrl
 			ldsrc4 r12, 0x0
 			ldofad r13, r3, Scn.Step.Player.ShareData.__bf_SoulSingleUidList
 			ldsrsr r16, r13
-			unk_0f r15, 2
+			dcall  r15, 2
 			_xref  Stdlib.Array`1.get_Count()
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			addi32 r13, r12, r15
 			ldofad r12, r3, Scn.Step.Player.ShareData.__bf_SoulTripleUidList
 			ldsrsr r16, r12
-			unk_0f r15, 2
+			dcall  r15, 2
 			_xref  Stdlib.Array`1.get_Count()
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			ldsrc4 r12, 0x3
 			muls32 r16, r15, r12
 			addi32 r12, r13, r16
 			ldofad r13, r3, Scn.Step.Player.ShareData.__bf_SoulEnemyUidList
 			ldsrsr r16, r13
-			unk_0f r15, 2
+			dcall  r15, 2
 			_xref  Stdlib.Array`1.get_Count()
 			_xref  Stdlib.Array`1<int>
 			_short 9
-			_ret32 r0
+			_ret   r0
 			addi32 r13, r12, r15
 			ldsrc4 r12, 0x0
 			nes32b r15, r13, r12
@@ -6234,10 +6234,10 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r14, r3, Scn.Step.Player.ShareData.__bf_SoulEnemyUidList
 			obnew  r15, PlayReportSend.EventData.SoulRescue
 			ldsr5  r16, r1, r5, r12, r13, r14
-			calltv r15, PlayReportSend.EventData.SoulRescue.this(ref Storage.File.StageKey,bool,Stdlib.Array`1<int>,Stdlib.Array`1<int>,Stdlib.Array`1<int>)
+			callt4 r15, PlayReportSend.EventData.SoulRescue.this(ref Storage.File.StageKey,bool,Stdlib.Array`1<int>,Stdlib.Array`1<int>,Stdlib.Array`1<int>)
 			ldsrsr r16, r15
 			ldsrc4 r17, 0x1
-			calltv r16, PlayReportSend.EventSend.SendPlayReport(PlayReportSend.IEventData,bool)
+			callt4 r16, PlayReportSend.EventSend.SendPlayReport(PlayReportSend.IEventData,bool)
 			
 			loc_00000060:
 			ldofad r12, r0, this._mods
@@ -6263,13 +6263,13 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r11, r1, Storage.File.StageKey
 			mcopys r6, r11, Storage.File.StageKey
 			ldsrsr r14, r6
-			calltv r13, Storage.File.StageKey.get_StoryStage()
+			callt4 r13, Storage.File.StageKey.get_StoryStage()
 			ldsr2  r15, r12, r13
-			unk_0f r14, 2
+			dcall  r14, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
 			_xref  Storage.File.StoryStageData
-			_ret32 r0
+			_ret   r0
 			ldofa4 r8, r14, Storage.File.StoryStageData.IsCleared
 			jmp    loc_00000097
 			
@@ -6278,13 +6278,13 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r11, r1, Storage.File.StageKey
 			mcopys r6, r11, Storage.File.StageKey
 			ldsrsr r14, r6
-			calltv r13, Storage.File.StageKey.get_CstageStage()
+			callt4 r13, Storage.File.StageKey.get_CstageStage()
 			ldsr2  r15, r12, r13
-			unk_0f r14, 2
+			dcall  r14, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.CstageStageKind,Storage.File.CstageStageData>
 			_xref  Storage.File.CstageStageData
-			_ret32 r0
+			_ret   r0
 			ldofa4 r8, r14, Storage.File.CstageStageData.IsCleared
 			jmp    loc_00000097
 			
@@ -6293,13 +6293,13 @@ script Scn.Step.SceneChangeCtrl
 			mcopys r11, r1, Storage.File.StageKey
 			mcopys r6, r11, Storage.File.StageKey
 			ldsrsr r14, r6
-			calltv r13, Storage.File.StageKey.get_EstoryStage()
+			callt4 r13, Storage.File.StageKey.get_EstoryStage()
 			ldsr2  r15, r12, r13
-			unk_0f r14, 2
+			dcall  r14, 2
 			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
 			_xref  Stdlib.EnumKeyArray`2<Storage.File.EstoryStageKind,Storage.File.EstoryStageData>
 			_xref  Storage.File.EstoryStageData
-			_ret32 r0
+			_ret   r0
 			ldofa4 r8, r14, Storage.File.EstoryStageData.IsCleared
 			
 			loc_00000097:
@@ -6315,7 +6315,7 @@ script Scn.Step.SceneChangeCtrl
 			stofa4 r13, r14, PlayReportSend.EventData.StepStageClear._isFirstClear
 			ldsrsr r14, r13
 			ldsrc4 r15, 0x1
-			calltv r14, PlayReportSend.EventSend.SendPlayReport(PlayReportSend.IEventData,bool)
+			callt4 r14, PlayReportSend.EventSend.SendPlayReport(PlayReportSend.IEventData,bool)
 			fleave r0
 		}
 	}

@@ -133,6 +133,8 @@ namespace ForgottenLandRandomizer
         private void randomize_Click(object sender, EventArgs e)
         {
             Random rng = new Random();
+            Dictionary<string, bool> isTouchFile = new Dictionary<string, bool>();
+            isTouchFile["Scn"] = isTouchFile["Seq"] = isTouchFile["WmapData"] = false;
 
             Console.WriteLine("Creating seed...");
             int rngSeed;
@@ -150,7 +152,7 @@ namespace ForgottenLandRandomizer
 
             Console.WriteLine("Seed: " + (uint)rngSeed);
 
-            string outDir = ExeDir + $"\\OutFiles\\seed_{(uint)rngSeed}";
+            string outDir = ExeDir + $"\\OutFiles\\seed_{seed.Text}";
 
             if (!File.Exists(romfsPath.Text + "\\basil\\Seq.bin"))
             {
@@ -187,9 +189,10 @@ namespace ForgottenLandRandomizer
             Console.WriteLine("Loading WmapData.bin YAML binary...");
             Yaml yamlWmapData = new Yaml(romfsPath.Text + "\\yaml\\Scn\\Step\\Map\\WmapData.bin");
 
-            rng = new Random(rngSeed);
             if (randStoryStages.Checked)
             {
+                isTouchFile["Scn"] = isTouchFile["Seq"] = isTouchFile["WmapData"] = true;
+                rng = new Random(rngSeed);
                 string[] shuffledStoryStages = StoryStages.OrderBy(x => rng.Next()).ToArray();
                 MintClass storyStageKind = mintSeq.Scripts["Storage.File.StoryStageKind"].Classes[0];
                 storyStageKind.Constants.Clear();
@@ -209,30 +212,45 @@ namespace ForgottenLandRandomizer
                 // Modify stage unlock scripts to support shuffled stage order
                 string script;
                 string[] newScript;
-                /*script = "Scn.Step.Info.StageList.Wmap.StageList.Panel";
-                string[] newScript = File.ReadAllLines(ExeDir + "\\MintScripts\\" + script + ".mints");
-                mintScn.Scripts[script] = new MintScript(newScript, new byte[] { 7, 0, 2, 0 });
-                */
-                script = "Scn.Step.SceneChangeCtrl";
+                script = "Scn.Step.Info.StageList.Wmap.StageList.Panel";
                 newScript = File.ReadAllLines(ExeDir + "\\MintScripts\\" + script + ".mints");
                 mintScn.Scripts[script] = new MintScript(newScript, new byte[] { 7, 0, 2, 0 });
                 
+                script = "Scn.Step.SceneChangeCtrl";
+                newScript = File.ReadAllLines(ExeDir + "\\MintScripts\\" + script + ".mints");
+                mintScn.Scripts[script] = new MintScript(newScript, new byte[] { 7, 0, 2, 0 });   
+            }
+            if (randCopyAbilities.Checked)
+            {
+                isTouchFile["Scn"] = true;
+                rng = new Random(rngSeed);
+                string[] script = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Player.AbilityChangeCtrl.mints");
+                mintScn.Scripts["Scn.Step.Player.AbilityChangeCtrl"] = new MintScript(script, new byte[] { 7, 0, 2, 0 });
             }
 
-            if (!Directory.Exists(outDir + "\\basil"))
+            if ((isTouchFile["Scn"] || isTouchFile["Seq"]) && !Directory.Exists(outDir + "\\basil"))
                 Directory.CreateDirectory(outDir + "\\basil");
 
-            if (!Directory.Exists(outDir + "\\yaml\\Scn\\Step\\Map"))
+            if (isTouchFile["WmapData"] && !Directory.Exists(outDir + "\\yaml\\Scn\\Step\\Map"))
                 Directory.CreateDirectory(outDir + "\\yaml\\Scn\\Step\\Map");
 
-            Console.WriteLine("Saving Seq Mint binary...");
-            mintSeq.Write(outDir + "\\basil\\Seq.bin");
+            if (isTouchFile["Seq"])
+            {
+                Console.WriteLine("Saving Seq Mint binary...");
+                mintSeq.Write(outDir + "\\basil\\Seq.bin");
+            }
 
-            Console.WriteLine("Saving Scn Mint binary...");
-            mintScn.Write(outDir + "\\basil\\Scn.bin");
+            if (isTouchFile["Scn"])
+            {
+                Console.WriteLine("Saving Scn Mint binary...");
+                mintScn.Write(outDir + "\\basil\\Scn.bin");
+            }
 
-            Console.WriteLine("Saving WmapData YAML binary...");
-            yamlWmapData.Write(outDir + "\\yaml\\Scn\\Step\\Map\\WmapData.bin");
+            if (isTouchFile["WmapData"])
+            {
+                Console.WriteLine("Saving WmapData YAML binary...");
+                yamlWmapData.Write(outDir + "\\yaml\\Scn\\Step\\Map\\WmapData.bin");
+            }
 
             MessageBox.Show($"Successfully randomized!\nMod-ready files saved to \"{outDir}\"", this.Text, MessageBoxButtons.OK);
         }

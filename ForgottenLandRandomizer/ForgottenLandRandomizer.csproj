@@ -98,6 +98,9 @@
     <None Include="MintScripts\Scn.Step.SceneChangeCtrl.mints">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+	<None Include="MintScripts\Scn.Step.Player.AbilityChangeCtrl.mints">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

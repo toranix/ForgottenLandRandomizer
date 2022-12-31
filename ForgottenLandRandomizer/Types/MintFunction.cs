@@ -30,7 +30,7 @@ namespace ForgottenLandRandomizer.Types
             SetName(name);
 
             byte[] v = ParentClass.ParentScript.Version;
-            Instructions = new List<Instruction>() { 
+            Instructions = new List<Instruction>() {
                 new Instruction(new byte[] { (byte)MintVersions.Versions[v].ToList().FindIndex(x => x.Name == "fenter"),1,0,0 }),
                 new Instruction(new byte[] { (byte)MintVersions.Versions[v].ToList().FindIndex(x => x.Name == "fleave"),0xff,0xff,0 })
             };
@@ -97,7 +97,7 @@ namespace ForgottenLandRandomizer.Types
                         if (opcodes[i.Opcode].Arguments.Contains(InstructionArg.ESigned))
                             targetIndex += 4 + (i.E(ParentClass.ParentScript.XData.Endianness) * 4);
                         else
-                            targetIndex +=  i.V(ParentClass.ParentScript.XData.Endianness) * 4;
+                            targetIndex += i.V(ParentClass.ParentScript.XData.Endianness) * 4;
 
                         if (targetIndex > ingoreRetUntil)
                             ingoreRetUntil = targetIndex;
@@ -1707,7 +1707,7 @@ namespace ForgottenLandRandomizer.Types
             {
                 for (int c = 0; c < lines[i].Length - 1; c++)
                 {
-                    if (lines[i][c] == ' ' && lines[i][c+1] == ' ')
+                    if (lines[i][c] == ' ' && lines[i][c + 1] == ' ')
                     {
                         lines[i] = lines[i].Remove(c, 1);
                         c--;
@@ -1731,7 +1731,7 @@ namespace ForgottenLandRandomizer.Types
                 string opName = lines[i].Split(' ')[0].ToLower();
                 if (opcodes.Where(x => x.Name == opName).Count() == 0)
                 {
-                    //MessageBox.Show($"Error: Unknown opcode name!\nOpcode: {opName}\nLine: {lines[i]}", "Mint Assembler", MessageBoxButtons.OK);
+                    MessageBox.Show($"Error: Unknown opcode name!\nOpcode: {opName}\nLine: {lines[i]}", "Mint Assembler", MessageBoxButtons.OK);
                     return;
                 }
                 instOffsets.Add(offset);
@@ -1775,7 +1775,7 @@ namespace ForgottenLandRandomizer.Types
 
                         if (arg.StartsWith("0x"))
                         {
-                            if (int.TryParse(arg.Remove(0,2), NumberStyles.HexNumber, NumberFormatInfo.CurrentInfo, out int val))
+                            if (int.TryParse(arg.Remove(0, 2), NumberStyles.HexNumber, NumberFormatInfo.CurrentInfo, out int val))
                                 b = BitConverter.GetBytes(val);
                             else
                             {
@@ -1785,7 +1785,7 @@ namespace ForgottenLandRandomizer.Types
                         }
                         else if (arg.Contains('.') || arg.EndsWith("f"))
                         {
-                            if (float.TryParse(arg.Replace("f",""), out float val))
+                            if (float.TryParse(arg.Replace("f", ""), out float val))
                                 b = BitConverter.GetBytes(val);
                             else
                             {
@@ -2028,7 +2028,7 @@ namespace ForgottenLandRandomizer.Types
                             }
 
                             if (op.Arguments[a] == InstructionArg.ESigned)
-                                line[a + 1] = ((instOffsets[locs[arg]] - (instOffsets[i] + 4))/4).ToString();
+                                line[a + 1] = ((instOffsets[locs[arg]] - (instOffsets[i] + 4)) / 4).ToString();
                             else
                                 line[a + 1] = ((instOffsets[locs[arg]] - instOffsets[i]) / 4).ToString();
 

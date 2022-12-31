@@ -1,0 +1,540 @@
+script Scn.Step.Player.AbilityChangeCtrl
+{
+	flag1 flag800 class Scn.Step.Player.AbilityChangeCtrl
+	{
+		flag2 var Scn.Step.Player.Manager _manager
+		flag2 var Stdlib.Array`1<Scn.Step.Player.AbilityChangeCtrl/RequestData> _requestDataArray
+		
+		async flag20 flag40 bool TryToChangeAbility(int,Scn.Step.Actor.Basic.ObjStopHandle)
+		{
+			fenter 0
+			_ret   r0
+			sppsh  r7, Scn.Step.Player.AbilityChangeCtrl/RequestData
+			sppsh  r8, ScnContext.Step.AbilityInfo
+			sppsh  r12, Hel.Vector3
+			sppsh  r13, Hel.Quaternion
+			sppsh  r14, Hel.Axis3
+			sppsh  r15, ScnContext.Step.ActorKey
+			sppsh  r17, ScnContext.Step.AbilityInfo
+			sppsh  r18, Scn.Step.Player.AbilityChangeCtrl/RequestData
+			sppsh  r19, ScnContext.Step.AbilityInfo
+			sppsh  r20, ScnContext.Step.AbilityInfo
+			sppsh  r21, Hel.Vector3
+			sppsh  r22, Hel.Quaternion
+			sppsh  r23, Hel.Axis3
+			sppsh  r24, ScnContext.Step.ActorKey
+			switch r1, 16
+			jmp    loc_00000022
+			jmp    loc_00000022
+			jmp    loc_00000022
+			jmp    loc_00000024
+			jmp    loc_00000026
+			jmp    loc_00000028
+			jmp    loc_0000002a
+			jmp    loc_0000002c
+			jmp    loc_0000002e
+			jmp    loc_00000030
+			jmp    loc_00000032
+			jmp    loc_00000034
+			jmp    loc_00000036
+			jmp    loc_00000038
+			jmp    loc_0000003a
+			jmp    loc_00000022
+			jmp    loc_00000022
+			
+			loc_00000022:
+			ldsrsr r32, r1
+			jmp    loc_0000003c
+			
+			loc_00000024:
+			ldsrc4 r32, 0x4
+			jmp    loc_0000003c
+			
+			loc_00000026:
+			ldsrc4 r32, 0x5
+			jmp    loc_0000003c
+			
+			loc_00000028:
+			ldsrc4 r32, 0x6
+			jmp    loc_0000003c
+			
+			loc_0000002a:
+			ldsrc4 r32, 0x7
+			jmp    loc_0000003c
+			
+			loc_0000002c:
+			ldsrc4 r32, 0x8
+			jmp    loc_0000003c
+			
+			loc_0000002e:
+			ldsrc4 r32, 0x9
+			jmp    loc_0000003c
+			
+			loc_00000030:
+			ldsrc4 r32, 0xA
+			jmp    loc_0000003c
+			
+			loc_00000032:
+			ldsrc4 r32, 0xB
+			jmp    loc_0000003c
+			
+			loc_00000034:
+			ldsrc4 r32, 0xC
+			jmp    loc_0000003c
+			
+			loc_00000036:
+			ldsrc4 r32, 0xD
+			jmp    loc_0000003c
+			
+			loc_00000038:
+			ldsrc4 r32, 0xE
+			jmp    loc_0000003c
+			
+			loc_0000003a:
+			ldsrc4 r32, 0x3
+			jmp    loc_0000003c
+			
+			loc_0000003c:
+			jmpneg r2, loc_0000003f
+			ldsrc4 r25, 0x0
+			fret32 r25
+			
+			loc_0000003f:
+			ldsrc4 r3, 0x0
+			ldofad r25, r0, this._requestDataArray
+			ldsrsr r4, r25
+			ldsrc4 r5, 0x0
+			unk_06 r26, r5
+			ldsr2  r27, r25, r26
+			calltp r27, Stdlib.Vm.MonitorEnter(object,ref bool)
+			ldsrc4 r6, 0x0
+			jmp    loc_00000124
+			
+			loc_00000048:
+			ldofad r25, r0, this._requestDataArray
+			ldsr3  r26, r18, r25, r6
+			dcall  r26, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Player.AbilityChangeCtrl/RequestData>
+			_xref  Scn.Step.Player.AbilityChangeCtrl/RequestData
+			_rtype Scn.Step.Player.AbilityChangeCtrl/RequestData
+			mcopys r7, r18, Scn.Step.Player.AbilityChangeCtrl/RequestData
+			ldofa4 r25, r18, Scn.Step.Player.AbilityChangeCtrl/RequestData.SlotNo
+			eqi32  r25, r32, loc_00000122
+			ldofad r25, r0, this._requestDataArray
+			ldsr2  r26, r25, r6
+			dcall  r26, 2
+			_xref  Stdlib.Array`1.RemoveAtIndex(int)
+			_xref  Stdlib.Array`1<Scn.Step.Player.AbilityChangeCtrl/RequestData>
+			_short 1
+			_void  r0
+			ldofa4 r25, r7, Scn.Step.Player.AbilityChangeCtrl/RequestData.UseCopyShort
+			jmppos r25, loc_0000007b
+			ldofad r25, r0, this._manager
+			ldofad r26, r25, Scn.Step.Player.Manager.__bf_ActorDataArray
+			ldsr2  r28, r26, r32
+			dcall  r27, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Player.ActorData>
+			_xref  Scn.Step.Player.ActorData
+			_ret   r0
+			ldofap r19, r27, Scn.Step.Player.ActorData.__bf_AbilityInfo
+			mcopys r8, r19, ScnContext.Step.AbilityInfo
+			ldsr2  r25, r8, r7
+			ldof_u r27, r26, Scn.Step.Player.AbilityChangeCtrl/RequestData.CopyShortAbilityKind
+			mcopys r19, r25, ScnContext.Step.AbilityInfo
+			mcopys r20, r19, ScnContext.Step.AbilityInfo
+			ldsrsr r25, r20
+			ldsr2  r29, r25, r27
+			callt4 r28, ScnContext.Step.AbilityInfo.OpEquals(ref ScnContext.Step.AbilityInfo)
+			jmppos r28, loc_0000006f
+			assert r2, loc_0000012d
+			assert r1, return
+			
+			loc_0000006f:
+			ldofad r25, r0, this._manager
+			ldofad r26, r25, Scn.Step.Player.Manager.__bf_Modules
+			ldsrsr r25, r7
+			ldof_u r27, r25, Scn.Step.Player.AbilityChangeCtrl/RequestData.CopyShortAbilityKind
+			ldsr3  r29, r26, r32, r27
+			ldsrc4 r32, 0x2
+			ldsrsr r33, r2
+			callt4 r28, Scn.Step.Actor.Kirby.KirbyBuildUtil.Build(Scn.Step.Modules,int,ref ScnContext.Step.AbilityInfo,Scn.Step.Actor.Kirby.FirstStateType,Scn.Step.Actor.Basic.ObjStopHandle)
+			jmppos r28, loc_0000012b
+			ldsrc4 r3, 0x1
+			assert r2, loc_0000012d
+			assert r1, return
+			
+			loc_0000007b:
+			ldofa4 r25, r7, Scn.Step.Player.AbilityChangeCtrl/RequestData.UseInhaleHook
+			jmppos r25, loc_000000a4
+			ldofad r25, r0, this._manager
+			ldofad r26, r25, Scn.Step.Player.Manager.__bf_ObjArray
+			ldsr2  r28, r26, r1
+			dcall  r27, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<ActSys.Obj>
+			_xref  ActSys.Obj
+			_ret   r0
+			ldsrsr r9, r27
+			ldsrsr r29, r27
+			dcall  r28, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.Inhaler
+			_xref  Scn.Step.Actor.Basic.Inhaler
+			_ret   r0
+			ldsrsr r10, r28
+			ldofa4 r25, r28, Scn.Step.Actor.Basic.Inhaler.__bf_IsEat
+			jmppos r25, loc_0000012b
+			ldofad r25, r10, Scn.Step.Actor.Basic.Inhaler.__bf_InhaleInfo
+			ldsr2  r26, r19, r25
+			callt4 r26, Scn.Step.Actor.Basic.InhaleInfo.get_AbilityInfo()
+			mcopys r8, r19, ScnContext.Step.AbilityInfo
+			ldsrsr r25, r8
+			ldofa4 r26, r25, ScnContext.Step.AbilityInfo.__bf_DeformAbilityKind
+			ldsrc4 r25, 0x0
+			nei32b r27, r26, r25
+			jmppos r27, loc_0000012b
+			ldofad r25, r7, Scn.Step.Player.AbilityChangeCtrl/RequestData.InhaleInfo
+			ldsr2  r26, r19, r25
+			callt4 r26, Scn.Step.Actor.Basic.InhaleInfo.get_AbilityInfo()
+			mcopys r8, r19, ScnContext.Step.AbilityInfo
+			ldsr4  r25, r8, r9, r2, r25
+			callt4 r26, Scn.Step.Actor.Kirby.KirbyBuildUtil.DeformInhaleHook(ActSys.Obj,Scn.Step.Actor.Basic.ObjStopHandle,ref ScnContext.Step.AbilityInfo)
+			ldsrsr r25, r10
+			callt4 r25, Scn.Step.Actor.Basic.Inhaler.Swallow()
+			ldsrc4 r3, 0x1
+			assert r2, loc_0000012d
+			assert r1, return
+			
+			loc_000000a4:
+			ldofad r25, r7, Scn.Step.Player.AbilityChangeCtrl/RequestData.InhaleInfo
+			ldsr2  r26, r19, r25
+			callt4 r26, Scn.Step.Actor.Basic.InhaleInfo.get_AbilityInfo()
+			mcopys r8, r19, ScnContext.Step.AbilityInfo
+			ldsrsr r25, r8
+			ldofa4 r26, r25, ScnContext.Step.AbilityInfo.__bf_DeformAbilityKind
+			ldsrc4 r25, 0x0
+			nei32b r27, r26, r25
+			jmppos r27, loc_000000db
+			ldofad r25, r0, this._manager
+			ldofad r26, r25, Scn.Step.Player.Manager.__bf_ObjArray
+			ldsr2  r28, r26, r1
+			dcall  r27, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<ActSys.Obj>
+			_xref  ActSys.Obj
+			_ret   r0
+			ldsrsr r11, r27
+			ldofad r25, r0, this._manager
+			ldofad r26, r25, Scn.Step.Player.Manager.__bf_Modules
+			ldofad r25, r7, Scn.Step.Player.AbilityChangeCtrl/RequestData.InhaleInfo
+			ldsr2  r28, r19, r25
+			callt4 r28, Scn.Step.Actor.Basic.InhaleInfo.get_AbilityInfo()
+			mcopys r8, r19, ScnContext.Step.AbilityInfo
+			ldsrsr r25, r8
+			ldsrsr r29, r27
+			calltp r28, ActSys.Obj.get_Transform()
+			ldsr2  r29, r21, r28
+			calltp r29, ActSys.Transform.get_Position()
+			mcopys r12, r21, Hel.Vector3
+			ldsrsr r28, r12
+			ldsrsr r30, r27
+			calltp r29, ActSys.Obj.get_Transform()
+			ldsr2  r30, r22, r29
+			calltp r30, ActSys.Transform.get_Rotation()
+			mcopys r13, r22, Hel.Quaternion
+			ldsrsr r27, r13
+			ldsr2  r29, r23, r27
+			calltp r29, Hel.Quaternion.get_Dir()
+			mcopys r14, r23, Hel.Axis3
+			ldsrsr r27, r14
+			ldofad r29, r7, Scn.Step.Player.AbilityChangeCtrl/RequestData.InhaleInfo
+			ldofap r24, r29, Scn.Step.Actor.Basic.InhaleInfo.__bf_DeformItemId
+			mcopys r15, r24, ScnContext.Step.ActorKey
+			ldsrsr r29, r15
+			ldsr5  r31, r26, r1, r25, r28, r28
+			ldsr2  r36, r27, r27
+			ldsrc4 r38, 0x1
+			ldsrsr r39, r29
+			ldsrzr r40
+			callt4 r30, Scn.Step.Actor.Kirby.KirbyBuildUtil.Build(Scn.Step.Modules,int,ref ScnContext.Step.AbilityInfo,ref Hel.Vector3,ref Hel.Vector3,ref Hel.Axis3,ref Hel.Axis3,Scn.Step.Actor.Kirby.FirstStateType,ref ScnContext.Step.ActorKey,Scn.Step.Actor.Basic.ObjStopHandle)
+			jmppos r30, loc_0000012b
+			ldsrc4 r3, 0x1
+			assert r2, loc_0000012d
+			assert r1, return
+			
+			loc_000000db:
+			ldofad r26, r7, Scn.Step.Player.AbilityChangeCtrl/RequestData.InhaleInfo
+			callt4 r25, Scn.Step.Actor.Basic.InhaleInfo.get_IsCopyMix()
+			jmppos r25, loc_000000fb
+			ldofad r25, r0, this._manager
+			ldofad r26, r25, Scn.Step.Player.Manager.__bf_ObjArray
+			ldsr2  r28, r26, r1
+			dcall  r27, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<ActSys.Obj>
+			_xref  ActSys.Obj
+			_ret   r0
+			ldsrsr r16, r27
+			jmppos r27, loc_0000012b
+			ldsrsr r26, r16
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.ObjStopCtrl
+			_xref  Scn.Step.Actor.Basic.ObjStopCtrl
+			_ret   r0
+			stofap r25, r2, Scn.Step.Actor.Basic.ObjStopCtrl._objStopHandle
+			ldofad r25, r7, Scn.Step.Player.AbilityChangeCtrl/RequestData.InhaleInfo
+			obnew  r26, Scn.Step.Actor.Kirby.Common.StateCopyRoulette
+			ldsr2  r27, r16, r25
+			callt4 r26, Scn.Step.Actor.Kirby.Common.StateCopyRoulette.this(ActSys.Obj,Scn.Step.Actor.Basic.InhaleInfo)
+			ldsr2  r27, r16, r26
+			ldsrzr r29
+			ldsrc4 r30, 0x0
+			callt4 r27, Scn.Step.Actor.Basic.StateCtrl.ChangeState(ActSys.Obj,Scn.Step.Actor.Basic.IState,string,Scn.Step.Actor.Basic.StatePriority)
+			ldsrc4 r3, 0x1
+			assert r2, loc_0000012d
+			assert r1, return
+			
+			loc_000000fb:
+			ldofad r25, r0, this._manager
+			ldofad r26, r25, Scn.Step.Player.Manager.__bf_ActorDataArray
+			ldsr2  r28, r26, r1
+			dcall  r27, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Player.ActorData>
+			_xref  Scn.Step.Player.ActorData
+			_ret   r0
+			ldofap r19, r27, Scn.Step.Player.ActorData.__bf_AbilityInfo
+			mcopys r8, r19, ScnContext.Step.AbilityInfo
+			ldsrsr r25, r8
+			ldofad r26, r7, Scn.Step.Player.AbilityChangeCtrl/RequestData.InhaleInfo
+			ldsr2  r27, r20, r26
+			callt4 r27, Scn.Step.Actor.Basic.InhaleInfo.get_AbilityInfo()
+			mcopys r17, r20, ScnContext.Step.AbilityInfo
+			ldsrsr r26, r17
+			mcopys r19, r25, ScnContext.Step.AbilityInfo
+			mcopys r20, r19, ScnContext.Step.AbilityInfo
+			ldsrsr r25, r20
+			ldsr2  r28, r25, r26
+			callt4 r27, ScnContext.Step.AbilityInfo.OpEquals(ref ScnContext.Step.AbilityInfo)
+			jmppos r27, loc_00000113
+			assert r2, loc_0000012d
+			assert r1, return
+			
+			loc_00000113:
+			ldofad r25, r0, this._manager
+			ldofad r26, r25, Scn.Step.Player.Manager.__bf_Modules
+			ldofad r25, r7, Scn.Step.Player.AbilityChangeCtrl/RequestData.InhaleInfo
+			ldsr2  r27, r19, r25
+			callt4 r27, Scn.Step.Actor.Basic.InhaleInfo.get_AbilityInfo()
+			mcopys r8, r19, ScnContext.Step.AbilityInfo
+			ldsrsr r25, r8
+			ldsr3  r28, r26, r1, r25
+			ldsrc4 r31, 0x1
+			ldsrsr r32, r2
+			callt4 r27, Scn.Step.Actor.Kirby.KirbyBuildUtil.Build(Scn.Step.Modules,int,ref ScnContext.Step.AbilityInfo,Scn.Step.Actor.Kirby.FirstStateType,Scn.Step.Actor.Basic.ObjStopHandle)
+			jmppos r27, loc_0000012b
+			ldsrc4 r3, 0x1
+			assert r2, loc_0000012d
+			assert r1, return
+			
+			loc_00000122:
+			ldsrc4 r25, 0x1
+			addi32 r6, r6, r25
+			
+			loc_00000124:
+			ldofad r26, r0, this._requestDataArray
+			dcall  r25, 2
+			_xref  Stdlib.Array`1.get_Count()
+			_xref  Stdlib.Array`1<Scn.Step.Player.AbilityChangeCtrl/RequestData>
+			_short 9
+			_ret   r0
+			ges32  r6, r25, loc_00000048
+			
+			loc_0000012b:
+			assert r2, loc_0000012d
+			assert r1, return
+			
+			loc_0000012d:
+			jmppos r5, loc_00000130
+			ldsrsr r25, r4
+			calltp r25, Stdlib.Vm.MonitorExit(object)
+			
+			loc_00000130:
+			unk_59 r0
+			
+			return:
+			fret32 r3
+		}
+		
+		void Request(int,Scn.Step.Actor.Basic.InhaleInfo,bool)
+		{
+			fenter 0
+			_void  r0
+			sppsh  r6, Scn.Step.Player.AbilityChangeCtrl/RequestData
+			ldofad r7, r0, this._requestDataArray
+			ldsrsr r4, r7
+			ldsrc4 r5, 0x0
+			unk_06 r8, r5
+			ldsr2  r9, r7, r8
+			calltp r9, Stdlib.Vm.MonitorEnter(object,ref bool)
+			ldofad r7, r0, this._requestDataArray
+			ldsr4  r8, r6, r1, r2, r3
+			callt4 r8, Scn.Step.Player.AbilityChangeCtrl/RequestData.Create(int,Scn.Step.Actor.Basic.InhaleInfo,bool)
+			ldsr2  r8, r7, r6
+			dcall  r8, 2
+			_xref  Stdlib.Array`1.Add(TElement)
+			_xref  Stdlib.Array`1<Scn.Step.Player.AbilityChangeCtrl/RequestData>
+			_short 1
+			_void  r0
+			assert r2, loc_00000014
+			assert r1, return
+			
+			loc_00000014:
+			jmppos r5, loc_00000017
+			ldsrsr r7, r4
+			calltp r7, Stdlib.Vm.MonitorExit(object)
+			
+			loc_00000017:
+			unk_59 r0
+			
+			return:
+			fleave r0
+		}
+		
+		void RequestShort(int,ref ScnContext.Step.AbilityInfo)
+		{
+			fenter 0
+			_void  r0
+			sppsh  r5, Scn.Step.Player.AbilityChangeCtrl/RequestData
+			ldofad r6, r0, this._requestDataArray
+			ldsrsr r3, r6
+			ldsrc4 r4, 0x0
+			unk_06 r7, r4
+			ldsr2  r8, r6, r7
+			calltp r8, Stdlib.Vm.MonitorEnter(object,ref bool)
+			ldofad r6, r0, this._requestDataArray
+			ldsr3  r7, r5, r1, r2
+			callt4 r7, Scn.Step.Player.AbilityChangeCtrl/RequestData.CreateShort(int,ref ScnContext.Step.AbilityInfo)
+			ldsr2  r7, r6, r5
+			dcall  r7, 2
+			_xref  Stdlib.Array`1.Add(TElement)
+			_xref  Stdlib.Array`1<Scn.Step.Player.AbilityChangeCtrl/RequestData>
+			_short 1
+			_void  r0
+			assert r2, loc_00000014
+			assert r1, return
+			
+			loc_00000014:
+			jmppos r4, loc_00000017
+			ldsrsr r6, r3
+			calltp r6, Stdlib.Vm.MonitorExit(object)
+			
+			loc_00000017:
+			unk_59 r0
+			
+			return:
+			fleave r0
+		}
+	}
+	
+	enum pod class Scn.Step.Player.AbilityChangeCtrl/RequestData
+	{
+		var int SlotNo
+		flag2 var Scn.Step.Actor.Basic.InhaleInfo InhaleInfo
+		var bool UseInhaleHook
+		var ScnContext.Step.AbilityInfo CopyShortAbilityKind
+		var bool UseCopyShort
+		
+		flag20 flag100 Scn.Step.Player.AbilityChangeCtrl/RequestData Create(int,Scn.Step.Actor.Basic.InhaleInfo,bool)
+		{
+			fenter 0
+			_rtype this
+			sppsh  r3, this
+			sppsh  r4, ScnContext.Step.AbilityInfo
+			sppsh  r5, ScnContext.Step.AbilityInfo
+			sppsh  r6, this
+			sppshz r3, this
+			ldsrsr r7, r3
+			stofa4 r7, r0, this.SlotNo
+			ldsrsr r7, r3
+			ldsrsr r9, r1
+			callt4 r8, Scn.Step.Actor.Basic.InhaleInfo.CreateCopy()
+			stofad r7, r8, this.InhaleInfo
+			ldsrsr r7, r3
+			stofa4 r7, r2, this.UseInhaleHook
+			ldsrsr r7, r3
+			sppshz r4, ScnContext.Step.AbilityInfo
+			ldsrsr r8, r4
+			ldsrc4 r9, 0x1
+			stofa4 r8, r9, ScnContext.Step.AbilityInfo.__bf_CopyAbilityKind
+			ldsrsr r8, r4
+			ldsrc4 r9, 0x0
+			stofa4 r8, r9, ScnContext.Step.AbilityInfo.__bf_CopyAbilitySubKind
+			ldsrsr r8, r4
+			ldsrc4 r9, 0x0
+			stofa4 r8, r9, ScnContext.Step.AbilityInfo.__bf_DeformAbilityKind
+			ldsrsr r8, r4
+			ldsrc4 r9, 0x0
+			stofa4 r8, r9, ScnContext.Step.AbilityInfo.__bf_DeformAbilitySubKind
+			mcopys r5, r4, ScnContext.Step.AbilityInfo
+			stof_u r7, r5, this.CopyShortAbilityKind
+			ldsrsr r7, r3
+			ldsrc4 r8, 0x0
+			stofa4 r7, r8, this.UseCopyShort
+			mcopys r6, r3, this
+			fret64 r0
+		}
+		
+		flag20 flag100 Scn.Step.Player.AbilityChangeCtrl/RequestData CreateShort(int,ref ScnContext.Step.AbilityInfo)
+		{
+			fenter 0
+			_rtype this
+			sppsh  r2, this
+			sppsh  r3, ScnContext.Step.ActorKey
+			sppsh  r4, ScnContext.Step.ActorKey
+			sppsh  r5, ScnContext.Step.AbilityInfo
+			sppsh  r6, this
+			sppshz r2, this
+			ldsrsr r7, r2
+			stofa4 r7, r0, this.SlotNo
+			ldsrsr r7, r2
+			obnew  r8, Scn.Step.Actor.Basic.InhaleInfo
+			sppshz r3, ScnContext.Step.ActorKey
+			ldsrsr r9, r3
+			ldsrc4 r10, 0x0
+			stofa4 r9, r10, ScnContext.Step.ActorKey.__bf_MapPostfixNum
+			ldsrsr r9, r3
+			ldsrc4 r10, 0x0
+			stofa4 r9, r10, ScnContext.Step.ActorKey.__bf_Uid
+			ldsrsr r9, r3
+			ldsrc4 r10, 0x0
+			stofa4 r9, r10, ScnContext.Step.ActorKey.__bf_SubUid
+			mcopys r4, r3, ScnContext.Step.ActorKey
+			stof_u r8, r4, Scn.Step.Actor.Basic.InhaleInfo.__bf_DeformItemId
+			obnew  r9, Stdlib.Array`1<ScnContext.Step.AbilityInfo>
+			dcall  r9, 2
+			_xref  Stdlib.Array`1.this()
+			_xref  Stdlib.Array`1<ScnContext.Step.AbilityInfo>
+			_short 1
+			_void  r0
+			stofap r8, r9, Scn.Step.Actor.Basic.InhaleInfo.__bf_AbilityInfoArray
+			stofad r7, r8, this.InhaleInfo
+			ldsrsr r7, r2
+			ldsrc4 r8, 0x0
+			stofa4 r7, r8, this.UseInhaleHook
+			ldsrsr r7, r2
+			mcopys r5, r1, ScnContext.Step.AbilityInfo
+			stof_u r7, r5, this.CopyShortAbilityKind
+			ldsrsr r7, r2
+			ldsrc4 r8, 0x1
+			stofa4 r7, r8, this.UseCopyShort
+			mcopys r6, r2, this
+			fret64 r0
+		}
+	}
+}

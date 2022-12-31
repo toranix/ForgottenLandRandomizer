@@ -38,12 +38,13 @@ namespace ForgottenLandRandomizer
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.randStoryStages = new System.Windows.Forms.CheckBox();
             this.randStoryStagesPanel = new System.Windows.Forms.Panel();
+            this.scaleDees = new System.Windows.Forms.CheckBox();
             this.randomize = new System.Windows.Forms.Button();
             this.romfsHelp = new System.Windows.Forms.Button();
             this.seed = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.scaleDees = new System.Windows.Forms.CheckBox();
+            this.randCopyAbilities = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.randStoryStagesPanel.SuspendLayout();
@@ -89,6 +90,7 @@ namespace ForgottenLandRandomizer
             // 
             this.flowLayoutPanel1.Controls.Add(this.randStoryStages);
             this.flowLayoutPanel1.Controls.Add(this.randStoryStagesPanel);
+            this.flowLayoutPanel1.Controls.Add(this.randCopyAbilities);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
@@ -118,6 +120,19 @@ namespace ForgottenLandRandomizer
             this.randStoryStagesPanel.Size = new System.Drawing.Size(475, 21);
             this.randStoryStagesPanel.TabIndex = 1;
             this.randStoryStagesPanel.Visible = false;
+            // 
+            // scaleDees
+            // 
+            this.scaleDees.AutoSize = true;
+            this.scaleDees.Location = new System.Drawing.Point(3, 3);
+            this.scaleDees.Name = "scaleDees";
+            this.scaleDees.Size = new System.Drawing.Size(184, 17);
+            this.scaleDees.TabIndex = 0;
+            this.scaleDees.Text = "Scale Waddle Dee Requirements";
+            this.toolTip.SetToolTip(this.scaleDees, "Scale Boss stages to their position in the unlock order, requiring an average of " +
+        "5 Waddle Dees per stage globally. Leave unchecked to set everything except 6-6 t" +
+        "o 0 Waddle Dees.");
+            this.scaleDees.UseVisualStyleBackColor = true;
             // 
             // randomize
             // 
@@ -163,18 +178,15 @@ namespace ForgottenLandRandomizer
             this.toolTip.InitialDelay = 500;
             this.toolTip.ReshowDelay = 100;
             // 
-            // scaleDees
+            // randCopyAbilities
             // 
-            this.scaleDees.AutoSize = true;
-            this.scaleDees.Location = new System.Drawing.Point(3, 3);
-            this.scaleDees.Name = "scaleDees";
-            this.scaleDees.Size = new System.Drawing.Size(184, 17);
-            this.scaleDees.TabIndex = 0;
-            this.scaleDees.Text = "Scale Waddle Dee Requirements";
-            this.toolTip.SetToolTip(this.scaleDees, "Scale Boss stages to their position in the unlock order, requiring an average of " +
-        "5 Waddle Dees per stage globally. Leave unchecked to set everything except 6-6 t" +
-        "o 0 Waddle Dees.");
-            this.scaleDees.UseVisualStyleBackColor = true;
+            this.randCopyAbilities.AutoSize = true;
+            this.randCopyAbilities.Location = new System.Drawing.Point(3, 53);
+            this.randCopyAbilities.Name = "randCopyAbilities";
+            this.randCopyAbilities.Size = new System.Drawing.Size(144, 17);
+            this.randCopyAbilities.TabIndex = 2;
+            this.randCopyAbilities.Text = "Randomize Copy Abilities";
+            this.randCopyAbilities.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -218,6 +230,7 @@ namespace ForgottenLandRandomizer
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Panel randStoryStagesPanel;
         private System.Windows.Forms.CheckBox scaleDees;
+        private System.Windows.Forms.CheckBox randCopyAbilities;
     }
 }
 
