@@ -27,6 +27,8 @@ namespace ForgottenLandRandomizer.Types
             public int ChildNamespaces;
         }
 
+        public bool LZ77Compressed { get; set; } = false;
+
         public XData XData { get; private set; }
         public byte[] Version { get; private set; }
         public uint RootNamespaces { get; private set; }
@@ -120,8 +122,8 @@ namespace ForgottenLandRandomizer.Types
 
         public void Write(string path)
         {
-                using (EndianBinaryWriter writer = new EndianBinaryWriter(new FileStream(path, FileMode.Create, FileAccess.Write)))
-                    Write(writer);
+            using (EndianBinaryWriter writer = new EndianBinaryWriter(new FileStream(path, FileMode.Create, FileAccess.Write)))
+                Write(writer);
         }
 
         public void Write(EndianBinaryWriter writer)
@@ -171,22 +173,14 @@ namespace ForgottenLandRandomizer.Types
                 writer.BaseStream.Seek(0, SeekOrigin.End);
                 writer.Write(Scripts.Values.ToArray()[i].Write());
 
-                while ((writer.BaseStream.Length & 0xF) != 0x0
-                    && (writer.BaseStream.Length & 0xF) != 0x4
-                    && (writer.BaseStream.Length & 0xF) != 0x8
-                    && (writer.BaseStream.Length & 0xF) != 0xC)
-                        writer.Write((byte)0);
+                WriteUtil.WritePadding(writer);
             }
             writer.BaseStream.Seek(0x24, SeekOrigin.Begin);
             writer.Write((uint)writer.BaseStream.Length);
             writer.BaseStream.Seek(0, SeekOrigin.End);
             writer.Write((long)0);
 
-            while ((writer.BaseStream.Length & 0xF) != 0x0
-                && (writer.BaseStream.Length & 0xF) != 0x4
-                && (writer.BaseStream.Length & 0xF) != 0x8
-                && (writer.BaseStream.Length & 0xF) != 0xC)
-                    writer.Write((byte)0);
+            WriteUtil.WritePadding(writer);
 
             for (int i = 0; i < Namespaces.Count; i++)
             {
