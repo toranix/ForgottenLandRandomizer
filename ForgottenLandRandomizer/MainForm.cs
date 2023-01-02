@@ -234,6 +234,12 @@ namespace ForgottenLandRandomizer
             if (isTouchFile["WmapData"] && !Directory.Exists(outDir + "\\yaml\\Scn\\Step\\Map"))
                 Directory.CreateDirectory(outDir + "\\yaml\\Scn\\Step\\Map");
 
+            if (randStoryStages.Checked && !Directory.Exists(outDir + "\\lyt\\Wmap\\StageList"))
+            {
+                Directory.CreateDirectory(outDir + "\\lyt\\Wmap\\StageList");
+                File.Copy(ExeDir + "\\Assets\\Parts.arc.cmp", outDir + "\\lyt\\Wmap\\StageList\\Parts.arc.cmp", true);
+            }
+
             if (isTouchFile["Seq"])
             {
                 Console.WriteLine("Saving Seq Mint binary...");

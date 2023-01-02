@@ -101,6 +101,9 @@
 	<None Include="MintScripts\Scn.Step.Player.AbilityChangeCtrl.mints">
 	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</None>
+	<None Include="Assets\Parts.arc.cmp">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

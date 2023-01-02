@@ -2597,9 +2597,33 @@ script Scn.Step.Info.StageList.Wmap.StageList.Panel
 			ldsrsr r11, r6
 			callt4 r10, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
 			ldsrsr r8, r9
+			ldofad r17, r0, this._master
+			calltp r16, UiSys.Master.get_Manager()
+			ldsr3  r17, r16, r16, r6
+			dcall  r16, 3
+			_xref  UiSys.Manager.Extension()
+			_xref  UiSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r17, r16, Scn.Step.Modules._storageManager
+			ldofad r18, r17, Scn.Step.StorageManager._backupFileData
+			ldofad r17, r18, Storage.File.Root.StoryStages
+			callt4 r18, Storage.File.StageKindUtil.StageKeyToStoryStageKind(ref Storage.File.StageKey)
+			ldsr2  r20, r17, r18
+			dcall  r19, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
+			_xref  Storage.File.StoryStageData
+			_ret   r0
+			ldofa4 r16, r19, Storage.File.StoryStageData.IsUnlocked
 			jmppos r10, loc_0000003f
 			ldsr2  r9, r3, r9
 			ldsrca r11, "EnabledSelBossColor"
+			jmpneg r16, loc_bossunlk
+			ldsrca r11, "GreyBoss"
+
+			loc_bossunlk:
 			calltp r10, Lyt.GroupRef.Play(string)
 			ldsrsr r9, r5
 			ldsrc4 r11, 0x0
@@ -2617,6 +2641,10 @@ script Scn.Step.Info.StageList.Wmap.StageList.Panel
 			loc_0000003f:
 			ldsr2  r9, r3, r9
 			ldsrca r11, "EnabledSelColor"
+			jmpneg r16, loc_stgunlk1
+			ldsrca r11, "GreyLevel"
+
+			loc_stgunlk1:
 			calltp r10, Lyt.GroupRef.Play(string)
 			ldsrsr r8, r8
 			
@@ -2627,6 +2655,10 @@ script Scn.Step.Info.StageList.Wmap.StageList.Panel
 			eqi32  r9, r10, loc_0000004c
 			ldsr2  r9, r4, r9
 			ldsrca r11, "Level7EnabledSelColorSub"
+			jmpneg r16, loc_lvl7unlk
+			ldsrca r11, "GreyLevelSub"
+
+			loc_lvl7unlk:
 			calltp r10, Lyt.GroupRef.Play(string)
 			ldsrsr r8, r8
 			jmp    loc_00000050
@@ -2634,6 +2666,10 @@ script Scn.Step.Info.StageList.Wmap.StageList.Panel
 			loc_0000004c:
 			ldsr2  r9, r4, r9
 			ldsrca r11, "EnabledSelColorSub"
+			jmpneg r16, loc_stgunlk2
+			ldsrca r11, "GreyLevelSub"
+
+			loc_stgunlk2:
 			calltp r10, Lyt.GroupRef.Play(string)
 			ldsrsr r8, r8
 			
@@ -2711,11 +2747,33 @@ script Scn.Step.Info.StageList.Wmap.StageList.Panel
 			ldsrsr r17, r7
 			callt4 r16, Storage.File.StageKeyUtil.IsBossStage(ref Storage.File.StageKey)
 			ldsrsr r14, r16
-			jmppos r16, loc_00000065
+			ldofad r17, r0, this._master
+			calltp r16, UiSys.Master.get_Manager()
+			ldsrsr r17, r16
+			dcall  r16, 3
+			_xref  UiSys.Manager.Extension()
+			_xref  UiSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r17, r16, Scn.Step.Modules._storageManager
+			ldofad r18, r17, Scn.Step.StorageManager._backupFileData
+			ldofad r17, r18, Storage.File.Root.StoryStages
+			ldsrsr r19, r7
+			callt4 r18, Storage.File.StageKindUtil.StageKeyToStoryStageKind(ref Storage.File.StageKey)
+			ldsr2  r20, r17, r18
+			dcall  r19, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<Storage.File.StoryStageKind,Storage.File.StoryStageData>
+			_xref  Storage.File.StoryStageData
+			_ret   r0
+			ldofa4 r16, r19, Storage.File.StoryStageData.IsUnlocked
+			jmppos r14, loc_00000065
+			jmppos r16, loc_bosslock
 			ldofa4 r16, r0, this._currentStoryLevel
 			ldsrc4 r17, 0x8
 			ldsrsr r14, r14
-			nei32  r16, r17, loc_00000047
+			nei32  r19, r17, loc_00000047
 			ldsrsr r14, r14
 			ldsrca r15, "BossColorSub"
 			jmp    loc_00000049
@@ -2723,13 +2781,22 @@ script Scn.Step.Info.StageList.Wmap.StageList.Panel
 			loc_00000047:
 			ldsrsr r14, r14
 			ldsrca r15, "Level7BossColorSub"
+			jmp    loc_00000049
 			
+			loc_bosslock:
+			ldsrca r15, "GreyLevelSub"
+
 			loc_00000049:
-			ldsrsr r8, r15
 			ldsrsr r14, r14
-			jmppos r1, loc_00000053
-			ldsr2  r16, r4, r16
 			ldsrca r18, "BossColor"
+			jmpneg r16, loc_bossunlk
+			ldsrca r18, "GreyBoss"
+
+			loc_bossunlk:
+			ldsrsr r8, r15
+			ldofad r16, r0, this._currentStoryLevel
+			ldsr2  r16, r4, r16
+			jmppos r1, loc_00000053
 			calltp r17, Lyt.GroupRef.PlayStopTail(string)
 			ldsr3  r16, r5, r16, r8
 			calltp r17, Lyt.GroupRef.PlayStopTail(string)
@@ -2737,8 +2804,6 @@ script Scn.Step.Info.StageList.Wmap.StageList.Panel
 			jmp    loc_00000059
 			
 			loc_00000053:
-			ldsr2  r16, r4, r16
-			ldsrca r18, "BossColor"
 			calltp r17, Lyt.GroupRef.Play(string)
 			ldsr3  r16, r5, r16, r8
 			calltp r17, Lyt.GroupRef.Play(string)
@@ -2756,11 +2821,11 @@ script Scn.Step.Info.StageList.Wmap.StageList.Panel
 			ldsr2  r18, r16, r17
 			calltp r18, Lyt.GroupRef.Play(string)
 			ldsrsr r14, r14
-			jmp    loc_000000b9
+			jmp    loc_000000ec
 			
 			loc_00000065:
-			ldsrsr r14, r14
-			jmppos r1, loc_0000008b
+			jmppos r16, loc_000000c2
+			jmppos r1, loc_0000009e
 			ldsrsr r16, r4
 			ldofa4 r18, r0, this._currentStoryLevel
 			dcall  r17, 3
@@ -2796,9 +2861,9 @@ script Scn.Step.Info.StageList.Wmap.StageList.Panel
 			ldsr2  r18, r16, r17
 			calltp r18, Lyt.GroupRef.PlayStopTail(string)
 			ldsrsr r14, r14
-			jmp    loc_000000ae
+			jmp    loc_000000e1
 			
-			loc_0000008b:
+			loc_0000009e:
 			ldsrsr r16, r4
 			ldofa4 r18, r0, this._currentStoryLevel
 			dcall  r17, 3
@@ -2834,8 +2899,32 @@ script Scn.Step.Info.StageList.Wmap.StageList.Panel
 			ldsr2  r18, r16, r17
 			calltp r18, Lyt.GroupRef.Play(string)
 			ldsrsr r14, r14
+			jmp    loc_000000e1
 			
-			loc_000000ae:
+			loc_000000c2:
+			jmppos r1, loc_000000d2
+			ldsrsr r16, r4
+			ldsrsr r18, r16
+			ldsrca r19, "GreyLevel"
+			calltp r18, Lyt.GroupRef.PlayStopTail(string)
+			ldsrca r19, "GreyLevelSub"
+			ldsrsr r18, r5
+			calltp r18, Lyt.GroupRef.PlayStopTail(string)
+			ldsrsr r14, r14
+			jmp    loc_000000e1
+			
+			loc_000000d2:
+			ldsrsr r16, r4
+			ldsrsr r18, r16
+			ldsrca r19, "GreyLevel"
+			calltp r18, Lyt.GroupRef.Play(string)
+			ldsrca r19, "GreyLevelSub"
+			ldsrsr r18, r5
+			calltp r18, Lyt.GroupRef.Play(string)
+			ldsrsr r14, r14
+			jmp    loc_000000e1
+			
+			loc_000000e1:
 			ldsrsr r16, r6
 			ldsrc4 r18, 0x0
 			dcall  r17, 3
@@ -2848,14 +2937,14 @@ script Scn.Step.Info.StageList.Wmap.StageList.Panel
 			calltp r18, Lyt.GroupRef.Play(string)
 			ldsrsr r14, r14
 			
-			loc_000000b9:
-			jmppos r14, loc_000000be
+			loc_000000ec:
+			jmppos r14, loc_000000f1
 			ldofad r16, r3, Scn.Step.Info.StageList.TableBtn.StageBtn._stageName
 			ldsrsr r17, r16
 			callt4 r17, Scn.Step.Info.Common.WmapTitleName.SetColorForBoss()
 			fleave r0
 			
-			loc_000000be:
+			loc_000000f1:
 			ldofad r16, r3, Scn.Step.Info.StageList.TableBtn.StageBtn._stageName
 			ldofa4 r17, r0, this._currentStoryLevel
 			ldsr2  r18, r16, r17
@@ -3555,11 +3644,17 @@ script Scn.Step.Info.StageList.Wmap.StageList.Panel
 			
 			loc_00000068:
 			ldsrca r47, "Level7BossColorSub"
-			
+
 			loc_00000069:
 			ldsrsr r26, r47
 			ldsr2  r50, r10, r50
 			ldsrca r52, "BossColor"
+			jmpneg r6, loc_bossunlk
+			ldsrca r52, "GreyBoss"
+			ldsrca r47, "GreyLevelSub"
+			ldsrsr r26, r47
+
+			loc_bossunlk:
 			calltp r51, Lyt.GroupRef.Play(string)
 			ldsr3  r50, r11, r50, r47
 			calltp r51, Lyt.GroupRef.Play(string)
@@ -3574,12 +3669,26 @@ script Scn.Step.Info.StageList.Wmap.StageList.Panel
 			_short 16
 			_xref  Storage.File.StoryLevelKind
 			_ret   r0
-			ldsr2  r52, r50, r51
-			calltp r52, Lyt.GroupRef.Play(string)
+			ldsrca r53, "Grey%s"
+			jmppos r6, loc_bosslock
+			ldsrca r53, "%s"
+
+			loc_bosslock:
+			ldsrsr r54, r51
+			dcall  r52, 3
+			_xref  Stdlib.FixedString32.FromFormat(string,T1)
+			_xref  Stdlib.FixedString32
+			_xref  Stdlib.FixedString32
+			_short 16
+			_rtype Stdlib.FixedString32
+			ldsr2  r53, r50, r52
+			calltp r53, Lyt.GroupRef.Play(string)
 			jmp    loc_000000a2
 			
 			loc_0000007d:
+			ldsrca r51, "GreyLevel"
 			ldsrsr r50, r10
+			jmppos r6, loc_stgelck1
 			ldsrsr r52, r8
 			dcall  r51, 3
 			_xref  Stdlib.Enum.ToString(TEnum)
@@ -3587,9 +3696,13 @@ script Scn.Step.Info.StageList.Wmap.StageList.Panel
 			_short 16
 			_xref  Storage.File.StoryLevelKind
 			_ret   r0
+
+			loc_stgelck1:
 			ldsr2  r52, r50, r51
 			calltp r52, Lyt.GroupRef.Play(string)
+			ldsrca r51, "GreyLevelSub"
 			ldsrsr r50, r11
+			jmppos r6, loc_stgelck2
 			ldsrsr r52, r8
 			dcall  r51, 3
 			_xref  Stdlib.Enum.ToString(TEnum)
@@ -3611,6 +3724,8 @@ script Scn.Step.Info.StageList.Wmap.StageList.Panel
 			mcopys r36, r51, Stdlib.FixedString32
 			ldsrsr r52, r36
 			calltp r51, Stdlib.FixedString32.ReadPtr()
+
+			loc_stgelck2:
 			ldsr2  r52, r50, r51
 			calltp r52, Lyt.GroupRef.Play(string)
 			ldsr2  r50, r12, r50
