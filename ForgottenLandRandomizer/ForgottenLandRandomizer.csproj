@@ -110,6 +110,9 @@
 	<None Include="MintScripts\Scn.Step.Actor.Gimmick.Mannequin.KirbyStateMannequinSet.mints">
 		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</None>
+    <None Include="MintScripts\Scn.Step.Actor.Kirby.Common.StateCopy.mints">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
 	<None Include="Assets\Parts.arc.cmp">
 		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</None>

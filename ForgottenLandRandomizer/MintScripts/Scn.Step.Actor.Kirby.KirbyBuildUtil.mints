@@ -130,7 +130,7 @@ script Scn.Step.Actor.Kirby.KirbyBuildUtil
 
 			loc_CopyHammer:
 			ldsrc4 r20, %ABILITY_5%
-			jmp    loc_CopyShuffle
+			jmp    loc_CheckLv4
 
 			loc_CopyIce:
 			ldsrc4 r20, %ABILITY_6%
@@ -150,14 +150,38 @@ script Scn.Step.Actor.Kirby.KirbyBuildUtil
 
 			loc_CopySword:
 			ldsrc4 r20, %ABILITY_10%
-			jmp    loc_CopyShuffle
+			jmp    loc_CheckLv4
 
 			loc_CopyTornado:
 			ldsrc4 r20, %ABILITY_11%
 			jmp    loc_CopyShuffle
+
+			loc_CheckLv4:
+			ldsrc4 r21, 0x4
+			ldofa4 r22, r2, ScnContext.Step.AbilityInfo.__bf_CopyAbilitySubKind
+			eqi32  r21, r22, loc_CopyShuffle
+			ldsrc4 r21, 0x0
+			stofa4 r2, r21, ScnContext.Step.AbilityInfo.__bf_CopyAbilitySubKind
+			jmp    loc_CopyShuffle
 			
 			loc_CopyShuffle:
 			stofa4 r2, r20, ScnContext.Step.AbilityInfo.__bf_CopyAbilityKind
+			ldsrc4 r21, 0x4
+			eqi32  r21, r20, loc_CopyShuffle2
+			ldofa4 r20, r2, ScnContext.Step.AbilityInfo.__bf_CopyAbilitySubKind
+			ldsrc4 r21, 0x2
+			gts32  r20, r21, loc_aftershuffle
+			ldsrc4 r21, 0x0
+			stofa4 r2, r21, ScnContext.Step.AbilityInfo.__bf_CopyAbilitySubKind
+
+			loc_CopyShuffle2:
+			ldsrc4 r21, 0xC
+			eqi32  r21, r20, loc_aftershuffle
+			ldofa4 r20, r2, ScnContext.Step.AbilityInfo.__bf_CopyAbilitySubKind
+			ldsrc4 r21, 0x2
+			gts32  r20, r21, loc_aftershuffle
+			ldsrc4 r21, 0x0
+			stofa4 r2, r21, ScnContext.Step.AbilityInfo.__bf_CopyAbilitySubKind
 
 			loc_aftershuffle:
 			ldsr5  r19, r0, r1, r2, r15, r15

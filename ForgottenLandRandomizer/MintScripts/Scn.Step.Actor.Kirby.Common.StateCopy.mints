@@ -1,0 +1,1405 @@
+script Scn.Step.Actor.Kirby.Common.StateCopy
+{
+	flag1 flag800 class Scn.Step.Actor.Kirby.Common.StateCopy
+	{
+		implements Scn.Step.Actor.Basic.IState
+		
+		var ActSys.Obj _obj
+		var bool _isLong
+		var bool _isDisabledStagingCamera
+		var int _zoomId
+		var int _cameraSwingInputBlockId
+		var bool _isRequestFadeIn
+		
+		flag2 void OnStateStart()
+		{
+			fenter 0
+			_void  r0
+			sppsh  r2, Util.TimeSpan
+			sppsh  r4, ScnContext.Step.AbilityInfo
+			sppsh  r7, Util.TimeSpan
+			sppsh  r10, Hel.Vector3
+			sppsh  r11, Hel.Vector3
+			sppsh  r12, Hel.Vector3
+			sppsh  r13, Hel.Vector3
+			sppsh  r15, Hel.Util.Color4
+			sppsh  r18, Util.TimeSpan
+			sppsh  r19, ScnContext.Step.AbilityInfo
+			sppsh  r20, Hel.Vector3
+			sppsh  r21, Hel.Util.Color4
+			sppsh  r22, Util.TimeSpan
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.MoveH
+			_xref  Scn.Step.Actor.Kirby.Common.MoveH
+			_ret   r0
+			ldsrc4 r26, 0x0
+			stofa4 r25, r26, Scn.Step.Actor.Kirby.Common.MoveH.__bf_IsValid
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.MoveV
+			_xref  Scn.Step.Actor.Kirby.Common.MoveV
+			_ret   r0
+			ldsrc4 r26, 0x0
+			stofa4 r25, r26, Scn.Step.Actor.Kirby.Common.MoveV.__bf_IsValid
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.MoveGroundVelocity
+			_xref  Scn.Step.Actor.Basic.MoveGroundVelocity
+			_ret   r0
+			ldsrsr r23, r25
+			jmpneg r25, loc_0000002b
+			jmp    loc_0000002d
+			
+			loc_0000002b:
+			ldsrc4 r25, 0x0
+			stofa4 r23, r25, Scn.Step.Actor.Basic.MoveGroundVelocity.__bf_IsValid
+			
+			loc_0000002d:
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.MoveAreaVelocity
+			_xref  Scn.Step.Actor.Basic.MoveAreaVelocity
+			_ret   r0
+			ldsrsr r23, r25
+			jmpneg r25, loc_00000037
+			jmp    loc_0000003d
+			
+			loc_00000037:
+			ldsrc4 r25, 0x0
+			stofa4 r23, r25, Scn.Step.Actor.Basic.MoveAreaVelocity.__bf_IsValidStateForWater
+			ldsrc4 r25, 0x0
+			stofa4 r23, r25, Scn.Step.Actor.Basic.MoveAreaVelocity.__bf_IsValidStateForAir
+			ldsrc4 r25, 0x0
+			stofa4 r23, r25, Scn.Step.Actor.Basic.MoveAreaVelocity.__bf_IsValidStateForDig
+			
+			loc_0000003d:
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.FindComponent()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.AreaGimmickEffectCtrl
+			_xref  Scn.Step.Actor.Kirby.Common.AreaGimmickEffectCtrl
+			_ret   r0
+			ldsrsr r23, r25
+			jmpneg r25, loc_00000047
+			jmp    loc_0000004d
+			
+			loc_00000047:
+			ldsrsr r25, r23
+			ldsrc4 r26, 0x0
+			callt4 r25, Scn.Step.Actor.Kirby.Common.AreaGimmickEffectCtrl.SetIsValidEffect(bool)
+			ldsrsr r25, r23
+			ldsrc4 r26, 0x0
+			callt4 r25, Scn.Step.Actor.Kirby.Common.AreaGimmickEffectCtrl.SetIsValidSound(bool)
+			
+			loc_0000004d:
+			ldofad r26, r0, this._obj
+			calltp r25, ActSys.Obj.get_Manager()
+			ldsrsr r27, r25
+			dcall  r26, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r25, r26, Scn.Step.Modules._playerManager
+			ldofa4 r26, r25, Scn.Step.Player.Manager.__bf_IsDisabledStagingCameraOnAbilityCopy
+			jmppos r26, loc_0000006c
+			ldsrc4 r25, 0x1
+			stofa4 r0, r25, this._isDisabledStagingCamera
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.StateCtrl
+			_xref  Scn.Step.Actor.Basic.StateCtrl
+			_ret   r0
+			ldofad r27, r25, Scn.Step.Actor.Basic.StateCtrl._fxTriggerRequestor
+			dcall  r26, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<FxTrigger.Requestor>
+			_xref  FxTrigger.Requestor
+			_ret   r0
+			ldsrsr r28, r26
+			ldsrca r29, "SoundVolume"
+			ldsrca r30, "Low"
+			calltp r27, FxTrigger.Requestor.SetParameter(string,string)
+			
+			loc_0000006c:
+			ldofad r26, r0, this._obj
+			calltp r25, ActSys.Obj.get_Manager()
+			ldsrsr r27, r25
+			dcall  r26, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r25, r26, Scn.Step.Modules.__bf_DemoManager
+			ldsrsr r26, r25
+			ldsrc4 r27, 0x8000
+			callt4 r26, Scn.Step.DemoManager.Add(uint)
+			ldofa4 r25, r0, this._isDisabledStagingCamera
+			jmpneg r25, loc_0000008a
+			ldofad r26, r0, this._obj
+			calltp r25, ActSys.Obj.get_Manager()
+			ldsrsr r27, r25
+			dcall  r26, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r25, r26, Scn.Step.Modules._dofController
+			ldsrsr r26, r25
+			ldsrc4 r27, 0x2
+			ldsrc4 r28, 0x0
+			ldsrc4 r29, 0x0
+			callt4 r26, Scn.Step.Rendering.DofController.StartDemoMode(Scn.Step.Rendering.DofController/DemoModeType,bool,bool)
+			
+			loc_0000008a:
+			ldofad r26, r0, this._obj
+			calltp r25, ActSys.Obj.get_Manager()
+			ldsrsr r27, r25
+			dcall  r26, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r25, r26, Scn.Step.Modules.__bf_GamePauseManager
+			ldofad r26, r25, Scn.Step.GamePause.Manager.__bf_Control
+			ldsrsr r27, r26
+			ldsrc4 r28, 0x9
+			ldsrc4 r29, 0x1
+			callt4 r27, Scn.Step.GamePause.Control.SetIsDisabled(Scn.Step.GamePause.DisabledKind,bool)
+			ldofad r26, r0, this._obj
+			calltp r25, ActSys.Obj.get_Manager()
+			ldsrsr r27, r25
+			dcall  r26, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldsrsr r1, r26
+			ldofad r25, r26, Scn.Step.Modules._cameraManager
+			ldofad r27, r25, Scn.Step.Camera.Manager.__bf_SwingCtrl
+			ldsrsr r29, r27
+			callt4 r28, Scn.Step.Camera.SwingCtrl.StartInputBlock()
+			stofa4 r0, r28, this._cameraSwingInputBlockId
+			ldofad r25, r26, Scn.Step.Modules._cameraManager
+			ldofad r26, r25, Scn.Step.Camera.Manager.__bf_SwingCtrl
+			ldsrsr r27, r18
+			ldsrcf r28, 20f
+			calltp r27, Util.TimeSpan.FromFrame(float)
+			mcopys r2, r18, Util.TimeSpan
+			ldsrsr r25, r2
+			ldsr2  r27, r26, r25
+			callt4 r27, Scn.Step.Camera.SwingCtrl.Reset(ref Util.TimeSpan)
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.PlayerDataProxy
+			_xref  Scn.Step.Actor.Kirby.Common.PlayerDataProxy
+			_ret   r0
+			ldofad r27, r25, Scn.Step.Actor.Kirby.Common.PlayerDataProxy._obj
+			calltp r26, ActSys.Obj.get_Manager()
+			ldsrsr r28, r26
+			dcall  r27, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r26, r27, Scn.Step.Modules._playerManager
+			ldofa4 r27, r25, Scn.Step.Actor.Kirby.Common.PlayerDataProxy._slot
+			ldofad r25, r26, Scn.Step.Player.Manager.__bf_ActorDataArray
+			ldsr2  r29, r25, r27
+			dcall  r28, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Player.ActorData>
+			_xref  Scn.Step.Player.ActorData
+			_ret   r0
+			ldofap r19, r28, Scn.Step.Player.ActorData.__bf_AbilityInfo
+			mcopys r4, r19, ScnContext.Step.AbilityInfo
+			ldsrsr r25, r4
+			ldofa4 r26, r25, ScnContext.Step.AbilityInfo.__bf_CopyAbilityKind
+			switch r26, 16
+			jmp    loc_aftershuffle
+			jmp    loc_aftershuffle
+			jmp    loc_aftershuffle
+			jmp    loc_CopyBomb
+			jmp    loc_CopyCrash
+			jmp    loc_CopyCutter
+			jmp    loc_CopyDrill
+			jmp    loc_CopyFire
+			jmp    loc_CopyHammer
+			jmp    loc_CopyIce
+			jmp    loc_CopyNeedle
+			jmp    loc_CopyRanger
+			jmp    loc_CopySleep
+			jmp    loc_CopySword
+			jmp    loc_CopyTornado
+			jmp    loc_aftershuffle
+			jmp    loc_aftershuffle
+
+			loc_CopyBomb:
+			ldsrc4 r26, %ABILITY_0%
+			jmp    loc_aftershuffle
+
+			loc_CopyCrash:
+			ldsrc4 r26, %ABILITY_1%
+			jmp    loc_aftershuffle
+
+			loc_CopyCutter:
+			ldsrc4 r26, %ABILITY_2%
+			jmp    loc_aftershuffle
+
+			loc_CopyDrill:
+			ldsrc4 r26, %ABILITY_3%
+			jmp    loc_aftershuffle
+
+			loc_CopyFire:
+			ldsrc4 r26, %ABILITY_4%
+			jmp    loc_aftershuffle
+
+			loc_CopyHammer:
+			ldsrc4 r26, %ABILITY_5%
+			jmp    loc_aftershuffle
+
+			loc_CopyIce:
+			ldsrc4 r26, %ABILITY_6%
+			jmp    loc_aftershuffle
+
+			loc_CopyNeedle:
+			ldsrc4 r26, %ABILITY_7%
+			jmp    loc_aftershuffle
+
+			loc_CopyRanger:
+			ldsrc4 r26, %ABILITY_8%
+			jmp    loc_aftershuffle
+
+			loc_CopySleep:
+			ldsrc4 r26, %ABILITY_9%
+			jmp    loc_aftershuffle
+
+			loc_CopySword:
+			ldsrc4 r26, %ABILITY_10%
+			jmp    loc_aftershuffle
+
+			loc_CopyTornado:
+			ldsrc4 r26, %ABILITY_11%
+			jmp    loc_aftershuffle
+
+			loc_aftershuffle:
+			ldsrsr r3, r26
+			ldofad r28, r0, this._obj
+			calltp r27, ActSys.Obj.get_Manager()
+			ldsrsr r29, r27
+			dcall  r28, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r25, r28, Scn.Step.Modules._storageManager
+			ldofad r27, r25, Scn.Step.StorageManager._backupFileData
+			ldofad r25, r27, Storage.File.Root.CopyAbilitys
+			ldsr2  r28, r25, r26
+			dcall  r27, 2
+			_xref  Stdlib.EnumKeyArray`2.get_Item(TKey)
+			_xref  Stdlib.EnumKeyArray`2<ScnContext.Step.CopyAbilityKindType,Storage.File.CopyAbilityData>
+			_xref  Storage.File.CopyAbilityData
+			_ret   r0
+			ldsrc4 r25, 0x1
+			stofa4 r27, r25, Storage.File.CopyAbilityData.IsGotten
+			ldofad r26, r0, this._obj
+			calltp r25, ActSys.Obj.get_Manager()
+			ldsrsr r27, r25
+			dcall  r26, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r25, r26, Scn.Step.Modules._storageManager
+			ldofad r26, r25, Scn.Step.StorageManager._backupFileData
+			ldofad r25, r26, Storage.File.Root.Player
+			ldsrc4 r26, 0x1
+			stofa4 r25, r26, Storage.File.Player.IsWatchedAbilityGetDemo
+			ldofad r26, r0, this._obj
+			calltp r25, ActSys.Obj.get_Manager()
+			ldsrsr r27, r25
+			dcall  r26, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r25, r26, Scn.Step.Modules._storageManager
+			ldofad r26, r25, Scn.Step.StorageManager._volatileData
+			ldsrc4 r25, 0x1
+			stofa4 r26, r25, Storage.Volatile.Root.IsNeedToSaveRequest
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.ModelFlashCtrl
+			_xref  Scn.Step.Actor.Basic.ModelFlashCtrl
+			_ret   r0
+			ldsrc4 r26, 0x0
+			stofa4 r25, r26, Scn.Step.Actor.Basic.ModelFlashCtrl._isValid
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.InvincibleCtrl
+			_xref  Scn.Step.Actor.Kirby.Common.InvincibleCtrl
+			_ret   r0
+			ldofad r26, r25, Scn.Step.Actor.Kirby.Common.InvincibleCtrl._invincibleCtrl
+			callt4 r26, Scn.Step.Player.InvincibleCtrl.SetDemoState()
+			ldsrsr r26, r25
+			callt4 r26, Scn.Step.Actor.Kirby.Common.InvincibleCtrl.ReflectBody()
+			ldsrsr r26, r25
+			callt4 r26, Scn.Step.Actor.Kirby.Common.InvincibleCtrl.ReflectFlash()
+			ldsrsr r26, r25
+			callt4 r26, Scn.Step.Actor.Kirby.Common.InvincibleCtrl.ReflectFieldReactor()
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.FallRestartCtrl
+			_xref  Scn.Step.Actor.Kirby.Common.FallRestartCtrl
+			_ret   r0
+			ldsrc4 r26, 0x1
+			stofa4 r25, r26, Scn.Step.Actor.Kirby.Common.FallRestartCtrl.__bf_IgnoreColdWater
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.FallRestartCtrl
+			_xref  Scn.Step.Actor.Kirby.Common.FallRestartCtrl
+			_ret   r0
+			ldsrc4 r26, 0x1
+			stofa4 r25, r26, Scn.Step.Actor.Kirby.Common.FallRestartCtrl.__bf_IgnoreLava
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.ActionChecker
+			_xref  Scn.Step.Actor.Kirby.Common.ActionChecker
+			_ret   r0
+			ldsrc4 r26, 0x1
+			stofa4 r25, r26, Scn.Step.Actor.Kirby.Common.ActionChecker.__bf_IsActionInterruptDisabled
+			ldsrc4 r26, 0x1
+			stofa4 r25, r26, Scn.Step.Actor.Kirby.Common.ActionChecker.__bf_IsGimmickInterruptDisabled
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.ItemCollReactor
+			_xref  Scn.Step.Actor.Kirby.Common.ItemCollReactor
+			_ret   r0
+			ldsrc4 r26, 0x0
+			stofa4 r25, r26, Scn.Step.Actor.Kirby.Common.ItemCollReactor._isValid
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.ForbidController
+			_xref  Scn.Step.Actor.Kirby.Common.ForbidController
+			_ret   r0
+			ldofa4 r26, r25, Scn.Step.Actor.Kirby.Common.ForbidController._flags
+			ldsrc4 r27, 0x1
+			ldsrc4 r28, 0x1
+			ldsrc4 r29, 0x1F
+			andi32 r30, r28, r29
+			slli32 r28, r27, r30
+			ori32  r27, r26, r28
+			stofa4 r25, r27, Scn.Step.Actor.Kirby.Common.ForbidController._flags
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.Nururi
+			_xref  Scn.Step.Actor.Basic.Nururi
+			_ret   r0
+			ldofad r26, r25, Scn.Step.Actor.Basic.Nururi._nururiObj
+			ldsrsr r27, r26
+			ldsrc4 r28, 0x0
+			calltp r27, Scn.Step.Nururi.NururiObj.SetIsEnabledToSend(bool)
+			ldofad r26, r25, Scn.Step.Actor.Basic.Nururi._nururiObj
+			ldsrsr r27, r26
+			ldsrc4 r28, 0x0
+			calltp r27, Scn.Step.Nururi.NururiObj.SetIsEnabledToReceive(bool)
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.Inhaler
+			_xref  Scn.Step.Actor.Basic.Inhaler
+			_ret   r0
+			ldsrsr r26, r25
+			callt4 r26, Scn.Step.Actor.Basic.Inhaler.Swallow()
+			ldofa4 r25, r0, this._isLong
+			jmppos r25, loc_00000199
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.FindComponent()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.GearController
+			_xref  Scn.Step.Actor.Basic.GearController
+			_ret   r0
+			ldsrsr r23, r25
+			jmpneg r25, loc_0000016f
+			jmp    loc_00000172
+			
+			loc_0000016f:
+			ldsrsr r25, r23
+			ldsrc4 r26, 0x0
+			callt4 r25, Scn.Step.Actor.Basic.GearController.SetIsVisible(bool)
+			
+			loc_00000172:
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.FindComponent()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.EffectCtrl
+			_xref  Scn.Step.Actor.Kirby.Common.EffectCtrl
+			_ret   r0
+			ldsrsr r23, r25
+			jmpneg r25, loc_0000017c
+			jmp    loc_0000018d
+			
+			loc_0000017c:
+			ldofad r25, r23, Scn.Step.Actor.Kirby.Common.EffectCtrl._requestorArray
+			ldsrsr r27, r25
+			ldsrc4 r28, 0x2
+			dcall  r26, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Actor.Basic.EffectRequestor>
+			_xref  Scn.Step.Actor.Basic.EffectRequestor
+			_ret   r0
+			ldofad r28, r26, Scn.Step.Actor.Basic.EffectRequestor._native
+			dcall  r27, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Eft.StdRequestor>
+			_xref  Eft.StdRequestor
+			_ret   r0
+			ldsrsr r28, r27
+			ldsrc4 r29, 0x0
+			calltp r28, Eft.StdRequestor.SetIsVisible(bool)
+			
+			loc_0000018d:
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.FindComponent()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Sleep.FaceCtrl
+			_xref  Scn.Step.Actor.Kirby.Sleep.FaceCtrl
+			_ret   r0
+			ldsrsr r23, r25
+			jmpneg r25, loc_00000197
+			jmp    loc_00000199
+			
+			loc_00000197:
+			ldsrc4 r25, 0x0
+			stofa4 r23, r25, Scn.Step.Actor.Kirby.Sleep.FaceCtrl.__bf_IsSleepness
+			
+			loc_00000199:
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.Model
+			_xref  Scn.Step.Actor.Basic.Model
+			_ret   r0
+			ldsrsr r26, r25
+			ldsrc4 r27, 0x16
+			callt4 r26, Scn.Step.Actor.Basic.Model.SetGroup(Scn.Step.G3dGroupKind)
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.FindComponent()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.GearController
+			_xref  Scn.Step.Actor.Basic.GearController
+			_ret   r0
+			ldsrsr r23, r25
+			jmpneg r25, loc_000001ad
+			jmp    loc_000001b0
+			
+			loc_000001ad:
+			ldsrsr r25, r23
+			ldsrc4 r26, 0x16
+			callt4 r25, Scn.Step.Actor.Basic.GearController.SetGroup(Scn.Step.G3dGroupKind)
+			
+			loc_000001b0:
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.FindComponent()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.EffectCtrl
+			_xref  Scn.Step.Actor.Kirby.Common.EffectCtrl
+			_ret   r0
+			ldsrsr r23, r25
+			jmpneg r25, loc_000001ba
+			jmp    loc_000001bd
+			
+			loc_000001ba:
+			ldsrsr r25, r23
+			ldsrc4 r26, 0x1
+			callt4 r25, Scn.Step.Actor.Kirby.Common.EffectCtrl.ChangeLayer(Scn.Step.EffectLayerKind)
+			
+			loc_000001bd:
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.FindComponent()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.WaterEffectCtrl
+			_xref  Scn.Step.Actor.Basic.WaterEffectCtrl
+			_ret   r0
+			ldsrsr r23, r25
+			jmpneg r25, loc_000001c7
+			jmp    loc_000001c9
+			
+			loc_000001c7:
+			ldsrc4 r25, 0x0
+			stofa4 r23, r25, Scn.Step.Actor.Basic.WaterEffectCtrl.__bf_IsValidState
+			
+			loc_000001c9:
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.FindComponent()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.WaterEffectCtrl
+			_xref  Scn.Step.Actor.Basic.WaterEffectCtrl
+			_ret   r0
+			ldsrsr r23, r25
+			jmpneg r25, loc_000001d3
+			jmp    loc_000001d5
+			
+			loc_000001d3:
+			ldsrsr r25, r23
+			callt4 r25, Scn.Step.Actor.Basic.WaterEffectCtrl.ReleaseAndVanishEffect()
+			
+			loc_000001d5:
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.FindComponent()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.FloatRingCtrl
+			_xref  Scn.Step.Actor.Kirby.Common.FloatRingCtrl
+			_ret   r0
+			ldsrsr r23, r25
+			jmpneg r25, loc_000001df
+			jmp    loc_000001e1
+			
+			loc_000001df:
+			ldsrc4 r25, 0x0
+			stofa4 r23, r25, Scn.Step.Actor.Kirby.Common.FloatRingCtrl.__bf_IsVisibleState
+			
+			loc_000001e1:
+			ldofa4 r25, r0, this._isLong
+			jmppos r25, loc_000001ff
+			ldsrca r5, "Common.StateCopy.AfterOnStartFirst"
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.StateCtrl
+			_xref  Scn.Step.Actor.Basic.StateCtrl
+			_ret   r0
+			ldsrsr r27, r25
+			ldsrca r28, "Common.StateCopy.AfterOnStartFirst"
+			ldsrc4 r29, 0x0
+			callt4 r26, Scn.Step.Actor.Basic.StateCtrl.TryToRequestFxTriggerAnim(string,int)
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.Model
+			_xref  Scn.Step.Actor.Basic.Model
+			_ret   r0
+			ldofad r27, r25, Scn.Step.Actor.Basic.Model._model
+			dcall  r26, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<G3d.HeavyModel>
+			_xref  G3d.HeavyModel
+			_ret   r0
+			ldsrsr r27, r26
+			ldsrcf r28, 0f
+			calltp r27, G3d.HeavyModel.SetFrameRate(float)
+			
+			loc_000001ff:
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.ObjStopCtrl
+			_xref  Scn.Step.Actor.Basic.ObjStopCtrl
+			_ret   r0
+			ldsrsr r6, r25
+			ldofad r26, r25, Scn.Step.Actor.Basic.ObjStopCtrl._objStopHandle
+			ldsrzr r25
+			neptr  r27, r26, r25
+			jmpneg r27, loc_00000211
+			jmp    loc_0000020e
+			
+			loc_0000020c:
+			ldsrc4 r25, 0x1
+			yield  r25
+			
+			loc_0000020e:
+			ldsrsr r26, r6
+			callt4 r25, Scn.Step.Actor.Basic.ObjStopCtrl.Request()
+			jmppos r25, loc_0000020c
+			
+			loc_00000211:
+			ldsrsr r25, r6
+			ldsrc4 r26, 0x1
+			callt4 r25, Scn.Step.Actor.Basic.ObjStopCtrl.set_IsSpecialOnce(bool)
+			ldsrc4 r25, 0x1
+			yield  r25
+			ldofa4 r25, r0, this._isDisabledStagingCamera
+			jmpneg r25, loc_00000236
+			ldofad r26, r0, this._obj
+			calltp r25, ActSys.Obj.get_Manager()
+			ldsrsr r27, r25
+			dcall  r26, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r25, r26, Scn.Step.Modules._cameraManager
+			ldofad r26, r25, Scn.Step.Camera.Manager.__bf_GeneralEndErpCtrl
+			ldofa4 r25, r0, this._isLong
+			ldsrsr r23, r26
+			jmpneg r25, loc_00000229
+			ldsrsr r23, r23
+			ldsrcf r24, 50f
+			jmp    loc_0000022b
+			
+			loc_00000229:
+			ldsrsr r23, r23
+			ldsrcf r24, 100f
+			
+			loc_0000022b:
+			ldsr2  r25, r18, r24
+			calltp r25, Util.TimeSpan.FromFrame(float)
+			mcopys r2, r18, Util.TimeSpan
+			ldsrsr r25, r2
+			ldsrsr r26, r18
+			ldsrcf r27, 40f
+			calltp r26, Util.TimeSpan.FromFrame(float)
+			mcopys r7, r18, Util.TimeSpan
+			ldsr4  r26, r7, r23, r25, r26
+			ldsrc4 r30, 0x2
+			callt4 r27, Scn.Step.Camera.GeneralEndErpCtrl.Start(ref Util.TimeSpan,ref Util.TimeSpan,Scn.Step.Camera.GeneralEndErpCtrl/ErpType)
+			
+			loc_00000236:
+			ldsrsr r25, r0
+			callt4 r25, this.SetDirToCamera()
+			ldofa4 r25, r0, this._isDisabledStagingCamera
+			jmpneg r25, loc_0000026d
+			ldofad r26, r0, this._obj
+			calltp r25, ActSys.Obj.get_Manager()
+			ldsrsr r27, r25
+			dcall  r26, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r25, r26, Scn.Step.Modules._cameraManager
+			ldofad r26, r25, Scn.Step.Camera.Manager.__bf_TargetZoomCtrl
+			ldsrsr r8, r26
+			ldsrcf r9, 0.8f
+			ldofa4 r25, r26, Scn.Step.Camera.TargetZoomCtrl.__bf_ZoomFovYRate
+			ldsrcf r27, 0.1f
+			subf32 r28, r25, r27
+			ldsrsr r30, r28
+			ldsrcf r31, 0.8f
+			callt4 r29, Hel.Math.Min(float,float)
+			ldsrsr r9, r29
+			ldsrcf r31, 0.5f
+			ldsrsr r32, r29
+			callt4 r30, Hel.Math.Max(float,float)
+			ldsrsr r9, r30
+			ldofad r32, r0, this._obj
+			calltp r31, ActSys.Obj.get_Transform()
+			ldsr2  r32, r20, r31
+			calltp r32, ActSys.Transform.get_Position()
+			mcopys r11, r20, Hel.Vector3
+			ldsrsr r25, r11
+			ldsrsr r31, r20
+			calltp r31, Hel.Vector3.get_UnitY()
+			mcopys r12, r20, Hel.Vector3
+			ldsrsr r27, r12
+			ldsr2  r31, r20, r27
+			ldsrcf r33, 0.5f
+			calltp r31, Hel.Vector3.op_Multiply(ref Hel.Vector3,float)
+			mcopys r13, r20, Hel.Vector3
+			ldsrsr r27, r13
+			ldsr3  r31, r20, r25, r27
+			calltp r31, Hel.Vector3.op_Addition(ref Hel.Vector3,ref Hel.Vector3)
+			mcopys r10, r20, Hel.Vector3
+			ldsrsr r25, r10
+			ldsrsr r31, r18
+			ldsrcf r32, 20f
+			calltp r31, Util.TimeSpan.FromFrame(float)
+			mcopys r2, r18, Util.TimeSpan
+			ldsrsr r27, r2
+			ldsr4  r32, r26, r30, r25, r27
+			callt4 r31, Scn.Step.Camera.TargetZoomCtrl.Start(float,ref Hel.Vector3,ref Util.TimeSpan)
+			stofa4 r0, r31, this._zoomId
+			
+			loc_0000026d:
+			ldsrcf r14, 0.8f
+			ldofad r26, r0, this._obj
+			calltp r25, ActSys.Obj.get_Manager()
+			ldsrsr r27, r25
+			dcall  r26, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r25, r26, Scn.Step.Modules._sfxManager
+			ldofad r26, r25, Scn.Step.Sfx.Manager.__bf_WorldFadeMiddle
+			sppshz r21, Hel.Util.Color4
+			ldsrsr r27, r21
+			ldsrcf r28, 0f
+			ldsrcf r29, 0f
+			ldsrcf r30, 0f
+			ldsrcf r31, 0.8f
+			calltp r27, Hel.Util.Color4.this(float,float,float,float)
+			mcopys r15, r21, Hel.Util.Color4
+			ldsrsr r25, r15
+			mcopys r21, r25, Hel.Util.Color4
+			stof_u r26, r21, Scn.Step.Sfx.ScreenFade._color
+			ldsrsr r27, r18
+			ldsrcf r28, 10f
+			calltp r27, Util.TimeSpan.FromFrame(float)
+			mcopys r2, r18, Util.TimeSpan
+			ldsrsr r25, r2
+			ldsrsr r27, r18
+			calltp r27, Util.TimeSpan.get_Zero()
+			mcopys r22, r18, Util.TimeSpan
+			ldsr2  r27, r22, r26
+			ldsrcf r29, 1f
+			ldsr2  r30, r27, r25
+			callt4 r28, Scn.Step.Sfx.ScreenFade.StartFade(float,ref Util.TimeSpan,ref Util.TimeSpan)
+			ldofa4 r25, r0, this._isLong
+			jmpneg r25, loc_00000294
+			ldofad r25, r0, this._obj
+			callt4 r25, Scn.Step.Actor.StateUtil.WaitTillIsAnimEnd(ActSys.Obj)
+			
+			loc_00000294:
+			ldsrca r16, "Common.StateCopy.AfterOnStart"
+			ldofa4 r25, r0, this._isLong
+			jmppos r25, loc_00000298
+			ldsrca r16, "Common.StateCopy.AfterOnStartFirst"
+			
+			loc_00000298:
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.StateCtrl
+			_xref  Scn.Step.Actor.Basic.StateCtrl
+			_ret   r0
+			ldsr2  r27, r25, r16
+			callt4 r26, Scn.Step.Actor.Basic.StateCtrl.TryToRequestFxTrigger(string)
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.PlayerDataProxy
+			_xref  Scn.Step.Actor.Kirby.Common.PlayerDataProxy
+			_ret   r0
+			ldofad r27, r25, Scn.Step.Actor.Kirby.Common.PlayerDataProxy._obj
+			calltp r26, ActSys.Obj.get_Manager()
+			ldsrsr r28, r26
+			dcall  r27, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r26, r27, Scn.Step.Modules._playerManager
+			ldofa4 r27, r25, Scn.Step.Actor.Kirby.Common.PlayerDataProxy._slot
+			ldofad r25, r26, Scn.Step.Player.Manager.__bf_ActorDataArray
+			ldsr2  r29, r25, r27
+			dcall  r28, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Player.ActorData>
+			_xref  Scn.Step.Player.ActorData
+			_ret   r0
+			ldsrsr r29, r28
+			ldsrc4 r30, 0x0
+			callt4 r29, Scn.Step.Player.ActorData.ChangeHeroPanelName(bool)
+			ldofad r26, r0, this._obj
+			dcall  r25, 3
+			_xref  ActSys.Obj.FindComponent()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Sleep.FaceCtrl
+			_xref  Scn.Step.Actor.Kirby.Sleep.FaceCtrl
+			_ret   r0
+			ldsrsr r17, r25
+			jmppos r25, loc_000002cc
+			ldofad r25, r0, this._obj
+			ldsrsr r26, r25
+			ldsrcf r27, 70f
+			callt4 r26, Scn.Step.Actor.StateUtil.WaitTillAnimFrame(ActSys.Obj,float)
+			ldsrc4 r25, 0x1
+			stofa4 r17, r25, Scn.Step.Actor.Kirby.Sleep.FaceCtrl.__bf_IsSleepness
+			
+			loc_000002cc:
+			ldofad r25, r0, this._obj
+			ldofad r27, r0, this._obj
+			dcall  r26, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.Model
+			_xref  Scn.Step.Actor.Basic.Model
+			_ret   r0
+			ldofad r28, r26, Scn.Step.Actor.Basic.Model._model
+			dcall  r27, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<G3d.HeavyModel>
+			_xref  G3d.HeavyModel
+			_ret   r0
+			ldsrsr r29, r27
+			calltp r28, G3d.HeavyModel.TotalFrame()
+			ctf32s r26, r28
+			ldsrcf r27, 20f
+			subf32 r28, r26, r27
+			ldsr2  r29, r25, r28
+			callt4 r29, Scn.Step.Actor.StateUtil.WaitTillAnimFrame(ActSys.Obj,float)
+			ldofad r26, r0, this._obj
+			calltp r25, ActSys.Obj.get_Manager()
+			ldsrsr r27, r25
+			dcall  r26, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r25, r26, Scn.Step.Modules._sfxManager
+			ldofad r26, r25, Scn.Step.Sfx.Manager.__bf_WorldFadeMiddle
+			ldsrsr r27, r18
+			ldsrcf r28, 20f
+			calltp r27, Util.TimeSpan.FromFrame(float)
+			mcopys r2, r18, Util.TimeSpan
+			ldsrsr r25, r2
+			ldsrsr r27, r22
+			calltp r27, Util.TimeSpan.get_Zero()
+			mcopys r18, r22, Util.TimeSpan
+			ldsr2  r27, r18, r26
+			ldsrcf r29, 0f
+			ldsr2  r30, r27, r25
+			callt4 r28, Scn.Step.Sfx.ScreenFade.StartFade(float,ref Util.TimeSpan,ref Util.TimeSpan)
+			ldsrc4 r25, 0x1
+			stofa4 r0, r25, this._isRequestFadeIn
+			ldofa4 r25, r0, this._isDisabledStagingCamera
+			jmpneg r25, loc_0000030e
+			ldofad r26, r0, this._obj
+			calltp r25, ActSys.Obj.get_Manager()
+			ldsrsr r27, r25
+			dcall  r26, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r25, r26, Scn.Step.Modules._cameraManager
+			ldofad r26, r25, Scn.Step.Camera.Manager.__bf_TargetZoomCtrl
+			ldofa4 r25, r0, this._zoomId
+			ldsrsr r27, r18
+			ldsrcf r28, 40f
+			calltp r27, Util.TimeSpan.FromFrame(float)
+			mcopys r2, r18, Util.TimeSpan
+			ldsr4  r27, r2, r26, r25, r27
+			callt4 r28, Scn.Step.Camera.TargetZoomCtrl.End(int,ref Util.TimeSpan)
+			
+			loc_0000030e:
+			ldofad r25, r0, this._obj
+			callt4 r25, Scn.Step.Actor.StateUtil.WaitTillIsAnimEnd(ActSys.Obj)
+			ldofad r25, r0, this._obj
+			ldsrsr r27, r25
+			dcall  r26, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.StateCtrl
+			_xref  Scn.Step.Actor.Basic.StateCtrl
+			_ret   r0
+			ldsrsr r27, r26
+			callt4 r27, Scn.Step.Actor.Basic.StateCtrl.ChangeStateDefault()
+			fleave r0
+		}
+		
+		flag2 void OnStateEnd()
+		{
+			fenter 0
+			_void  r0
+			sppsh  r1, Util.TimeSpan
+			sppsh  r2, Util.TimeSpan
+			sppsh  r3, Util.TimeSpan
+			ldofad r6, r0, this._obj
+			calltp r5, ActSys.Obj.get_Manager()
+			ldsrsr r7, r5
+			dcall  r6, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r5, r6, Scn.Step.Modules.__bf_DemoManager
+			ldsrsr r6, r5
+			ldsrc4 r7, 0x8000
+			callt4 r6, Scn.Step.DemoManager.Remove(uint)
+			ldofad r6, r0, this._obj
+			calltp r5, ActSys.Obj.get_Manager()
+			ldsrsr r7, r5
+			dcall  r6, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r5, r6, Scn.Step.Modules._dofController
+			ldsrsr r6, r5
+			ldsrc4 r7, 0x0
+			callt4 r6, Scn.Step.Rendering.DofController.FinishDemoMode(bool)
+			ldofad r6, r0, this._obj
+			calltp r5, ActSys.Obj.get_Manager()
+			ldsrsr r7, r5
+			dcall  r6, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r5, r6, Scn.Step.Modules.__bf_GamePauseManager
+			ldofad r6, r5, Scn.Step.GamePause.Manager.__bf_Control
+			ldsrsr r7, r6
+			ldsrc4 r8, 0x9
+			ldsrc4 r9, 0x0
+			callt4 r7, Scn.Step.GamePause.Control.SetIsDisabled(Scn.Step.GamePause.DisabledKind,bool)
+			ldofad r6, r0, this._obj
+			calltp r5, ActSys.Obj.get_Manager()
+			ldsrsr r7, r5
+			dcall  r6, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r5, r6, Scn.Step.Modules._cameraManager
+			ldofad r6, r5, Scn.Step.Camera.Manager.__bf_SwingCtrl
+			ldofa4 r5, r0, this._cameraSwingInputBlockId
+			ldsr2  r7, r6, r5
+			callt4 r7, Scn.Step.Camera.SwingCtrl.EndInputBlock(int)
+			ldofad r6, r0, this._obj
+			dcall  r5, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.ModelFlashCtrl
+			_xref  Scn.Step.Actor.Basic.ModelFlashCtrl
+			_ret   r0
+			ldsrc4 r6, 0x1
+			stofa4 r5, r6, Scn.Step.Actor.Basic.ModelFlashCtrl._isValid
+			ldofad r6, r0, this._obj
+			dcall  r5, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.ObjStopCtrl
+			_xref  Scn.Step.Actor.Basic.ObjStopCtrl
+			_ret   r0
+			ldsrsr r6, r5
+			ldsrc4 r7, 0x0
+			callt4 r6, Scn.Step.Actor.Basic.ObjStopCtrl.Release(int)
+			ldofa4 r5, r0, this._isLong
+			jmppos r5, loc_00000053
+			ldsrsr r5, r0
+			callt4 r5, this.AppearHat()
+			
+			loc_00000053:
+			ldofa4 r5, r0, this._isRequestFadeIn
+			jmpneg r5, loc_0000006c
+			ldofad r6, r0, this._obj
+			calltp r5, ActSys.Obj.get_Manager()
+			ldsrsr r7, r5
+			dcall  r6, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r5, r6, Scn.Step.Modules._sfxManager
+			ldofad r6, r5, Scn.Step.Sfx.Manager.__bf_WorldFadeMiddle
+			ldsrsr r7, r2
+			ldsrcf r8, 20f
+			calltp r7, Util.TimeSpan.FromFrame(float)
+			mcopys r1, r2, Util.TimeSpan
+			ldsrsr r5, r1
+			ldsrsr r7, r2
+			calltp r7, Util.TimeSpan.get_Zero()
+			mcopys r3, r2, Util.TimeSpan
+			ldsr2  r7, r3, r6
+			ldsrcf r9, 0f
+			ldsr2  r10, r7, r5
+			callt4 r8, Scn.Step.Sfx.ScreenFade.StartFade(float,ref Util.TimeSpan,ref Util.TimeSpan)
+			
+			loc_0000006c:
+			ldofa4 r5, r0, this._isDisabledStagingCamera
+			jmpneg r5, loc_00000080
+			ldofad r6, r0, this._obj
+			calltp r5, ActSys.Obj.get_Manager()
+			ldsrsr r7, r5
+			dcall  r6, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r5, r6, Scn.Step.Modules._cameraManager
+			ldofad r6, r5, Scn.Step.Camera.Manager.__bf_TargetZoomCtrl
+			ldofa4 r5, r0, this._zoomId
+			ldsrsr r7, r2
+			ldsrcf r8, 20f
+			calltp r7, Util.TimeSpan.FromFrame(float)
+			mcopys r1, r2, Util.TimeSpan
+			ldsr4  r7, r1, r6, r5, r7
+			callt4 r8, Scn.Step.Camera.TargetZoomCtrl.End(int,ref Util.TimeSpan)
+			
+			loc_00000080:
+			ldofad r6, r0, this._obj
+			dcall  r5, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.Model
+			_xref  Scn.Step.Actor.Basic.Model
+			_ret   r0
+			ldofad r6, r5, Scn.Step.Actor.Basic.Model._defaultGroup
+			stofad r5, r6, Scn.Step.Actor.Basic.Model._group
+			ldofad r7, r5, Scn.Step.Actor.Basic.Model._autoReqEft
+			dcall  r6, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Eft.StdRequestor>
+			_xref  Eft.StdRequestor
+			_ret   r0
+			ldofad r7, r5, Scn.Step.Actor.Basic.Model._defaultEffectLayer
+			ldsr2  r8, r6, r7
+			calltp r8, Eft.StdRequestor.ChangeLayer(Eft.Layer)
+			ldofad r6, r0, this._obj
+			dcall  r5, 3
+			_xref  ActSys.Obj.FindComponent()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.GearController
+			_xref  Scn.Step.Actor.Basic.GearController
+			_ret   r0
+			ldsrsr r4, r5
+			jmpneg r5, loc_0000009c
+			jmp    loc_0000009e
+			
+			loc_0000009c:
+			ldsrsr r5, r4
+			callt4 r5, Scn.Step.Actor.Basic.GearController.ResetGroup()
+			
+			loc_0000009e:
+			ldofad r6, r0, this._obj
+			dcall  r5, 3
+			_xref  ActSys.Obj.FindComponent()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.EffectCtrl
+			_xref  Scn.Step.Actor.Kirby.Common.EffectCtrl
+			_ret   r0
+			ldsrsr r4, r5
+			jmpneg r5, loc_000000a8
+			jmp    loc_000000aa
+			
+			loc_000000a8:
+			ldsrsr r5, r4
+			callt4 r5, Scn.Step.Actor.Kirby.Common.EffectCtrl.ResetLayer()
+			
+			loc_000000aa:
+			ldofad r6, r0, this._obj
+			calltp r5, ActSys.Obj.get_Manager()
+			ldsrsr r7, r5
+			dcall  r6, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Actor.Gimmick.Mannequin.Master
+			_xref  Scn.Step.Actor.Gimmick.Mannequin.Master
+			_ret   r0
+			ldsrsr r4, r6
+			jmpneg r6, loc_000000b6
+			jmp    loc_000000b8
+			
+			loc_000000b6:
+			ldsrc4 r5, 0x0
+			stofa4 r4, r5, Scn.Step.Actor.Gimmick.Mannequin.Master.__bf_IsSleepByMannequin
+			
+			loc_000000b8:
+			ldofa4 r5, r0, this._isDisabledStagingCamera
+			jmppos r5, return
+			ldofad r6, r0, this._obj
+			dcall  r5, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.StateCtrl
+			_xref  Scn.Step.Actor.Basic.StateCtrl
+			_ret   r0
+			ldofad r7, r5, Scn.Step.Actor.Basic.StateCtrl._fxTriggerRequestor
+			dcall  r6, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<FxTrigger.Requestor>
+			_xref  FxTrigger.Requestor
+			_ret   r0
+			ldsrsr r8, r6
+			ldsrca r9, "SoundVolume"
+			ldsrca r10, "Normal"
+			calltp r7, FxTrigger.Requestor.SetParameter(string,string)
+			
+			return:
+			fleave r0
+		}
+		
+		flag2 void OnStateUpdate()
+		{
+			fenter 0
+			_void  r0
+			sppsh  r1, Stdlib.FixedString128
+			sppsh  r3, Stdlib.FixedString128
+			sppsh  r4, Stdlib.FixedString128
+			sppsh  r5, Hel.Vector3
+			sppsh  r6, Hel.Vector3
+			sppsh  r7, Hel.Axis3
+			sppsh  r8, Hel.Axis3
+			sppsh  r9, Hel.Vector3
+			jmp    loc_00000038
+			
+			loc_0000000b:
+			ldofad r10, r0, this._obj
+			ldsr2  r11, r4, r10
+			callt4 r11, Scn.Step.Actor.StateUtil.NextSignal(ActSys.Obj)
+			mcopys r1, r4, Stdlib.FixedString128
+			ldsrsr r10, r1
+			mcopys r3, r10, Stdlib.FixedString128
+			ldsrsr r11, r3
+			calltp r10, Stdlib.FixedString128.ReadPtr()
+			ldsrsr r2, r10
+			ldsrsr r12, r10
+			ldsrca r13, "AppearHat"
+			calltp r11, Stdlib.StringUtil.op_Equality(string,string)
+			jmpneg r11, loc_0000001d
+			ldsrsr r11, r2
+			ldsrca r12, "Copy.Change"
+			calltp r10, Stdlib.StringUtil.op_Equality(string,string)
+			jmpneg r10, loc_00000020
+			jmp    loc_00000038
+			
+			loc_0000001d:
+			ldsrsr r10, r0
+			callt4 r10, this.AppearHat()
+			jmp    loc_00000038
+			
+			loc_00000020:
+			ldofad r10, r0, this._obj
+			ldsrsr r12, r10
+			calltp r11, ActSys.Obj.get_Transform()
+			ldsr2  r12, r5, r11
+			calltp r12, ActSys.Transform.get_Position()
+			mcopys r6, r5, Hel.Vector3
+			ldsrsr r11, r6
+			ldsrsr r12, r7
+			callt4 r12, Hel.Axis3.get_Basis()
+			mcopys r8, r7, Hel.Axis3
+			ldsrsr r12, r8
+			ldsrsr r13, r5
+			calltp r13, Hel.Vector3.get_One()
+			mcopys r9, r5, Hel.Vector3
+			ldsrsr r13, r9
+			ldsrsr r15, r10
+			ldsrca r16, "Copy.Change.NoAuxEffect"
+			ldsr3  r17, r11, r12, r13
+			ldsrc4 r20, 0x1
+			ldsrc4 r21, 0x0
+			ldsrzr r22
+			ldsrc4 r23, 0x0
+			ldsrc4 r24, 0x0
+			callt4 r14, Scn.Step.Actor.PermEffectUtil.Request(ActSys.Obj,string,ref Hel.Vector3,ref Hel.Axis3,ref Hel.Vector3,bool,bool,Eft.Layer,Scn.Step.Actor.PermEffectLayer,Scn.Step.Actor.Basic.SpecialTimeScaleFactorKind)
+			
+			loc_00000038:
+			ldofad r11, r0, this._obj
+			callt4 r10, Scn.Step.Actor.StateUtil.HasNextSignal(ActSys.Obj)
+			jmpneg r10, loc_0000000b
+			ldsrsr r10, r0
+			callt4 r10, this.SetDirToCamera()
+			fleave r0
+		}
+		
+		void AppearHat()
+		{
+			fenter 0
+			_void  r0
+			ldofad r3, r0, this._obj
+			dcall  r2, 3
+			_xref  ActSys.Obj.FindComponent()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.GearController
+			_xref  Scn.Step.Actor.Basic.GearController
+			_ret   r0
+			ldsrsr r1, r2
+			jmpneg r2, loc_0000000c
+			jmp    loc_0000000e
+			
+			loc_0000000c:
+			ldsrsr r2, r1
+			callt4 r2, Scn.Step.Actor.Basic.GearController.SetIsVisibleToDefault()
+			
+			loc_0000000e:
+			ldofad r3, r0, this._obj
+			dcall  r2, 3
+			_xref  ActSys.Obj.FindComponent()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.EffectCtrl
+			_xref  Scn.Step.Actor.Kirby.Common.EffectCtrl
+			_ret   r0
+			ldsrsr r1, r2
+			jmpneg r2, loc_00000018
+			fleave r0
+			
+			loc_00000018:
+			ldofad r2, r1, Scn.Step.Actor.Kirby.Common.EffectCtrl._requestorArray
+			ldsrsr r4, r2
+			ldsrc4 r5, 0x2
+			dcall  r3, 2
+			_xref  Stdlib.Array`1.get_Item(int)
+			_xref  Stdlib.Array`1<Scn.Step.Actor.Basic.EffectRequestor>
+			_xref  Scn.Step.Actor.Basic.EffectRequestor
+			_ret   r0
+			ldofad r5, r3, Scn.Step.Actor.Basic.EffectRequestor._native
+			dcall  r4, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Eft.StdRequestor>
+			_xref  Eft.StdRequestor
+			_ret   r0
+			ldsrsr r5, r4
+			ldsrc4 r6, 0x1
+			calltp r5, Eft.StdRequestor.SetIsVisible(bool)
+			fleave r0
+		}
+		
+		void SetDirToCamera()
+		{
+			fenter 0
+			_void  r0
+			sppsh  r1, Hel.Axis3
+			sppsh  r3, Hel.Vector3
+			sppsh  r4, Hel.Vector3
+			sppsh  r5, Hel.Vector3
+			sppsh  r6, Hel.Axis3
+			sppsh  r7, Hel.Vector3
+			sppsh  r8, Hel.Matrix4x3
+			sppsh  r9, Hel.Matrix4x3
+			sppsh  r10, Hel.Axis3
+			ldsrsr r11, r6
+			callt4 r11, Hel.Axis3.get_Basis()
+			mcopys r1, r6, Hel.Axis3
+			ldofad r12, r0, this._obj
+			dcall  r11, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.CameraTargetCtrl
+			_xref  Scn.Step.Actor.Kirby.Common.CameraTargetCtrl
+			_ret   r0
+			ldsrsr r2, r11
+			ldofad r12, r0, this._obj
+			calltp r11, ActSys.Obj.get_Manager()
+			ldsrsr r13, r11
+			dcall  r12, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r11, r12, Scn.Step.Modules._cameraManager
+			ldofap r7, r11, Scn.Step.Camera.Manager.__bf_ViewEyePos
+			mcopys r4, r7, Hel.Vector3
+			ldsrsr r11, r4
+			ldofad r13, r0, this._obj
+			calltp r12, ActSys.Obj.get_Transform()
+			ldsr2  r13, r7, r12
+			calltp r13, ActSys.Transform.get_Position()
+			mcopys r5, r7, Hel.Vector3
+			ldsrsr r12, r5
+			ldsr3  r13, r7, r11, r12
+			calltp r13, Hel.Vector3.op_Subtraction(ref Hel.Vector3,ref Hel.Vector3)
+			mcopys r3, r7, Hel.Vector3
+			ldsrsr r12, r3
+			calltp r11, Hel.Vector3.IsZeroLoose()
+			jmppos r11, loc_00000047
+			ldsrsr r11, r1
+			ldofad r12, r2, Scn.Step.Actor.Kirby.Common.CameraTargetCtrl._cameraManager
+			ldofap r8, r12, Scn.Step.Camera.Manager.__bf_ViewMatrix
+			mcopys r9, r8, Hel.Matrix4x3
+			ldsrsr r12, r9
+			ldsr2  r13, r8, r12
+			calltp r13, Hel.Matrix4x3.get_Inverse()
+			mcopys r9, r8, Hel.Matrix4x3
+			ldsrsr r12, r9
+			ldsr2  r13, r6, r12
+			calltp r13, Hel.Matrix4x3.get_Dir()
+			mcopys r10, r6, Hel.Axis3
+			ldsrsr r12, r10
+			ldof_u r13, r12, Hel.Axis3.Front
+			ldsr2  r14, r7, r13
+			ldsrcf r16, -1f
+			calltp r14, Hel.Vector3.op_Multiply(ref Hel.Vector3,float)
+			mcopys r4, r7, Hel.Vector3
+			ldsrsr r12, r4
+			ldsr2  r13, r7, r12
+			ldsrcf r15, -1f
+			calltp r13, Hel.Vector3.op_Multiply(ref Hel.Vector3,float)
+			stof_u r11, r7, Hel.Axis3.Front
+			jmp    loc_0000004b
+			
+			loc_00000047:
+			ldsr2  r11, r1, r3
+			ldsr2  r13, r7, r12
+			calltp r13, Hel.Vector3.Unit()
+			stof_u r11, r7, Hel.Axis3.Front
+			
+			loc_0000004b:
+			ldsrsr r11, r1
+			calltp r11, Hel.Axis3.RestructUpFrontAssign(ref Hel.Axis3)
+			ldofad r12, r0, this._obj
+			dcall  r11, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Basic.Pose
+			_xref  Scn.Step.Actor.Basic.Pose
+			_ret   r0
+			ldsrsr r12, r1
+			mcopys r6, r12, Hel.Axis3
+			stof_u r11, r6, Scn.Step.Actor.Basic.Pose.__bf_DirTarget
+			ldsrcf r12, 0.4f
+			stofa4 r11, r12, Scn.Step.Actor.Basic.Pose.__bf_ErpRateState
+			fleave r0
+		}
+	}
+}

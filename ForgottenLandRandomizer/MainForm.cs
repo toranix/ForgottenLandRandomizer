@@ -236,6 +236,7 @@ namespace ForgottenLandRandomizer
                 string[] discardScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Kirby.DiscardUtil.mints");
                 string[] evolveScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Gimmick.Mannequin.KirbyStateEvolution.mints");
                 string[] mannequinScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Gimmick.Mannequin.KirbyStateMannequinSet.mints");
+                string[] stateCopyScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Kirby.Common.StateCopy.mints");
                 for (int i = 0; i < shuffledCopyAbilities.Length; i++)
                 {
                     string tag = $"%ABILITY_{i}%";
@@ -267,12 +268,20 @@ namespace ForgottenLandRandomizer
                             discardScript[line] = discardScript[line].Replace(tag, CopyAbilities[Array.FindIndex(shuffledCopyAbilities, s => s == CopyAbilities[i])]);
                         }
                     }
+                    for (int line = 0; line < stateCopyScript.Length; line++)
+                    {
+                        if (stateCopyScript[line].Contains(tag))
+                        {
+                            stateCopyScript[line] = stateCopyScript[line].Replace(tag, CopyAbilities[Array.FindIndex(shuffledCopyAbilities, s => s == CopyAbilities[i])]);
+                        }
+                    }
                 }
 
                 mintScn.Scripts["Scn.Step.Actor.Kirby.KirbyBuildUtil"] = new MintScript(gainScript, new byte[] { 7, 0, 2, 0 });
                 mintScn.Scripts["Scn.Step.Actor.Kirby.DiscardUtil"] = new MintScript(discardScript, new byte[] { 7, 0, 2, 0 });
                 mintScn.Scripts["Scn.Step.Actor.Gimmick.Mannequin.KirbyStateEvolution"] = new MintScript(evolveScript, new byte[] { 7, 0, 2, 0 });
                 mintScn.Scripts["Scn.Step.Actor.Gimmick.Mannequin.KirbyStateMannequinSet"] = new MintScript(mannequinScript, new byte[] { 7, 0, 2, 0 });
+                mintScn.Scripts["Scn.Step.Actor.Kirby.Common.StateCopy"] = new MintScript(stateCopyScript, new byte[] { 7, 0, 2, 0 });
             }
 
             if ((isTouchFile["Scn"] || isTouchFile["Seq"]) && !Directory.Exists(outDir + "\\basil"))
