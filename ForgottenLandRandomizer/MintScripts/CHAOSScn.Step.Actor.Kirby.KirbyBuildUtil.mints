@@ -964,39 +964,44 @@ script Scn.Step.Actor.Kirby.KirbyBuildUtil
 			fret32 r30
 			
 			loc_0000001c:
+			ldofad r32, r0, Scn.Step.Modules._randomManager
+			ldofad r33, r32, Scn.Step.RandomManager._obj
+			dcall  r32, 2
+			_xref  Stdlib.ManagedRawptr`1.get_Ref()
+			_xref  Stdlib.ManagedRawptr`1<Hel.Util.Random>
+			_xref  Hel.Util.Random
+			_ret   r0
 			ldsrc4 r33, 0x3
 			ldsrc4 r34, 0xF
-			sppsh  r32, Hel.Util.Random
 			calltp r31, Hel.Util.Random.Rand(int,int)
 			stofa4 r2, r31, ScnContext.Step.AbilityInfo.__bf_CopyAbilityKind
-			ldsrc4 r32, 0x4
+			ldsrc4 r34, 0x4
 			ldsrc4 r33, 0x8
 			eqi32  r31, r33, loc_NotHammer
-			ldsrc4 r32, 0x5
+			ldsrc4 r34, 0x5
 			jmp    loc_afterrand
 
 			loc_NotHammer:
 			ldsrc4 r33, 0xD
 			eqi32  r31, r33, loc_NotSword
-			ldsrc4 r32, 0x5
+			ldsrc4 r34, 0x5
 			jmp    loc_afterrand
 
 			loc_NotSword:
 			ldsrc4 r33, 0x4
 			eqi32  r31, r33, loc_NotCrash
-			ldsrc4 r32, 0x3
+			ldsrc4 r34, 0x3
 			jmp    loc_afterrand
 
 			loc_NotCrash:
 			ldsrc4 r33, 0xC
 			eqi32  r31, r33, loc_afterrand
-			ldsrc4 r32, 0x3
+			ldsrc4 r34, 0x3
 			jmp    loc_afterrand
 
 			loc_afterrand:
-			ldsrsr r34, r32
 			ldsrc4 r33, 0x1
-			sppsh  r32, Hel.Util.Random
+			calltp r32, Hel.Util.Random.Advance(int)
 			calltp r31, Hel.Util.Random.Rand(int,int)
 			stofa4 r2, r31, ScnContext.Step.AbilityInfo.__bf_CopyAbilitySubKind
 

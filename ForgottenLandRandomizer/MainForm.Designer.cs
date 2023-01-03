@@ -39,7 +39,6 @@ namespace ForgottenLandRandomizer
             this.randStoryStages = new System.Windows.Forms.CheckBox();
             this.randStoryStagesPanel = new System.Windows.Forms.Panel();
             this.scaleDees = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.randCopyAbilities = new System.Windows.Forms.CheckBox();
             this.randCopyAbilitiesPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.randCopyAbilitiesSeeded = new System.Windows.Forms.RadioButton();
@@ -121,7 +120,6 @@ namespace ForgottenLandRandomizer
             // 
             this.randStoryStagesPanel.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.randStoryStagesPanel.Controls.Add(this.scaleDees);
-            this.randStoryStagesPanel.Controls.Add(this.groupBox2);
             this.randStoryStagesPanel.Location = new System.Drawing.Point(3, 26);
             this.randStoryStagesPanel.Name = "randStoryStagesPanel";
             this.randStoryStagesPanel.Size = new System.Drawing.Size(475, 21);
@@ -140,14 +138,6 @@ namespace ForgottenLandRandomizer
         "5 Waddle Dees per stage globally. Leave unchecked to set everything except 6-6 t" +
         "o 0 Waddle Dees.");
             this.scaleDees.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 100);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
             // 
             // randCopyAbilities
             // 
@@ -283,7 +273,6 @@ namespace ForgottenLandRandomizer
         private System.Windows.Forms.Panel randStoryStagesPanel;
         private System.Windows.Forms.CheckBox scaleDees;
         private System.Windows.Forms.CheckBox randCopyAbilities;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton randCopyAbilitiesSeeded;
         private System.Windows.Forms.FlowLayoutPanel randCopyAbilitiesPanel;
         private System.Windows.Forms.RadioButton randCopyAbilitiesChaos;
