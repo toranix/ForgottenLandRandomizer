@@ -848,7 +848,6 @@ script Scn.Step.Actor.Gimmick.Mannequin.KirbyStateEvolution
 			mcopys r17, r16, ScnContext.Step.ActorKey
 			mcopys r10, r17, ScnContext.Step.ActorKey
 			ldsrsr r23, r10
-
 			ldofa4 r25, r19, ScnContext.Step.AbilityInfo.__bf_CopyAbilityKind
 			switch r25, 16
 			jmp    loc_aftershuffle

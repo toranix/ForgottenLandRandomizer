@@ -1,0 +1,242 @@
+script Scn.Step.Actor.Gimmick.Mannequin.KirbyStateMannequinSet
+{
+	flag1 flag800 class Scn.Step.Actor.Gimmick.Mannequin.KirbyStateMannequinSet
+	{
+		implements Scn.Step.Actor.Basic.IState
+		
+		var ActSys.Obj _obj
+		var ScnContext.Step.AbilityInfo _abilityInfo
+		var int _cameraInputBlockId
+		
+		flag2 void OnStateStart()
+		{
+			fenter 0
+			_void  r0
+			sppsh  r2, Util.TimeSpan
+			sppsh  r3, Hel.Vector3
+			sppsh  r4, Hel.Quaternion
+			sppsh  r5, Hel.Axis3
+			sppsh  r6, ScnContext.Step.ActorKey
+			sppsh  r7, Util.TimeSpan
+			sppsh  r8, Hel.Vector3
+			sppsh  r9, Hel.Quaternion
+			sppsh  r10, Hel.Axis3
+			sppsh  r11, ScnContext.Step.ActorKey
+			sppsh  r12, ScnContext.Step.ActorKey
+			ldofad r14, r0, this._obj
+			calltp r13, ActSys.Obj.get_Manager()
+			ldsrsr r15, r13
+			dcall  r14, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldsrsr r1, r14
+			ldofad r13, r14, Scn.Step.Modules.__bf_GamePauseManager
+			ldofad r15, r13, Scn.Step.GamePause.Manager.__bf_Control
+			ldsrsr r16, r15
+			ldsrc4 r17, 0x15
+			ldsrc4 r18, 0x1
+			callt4 r16, Scn.Step.GamePause.Control.SetIsDisabled(Scn.Step.GamePause.DisabledKind,bool)
+			ldofad r13, r14, Scn.Step.Modules.__bf_DemoManager
+			ldsrsr r15, r13
+			ldsrc4 r16, 0xC
+			callt4 r15, Scn.Step.DemoManager.Add(Scn.Step.DemoKind)
+			ldofad r13, r14, Scn.Step.Modules.__bf_DemoManager
+			ldsrsr r15, r13
+			ldsrc4 r16, 0xB
+			callt4 r15, Scn.Step.DemoManager.Add(Scn.Step.DemoKind)
+			ldofad r13, r14, Scn.Step.Modules._cameraManager
+			ldofad r15, r13, Scn.Step.Camera.Manager.__bf_SwingCtrl
+			ldsrsr r17, r15
+			callt4 r16, Scn.Step.Camera.SwingCtrl.StartInputBlock()
+			stofa4 r0, r16, this._cameraInputBlockId
+			ldofad r13, r14, Scn.Step.Modules._infoManager
+			ldofad r15, r13, Scn.Step.Info.Manager.__bf_TownTalkIcon
+			ldsrsr r16, r15
+			ldsrc4 r17, 0x1
+			ldsrc4 r18, 0x1
+			callt4 r16, Scn.Step.Info.TownTalkIcon.MasterImpl.SetIsForceHideMode(bool,bool)
+			ldofad r13, r14, Scn.Step.Modules._infoManager
+			ldofad r15, r13, Scn.Step.Info.Manager.__bf_TownAbilitySelectPointMaster
+			ldofad r13, r15, Scn.Step.Info.TownAbilitySelectPoint.MasterImpl._panel
+			ldsrsr r15, r13
+			ldsrc4 r16, 0x1
+			ldsrc4 r17, 0x1
+			callt4 r15, Scn.Step.Info.TownAbilitySelectPoint.Panel.SetIsForceHideMode(bool,bool)
+			ldofad r13, r0, this._obj
+			ldsrsr r15, r13
+			ldsrc4 r16, 0x1
+			callt4 r15, Scn.Step.Actor.Kirby.KirbyStateUtil.RequestFxTriggerStateWaitOnStart(ActSys.Obj,bool)
+			ldofad r13, r0, this._obj
+			ldsrsr r15, r13
+			ldsrc4 r16, 0x0
+			ldsrc4 r17, 0x1
+			ldsrc4 r18, 0x1
+			ldsrc4 r19, 0x1
+			ldsrc4 r20, 0x1
+			callt4 r15, Scn.Step.Actor.Kirby.KirbyStateUtil.StopInTown(ActSys.Obj,bool,bool,bool,bool,bool)
+			ldofad r13, r0, this._obj
+			ldsrsr r15, r7
+			ldsrcf r16, 40f
+			calltp r15, Util.TimeSpan.FromFrame(float)
+			mcopys r2, r7, Util.TimeSpan
+			ldsr3  r15, r2, r13, r15
+			callt4 r16, Scn.Step.Actor.StateUtil.Wait(ActSys.Obj,ref Util.TimeSpan)
+			ldofad r16, r0, this._obj
+			dcall  r15, 3
+			_xref  ActSys.Obj.Component()
+			_xref  ActSys.Obj
+			_xref  Scn.Step.Actor.Kirby.Common.PlayerDataProxy
+			_xref  Scn.Step.Actor.Kirby.Common.PlayerDataProxy
+			_ret   r0
+			ldofa4 r13, r15, Scn.Step.Actor.Kirby.Common.PlayerDataProxy._slot
+			ldof_u r15, r0, this._abilityInfo
+			ldofad r17, r0, this._obj
+			calltp r16, ActSys.Obj.get_Transform()
+			ldsr2  r17, r8, r16
+			calltp r17, ActSys.Transform.get_Position()
+			mcopys r3, r8, Hel.Vector3
+			ldsrsr r16, r3
+			ldofad r18, r0, this._obj
+			calltp r17, ActSys.Obj.get_Transform()
+			ldsr2  r18, r9, r17
+			calltp r18, ActSys.Transform.get_Rotation()
+			mcopys r4, r9, Hel.Quaternion
+			ldsrsr r17, r4
+			ldsr2  r18, r10, r17
+			calltp r18, Hel.Quaternion.get_Dir()
+			mcopys r5, r10, Hel.Axis3
+			ldsrsr r17, r5
+			sppshz r11, ScnContext.Step.ActorKey
+			ldsrsr r18, r11
+			ldsrc4 r19, 0x0
+			stofa4 r18, r19, ScnContext.Step.ActorKey.__bf_MapPostfixNum
+			ldsrsr r18, r11
+			ldsrc4 r19, 0x0
+			stofa4 r18, r19, ScnContext.Step.ActorKey.__bf_Uid
+			ldsrsr r18, r11
+			ldsrc4 r19, 0x0
+			stofa4 r18, r19, ScnContext.Step.ActorKey.__bf_SubUid
+			mcopys r12, r11, ScnContext.Step.ActorKey
+			mcopys r6, r12, ScnContext.Step.ActorKey
+			ldsrsr r18, r6
+			ldofa4 r20, r15, ScnContext.Step.AbilityInfo.__bf_CopyAbilityKind
+			switch r20, 16
+			jmp    loc_aftershuffle
+			jmp    loc_aftershuffle
+			jmp    loc_aftershuffle
+			jmp    loc_CopyBomb
+			jmp    loc_CopyCrash
+			jmp    loc_CopyCutter
+			jmp    loc_CopyDrill
+			jmp    loc_CopyFire
+			jmp    loc_CopyHammer
+			jmp    loc_CopyIce
+			jmp    loc_CopyNeedle
+			jmp    loc_CopyRanger
+			jmp    loc_CopySleep
+			jmp    loc_CopySword
+			jmp    loc_CopyTornado
+			jmp    loc_aftershuffle
+			jmp    loc_aftershuffle
+
+			loc_CopyBomb:
+			ldsrc4 r21, %ABILITY_0%
+			jmp    loc_CopyShuffle
+
+			loc_CopyCrash:
+			ldsrc4 r21, %ABILITY_1%
+			jmp    loc_CopyShuffle
+
+			loc_CopyCutter:
+			ldsrc4 r21, %ABILITY_2%
+			jmp    loc_CopyShuffle
+
+			loc_CopyDrill:
+			ldsrc4 r21, %ABILITY_3%
+			jmp    loc_CopyShuffle
+
+			loc_CopyFire:
+			ldsrc4 r21, %ABILITY_4%
+			jmp    loc_CopyShuffle
+
+			loc_CopyHammer:
+			ldsrc4 r21, %ABILITY_5%
+			jmp    loc_CopyShuffle
+
+			loc_CopyIce:
+			ldsrc4 r21, %ABILITY_6%
+			jmp    loc_CopyShuffle
+
+			loc_CopyNeedle:
+			ldsrc4 r21, %ABILITY_7%
+			jmp    loc_CopyShuffle
+
+			loc_CopyRanger:
+			ldsrc4 r21, %ABILITY_8%
+			jmp    loc_CopyShuffle
+
+			loc_CopySleep:
+			ldsrc4 r21, %ABILITY_9%
+			jmp    loc_CopyShuffle
+
+			loc_CopySword:
+			ldsrc4 r21, %ABILITY_10%
+			jmp    loc_CopyShuffle
+
+			loc_CopyTornado:
+			ldsrc4 r21, %ABILITY_11%
+			jmp    loc_CopyShuffle
+			
+			loc_CopyShuffle:
+			stofa4 r15, r21, ScnContext.Step.AbilityInfo.__bf_CopyAbilityKind
+
+			loc_aftershuffle:
+			ldsr5  r20, r14, r13, r15, r16, r16
+			ldsr2  r25, r17, r17
+			ldsrc4 r27, 0x3
+			ldsrsr r28, r18
+			ldsrzr r29
+			callt4 r19, Scn.Step.Actor.Kirby.KirbyBuildUtil.Build(Scn.Step.Modules,int,ref ScnContext.Step.AbilityInfo,ref Hel.Vector3,ref Hel.Vector3,ref Hel.Axis3,ref Hel.Axis3,Scn.Step.Actor.Kirby.FirstStateType,ref ScnContext.Step.ActorKey,Scn.Step.Actor.Basic.ObjStopHandle)
+			fleave r0
+		}
+		
+		flag2 void OnStateEnd()
+		{
+			fenter 0
+			_void  r0
+			ldofad r2, r0, this._obj
+			calltp r1, ActSys.Obj.get_Manager()
+			ldsrsr r3, r1
+			dcall  r2, 3
+			_xref  ActSys.Manager.Extension()
+			_xref  ActSys.Manager
+			_xref  Scn.Step.Modules
+			_xref  Scn.Step.Modules
+			_ret   r0
+			ldofad r1, r2, Scn.Step.Modules.__bf_DemoManager
+			ldsrsr r3, r1
+			ldsrc4 r4, 0xC
+			callt4 r3, Scn.Step.DemoManager.Remove(Scn.Step.DemoKind)
+			ldofad r1, r2, Scn.Step.Modules.__bf_DemoManager
+			ldsrsr r3, r1
+			ldsrc4 r4, 0xB
+			callt4 r3, Scn.Step.DemoManager.Remove(Scn.Step.DemoKind)
+			ldofad r1, r2, Scn.Step.Modules._cameraManager
+			ldofad r2, r1, Scn.Step.Camera.Manager.__bf_SwingCtrl
+			ldofa4 r1, r0, this._cameraInputBlockId
+			ldsr2  r3, r2, r1
+			callt4 r3, Scn.Step.Camera.SwingCtrl.EndInputBlock(int)
+			fleave r0
+		}
+		
+		flag2 null void OnStateUpdate()
+		{
+			fenter 0
+			_void  r0
+			fleave r0
+		}
+	}
+}
