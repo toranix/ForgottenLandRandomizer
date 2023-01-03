@@ -58,6 +58,11 @@ namespace ForgottenLandRandomizer
             "Level6Stage5"
         };
 
+        static string[] CopyAbilities = new string[]
+        {
+            "0x3", "0x4", "0x5", "0x6", "0x7", "0x8", "0x9", "0xA", "0xB", "0xC", "0xD", "0xE"
+        };
+
         public MainForm()
         {
             InitializeComponent();
@@ -193,7 +198,7 @@ namespace ForgottenLandRandomizer
             {
                 isTouchFile["Scn"] = isTouchFile["Seq"] = isTouchFile["WmapData"] = true;
                 rng = new Random(rngSeed);
-                string[] shuffledStoryStages = StoryStages.OrderBy(x => rng.Next()).ToArray();
+                string[] shuffledStoryStages = StoryStages.OrderBy(x => rng.Next(0, StoryStages.Length)).ToArray();
                 MintClass storyStageKind = mintSeq.Scripts["Storage.File.StoryStageKind"].Classes[0];
                 storyStageKind.Constants.Clear();
                 storyStageKind.Constants.Add(new MintClass.MintConstant("Invalid", 0x0));
@@ -224,8 +229,32 @@ namespace ForgottenLandRandomizer
             {
                 isTouchFile["Scn"] = true;
                 rng = new Random(rngSeed);
-                string[] script = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Player.AbilityChangeCtrl.mints");
-                mintScn.Scripts["Scn.Step.Player.AbilityChangeCtrl"] = new MintScript(script, new byte[] { 7, 0, 2, 0 });
+                string[] shuffledCopyAbilities = CopyAbilities.OrderBy(x => rng.Next(0, CopyAbilities.Length)).ToArray();
+                Console.WriteLine(string.Join(", ", CopyAbilities));
+                Console.WriteLine(string.Join(", ", shuffledCopyAbilities));
+                string[] gainScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Kirby.KirbyBuildUtil.mints");
+                string[] discardScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Kirby.DiscardUtil.mints");
+                for (int i = 0; i < shuffledCopyAbilities.Length; i++)
+                {
+                    string tag = $"%ABILITY_{i}%";
+                    for (int line = 0; line < gainScript.Length; line++)
+                    {
+                        if (gainScript[line].Contains(tag))
+                        {
+                            gainScript[line] = gainScript[line].Replace(tag, shuffledCopyAbilities[i]);
+                        }
+                    }
+                    for (int line = 0; line < discardScript.Length; line++)
+                    {
+                        if (discardScript[line].Contains(tag))
+                        {
+                            discardScript[line] = discardScript[line].Replace(tag, CopyAbilities[Array.FindIndex(shuffledCopyAbilities, s => s == CopyAbilities[i])]);
+                        }
+                    }
+                }
+
+                mintScn.Scripts["Scn.Step.Actor.Kirby.KirbyBuildUtil"] = new MintScript(gainScript, new byte[] { 7, 0, 2, 0 });
+                mintScn.Scripts["Scn.Step.Actor.Kirby.DiscardUtil"] = new MintScript(discardScript, new byte[] { 7, 0, 2, 0 });
             }
 
             if ((isTouchFile["Scn"] || isTouchFile["Seq"]) && !Directory.Exists(outDir + "\\basil"))

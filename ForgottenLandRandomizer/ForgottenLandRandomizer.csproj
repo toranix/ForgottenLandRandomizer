@@ -98,8 +98,11 @@
     <None Include="MintScripts\Scn.Step.SceneChangeCtrl.mints">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-	<None Include="MintScripts\Scn.Step.Player.AbilityChangeCtrl.mints">
+	<None Include="MintScripts\Scn.Step.Actor.Kirby.DiscardUtil.mints">
 	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Include="MintScripts\Scn.Step.Actor.Kirby.KirbyBuildUtil.mints">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</None>
 	<None Include="Assets\Parts.arc.cmp">
 		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
