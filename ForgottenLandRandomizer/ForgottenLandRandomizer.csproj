@@ -104,6 +104,9 @@
 	<None Include="MintScripts\Scn.Step.Actor.Kirby.KirbyBuildUtil.mints">
 		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</None>
+	<None Include="MintScripts\CHAOSScn.Step.Actor.Kirby.KirbyBuildUtil.mints">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
 	<None Include="MintScripts\Scn.Step.Actor.Gimmick.Mannequin.KirbyStateEvolution.mints">
 		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</None>

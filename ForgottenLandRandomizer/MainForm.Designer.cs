@@ -39,15 +39,20 @@ namespace ForgottenLandRandomizer
             this.randStoryStages = new System.Windows.Forms.CheckBox();
             this.randStoryStagesPanel = new System.Windows.Forms.Panel();
             this.scaleDees = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.randCopyAbilities = new System.Windows.Forms.CheckBox();
+            this.randCopyAbilitiesPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.randCopyAbilitiesSeeded = new System.Windows.Forms.RadioButton();
+            this.randCopyAbilitiesChaos = new System.Windows.Forms.RadioButton();
             this.randomize = new System.Windows.Forms.Button();
             this.romfsHelp = new System.Windows.Forms.Button();
             this.seed = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.randCopyAbilities = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.randStoryStagesPanel.SuspendLayout();
+            this.randCopyAbilitiesPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // romfsPath
@@ -91,6 +96,7 @@ namespace ForgottenLandRandomizer
             this.flowLayoutPanel1.Controls.Add(this.randStoryStages);
             this.flowLayoutPanel1.Controls.Add(this.randStoryStagesPanel);
             this.flowLayoutPanel1.Controls.Add(this.randCopyAbilities);
+            this.flowLayoutPanel1.Controls.Add(this.randCopyAbilitiesPanel);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
@@ -115,6 +121,7 @@ namespace ForgottenLandRandomizer
             // 
             this.randStoryStagesPanel.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.randStoryStagesPanel.Controls.Add(this.scaleDees);
+            this.randStoryStagesPanel.Controls.Add(this.groupBox2);
             this.randStoryStagesPanel.Location = new System.Drawing.Point(3, 26);
             this.randStoryStagesPanel.Name = "randStoryStagesPanel";
             this.randStoryStagesPanel.Size = new System.Drawing.Size(475, 21);
@@ -133,6 +140,59 @@ namespace ForgottenLandRandomizer
         "5 Waddle Dees per stage globally. Leave unchecked to set everything except 6-6 t" +
         "o 0 Waddle Dees.");
             this.scaleDees.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(200, 100);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            // 
+            // randCopyAbilities
+            // 
+            this.randCopyAbilities.AutoSize = true;
+            this.randCopyAbilities.Location = new System.Drawing.Point(3, 53);
+            this.randCopyAbilities.Name = "randCopyAbilities";
+            this.randCopyAbilities.Size = new System.Drawing.Size(144, 17);
+            this.randCopyAbilities.TabIndex = 2;
+            this.randCopyAbilities.Text = "Randomize Copy Abilities";
+            this.toolTip.SetToolTip(this.randCopyAbilities, "Randomize the copy abilities you get from different objects");
+            this.randCopyAbilities.UseVisualStyleBackColor = true;
+            this.randCopyAbilities.CheckedChanged += new System.EventHandler(this.randCopyAbilities_CheckChanged);
+            // 
+            // randCopyAbilitiesPanel
+            // 
+            this.randCopyAbilitiesPanel.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.randCopyAbilitiesPanel.Controls.Add(this.randCopyAbilitiesSeeded);
+            this.randCopyAbilitiesPanel.Controls.Add(this.randCopyAbilitiesChaos);
+            this.randCopyAbilitiesPanel.Location = new System.Drawing.Point(3, 76);
+            this.randCopyAbilitiesPanel.Name = "randCopyAbilitiesPanel";
+            this.randCopyAbilitiesPanel.Size = new System.Drawing.Size(475, 23);
+            this.randCopyAbilitiesPanel.TabIndex = 4;
+            this.randCopyAbilitiesPanel.Visible = false;
+            // 
+            // randCopyAbilitiesSeeded
+            // 
+            this.randCopyAbilitiesSeeded.AutoSize = true;
+            this.randCopyAbilitiesSeeded.Location = new System.Drawing.Point(3, 3);
+            this.randCopyAbilitiesSeeded.Name = "randCopyAbilitiesSeeded";
+            this.randCopyAbilitiesSeeded.Size = new System.Drawing.Size(155, 17);
+            this.randCopyAbilitiesSeeded.TabIndex = 3;
+            this.randCopyAbilitiesSeeded.TabStop = true;
+            this.randCopyAbilitiesSeeded.Text = "Seeded Copy Ability Shuffle";
+            this.randCopyAbilitiesSeeded.UseVisualStyleBackColor = true;
+            // 
+            // randCopyAbilitiesChaos
+            // 
+            this.randCopyAbilitiesChaos.AutoSize = true;
+            this.randCopyAbilitiesChaos.Location = new System.Drawing.Point(164, 3);
+            this.randCopyAbilitiesChaos.Name = "randCopyAbilitiesChaos";
+            this.randCopyAbilitiesChaos.Size = new System.Drawing.Size(137, 17);
+            this.randCopyAbilitiesChaos.TabIndex = 5;
+            this.randCopyAbilitiesChaos.TabStop = true;
+            this.randCopyAbilitiesChaos.Text = "COPY ABILITY CHAOS";
+            this.randCopyAbilitiesChaos.UseVisualStyleBackColor = true;
             // 
             // randomize
             // 
@@ -178,16 +238,6 @@ namespace ForgottenLandRandomizer
             this.toolTip.InitialDelay = 500;
             this.toolTip.ReshowDelay = 100;
             // 
-            // randCopyAbilities
-            // 
-            this.randCopyAbilities.AutoSize = true;
-            this.randCopyAbilities.Location = new System.Drawing.Point(3, 53);
-            this.randCopyAbilities.Name = "randCopyAbilities";
-            this.randCopyAbilities.Size = new System.Drawing.Size(144, 17);
-            this.randCopyAbilities.TabIndex = 2;
-            this.randCopyAbilities.Text = "Randomize Copy Abilities";
-            this.randCopyAbilities.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -210,6 +260,8 @@ namespace ForgottenLandRandomizer
             this.flowLayoutPanel1.PerformLayout();
             this.randStoryStagesPanel.ResumeLayout(false);
             this.randStoryStagesPanel.PerformLayout();
+            this.randCopyAbilitiesPanel.ResumeLayout(false);
+            this.randCopyAbilitiesPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -231,6 +283,10 @@ namespace ForgottenLandRandomizer
         private System.Windows.Forms.Panel randStoryStagesPanel;
         private System.Windows.Forms.CheckBox scaleDees;
         private System.Windows.Forms.CheckBox randCopyAbilities;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton randCopyAbilitiesSeeded;
+        private System.Windows.Forms.FlowLayoutPanel randCopyAbilitiesPanel;
+        private System.Windows.Forms.RadioButton randCopyAbilitiesChaos;
     }
 }
 

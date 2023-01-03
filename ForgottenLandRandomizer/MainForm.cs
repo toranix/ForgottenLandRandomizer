@@ -135,6 +135,11 @@ namespace ForgottenLandRandomizer
             randStoryStagesPanel.Visible = randStoryStages.Checked;
         }
 
+        private void randCopyAbilities_CheckChanged(object sender, EventArgs e)
+        {
+            randCopyAbilitiesPanel.Visible = randCopyAbilities.Checked;
+        }
+
         private void randomize_Click(object sender, EventArgs e)
         {
             Random rng = new Random();
@@ -228,60 +233,68 @@ namespace ForgottenLandRandomizer
             if (randCopyAbilities.Checked)
             {
                 isTouchFile["Scn"] = true;
-                rng = new Random(rngSeed);
-                string[] shuffledCopyAbilities = CopyAbilities.OrderBy(x => rng.Next(0, CopyAbilities.Length)).ToArray();
-                Console.WriteLine(string.Join(", ", CopyAbilities));
-                Console.WriteLine(string.Join(", ", shuffledCopyAbilities));
-                string[] gainScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Kirby.KirbyBuildUtil.mints");
-                string[] discardScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Kirby.DiscardUtil.mints");
-                string[] evolveScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Gimmick.Mannequin.KirbyStateEvolution.mints");
-                string[] mannequinScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Gimmick.Mannequin.KirbyStateMannequinSet.mints");
-                string[] stateCopyScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Kirby.Common.StateCopy.mints");
-                for (int i = 0; i < shuffledCopyAbilities.Length; i++)
+                if (randCopyAbilitiesSeeded.Checked)
                 {
-                    string tag = $"%ABILITY_{i}%";
-                    for (int line = 0; line < gainScript.Length; line++)
+                    rng = new Random(rngSeed);
+                    string[] shuffledCopyAbilities = CopyAbilities.OrderBy(x => rng.Next(0, CopyAbilities.Length)).ToArray();
+                    Console.WriteLine(string.Join(", ", CopyAbilities));
+                    Console.WriteLine(string.Join(", ", shuffledCopyAbilities));
+                    string[] gainScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Kirby.KirbyBuildUtil.mints");
+                    string[] discardScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Kirby.DiscardUtil.mints");
+                    string[] evolveScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Gimmick.Mannequin.KirbyStateEvolution.mints");
+                    string[] mannequinScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Gimmick.Mannequin.KirbyStateMannequinSet.mints");
+                    string[] stateCopyScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Kirby.Common.StateCopy.mints");
+                    for (int i = 0; i < shuffledCopyAbilities.Length; i++)
                     {
-                        if (gainScript[line].Contains(tag))
+                        string tag = $"%ABILITY_{i}%";
+                        for (int line = 0; line < gainScript.Length; line++)
                         {
-                            gainScript[line] = gainScript[line].Replace(tag, shuffledCopyAbilities[i]);
+                            if (gainScript[line].Contains(tag))
+                            {
+                                gainScript[line] = gainScript[line].Replace(tag, shuffledCopyAbilities[i]);
+                            }
+                        }
+                        for (int line = 0; line < evolveScript.Length; line++)
+                        {
+                            if (evolveScript[line].Contains(tag))
+                            {
+                                evolveScript[line] = evolveScript[line].Replace(tag, shuffledCopyAbilities[i]);
+                            }
+                        }
+                        for (int line = 0; line < mannequinScript.Length; line++)
+                        {
+                            if (mannequinScript[line].Contains(tag))
+                            {
+                                mannequinScript[line] = mannequinScript[line].Replace(tag, shuffledCopyAbilities[i]);
+                            }
+                        }
+                        for (int line = 0; line < discardScript.Length; line++)
+                        {
+                            if (discardScript[line].Contains(tag))
+                            {
+                                discardScript[line] = discardScript[line].Replace(tag, CopyAbilities[Array.FindIndex(shuffledCopyAbilities, s => s == CopyAbilities[i])]);
+                            }
+                        }
+                        for (int line = 0; line < stateCopyScript.Length; line++)
+                        {
+                            if (stateCopyScript[line].Contains(tag))
+                            {
+                                stateCopyScript[line] = stateCopyScript[line].Replace(tag, CopyAbilities[Array.FindIndex(shuffledCopyAbilities, s => s == CopyAbilities[i])]);
+                            }
                         }
                     }
-                    for (int line = 0; line < evolveScript.Length; line++)
-                    {
-                        if (evolveScript[line].Contains(tag))
-                        {
-                            evolveScript[line] = evolveScript[line].Replace(tag, shuffledCopyAbilities[i]);
-                        }
-                    }
-                    for (int line = 0; line < mannequinScript.Length; line++)
-                    {
-                        if (mannequinScript[line].Contains(tag))
-                        {
-                            mannequinScript[line] = mannequinScript[line].Replace(tag, shuffledCopyAbilities[i]);
-                        }
-                    }
-                    for (int line = 0; line < discardScript.Length; line++)
-                    {
-                        if (discardScript[line].Contains(tag))
-                        {
-                            discardScript[line] = discardScript[line].Replace(tag, CopyAbilities[Array.FindIndex(shuffledCopyAbilities, s => s == CopyAbilities[i])]);
-                        }
-                    }
-                    for (int line = 0; line < stateCopyScript.Length; line++)
-                    {
-                        if (stateCopyScript[line].Contains(tag))
-                        {
-                            stateCopyScript[line] = stateCopyScript[line].Replace(tag, CopyAbilities[Array.FindIndex(shuffledCopyAbilities, s => s == CopyAbilities[i])]);
-                        }
-                    }
-                }
 
-                mintScn.Scripts["Scn.Step.Actor.Kirby.KirbyBuildUtil"] = new MintScript(gainScript, new byte[] { 7, 0, 2, 0 });
-                mintScn.Scripts["Scn.Step.Actor.Kirby.DiscardUtil"] = new MintScript(discardScript, new byte[] { 7, 0, 2, 0 });
-                mintScn.Scripts["Scn.Step.Actor.Gimmick.Mannequin.KirbyStateEvolution"] = new MintScript(evolveScript, new byte[] { 7, 0, 2, 0 });
-                mintScn.Scripts["Scn.Step.Actor.Gimmick.Mannequin.KirbyStateMannequinSet"] = new MintScript(mannequinScript, new byte[] { 7, 0, 2, 0 });
-                mintScn.Scripts["Scn.Step.Actor.Kirby.Common.StateCopy"] = new MintScript(stateCopyScript, new byte[] { 7, 0, 2, 0 });
+                    mintScn.Scripts["Scn.Step.Actor.Kirby.KirbyBuildUtil"] = new MintScript(gainScript, new byte[] { 7, 0, 2, 0 });
+                    mintScn.Scripts["Scn.Step.Actor.Kirby.DiscardUtil"] = new MintScript(discardScript, new byte[] { 7, 0, 2, 0 });
+                    mintScn.Scripts["Scn.Step.Actor.Gimmick.Mannequin.KirbyStateEvolution"] = new MintScript(evolveScript, new byte[] { 7, 0, 2, 0 });
+                    mintScn.Scripts["Scn.Step.Actor.Gimmick.Mannequin.KirbyStateMannequinSet"] = new MintScript(mannequinScript, new byte[] { 7, 0, 2, 0 });
+                    mintScn.Scripts["Scn.Step.Actor.Kirby.Common.StateCopy"] = new MintScript(stateCopyScript, new byte[] { 7, 0, 2, 0 });
+                } else if (randCopyAbilitiesChaos.Checked)
+                {
+                    string script = "Scn.Step.Actor.Kirby.KirbyBuildUtil";
+                    string[] newScript = File.ReadAllLines(ExeDir + "\\MintScripts\\CHAOS" + script + ".mints");
+                    mintScn.Scripts[script] = new MintScript(newScript, new byte[] { 7, 0, 2, 0 });
+                }
             }
 
             if ((isTouchFile["Scn"] || isTouchFile["Seq"]) && !Directory.Exists(outDir + "\\basil"))
