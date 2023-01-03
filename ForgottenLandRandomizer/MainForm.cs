@@ -234,6 +234,7 @@ namespace ForgottenLandRandomizer
                 Console.WriteLine(string.Join(", ", shuffledCopyAbilities));
                 string[] gainScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Kirby.KirbyBuildUtil.mints");
                 string[] discardScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Kirby.DiscardUtil.mints");
+                string[] evolveScript = File.ReadAllLines(ExeDir + "\\MintScripts\\Scn.Step.Actor.Gimmick.Mannequin.KirbyStateEvolution.mints");
                 for (int i = 0; i < shuffledCopyAbilities.Length; i++)
                 {
                     string tag = $"%ABILITY_{i}%";
@@ -242,6 +243,13 @@ namespace ForgottenLandRandomizer
                         if (gainScript[line].Contains(tag))
                         {
                             gainScript[line] = gainScript[line].Replace(tag, shuffledCopyAbilities[i]);
+                        }
+                    }
+                    for (int line = 0; line < evolveScript.Length; line++)
+                    {
+                        if (evolveScript[line].Contains(tag))
+                        {
+                            evolveScript[line] = evolveScript[line].Replace(tag, shuffledCopyAbilities[i]);
                         }
                     }
                     for (int line = 0; line < discardScript.Length; line++)
@@ -255,6 +263,7 @@ namespace ForgottenLandRandomizer
 
                 mintScn.Scripts["Scn.Step.Actor.Kirby.KirbyBuildUtil"] = new MintScript(gainScript, new byte[] { 7, 0, 2, 0 });
                 mintScn.Scripts["Scn.Step.Actor.Kirby.DiscardUtil"] = new MintScript(discardScript, new byte[] { 7, 0, 2, 0 });
+                mintScn.Scripts["Scn.Step.Actor.Gimmick.Mannequin.KirbyStateEvolution"] = new MintScript(evolveScript, new byte[] { 7, 0, 2, 0 });
             }
 
             if ((isTouchFile["Scn"] || isTouchFile["Seq"]) && !Directory.Exists(outDir + "\\basil"))
