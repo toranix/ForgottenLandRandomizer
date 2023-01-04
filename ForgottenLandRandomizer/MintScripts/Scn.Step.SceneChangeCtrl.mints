@@ -461,7 +461,7 @@ script Scn.Step.SceneChangeCtrl
 			ldofad r20, r19, Storage.File.Root.Wmap
 			ldsrc4 r19, 0x0
 			stofa4 r20, r19, Storage.File.Wmap.IsNeedToShowClearDemo
-			ldsrc4 r19, 0x0
+			ldsrc4 r19, 0x1
 			stofa4 r20, r19, Storage.File.Wmap.IsNeedToShowCstageUnlockDemo
 			ldsrc4 r19, 0x0
 			stofa4 r20, r19, Storage.File.Wmap.PreComebackedCount

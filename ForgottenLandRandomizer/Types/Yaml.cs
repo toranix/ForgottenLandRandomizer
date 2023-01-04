@@ -237,19 +237,19 @@ namespace ForgottenLandRandomizer.Types
                 case Type.Array:
                     {
                         writer.Write(6);
-                        writer.Write(node[0].Length);
+                        writer.Write(node.Length);
                         uint pos = (uint)writer.BaseStream.Position;
-                        for (int i = 0; i < node[0].Length; i++)
+                        for (int i = 0; i < node.Length; i++)
                         {
                             writer.Write(new byte[] { 0x00, 0x00, 0x00, 0x00 });
                         }
-                        for (int i = 0; i < node[0].Length; i++)
+                        for (int i = 0; i < node.Length; i++)
                         {
                             writer.BaseStream.Seek(pos, SeekOrigin.Begin);
                             valuePointers.Add((uint)writer.BaseStream.Position);
                             writer.BaseStream.Seek(0x4, SeekOrigin.Current);
                             pos = (uint)writer.BaseStream.Position;
-                            WriteNode(writer, node[0][node[0].Key(i)]);
+                            WriteNode(writer, node[i]);
                         }
                         break;
                     }

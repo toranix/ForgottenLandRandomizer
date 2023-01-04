@@ -123,7 +123,7 @@ namespace ForgottenLandRandomizer
                 "\nNote that not all files in the RomFS are needed to randomize the game. The necessary files are:" +
                 "\n   - basil/Scn.bin" +
                 "\n   - basil/Seq.bin" +
-                "\n   - yaml/Scn/Step/Map/WmapData.bin (Unimplemented currently)" +
+                "\n   - yaml/Scn/Step/Map/WmapData.bin" +
                 "\n" +
                 "\nHover over anything in the program for more information about the option.",
                 this.Text,
@@ -219,6 +219,14 @@ namespace ForgottenLandRandomizer
                 storyStageKind.Constants.Add(new MintClass.MintConstant("Level7Stage1", 0x21));
                 storyStageKind.Constants.Add(new MintClass.MintConstant("TERM", 0x22));
 
+                for (int i = 0; i < yamlWmapData.Root.Length; i++)
+                {
+                    if (yamlWmapData.Root.Type == Yaml.Type.Hash)
+                        PrintYaml(yamlWmapData.Root[yamlWmapData.Root.Key(i)], yamlWmapData.Root.Key(i), 0);
+                    else if (yamlWmapData.Root.Type == Yaml.Type.Array)
+                        PrintYaml(yamlWmapData.Root[i], i.ToString(), 0);
+                }
+
                 // Modify stage unlock scripts to support shuffled stage order
                 string script;
                 string[] newScript;
@@ -291,9 +299,12 @@ namespace ForgottenLandRandomizer
                     mintScn.Scripts["Scn.Step.Actor.Kirby.Common.StateCopy"] = new MintScript(stateCopyScript, new byte[] { 7, 0, 2, 0 });
                 } else if (randCopyAbilitiesChaos.Checked)
                 {
-                    string script = "Scn.Step.Actor.Kirby.KirbyBuildUtil";
-                    string[] newScript = File.ReadAllLines(ExeDir + "\\MintScripts\\CHAOS" + script + ".mints");
-                    mintScn.Scripts[script] = new MintScript(newScript, new byte[] { 7, 0, 2, 0 });
+                    string buildScript = "Scn.Step.Actor.Kirby.KirbyBuildUtil";
+                    string discardScript = "Scn.Step.Actor.Kirby.DiscardUtil";
+                    string[] newBuildScript = File.ReadAllLines(ExeDir + "\\MintScripts\\CHAOS" + buildScript + ".mints");
+                    string[] newDiscardScript = File.ReadAllLines(ExeDir + "\\MintScripts\\CHAOS" + discardScript + ".mints");
+                    mintScn.Scripts[buildScript] = new MintScript(newBuildScript, new byte[] { 7, 0, 2, 0 });
+                    mintScn.Scripts[discardScript] = new MintScript(newDiscardScript, new byte[] { 7, 0, 2, 0 });
                 }
             }
 

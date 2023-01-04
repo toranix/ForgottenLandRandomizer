@@ -41,7 +41,7 @@ script Scn.Step.Actor.Kirby.KirbyBuildUtil
 			_xref  ActSys.Obj
 			_ret   r0
 			ldsrsr r7, r17
-			
+
 			loc_00000025:
 			jmppos r7, loc_00000042
 			ldsrsr r16, r7
@@ -72,7 +72,7 @@ script Scn.Step.Actor.Kirby.KirbyBuildUtil
 			ldsr2  r16, r10, r15
 			calltp r16, Hel.Quaternion.get_Dir()
 			mcopys r6, r10, Hel.Axis3
-			
+
 			loc_00000042:
 			ldsr2  r15, r5, r6
 			sppshz r13, ScnContext.Step.ActorKey
@@ -88,78 +88,6 @@ script Scn.Step.Actor.Kirby.KirbyBuildUtil
 			mcopys r14, r13, ScnContext.Step.ActorKey
 			mcopys r8, r14, ScnContext.Step.ActorKey
 			ldsrsr r17, r8
-			ldofa4 r21, r2, ScnContext.Step.AbilityInfo.__bf_CopyAbilityKind
-			switch r21, 16
-			jmp    loc_0000007c
-			jmp    loc_0000007c
-			jmp    loc_0000007c
-			jmp    loc_00000063
-			jmp    loc_00000065
-			jmp    loc_00000067
-			jmp    loc_00000069
-			jmp    loc_0000006b
-			jmp    loc_0000006d
-			jmp    loc_0000006f
-			jmp    loc_00000071
-			jmp    loc_00000073
-			jmp    loc_00000075
-			jmp    loc_00000077
-			jmp    loc_00000079
-			jmp    loc_0000007c
-			jmp    loc_0000007c
-			
-			loc_00000063:
-			ldsrc4 r20, 0x3
-			jmp    loc_0000007b
-			
-			loc_00000065:
-			ldsrc4 r20, 0x4
-			jmp    loc_0000007b
-			
-			loc_00000067:
-			ldsrc4 r20, 0x7
-			jmp    loc_0000007b
-			
-			loc_00000069:
-			ldsrc4 r20, 0x6
-			jmp    loc_0000007b
-			
-			loc_0000006b:
-			ldsrc4 r20, 0x8
-			jmp    loc_0000007b
-			
-			loc_0000006d:
-			ldsrc4 r20, 0x5
-			jmp    loc_0000007b
-			
-			loc_0000006f:
-			ldsrc4 r20, 0x9
-			jmp    loc_0000007b
-			
-			loc_00000071:
-			ldsrc4 r20, 0xE
-			jmp    loc_0000007b
-			
-			loc_00000073:
-			ldsrc4 r20, 0xD
-			jmp    loc_0000007b
-			
-			loc_00000075:
-			ldsrc4 r20, 0xC
-			jmp    loc_0000007b
-			
-			loc_00000077:
-			ldsrc4 r20, 0xB
-			jmp    loc_0000007b
-			
-			loc_00000079:
-			ldsrc4 r20, 0xA
-			jmp    loc_0000007b
-			
-			loc_0000007b:
-			stofa4 r2, r20, ScnContext.Step.AbilityInfo.__bf_CopyAbilityKind
-			
-			loc_0000007c:
 			ldsr5  r19, r0, r1, r2, r15, r15
 			ldsr5  r24, r16, r16, r3, r17, r4
 			callt4 r18, this.Build(Scn.Step.Modules,int,ref ScnContext.Step.AbilityInfo,ref Hel.Vector3,ref Hel.Vector3,ref Hel.Axis3,ref Hel.Axis3,Scn.Step.Actor.Kirby.FirstStateType,ref ScnContext.Step.ActorKey,Scn.Step.Actor.Basic.ObjStopHandle)

@@ -165,6 +165,7 @@ namespace ForgottenLandRandomizer
             // randCopyAbilitiesSeeded
             // 
             this.randCopyAbilitiesSeeded.AutoSize = true;
+            this.randCopyAbilitiesSeeded.Checked = true;
             this.randCopyAbilitiesSeeded.Location = new System.Drawing.Point(3, 3);
             this.randCopyAbilitiesSeeded.Name = "randCopyAbilitiesSeeded";
             this.randCopyAbilitiesSeeded.Size = new System.Drawing.Size(155, 17);
@@ -180,7 +181,6 @@ namespace ForgottenLandRandomizer
             this.randCopyAbilitiesChaos.Name = "randCopyAbilitiesChaos";
             this.randCopyAbilitiesChaos.Size = new System.Drawing.Size(137, 17);
             this.randCopyAbilitiesChaos.TabIndex = 5;
-            this.randCopyAbilitiesChaos.TabStop = true;
             this.randCopyAbilitiesChaos.Text = "COPY ABILITY CHAOS";
             this.randCopyAbilitiesChaos.UseVisualStyleBackColor = true;
             // 
