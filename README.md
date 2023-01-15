@@ -8,10 +8,13 @@ A randomizer tool for Kirby and the Forgotten Land.
   * Randomizing the order in which story stages are unlocked
   * Automatic Waddle Dee requirement scaling for Boss stages
 	* Can also set requirements to none (except for 6-6)
+* Randomized Copy Abilities
+  * Seeded Randomization - Randomly connect each ability tree (ex. Ranger -> Fire, Space Ranger -> Dragon Fire, Ice -> Tornado, etc.)
+  * Copy Ability CHAOS - It just keeps changing!
 
 ## Planned Features
 * Kirby color randomization
-* Randomizing Copy Abilities
+* Improvements to Copy Ability CHAOS
 * Very likely more!
 
 ## Usage
